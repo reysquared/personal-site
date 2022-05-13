@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript-Python interface</title>
+  <meta name="author" content="Kevin McSwiggen">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="pyinterface2.js" defer></script>
+</head>
+<body>
+<p>This is the second variation of the JS-PY interface (standard edition).
+   It is constructed to fit a specific script on the server, and has a separate input field for
+   each argument. Unlike the first variation, this one loads an image result from the script.
+   Less visibly, it also differs from the first variation because it uses form tags to POST
+   input data to the server implicitly, instead of using JavaScript to construct the querystring
+   for a GET request. The form is still submitted using an AJAX request.<p>
+<p>Since the script does image processing, which takes a human-noticeable amount of time, it also
+   includes a status icon for when the AJAX response is pending, loaded, or failed. Check it!</p>
+
+<p>Associated files:</p>
+<ul>
+  <li><code>pyinterface2.js</code></li>
+  <li><code>cgi-bin/wrapper2.py</code></li>
+  <li><code>style.css</code> (global stylesheet)</li>
+</ul>
+<p>A more advanced version of this interface concept is available
+   <a href="interface2_advanced.html">here</a>.
+   It includes color-picking controls (HTML5 <code>&lt;color&gt;</code>) as well as a file upload
+   for specifying an image to overlay a Mandelbrot onto. (Note to self: remember to check .png
+   and do other security stuff merp)</p>
+<br>
+<br>
+<h1>Mandelbrot Generator</h1>
+<p>Supply some dimensions and hit run to see a totally cool Mandelbrot set visualization!
+   While the AJAX request is pending, a loading icon should appear next to the Run button.
+   Once the response is loading, it should change to a checkmark and the image should
+   appear in a new window. You may need to disable your pop-up blocker if it doesn't!</p>
+<form id="mandelForm" class="script-interface">
+  <fieldset>
+  <legend>Fractal viewing range</legend>
+  <p>The default values of [-2,1],[-1,1] will show you the whole of the main Mandelbrot fractal</p>
+  <label>XMin: <input type="number" name="xmin" step=.1 value=-2.0></label>
+  <label>XMax: <input type="number" name="xmax" step=.1 value=1.0></label>
+  <br>
+  <label>YMin: <input type="number" name="ymin" step=.1 value=-1.0></label>
+  <label>YMax: <input type="number" name="ymax" step=.1 value=1.0></label>
+  </fieldset>
+  <br>
+  <label>Image height: <input type="number" name="height" step=10 value=200 min=20 max=1200 autocomplete="off"></label>
+  <p>Image width is calculated from height and aspect ratio above. Images with a height of
+     greater than 1200 or width of greater than 1800 pixels will not be generated.</p>
+  <br>
+  <label>Iterations: <input type="number" name="steps" step=1 value=25 min=1 max=100 autocomplete="off"></label>
+  <p>The number of iterations to attempt before assuming that a value is in the Mandelbrot
+     set. Integer values only, maximum of 100.</p>
+  <div class="ajax-status"><a class="button" id="submit">Run</a></div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <textarea placeholder="Script debug information" class="scriptbox" id="output" readonly></textarea>
+</form>
+
+</body>
+</html>
+

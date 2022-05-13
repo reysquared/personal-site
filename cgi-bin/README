@@ -1,0 +1,93 @@
+HOW TO MAKE PYTHON CGI SCRIPTS WORK ON YOUR WEB SERVER
+
+
+  Step 1. Make sure the Apache CGI module (mod_cgi) is enabled. The steps to do
+this depend on your Linux environment, so Google is your friend, but in this
+server's case it was easy as `sudo a2enmod mod_cgi` (you can also disable the
+module on Ubuntu using `a2dismod`). In many cases it will be enabled in the
+default installation. For the rest of this document it will be assumed you are
+working in Ubuntu (or at least some kind of Debian environment probably), so be
+advised!
+
+
+  Step 2. Create a /cgi-bin directory somewhere reasonable. In many webservers
+this would just be located in /var/www because the scripts are for one site. In
+our case we are creating web directories for every user, and they probably want
+to be able to put their scripts in their own directory and not worry about name
+collisions and stuff, so each user has their own at ~/public_html/cgi-bin. Once
+again, the rest of this document will assume you're using this same setup.
+
+
+  Step 3. Put your scripts in the directory!
+
+
+  Step 4. Configure Apache to permit script execution. This can be accomplished
+in multiple ways: https://httpd.apache.org/docs/2.2/howto/cgi.html#configuring
+In our case, the /etc/apache2/apache2.conf file contains the directive
+
+    <Directory /home/*/public_html/cgi-bin>
+        Options +ExecCGI
+        AddHandler cgi-script .py
+        Order deny,allow
+        Deny from all
+        <FilesMatch "\.py$">
+            Allow from all
+        </FilesMatch>
+    </Directory>
+
+which does a couple things: First, the `Options` and `AddHandler` directives
+tell Apache to treat files which contain the .py suffix as CGI scripts. Next,
+the `Order` and `Deny` directives tell Apache to deny any requests to this
+directory by default. Finally, because the `Order` directive tells Apache to
+apply `Allow` directives after `Deny` directives, the `FilesMatch` directive
+overrides the `Deny` rule for any files ending with .py, so the only files that
+will be served from /cgi-bin are scripts. (So if you put a file like README.txt
+in your /cgi-bin, it will only be readable from the server, even if you somehow
+know that it's there and what the path to it would be from your browser.) Note
+that this means if a CGI script creates a file, it must serve the contents of
+that file in the body of the HTTP response, because the file itself will not be
+directly accessible by URL.
+
+
+  Step 5. Set the correct access permissions for the directory. This is the
+student's website, so everything in their directory should be owned by them,
+not root or www-data or whatever, especially if they plan to ever edit those
+files later. Directories should have the permissions `755 drwxr-xr-x`, ordinary
+files should be `644 -rw-r--r--`, and CGI scripts '700 -rwx------`. This means
+that only the student's account can do anything with their own CGI scripts. It
+probably isn't critical that ALL script permissions are only for the student,
+but it IS critical that only the file owner has write permissions. And even so
+it is more secure for only one locked-down user to be able to execute a script.
+This would present a problem for the webserver which needs to run those scripts
+on the user's behalf, of course, which brings us to the next step.
+
+
+  Step 6. Configure and install the suEXEC feature. This, in short, will allow
+Apache to run CGI scripts AS the script's owner. This means that we don't need
+to set global execute permissions for the cgi-bin directory for scripts to run,
+or global write permissions for them to be able to perform any file operations.
+It also means that user scripts can only do what the user is allowed to do, so
+you don't have to worry about users uploading scripts which take advantage of
+the Apache webserver's permissions to do nefarious things. For security reasons
+the configuration settings for suEXEC are built in when it is compiled, so you
+apparently need to recompile Apache from source to reconfigure it. In our case,
+the default configuration works fine with the userdir setup, so installing it
+is easy:
+
+    sudo apt-get install apache2-suexec
+    sudo a2enmod suexec
+    sudo service apache2 restart
+
+If you find yourself needing to reconfigure suexec and don't want to do a lot
+of compiling, you can also use a configurable version of the module from the
+alternate package apache2-suexec-custom. Assuming there are no drastic security
+issues elsewhere, I believe this should be okay. However, if you have already
+installed suEXEC then you will need to remove the packages apache2-suexec and
+apache2-suexec-pristine first for it to work.
+
+
+  Step 7. That's it! Assuming they don't have bugs, your users' CGI scripts
+should now be accessible through the web, despite having their permissions set
+as 700. If you encounter any problems, check errors.log and suexec.log in the
+/var/log/apache2 directory for a helpful, chronological explanation of all the
+things you're doing wrong, and fix them.

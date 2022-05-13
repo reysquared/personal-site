@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript-Python interface</title>
+  <meta name="author" content="Kevin McSwiggen">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="pyinterface2_advanced.js" defer></script>
+</head>
+<body>
+<p>This is the second variation of the JS-PY interface (advanced edition).
+   It is constructed to fit a specific script on the server, and has a separate input field for
+   each argument. Unlike the first variation, this one loads an image result from the script.
+   Less visibly, it also differs in that it uses form tags and the FormData interface to POST
+   input data to the server, instead of using JavaScript to construct the querystring from the
+   individual form fields for a GET request. The form is still submitted using an AJAX request.<p>
+<p>Since the script does image processing, which takes a human-noticeable amount of time, it also
+   includes a status icon for when the AJAX response is pending, loaded, or failed. Check it!</p>
+<p>Associated files:</p>
+<ul>
+  <li><code>pyinterface2_advanced.js</code></li>
+  <li><code>cgi-bin/wrapper2_advanced.py</code></li>
+  <li><code>style.css</code> (global stylesheet)</li>
+</ul>
+<p>A simpler version of this interface concept is available <a href="interface2.html">here</a>.
+   It doesn't have color-picking or a file upload.
+   (Note to self: remember to check .png and do other security stuff merp)</p>
+<br>
+<br>
+<h1>Mandelbrot Generator</h1>
+<p>Supply some dimensions and hit run to see a totally cool Mandelbrot set visualization!
+   While the AJAX request is pending, a loading icon should appear next to the Run button.
+   Once the response is loading, it should change to a checkmark and the image should
+   appear in a new window. You may need to disable your pop-up blocker if it doesn't!</p>
+<form id="mandelForm" class="script-interface" enctype="multipart/form-data">
+  <fieldset>
+  <legend>Escape velocity coloration</legend>
+  <label>Fast escape: <input type="color" name="startColor" value="#FFFFFF"></label>
+  <label>Slow escape: <input type="color" name="endColor" value="#EAAA00"></label><br>
+  <label><input type="checkbox" name="quadMode" value="yes"> Use quadratic instead of linear color 
+         interpolation? </label>
+  <p>Points escape to infinity more slowly closer to the set's boundary.</p>
+  </fieldset>
+  <br>
+  <fieldset>
+  <legend>Background</legend>
+  <label>Color: <input type="color" name="bgColor" value="#000000"></label><br>
+  <label>Image: <input type="file" name="bgImg" accept="image/png"></label><br>
+  <a class="button" id="file-clear">Clear File</a>
+  <p>If an image is specified, background color will be ignored. Images must be .PNG and smaller
+     than 1.5MiB. Transparent images are okay, but transparency will be ignored. If the image
+     provided is smaller than the output, it will be tiled; if it is larger, it will be cropped.</p>
+  <p>
+  </fieldset>
+  <br>
+  <fieldset>
+  <legend>Fractal viewing range</legend>
+  <label>XMin: <input type="number" name="xmin" step=.1 value=-2.0></label>
+  <label>XMax: <input type="number" name="xmax" step=.1 value=1.0></label>
+  <br>
+  <label>YMin: <input type="number" name="ymin" step=.1 value=-1.0></label>
+  <label>YMax: <input type="number" name="ymax" step=.1 value=1.0></label>
+  <p>The default values of [-2,1],[-1,1] will show you the whole of the main Mandelbrot fractal</p>
+  <p>A couple other cool regions:</p>
+  <ul>
+    <li><kbd>X:[ 0.360, 0.430] Y:[ 0.120, 0.170]</kbd> <a class="button" href="javascript:setWindow(.36,.43,.12,.17);">Go There!</a></li>
+    <li><kbd>X:[-0.325,-0.275] Y:[ 0.625, 0.675]</kbd> <a class="button" href="javascript:setWindow(-.325,-.275,.625,.675);">Go There!</a></li>
+    <li><kbd>X:[ 0.345, 0.375] Y:[ 0.630, 0.660]</kbd> <a class="button" href="javascript:setWindow(.345,.375,.63,.66);">Go There!</a></li>
+    <li><kbd>X:[-0.005, 0.000] Y:[ 0.825, 0.830]</kbd> <a class="button" href="javascript:setWindow(-.005,0,.825,.83);">Go There!</a></li>
+    <li><kbd>X:[-1.075,-1.050] Y:[ 0.250, 0.275]</kbd> <a class="button" href="javascript:setWindow(-1.075,-1.05,.25,.275);">Go There!</a></li>
+    <li><kbd>X:[-1.500,-1.325] Y:[-0.050, 0.050]</kbd> <a class="button" href="javascript:setWindow(-1.5,-1.325,-.05,.05);">Go There!</a></li>
+    <li><kbd>X:[-1.410,-1.400] Y:[-0.005, 0.005]</kbd> <a class="button" href="javascript:setWindow(-1.41,-1.4,-.005,.005);">Go There!</a></li>
+  </ul>
+  </fieldset>
+  <br>
+  <label>Image height: <input type="number" name="height" step=10 value=200 min=20 max=1200 autocomplete="off"></label>
+  <p>Image width is calculated from height and aspect ratio above. Images with a height of
+     greater than 1200 or width of greater than 1800 pixels will not be generated.</p>
+  <br>
+  <label>Iterations: <input type="number" name="steps" step=1 value=25 min=1 max=100 autocomplete="off"></label>
+  <p>The number of iterations to attempt before assuming that a value is in the Mandelbrot
+     set. Integer values only, maximum of 100.</p>
+  <div class="ajax-status"><a class="button" id="submit">Run</a></div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <textarea placeholder="Script debug information" class="scriptbox" id="output" readonly></textarea>
+</form>
+<script>
+// It's a little bit gauche to not put this in a separate file, but oh well, it's small
+var setWindow = function(xMin, xMax, yMin, yMax) {
+  var fields = document.getElementById('mandelForm').elements;
+  fields['xmin'].value = xMin;
+  fields['xmax'].value = xMax;
+  fields['ymin'].value = yMin;
+  fields['ymax'].value = yMax;
+}
+</script>
+</body>
+</html>
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript-Python interface</title>
+  <meta name="author" content="Kevin McSwiggen">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="pyinterface1.js" defer></script>
+</head>
+<body>
+<p>This is the first variation of the JS-PY interface (standard edition).
+It is constructed to fit a specific script on the server, and has a separate
+input field for each argument.<p>
+<p>Associated files:</p>
+<ul>
+  <li><code>pyinterface1.js</code></li>
+  <li><code>cgi-bin/wrapper1.py</code></li>
+  <li><code>style.css</code> (global stylesheet)</li>
+</ul>
+<p>A more advanced version of this interface concept is available
+   <a href="interface1_advanced.html">here</a>.
+   It utilizes a drop-down menu to select which function from the .py file should be run.</p>
+<br>
+<br>
+<h2>Caesar Cipher Solver</h2>
+<p>Put the text to be solved in the input text box and hit "Run".
+   The script's best guess at what the solution should be will appear in the output box.</p>
+<div class="script-interface">
+  <textarea placeholder="Plain text goes here." class="scriptbox" id="input"></textarea>
+  <br>
+  <br>
+  <a class="button" id="submit">Run</a>
+  <br>
+  <br>
+  <textarea placeholder="Cipher text will appear here." class="scriptbox" id="output" readonly></textarea>
+</div>
+</body>
+</html>
+
