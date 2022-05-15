@@ -192,11 +192,11 @@ somewhat less ambiguous WRT standard.*/
 }
 
 .ajax-status.success::after {
-  background: transparent url('success.png') no-repeat;
+  background: transparent url('images/success.png') no-repeat;
 }
 
 .ajax-status.failure::after {
-  background: transparent url('failure.gif') no-repeat;  
+  background: transparent url('images/failure.gif') no-repeat;  
 }
 
 

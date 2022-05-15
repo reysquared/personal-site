@@ -30,7 +30,7 @@ var submitInit = function () {
     // the class doesn't exist, so we just try removing both.
     buttonDiv.classList.remove('success');
     buttonDiv.classList.remove('failure');
-    runButton.innerHTML = '&nbsp;<img src="loading.gif" style="position:relative;top:3px;">&nbsp;';
+    runButton.innerHTML = '&nbsp;<img src="images/gif" style="position:relative;top:3px;">&nbsp;';
 
     // Create the request
     var request = new XMLHttpRequest();     
