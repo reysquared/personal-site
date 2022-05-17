@@ -2,27 +2,32 @@
   "name": "personal-site",
   "version": "1.0.0",
   "description": "TODO|kevin",
+  "browser": "index.html",
   "scripts": {
-    "scss": "node-sass --watch src/scss -o dist/css",
+    "prepare": "npm run scss && npm run webpack",
+    "scss": "node-sass src/scss -o dist/css",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --mode=development --watch"
+    "webpack": "webpack --mode=development --progress=profile",
+    "watch-scss": "node-sass --watch src/scss -o dist/css",
+    "watch-webpack": "webpack --mode=development --progress --watch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reysquared/personal-site.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kevin McSwiggen",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/reysquared/personal-site/issues"
   },
   "homepage": "https://github.com/reysquared/personal-site#readme",
   "devDependencies": {
-    "babel-core": "^6.26.3",
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.12",
+    "@babel/preset-env": "^7.17.12",
+    "@babel/preset-react": "^7.17.12",
     "babel-loader": "^8.2.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
     "glob": "^8.0.3",
     "node-sass": "^7.0.1",
     "webpack": "^5.72.1",

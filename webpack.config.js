@@ -1,4 +1,3 @@
-const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
 
@@ -9,9 +8,14 @@ const moduleConfig = {
       obj[path.basename(el, '.jsx')] = el;
       return obj
     }, {}),
+  // entry: {
+  //   _index: './src/webpacks/_index.jsx',
+  //   caesar: './src/webpacks/caesar.jsx',
+  //   mandel: './src/webpacks/mandel.jsx',
+  // },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve('dist/webpacks'),
+    path: path.resolve(__dirname, 'dist/webpacks'),
   },
   module: {
     rules: [
@@ -20,8 +24,12 @@ const moduleConfig = {
         exclude: /(node_modules)/,
         loader: 'babel-loader',
         options: {
-          presets: ['env', 'react'],
+          presets: ['@babel/env', '@babel/react'],
         },
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader',
       },
     ],
   },
@@ -31,12 +39,5 @@ const moduleConfig = {
     modules: ['node_modules', 'src/react_components'],
   }
 };
-
-// Automatically build every file in webpack_src into a corresponding webpack_dist/*.bundle.js file
-// const webpackEntryPoints = fs.readdirSync(path.resolve('webpack_src'));
-
-// for (const entryPoint of webpackEntryPoints) {
-//     moduleConfig['entry'][entryPoint] = [path.resolve(`webpack_src/${entryPoint}`)];
-// }
 
 module.exports = moduleConfig;

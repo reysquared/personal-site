@@ -39,17 +39,15 @@ h2 {
 .subhead {
   font-size: 1.125em;
   font-style: italic; }
-
-.subhead::before {
-  content: "\00a0\00a0\00a0\00a0\2767\00a0";
-  font-weight: bold; }
-
-figure img {
-  width: 100%; }
+  .subhead::before {
+    content: "\00a0\00a0\00a0\00a0\2767\00a0";
+    font-weight: bold; }
 
 figure {
   text-align: center;
   max-width: 30%; }
+  figure img {
+    width: 100%; }
 
 figcaption {
   font-size: 70%; }
@@ -57,17 +55,16 @@ figcaption {
 /** Container for primary page content **/
 #main-content {
   padding-bottom: 100px; }
-
-#main-content p:first-of-type:not(.subhead)::first-letter,
-#main-content hr + p::first-letter {
-  /*Yeeaaah, this is kind of egregious. It DOES look cool, though.*/
-  float: left;
-  color: #6af;
-  font-size: 2em;
-  font-weight: bold;
-  line-height: 1em;
-  padding-right: 6px;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+  #main-content p:first-of-type:not(.subhead)::first-letter,
+  #main-content hr + p::first-letter {
+    /*Yeeaaah, this is kind of egregious. It DOES look cool, though.*/
+    float: left;
+    color: #6af;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1em;
+    padding-right: 6px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
 
 /** Footer anchored to page bottom **/
 #sticky-footer {
@@ -97,30 +94,28 @@ somewhat less ambiguous WRT standard.*/
   border-color: #69f;
   border-width: 1px 0 0 0;
   border-radius: 15px; }
-
-.customrule::before {
-  display: block;
-  height: 15px;
-  margin-top: -16px;
-  /*One more than the height*/
-  content: "";
-  border-style: solid;
-  border-color: #69f;
-  border-width: 0 0 1px 0;
-  border-radius: 15px; }
-
-.customrule::after {
-  content: " ";
-  height: 6px;
-  width: 6px;
-  position: relative;
-  margin: 0 auto;
-  display: block;
-  border: 1px solid #69f;
-  border-radius: 6px;
-  background-color: #cef;
-  text-align: center;
-  top: -4px; }
+  .customrule::before {
+    display: block;
+    height: 15px;
+    margin-top: -16px;
+    /*One more than the height*/
+    content: "";
+    border-style: solid;
+    border-color: #69f;
+    border-width: 0 0 1px 0;
+    border-radius: 15px; }
+  .customrule::after {
+    content: " ";
+    height: 6px;
+    width: 6px;
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    border: 1px solid #69f;
+    border-radius: 6px;
+    background-color: #cef;
+    text-align: center;
+    top: -4px; }
 
 /** Run and Go Back button formatting **/
 .button {
@@ -130,13 +125,11 @@ somewhat less ambiguous WRT standard.*/
   color: #333;
   padding: 2px 6px 2px 6px;
   border: outset 2px #bbb; }
-
-.button:hover {
-  background-color: #eee; }
-
-.button:active {
-  background-color: #999;
-  border: inset 2px #bbb; }
+  .button:hover {
+    background-color: #eee; }
+  .button:active {
+    background-color: #999;
+    border: inset 2px #bbb; }
 
 /********** JavaScript-Python Interface **********/
 /** Container div for script input **/
@@ -150,9 +143,8 @@ somewhat less ambiguous WRT standard.*/
   height: 5em;
   border: 1px solid #888;
   resize: none; }
-
-.scriptbox:focus {
-  border: 2px solid #333; }
+  .scriptbox:focus {
+    border: 2px solid #333; }
 
 .ajax-status {
   text-align: center; }

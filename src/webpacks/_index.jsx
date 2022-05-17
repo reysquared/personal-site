@@ -7,16 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
   ReactDOM.render(<MyComponent />, root);
   */
-});
 
+  // TODO|kevin everything below is straight from the original tabs.js, just pulled out of the IIFE
 
-
-/////////// TODO|kevin everything below copied directly from old implementation!!!
-/////////// TODO|kevin I'm slowly turning it into React shit lmao
-// This curious little header is an Immediately-Invoked Function Expression (IIFE)
-// For an explanation of what it is and why it's used, see:
-// http://benalman.com/news/2010/11/immediately-invoked-function-expression/
-(function () {
   // Simple shorthand function for pushing to the history
   function pushHash(anchorName) {
     history.pushState(null, null, '#' + anchorName);
@@ -154,8 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log("starting to activate fragment");
       // Grab URL parameters and activate tab as necessary
       // If the URL has no fragment identifier, use the "default" of '#' followed by nothing.
-      // This makes use of a weird but convenient JavaScript quirk to specify default values for
-      // "falsy" variables: http://helephant.com/2008/12/09/javascript-null-or-default-operator/
       var hash = window.location.hash || '#';
       hash = hash.substring(1); // Drop the leading '#'
       if (hash && hash !== 'top') { // top is a special fragid for the top of the document.
@@ -190,6 +181,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   // Run the initialization code once on page load
   window.addEventListener('load', fragmentInit, false);
-
-})(); // End IIFE
-
+});
