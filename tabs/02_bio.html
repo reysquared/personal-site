@@ -1,0 +1,44 @@
+<header>
+  <h2>Kevin McSwiggen</h2>
+  <!-- TODO|kevin maybe I should make this default text be something about respecting your right to eschew javascript :P -->
+  <p class="subhead" id="sillysub">!</p>
+</header>
+<div class="customrule"></div>
+<p>
+  Hello, I'm Kevin! I'm a computer science major from Harvey Mudd College
+  who graduated in Spring 2016 and is now conquering the real world.
+</p>
+<p>
+  I like doing code-y stuff of pretty much any kind. (No, really, almost anything.)
+</p>
+<p>Hobbies include headphones, cooking, and internet.</p>
+<p>
+  <!-- TODO|kevin update email address? make a mail form on the website? :thonk: -->
+  You can contact me at <code>reysquared (at) gmail.com</code> if you aren't
+  a robot. (If you are a robot, I probably can't stop you from contacting
+  me, but my replies will not be as prompt. Sorry.)
+</p>
+<br>
+<p>Courses from my last semester:</p>
+<pre>
+Course #   Title             Times          Notes
+CSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)
+CSCI184    Clinic            T  11:00       (and all my other time besides)
+CSCI189    Practicum         3-5 hr/wk      (Makin' APPS!)
+CSCI195    Colloquium        R  4:15        (Presentations are mostly cool)
+ECON045    Microeconomics    TR 1:15        (Pretending we're rational!)
+LGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)
+EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
+</pre>
+<script>
+  // It's my party and I'll inline pointless scripts if I want to!
+  var subOpts = [
+    'Lives bodily inside a laptop',
+    'Eats JavaScript for snax',
+    '"It\'s more of a computer art than a computer science."',
+    'is climing a mountain (why is he climbing a mountain?)',
+    'Need more sleep.',
+  ];
+  var choice = subOpts[Math.floor(Math.random() * subOpts.length)];
+  document.getElementById('sillysub').innerHTML = choice;
+</script>

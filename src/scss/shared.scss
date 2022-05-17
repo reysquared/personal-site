@@ -13,9 +13,18 @@ body {
 
 /*Easy but only partial remedy for pre-HTML5 browsers (if you happen to be
 surfing the net from a fossil.) Doesn't help old versions of IE at all.*/
-article,aside,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section {
-  display:block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 
 /** Content wrapper for the whole page **/
@@ -29,27 +38,28 @@ footer,header,hgroup,menu,nav,section {
   margin: 0 2em;
 }
 
-h1,h2 {
+h1,
+h2 {
   font-variant: small-caps;
 }
 
 .subhead {
   font-size: 1.125em;
   font-style: italic;
-}
 
-.subhead::before {
-  content: "\00a0\00a0\00a0\00a0\2767\00a0";
-  font-weight: bold;
-}
-
-figure img {
-  width: 100%;
+  &::before {
+    content: "\00a0\00a0\00a0\00a0\2767\00a0";
+    font-weight: bold;
+  }
 }
 
 figure {
   text-align: center;
   max-width: 30%;
+
+  img {
+    width: 100%;
+  }
 }
 
 figcaption {
@@ -59,21 +69,21 @@ figcaption {
 /** Container for primary page content **/
 #main-content {
   padding-bottom: 100px;
-}
 
-#main-content p:first-of-type:not(.subhead)::first-letter,
-#main-content hr + p::first-letter {
-  /*Yeeaaah, this is kind of egregious. It DOES look cool, though.*/
-  float: left;
-  color: #6af;
-  font-size: 2em;
-  font-weight: bold;
-  line-height: 1em;
-  padding-right: 6px;
-  text-shadow: -1px -1px 0 #000,
-                1px -1px 0 #000,
-               -1px  1px 0 #000,
-                1px  1px 0 #000;
+  p:first-of-type:not(.subhead)::first-letter,
+  hr+p::first-letter {
+    /*Yeeaaah, this is kind of egregious. It DOES look cool, though.*/
+      float: left;
+      color: #6af;
+      font-size: 2em;
+      font-weight: bold;
+      line-height: 1em;
+      padding-right: 6px;
+      text-shadow: -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+  }
 }
 
 /** Footer anchored to page bottom **/
@@ -94,7 +104,7 @@ a {
 hr {
   border: 0;
   height: 1px;
-  background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(102,153,255,0.75), rgba(0,0,0,0));
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(102, 153, 255, 0.75), rgba(0, 0, 0, 0));
 }
 
 /** Custom horizontal rule (div) **/
@@ -107,31 +117,32 @@ somewhat less ambiguous WRT standard.*/
   border-color: #69f;
   border-width: 1px 0 0 0;
   border-radius: 15px;
-}
 
-.customrule::before {
-  display: block;
-  height: 15px;
-  margin-top: -16px; /*One more than the height*/
-  content: "";
-  border-style: solid;
-  border-color: #69f;
-  border-width: 0 0 1px 0;
-  border-radius: 15px;
-}
+  &::before {
+    display: block;
+    height: 15px;
+    margin-top: -16px;
+    /*One more than the height*/
+    content: "";
+    border-style: solid;
+    border-color: #69f;
+    border-width: 0 0 1px 0;
+    border-radius: 15px;
+  }
 
-.customrule::after {
-  content: " ";
-  height: 6px;
-  width: 6px;
-  position: relative;
-  margin: 0 auto;
-  display: block;
-  border: 1px solid #69f;
-  border-radius: 6px;
-  background-color: #cef;
-  text-align: center;
-  top: -4px;
+  &::after {
+    content: " ";
+    height: 6px;
+    width: 6px;
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    border: 1px solid #69f;
+    border-radius: 6px;
+    background-color: #cef;
+    text-align: center;
+    top: -4px;
+  }
 }
 
 /** Run and Go Back button formatting **/
@@ -142,17 +153,16 @@ somewhat less ambiguous WRT standard.*/
   color: #333;
   padding: 2px 6px 2px 6px;
   border: outset 2px #bbb;
-}
 
-.button:hover {
-  background-color: #eee;
-}
+  &:hover {
+    background-color: #eee;
+  }
 
-.button:active {
-  background-color: #999;
-  border: inset 2px #bbb;
+  &:active {
+    background-color: #999;
+    border: inset 2px #bbb;
+  }
 }
-
 
 
 /********** JavaScript-Python Interface **********/
@@ -165,14 +175,14 @@ somewhat less ambiguous WRT standard.*/
 
 /** Input + output textbox formatting **/
 .scriptbox {
-  width:  40em;
+  width: 40em;
   height: 5em;
   border: 1px solid #888;
   resize: none;
-}
 
-.scriptbox:focus {
-  border: 2px solid #333;
+  &:focus {
+    border: 2px solid #333;
+  }
 }
 
 .ajax-status {
@@ -180,15 +190,18 @@ somewhat less ambiguous WRT standard.*/
 }
 
 /** Status icons for AJAX submission buttons! **/
-.ajax-status.success::before, /*Add empty pseudo-element on left side as well,*/
-.ajax-status.failure::before, /*to keep the Run button centered.*/
+.ajax-status.success::before,
+/*Add empty pseudo-element on left side as well,*/
+.ajax-status.failure::before,
+/*to keep the Run button centered.*/
 .ajax-status.success::after,
 .ajax-status.failure::after {
   position: relative;
   left: 10px;
   margin: 0;
   padding: 0px 8px;
-  content: ""; /*Necessary for the element to display*/
+  content: "";
+  /*Necessary for the element to display*/
 }
 
 .ajax-status.success::after {
@@ -196,7 +209,7 @@ somewhat less ambiguous WRT standard.*/
 }
 
 .ajax-status.failure::after {
-  background: transparent url('images/failure.gif') no-repeat;  
+  background: transparent url('images/failure.gif') no-repeat;
 }
 
 
@@ -223,17 +236,18 @@ somewhat less ambiguous WRT standard.*/
 
 /** An individual item of the tab menu **/
 .tab-title {
-  display: inline-block;
-  vertical-align: bottom;
-  width: 6em; /*To stop tabs shifting from bold text*/
+    display: inline-block;
+    vertical-align: bottom;
+    width: 6em;
+    /*To stop tabs shifting from bold text*/
 }
 
-.tab-title > a {
+.tab-title>a {
   display: block;
   margin: 0 1px;
   padding: 5px 10px;
   background: #fff;
-  transition: background .2s ease, color .2s ease, padding .2s ease, border .2s ease; 
+  transition: background .2s ease, color .2s ease, padding .2s ease, border .2s ease;
   text-decoration: none;
   color: #000;
   border-top: 1px solid #69f;
@@ -241,7 +255,7 @@ somewhat less ambiguous WRT standard.*/
   border-right: 1px solid #69f;
 }
 
-.tab-title > a:hover {
+.tab-title>a:hover {
   /*Hover highlighting for tab buttons*/
   background: #69f;
   color: #fff;
@@ -253,10 +267,11 @@ somewhat less ambiguous WRT standard.*/
               0 0 3px 0 #aab;
 }
 
-.tab-title.active > a,
-.tab-title.active > a:hover {
+.tab-title.active>a,
+.tab-title.active>a:hover {
   position: relative;
-  bottom: -1px; /*Shifts active tab down, obscuring tabs-menu border for tab effect*/
+  bottom: -1px;
+  /*Shifts active tab down, obscuring tabs-menu border for tab effect*/
   padding: 10px;
   background: #fff;
   color: #000;
@@ -271,8 +286,7 @@ somewhat less ambiguous WRT standard.*/
 /** Container for all the tab panels **/
 #tabs-content {
   overflow: auto;
-  /*Fix for horizontal scroll bar jump thanks to Ayke van Laetham:
-  https://aykevl.nl/2014/09/fix-jumping-scrollbar*/
+  /*Fix for horizontal scroll bar jump thanks to Ayke van Laetham: https://aykevl.nl/2014/09/fix-jumping-scrollbar*/
   margin-left: calc(100vw - 100% + 20px);
   margin-right: 20px;
   margin-top: 20px;
@@ -286,16 +300,17 @@ somewhat less ambiguous WRT standard.*/
   padding: 20px;
   width: 600px;
   border: 1px solid #69f;
-  overflow: hidden; /*A simpler 'clearfix' to ensure the div wraps around floated elements*/
+  overflow: hidden;
+  /*A simpler 'clearfix' to ensure the div wraps around floated elements*/
 }
 
 /** Inactive tabs **/
 .tab-default.inactive,
 .tab-panel.inactive {
-  display: none;
+    display: none;
 }
 
 .tab-default.active,
 .tab-panel.active {
-  display: block;
+    display: block;
 }

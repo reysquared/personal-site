@@ -5,7 +5,7 @@
   <title>Kevin McSwiggen</title>
   <meta name="author" content="Kevin McSwiggen">
 
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/shared.css">
   <script src="tabs.js" defer></script>
 </head>
 
@@ -41,13 +41,11 @@
       <hr>
       <p><b>News:</b></p>
       <ul>
-        <li>This just in: <code>typeof NaN === 'number'</code>, and 
-my soul hurts.</li>
+        <li>This just in: <code>typeof NaN === 'number'</code>, and my soul hurts.</li>
         <li>Moved to the Bay Area, woohoo!</li>
         <li>Started getting back into Age of Empires... uh-oh.</li>
         <li>I wish I had taken Practicum every semester!</li>
-        <li><i>The Impossible Kid</i> by Aesop Rock currently has my vote for
-best album of 2016.</li>
+        <li><i>The Impossible Kid</i> by Aesop Rock currently has my vote for best album of 2016.</li>
       </ul>
     </section>
 
@@ -55,17 +53,24 @@ best album of 2016.</li>
     <section id="bio" class="tab-panel">
       <header>
         <h2>Kevin McSwiggen</h2>
+        <!-- TODO|kevin maybe I should make this default text be something about respecting your right to eschew javascript :P -->
         <p class="subhead" id="sillysub">!</p>
       </header>
       <div class="customrule"></div>
-      <p>Hello, I'm Kevin! I'm a computer science major from Harvey Mudd College
-         who graduated in Spring 2016 and is now conquering the real world.</p>
-      <p>I like doing code-y stuff of pretty much any kind. (No, really, almost
-         anything.)</p>
+      <p>
+        Hello, I'm Kevin! I'm a computer science major from Harvey Mudd College
+        who graduated in Spring 2016 and is now conquering the real world.
+      </p>
+      <p>
+        I like doing code-y stuff of pretty much any kind. (No, really, almost anything.)
+      </p>
       <p>Hobbies include headphones, cooking, and internet.</p>
-      <p>You can contact me at <code>kmcswiggen (at) hmc.edu</code> if you aren't
-         a robot. (If you are a robot, I probably can't stop you from contacting
-         me, but my replies will not be as prompt. Sorry.)</p>
+      <p>
+        <!-- TODO|kevin update email address? make a mail form on the website? :thonk: -->
+        You can contact me at <code>reysquared (at) gmail.com</code> if you aren't
+        a robot. (If you are a robot, I probably can't stop you from contacting
+        me, but my replies will not be as prompt. Sorry.)
+      </p>
       <br>
       <p>Courses from my last semester:</p>
       <pre>
@@ -82,11 +87,13 @@ EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
 
       <script>
           // It's my party and I'll inline pointless scripts if I want to!
-          var subOpts = [ 'Lives bodily inside a laptop'
-                        , 'Eats JavaScript for snax'
-                        , '"It\'s more of a computer art than a computer science."'
-                        , 'is climing a mountain (why is he climbing a mountain?)'
-                        , 'Need more sleep.']
+          var subOpts = [
+            'Lives bodily inside a laptop',
+            'Eats JavaScript for snax',
+            '"It\'s more of a computer art than a computer science."',
+            'is climing a mountain (why is he climbing a mountain?)',
+            'Need more sleep.',
+          ];
           var choice = subOpts[Math.floor(Math.random() * subOpts.length)];
           document.getElementById('sillysub').innerHTML = choice;
       </script>
@@ -115,7 +122,7 @@ EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
          Dean's List Fall 2014, Fall 2015</p>
 
       <p>For further professional info about me, my full resume is here:
-         <a href="mcswiggen_resume_2016.pdf">[link]</a></p>
+         <a href="#deleted">[link]</a></p>
       <a class="button go-back" href="#top">Main</a><br><br>
     </section>
 
@@ -202,7 +209,7 @@ EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
   </div>
 </div>
 <footer id="sticky-footer">
-&copy; 2016 Kevin McSwiggen
+&copy; 2022 Kevin McSwiggen
 <p>
     <a href="http://jigsaw.w3.org/css-validator/check/referer">
         <img style="border:0;width:88px;height:31px"
