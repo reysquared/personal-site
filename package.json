@@ -34,6 +34,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
+    "html-react-parser": "^1.4.12",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   }
