@@ -8,11 +8,6 @@ const moduleConfig = {
       obj[path.basename(el, '.jsx')] = el;
       return obj
     }, {}),
-  // entry: {
-  //   _index: './src/webpacks/_index.jsx',
-  //   caesar: './src/webpacks/caesar.jsx',
-  //   mandel: './src/webpacks/mandel.jsx',
-  // },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/webpacks'),
@@ -36,7 +31,7 @@ const moduleConfig = {
   devtool: 'source-map',
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    modules: ['node_modules', 'src/react_components'],
+    modules: ['node_modules', 'src'],
   }
 };
 

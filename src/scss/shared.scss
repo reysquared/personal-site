@@ -146,6 +146,7 @@ somewhat less ambiguous WRT standard.*/
 }
 
 /** Run and Go Back button formatting **/
+// TODO|kevin honestly this feels kinda ugly now.
 .button {
   font: bold .7em Arial;
   text-decoration: none;
@@ -166,6 +167,7 @@ somewhat less ambiguous WRT standard.*/
 
 
 /********** JavaScript-Python Interface **********/
+// TODO|kevin some of this stuff MIGHT become irrelevant lol
 
 /** Container div for script input **/
 .script-interface {
@@ -294,6 +296,7 @@ somewhat less ambiguous WRT standard.*/
 }
 
 /** Basic tab panel formatting **/
+// TODO|kevin kinda dumb for tab-default to be its own class tbh.
 .tab-default,
 .tab-panel {
   margin: 0 auto;
