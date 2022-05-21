@@ -1,6 +1,44 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/react_components/ReturnButton.jsx":
+/*!***********************************************!*\
+  !*** ./src/react_components/ReturnButton.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ReturnButton)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
+
+ // TODO|kevin I should probably install lodash as a dependency
+
+function ReturnButton(_ref) {
+  var setActiveTab = _ref.setActiveTab;
+
+  // TODO|kevin make sure these aria roles aren't totally busted lolol
+  var clickHandler = function clickHandler(event) {
+    event.preventDefault();
+    setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TAB); // TODO|kevin do some URL rewriting here yeah? clear out URL hash
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+    className: "button go-back",
+    href: "#top",
+    onClick: clickHandler,
+    role: "tab",
+    "aria-controls": "default",
+    "aria-selected": "false"
+  }, "Main");
+}
+
+/***/ }),
+
 /***/ "./src/react_components/TabButton.jsx":
 /*!********************************************!*\
   !*** ./src/react_components/TabButton.jsx ***!
@@ -25,7 +63,7 @@ function TabButton(_ref) {
   var handleClick = function handleClick(event) {
     event.preventDefault();
     setActiveTab(tabId);
-  }; // TODO|kevin still REALLY not sure if the onClick should be on the anchor or not
+  }; // TODO|kevin still REALLY not sure if the onClick should be on the anchor or not.
   // If putting it on the li means that the default behavior for the href is still
   // prevented, then I think PROBABLY it should go on the higher up element. but
   // maybe it also needs a stopPropagation or something? or maybe it just doesn't work.
@@ -33,7 +71,6 @@ function TabButton(_ref) {
   // I THINK I need to add a tabindex=0 and maybe also some other handling.
   // Maybe instead I actually need to put the aria roles on the <a>...?
   // TODO|kevin hmmmm this might need :focus styles huh
-  // TODO|kevin Warning: Invalid aria prop `aria-role` on <li> tag. For details, see https://reactjs.org/link/invalid-aria-props
 
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
@@ -45,19 +82,7 @@ function TabButton(_ref) {
     href: "#".concat(tabId),
     onClick: handleClick
   }, label));
-} // export default class TabButton extends React.Component {
-//   render() {
-//     return (
-//       <li class="tab-title">
-//         <a href={`#${this.props.tabId}`}>{this.props.label}</a>
-//       </li>
-//     );
-//   }
-//   handleClick() {
-//     this.props.setActiveTab(this.props.tabId);
-//     // TODO|kevin
-//   }
-// }
+}
 
 /***/ }),
 
@@ -76,6 +101,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var html_react_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! html-react-parser */ "./node_modules/html-react-parser/index.mjs");
 /* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
+/* harmony import */ var react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/ReturnButton */ "./src/react_components/ReturnButton.jsx");
+
 
 
  // TODO|kevin this SHOULD be convertible to a purely functional component
@@ -95,25 +122,23 @@ __webpack_require__.r(__webpack_exports__);
 function TabContent(_ref) {
   var tabId = _ref.tabId,
       activeTab = _ref.activeTab,
-      tabContent = _ref.tabContent;
+      tabContent = _ref.tabContent,
+      hasDefaultTab = _ref.hasDefaultTab,
+      setActiveTab = _ref.setActiveTab;
   // TODO|kevin bluh.... does this ALSO need setActiveTab to set a handler on the button?
   // does it make sense to have a ReturnButton as its own thing if we're setting
   // a handler in THIS render?  I guess maybe to separate the HTML for the button...
-  // TODO|kevin wait, this DOES also need some classes related to activeTab right?
-  // TODO|kevin wait, also, what if we HAVEN'T specified a default tab? o.O
   // TODO|kevin bluh this maybe also needs aria-labelledby?
-  // TODO|kevin BLAARGH and this also shouldn't have a ReturnButton if it's the default tab content!!
+  // Only show a "go back" button if default tab is enabled and this is NOT the
+  // default tab. if the default tab is active we're already "back", and if it
+  // isn't enabled at all then there's already a button for this tab in the nav
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
     id: tabId,
     className: "tab-panel ".concat(activeTab === tabId ? 'active' : 'inactive'),
     role: "tabpanel"
-  }, (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tabContent), tabId !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB &&
-  /*#__PURE__*/
-  // Don't show go-back button on default tab, because we're already "back"
-  react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
-    className: "button go-back",
-    href: "#top"
-  }, "Main"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null)));
+  }, (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tabContent), hasDefaultTab && tabId !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    setActiveTab: setActiveTab
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null)));
 }
 
 /***/ }),
@@ -133,6 +158,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_components_TabButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react_components/TabButton */ "./src/react_components/TabButton.jsx");
 /* harmony import */ var react_components_TabContent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react_components/TabContent */ "./src/react_components/TabContent.jsx");
+/* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -160,6 +186,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+ // TODO|kevin it MIGHT be possible to turn this into a functional component using the useState hook actually...?
 
 var TabsView = /*#__PURE__*/function (_React$Component) {
   _inherits(TabsView, _React$Component);
@@ -171,10 +198,10 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, TabsView);
 
-    _this = _super.call(this, props); // TODO|kevin How to handle "default" tab?
-    // Ideally if you want a "default" tab it should be first in the list, but
-    // if it isn't the Go Back buttons will still work correctly, so this just
-    // has the first tab in the list start activated. Shrugs.
+    _this = _super.call(this, props); // Ideally if you want a "default" tab it should be first in the list, but
+    // if it isn't the ReturnButtons will still work correctly, so this just
+    // has the first tab in the list start activated. Shrugs. TODO|kevin update comments lol
+    // TODO|kevin perhaps should throw an error if hasDefaultTab but there's no tab with the "default" id
 
     _defineProperty(_assertThisInitialized(_this), "setActiveTab", function (tab) {
       _this.setState({
@@ -182,12 +209,8 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
       });
     });
 
-    var activeTab = props.activeTab || props.tabs[0].tabId; // TODO|kevin should only fall back to default if there IS a default tab!
-    // ACTUALLY WAIT.... no, it SHOULD just fall back to the id of the first tab in the list.
-    // If you really WANT to set a default tab as not the first element, the "go back"
-    // buttons will still work as intended, and we can just look for "default"
-    // in the button-rendering stage to make sure it doesn't have one created.
-    // TODO|kevin also, yknow, if I grab the URL hash here in the constructor
+    var startingTab = props.hasDefaultTab ? react_components_constants__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_TAB : props.tabs[0].tabId;
+    var activeTab = props.startingTab || startingTab; // TODO|kevin also, yknow, if I grab the URL hash here in the constructor
     // then I might not actually NEED a fully-fledged routing library...?
     // I would probably just need to add like, a history.pushState() in my tab button onClick handler
     // TODO|kevin oh, right, and uh, a hashchange event listener, probably defined HERE,
@@ -196,20 +219,13 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       activeTab: activeTab
     };
+    _this.setActiveTab = _this.setActiveTab.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(TabsView, [{
     key: "render",
-    value: // TODO|kevin what I WANT to do is to render ALL of the tab content but have
-    // them react to the activeTab state in terms of whether they are displayed.
-    // This would degrade the most neatly to a JS-free webpage, but I think would
-    // require some pre-rendering that I'm not currently doing to work w/o React.
-    // Then, the idea is that re-rendering in response to activeTab changing should
-    // ONLY require changing the classes on the tabcontent/tabnav divs, rather than
-    // actually changing the content of any div
-    // TODO|kevin BLARGH these also need key attributes!!!!
-    function render() {
+    value: function render() {
       var _this2 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -220,15 +236,14 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
         className: "tabs-list",
         role: "tablist"
       }, this.props.tabs.map(function (tab) {
-        if (tab.tabId === 'default') return; // skip the default tab since it doesn't have a button
-        // TODO|kevin use a constant for 'default' lol
-
+        // The default tab panel doesn't have a corresponding tab button
+        if (_this2.props.hasDefaultTab && tab.tabId === react_components_constants__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_TAB) return;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: tab.tabId,
           tabId: tab.tabId,
           label: tab.label,
           activeTab: _this2.state.activeTab,
-          setActiveTab: _this2.setActiveTab.bind(_this2)
+          setActiveTab: _this2.setActiveTab
         });
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         id: "tabs-content"
@@ -237,7 +252,9 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
           key: tab.tabId,
           tabId: tab.tabId,
           activeTab: _this2.state.activeTab,
-          tabContent: tab.tabContent
+          tabContent: tab.tabContent,
+          hasDefaultTab: _this2.props.hasDefaultTab,
+          setActiveTab: _this2.setActiveTab
         });
       })));
     }
@@ -31783,6 +31800,39 @@ if (
 
 /***/ }),
 
+/***/ "./node_modules/react-dom/client.js":
+/*!******************************************!*\
+  !*** ./node_modules/react-dom/client.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var m = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+if (false) {} else {
+  var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+  exports.createRoot = function(c, o) {
+    i.usingClientEntryPoint = true;
+    try {
+      return m.createRoot(c, o);
+    } finally {
+      i.usingClientEntryPoint = false;
+    }
+  };
+  exports.hydrateRoot = function(c, h, o) {
+    i.usingClientEntryPoint = true;
+    try {
+      return m.hydrateRoot(c, h, o);
+    } finally {
+      i.usingClientEntryPoint = false;
+    }
+  };
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/react-dom/index.js":
 /*!*****************************************!*\
   !*** ./node_modules/react-dom/index.js ***!
@@ -36324,7 +36374,7 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 /* harmony import */ var react_components_TabsView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react_components/TabsView */ "./src/react_components/TabsView.jsx");
 /* harmony import */ var html_tabs_00_default_html__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! html/tabs/00_default.html */ "./src/html/tabs/00_default.html");
 /* harmony import */ var html_tabs_01_bio_html__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! html/tabs/01_bio.html */ "./src/html/tabs/01_bio.html");
@@ -36342,7 +36392,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // TODO|kevin maybe I SHOULD just rename these properties to `id` and `content`?
 
 var TABS_LIST = [{
   tabId: 'default',
@@ -36366,12 +36415,14 @@ var TABS_LIST = [{
   tabContent: html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_7__["default"]
 }];
 document.addEventListener('DOMContentLoaded', function () {
-  // TODO|kevin Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot
   // TODO|kevin stuff to do when the document loads! this... MIGHT be everything at this level though?
-  var root = document.getElementById('main-content');
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabsView__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    tabs: TABS_LIST
-  }), root);
+  var rootEl = document.getElementById('main-content');
+  var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootEl); // TODO|kevin StrictMode component is only for debugging, remove later!
+
+  root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabsView__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    tabs: TABS_LIST,
+    hasDefaultTab: true
+  }))); // TODO|kevin also set up dark mode toggle below this
 }); // // TODO|kevin everything below is straight from the original tabs.js, just pulled out of the IIFE
 // // Simple shorthand function for pushing to the history
 // function pushHash(anchorName) {

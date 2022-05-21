@@ -298,24 +298,18 @@ somewhat less ambiguous WRT standard.*/
 }
 
 /** Basic tab panel formatting **/
-// TODO|kevin kinda dumb for tab-default to be its own class tbh.
-.tab-default,
 .tab-panel {
   margin: 0 auto;
   padding: 20px;
   width: 600px;
   border: 1px solid #69f;
   overflow: hidden;
-  /*A simpler 'clearfix' to ensure the div wraps around floated elements*/
-}
 
-/** Inactive tabs **/
-.tab-default.inactive,
-.tab-panel.inactive {
-    display: none;
-}
-
-.tab-default.active,
-.tab-panel.active {
+  &.active {
     display: block;
+  }  
+
+  &.inactive {
+    display: none;
+  }
 }

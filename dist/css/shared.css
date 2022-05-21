@@ -234,20 +234,13 @@ somewhat less ambiguous WRT standard.*/
   margin-bottom: 20px; }
 
 /** Basic tab panel formatting **/
-.tab-default,
 .tab-panel {
   margin: 0 auto;
   padding: 20px;
   width: 600px;
   border: 1px solid #69f;
-  overflow: hidden;
-  /*A simpler 'clearfix' to ensure the div wraps around floated elements*/ }
-
-/** Inactive tabs **/
-.tab-default.inactive,
-.tab-panel.inactive {
-  display: none; }
-
-.tab-default.active,
-.tab-panel.active {
-  display: block; }
+  overflow: hidden; }
+  .tab-panel.active {
+    display: block; }
+  .tab-panel.inactive {
+    display: none; }

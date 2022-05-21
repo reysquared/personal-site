@@ -6,7 +6,7 @@ export default function TabButton({ tabId, label, activeTab, setActiveTab }) {
     event.preventDefault();
     setActiveTab(tabId);
   }
-  // TODO|kevin still REALLY not sure if the onClick should be on the anchor or not
+  // TODO|kevin still REALLY not sure if the onClick should be on the anchor or not.
   // If putting it on the li means that the default behavior for the href is still
   // prevented, then I think PROBABLY it should go on the higher up element. but
   // maybe it also needs a stopPropagation or something? or maybe it just doesn't work.
@@ -27,17 +27,3 @@ export default function TabButton({ tabId, label, activeTab, setActiveTab }) {
     </li>
   );
 }
-// export default class TabButton extends React.Component {
-//   render() {
-//     return (
-//       <li class="tab-title">
-//         <a href={`#${this.props.tabId}`}>{this.props.label}</a>
-//       </li>
-//     );
-//   }
-
-//   handleClick() {
-//     this.props.setActiveTab(this.props.tabId);
-//     // TODO|kevin
-//   }
-// }

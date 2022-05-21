@@ -1,5 +1,5 @@
-import React from 'react';  // TODO|kevin not clear why this is needed and not just ReactDOM
-import ReactDOM from 'react-dom';
+import React, { StrictMode } from 'react';  // TODO|kevin not clear why this is needed and not just ReactDOM
+import ReactDOMClient from 'react-dom/client';
 // TODO|kevin regardless of how I actually handle the tabsview invocation, I'll
 // need to import the tab contents in THIS file. ...buuuut I also might not be
 // importing them correctly/might need to change my webpack config targets lmao
@@ -11,7 +11,6 @@ import TabProjectsRaw from 'html/tabs/03_projects.html';
 import TabSiteinfoRaw from 'html/tabs/04_about.html';
 
 
-// TODO|kevin maybe I SHOULD just rename these properties to `id` and `content`?
 const TABS_LIST = [
   {
     tabId: 'default',
@@ -41,10 +40,16 @@ const TABS_LIST = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-  // TODO|kevin Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot
   // TODO|kevin stuff to do when the document loads! this... MIGHT be everything at this level though?
-  const root = document.getElementById('main-content');
-  ReactDOM.render(<TabsView tabs={TABS_LIST} hasDefaultTab={true} />, root);
+  const rootEl = document.getElementById('main-content');
+  const root = ReactDOMClient.createRoot(rootEl);
+  // TODO|kevin StrictMode component is only for debugging, remove later!
+  root.render(
+    <StrictMode>
+      <TabsView tabs={TABS_LIST} hasDefaultTab={true} />
+    </StrictMode>
+  );
+  // TODO|kevin also set up dark mode toggle below this
 });
 // // TODO|kevin everything below is straight from the original tabs.js, just pulled out of the IIFE
 
