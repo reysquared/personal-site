@@ -41,9 +41,10 @@ const TABS_LIST = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+  // TODO|kevin Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot
   // TODO|kevin stuff to do when the document loads! this... MIGHT be everything at this level though?
   const root = document.getElementById('main-content');
-  ReactDOM.render(<TabsView tabs={TABS_LIST} />, root);
+  ReactDOM.render(<TabsView tabs={TABS_LIST} hasDefaultTab={true} />, root);
 });
 // // TODO|kevin everything below is straight from the original tabs.js, just pulled out of the IIFE
 

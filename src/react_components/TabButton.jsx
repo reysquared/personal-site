@@ -17,7 +17,7 @@ export default function TabButton({ tabId, label, activeTab, setActiveTab }) {
   return (
     <li
       className={activeTab === tabId ? 'tab-title active' : 'tab-title'}
-      aria-role="tab"
+      role="tab"
       aria-controls={tabId}
       aria-selected={activeTab === tabId}
     >

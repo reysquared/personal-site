@@ -14,6 +14,8 @@ function pushHash(anchorName) {
 function activateTab(tabId) {
   // Determine which panel is currently visible and hide it
   // NOTE: Element.classList is unsupported in IE9 and older.
+  // TODO|kevin this only needs special casing because it doesn't have a corresponding
+  // button to activate/inactivate
   var defaultPanel = document.getElementsByClassName('tab-default')[0];
   if(defaultPanel.classList.contains('active')) {
     // If currently viewing default panel, make it inactive

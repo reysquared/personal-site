@@ -1,16 +1,20 @@
 import React from 'react';
 import TabButton from 'react_components/TabButton';
 import TabContent from 'react_components/TabContent';
+import { DEFAULT_TAB } from 'react_components/constants';
+
 
 export default class TabsView extends React.Component {
   constructor(props) {
     super(props);
-    // TODO|kevin How to handle "default" tab?
+    // TODO|kevin maybe I should also create a hasDefault prop honestly
 
     // Ideally if you want a "default" tab it should be first in the list, but
     // if it isn't the Go Back buttons will still work correctly, so this just
-    // has the first tab in the list start activated. Shrugs.
-    const activeTab = props.activeTab || props.tabs[0].tabId;
+    // has the first tab in the list start activated. Shrugs. TODO|kevin update comments lol
+    // TODO|kevin perhaps should throw an error if hasDefaultTab but there's no tab with the "default" id
+    const startingTab = props.hasDefaultTab ? DEFAULT_TAB : props.tabs[0].tabId;
+    const activeTab = props.activeTab || startingTab;
     // TODO|kevin should only fall back to default if there IS a default tab!
     // ACTUALLY WAIT.... no, it SHOULD just fall back to the id of the first tab in the list.
     // If you really WANT to set a default tab as not the first element, the "go back"
@@ -26,6 +30,8 @@ export default class TabsView extends React.Component {
     this.state = {
       activeTab,
     };
+
+    this.setActiveTab = this.setActiveTab.bind(this);
   }
 
   setActiveTab = (tab) => {
@@ -44,16 +50,18 @@ export default class TabsView extends React.Component {
     return (
       <div id="main-content">
         <nav className="tabs-menu">
-          <ul className="tabs-list" aria-role="tablist">
+          <ul className="tabs-list" role="tablist">
             {this.props.tabs.map((tab) => {
-              if (tab.tabId === 'default') return;  // skip the default tab since it doesn't have a button
+              // The default tab panel doesn't have a corresponding tab button
+              if (this.props.hasDefaultTab && tab.tabId === DEFAULT_TAB) return;
               // TODO|kevin use a constant for 'default' lol
               return (
                 <TabButton
+                  key={tab.tabId}
                   tabId={tab.tabId}
                   label={tab.label}
                   activeTab={this.state.activeTab}
-                  setActiveTab={this.setActiveTab.bind(this)}
+                  setActiveTab={this.setActiveTab}
                 />
               );
             })}
@@ -62,9 +70,11 @@ export default class TabsView extends React.Component {
         <div id="tabs-content">
           {this.props.tabs.map((tab) =>
             <TabContent
+              key={tab.tabId}
               tabId={tab.tabId}
               activeTab={this.state.activeTab}
               tabContent={tab.tabContent}
+              hasDefaultTab={this.props.hasDefaultTab}
             />
           )}
         </div>

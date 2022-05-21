@@ -33,11 +33,12 @@ function TabButton(_ref) {
   // I THINK I need to add a tabindex=0 and maybe also some other handling.
   // Maybe instead I actually need to put the aria roles on the <a>...?
   // TODO|kevin hmmmm this might need :focus styles huh
+  // TODO|kevin Warning: Invalid aria prop `aria-role` on <li> tag. For details, see https://reactjs.org/link/invalid-aria-props
 
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
     className: activeTab === tabId ? 'tab-title active' : 'tab-title',
-    "aria-role": "tab",
+    role: "tab",
     "aria-controls": tabId,
     "aria-selected": activeTab === tabId
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
@@ -105,14 +106,14 @@ function TabContent(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
     id: tabId,
     className: "tab-panel ".concat(activeTab === tabId ? 'active' : 'inactive'),
-    "aria-role": "tabpanel"
+    role: "tabpanel"
   }, (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tabContent), tabId !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB &&
   /*#__PURE__*/
   // Don't show go-back button on default tab, because we're already "back"
-  react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+  react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
     className: "button go-back",
     href: "#top"
-  }, "Main"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null));
+  }, "Main"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null)));
 }
 
 /***/ }),
@@ -217,12 +218,13 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
         className: "tabs-menu"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
         className: "tabs-list",
-        "aria-role": "tablist"
+        role: "tablist"
       }, this.props.tabs.map(function (tab) {
         if (tab.tabId === 'default') return; // skip the default tab since it doesn't have a button
         // TODO|kevin use a constant for 'default' lol
 
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          key: tab.tabId,
           tabId: tab.tabId,
           label: tab.label,
           activeTab: _this2.state.activeTab,
@@ -232,6 +234,7 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
         id: "tabs-content"
       }, this.props.tabs.map(function (tab) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabContent__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          key: tab.tabId,
           tabId: tab.tabId,
           activeTab: _this2.state.activeTab,
           tabContent: tab.tabContent
@@ -36363,6 +36366,7 @@ var TABS_LIST = [{
   tabContent: html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_7__["default"]
 }];
 document.addEventListener('DOMContentLoaded', function () {
+  // TODO|kevin Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot
   // TODO|kevin stuff to do when the document loads! this... MIGHT be everything at this level though?
   var root = document.getElementById('main-content');
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabsView__WEBPACK_IMPORTED_MODULE_2__["default"], {
