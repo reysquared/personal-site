@@ -1,6 +1,10 @@
 /********** General Page Style **********/
 // TODO|kevin ahh I should probably pull some values out into constants huh
 
+:root {
+  color-scheme: light dark;  // TODO|kevin wonder what this will do
+}
+
 html,
 body {
   margin: 0;
@@ -14,6 +18,7 @@ body {
 
 /*Easy but only partial remedy for pre-HTML5 browsers (if you happen to be
 surfing the net from a fossil.) Doesn't help old versions of IE at all.*/
+// TODO|kevin do I even need some of these now that I've gotten rid of the legacy index? I'm PRETTY SURE it isn't comprehensive
 article,
 aside,
 details,
@@ -304,6 +309,9 @@ somewhat less ambiguous WRT standard.*/
   width: 600px;
   border: 1px solid #69f;
   overflow: hidden;
+
+  // TODO|kevin this should have a slight margin-bottom of its own (perhaps take
+  // some off of #tabs-content) so that it looks less crowded in noscript mode
 
   &.active {
     display: block;

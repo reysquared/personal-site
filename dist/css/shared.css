@@ -1,4 +1,7 @@
 /********** General Page Style **********/
+:root {
+  color-scheme: light dark; }
+
 html,
 body {
   margin: 0;

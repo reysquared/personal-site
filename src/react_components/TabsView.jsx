@@ -39,6 +39,7 @@ export default class TabsView extends React.Component {
             {this.props.tabs.map((tab) => {
               // The default tab panel doesn't have a corresponding tab button
               if (this.props.hasDefaultTab && tab.tabId === DEFAULT_TAB) return;
+              // TODO|kevin yknow... I should condense MOST of this stuff into just passing the tab object huh?
               return (
                 <TabButton
                   key={tab.tabId}

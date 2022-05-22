@@ -129,6 +129,8 @@ function TabContent(_ref) {
   // does it make sense to have a ReturnButton as its own thing if we're setting
   // a handler in THIS render?  I guess maybe to separate the HTML for the button...
   // TODO|kevin bluh this maybe also needs aria-labelledby?
+  // TODO|kevin I don't THINK it needs aria-hidden as long as it's actually
+  // visually "display: none" but maybe double-check on that.
   // Only show a "go back" button if default tab is enabled and this is NOT the
   // default tab. if the default tab is active we're already "back", and if it
   // isn't enabled at all then there's already a button for this tab in the nav
@@ -237,7 +239,8 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
         role: "tablist"
       }, this.props.tabs.map(function (tab) {
         // The default tab panel doesn't have a corresponding tab button
-        if (_this2.props.hasDefaultTab && tab.tabId === react_components_constants__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_TAB) return;
+        if (_this2.props.hasDefaultTab && tab.tabId === react_components_constants__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_TAB) return; // TODO|kevin yknow... I should condense MOST of this stuff into just passing the tab object huh?
+
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: tab.tabId,
           tabId: tab.tabId,

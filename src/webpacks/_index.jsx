@@ -4,11 +4,11 @@ import ReactDOMClient from 'react-dom/client';
 // need to import the tab contents in THIS file. ...buuuut I also might not be
 // importing them correctly/might need to change my webpack config targets lmao
 import TabsView from 'react_components/TabsView';
-import DefaultTabRaw from 'html/tabs/00_default.html';
-import TabBioRaw from 'html/tabs/01_bio.html';
-import TabResumeRaw from 'html/tabs/02_resume.html';
-import TabProjectsRaw from 'html/tabs/03_projects.html';
-import TabSiteinfoRaw from 'html/tabs/04_about.html';
+import DefaultTabRaw from 'html/tabs/_00_default.html';
+import TabBioRaw from 'html/tabs/_01_bio.html';
+import TabResumeRaw from 'html/tabs/_02_resume.html';
+import TabProjectsRaw from 'html/tabs/_03_projects.html';
+import TabSiteinfoRaw from 'html/tabs/_04_about.html';
 
 
 const TABS_LIST = [
@@ -50,6 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
     </StrictMode>
   );
   // TODO|kevin also set up dark mode toggle below this
+
+  // TODO|kevin include the silly subheader script here? not sure how React deals
+  // with the component content changing in that way tbh, but... we'll see lol
+  // In the ABSOLUTE worst case scenario, I can create a new component to wrap
+  // the TabsView and put my scripts in useEffect
+
+  // TODO|kevin instead of replacing @ with (at) maybe I can make an email-address-revealer button lol
 });
 // // TODO|kevin everything below is straight from the original tabs.js, just pulled out of the IIFE
 

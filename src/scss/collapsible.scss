@@ -1,0 +1,14 @@
+.collapsible-button {
+  // TODO|kevin TRY to make this as style-agnostic as possible!
+  // hell, maybe it doesn't even need any styles of its own and can just be a
+  // hook for use elsewhere? idfk. WELL, I guess if I add like a -/+ symbol
+  // to the button I might wanna tweak it here. OH, or a rotating wedge arrow!
+}
+
+.collapsible-panel {
+  // TODO|kevin I wanna TRY doing this with flexbox but we'll see if that actually works.
+
+  &.collapsed {
+    // TODO|kevin
+  }
+}

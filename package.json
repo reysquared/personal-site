@@ -4,9 +4,10 @@
   "description": "TODO|kevin",
   "browser": "index.html",
   "scripts": {
-    "prepare": "npm run scss && npm run webpack",
+    "prepare": "npm run scss && npm run template && npm run webpack",
+
     "scss": "node-sass src/scss -o dist/css",
-    "template": "echo \"TODO|kevin when I install the HTML templating engine lol\" && exit 1",
+    "template": "html-includes --src src/html --dest dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack --mode=development --progress=profile",
     "watch-scss": "node-sass --watch src/scss -o dist/css",
@@ -30,6 +31,7 @@
     "@babel/preset-react": "^7.17.12",
     "babel-loader": "^8.2.5",
     "glob": "^8.0.3",
+    "html-includes": "^4.4.1",
     "html-loader": "^3.1.0",
     "node-sass": "^7.0.1",
     "webpack": "^5.72.1",
@@ -37,6 +39,7 @@
   },
   "dependencies": {
     "html-react-parser": "^1.4.12",
+    "lodash": "^4.17.21",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   }
