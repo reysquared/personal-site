@@ -3,12 +3,15 @@
 // const preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 /*
-okay so let's think through this.
-I CAN set media queries... which could be greatly simplified through the use of scss variables probably
-i.e. I could POSSIBLY condense the full color schemes into individual variables for simpler query config
-EDIT: no but you can do that through mixins lol.
-
-The real wrinkle is that I want it to correctly honor dark mode preference if
-the browser supports it, EVEN when the user has JS disabled. I can only do that
-with ACTUAL media queries.
+<label className="theme-toggle">
+  <input type="checkbox" id="theme-switcher" />
+  <div className="theme-slider"></div>
+</label>
+// I think this second one is more like what I want actually? some folks make the
+// point that a checkbox CAN imply a form submission instead of an immediate toggle?
+<label for="toggle">Important binary setting
+<button type="button" id="toggle" role="switch" aria-checked="true">
+  <span>on</span><span>off</span>  
+</button>
+</label>
 */

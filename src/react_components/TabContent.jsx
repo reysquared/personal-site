@@ -32,6 +32,7 @@ export default function TabContent({ tabId, activeTab, tabContent, hasDefaultTab
       id={tabId}
       className={`tab-panel ${activeTab === tabId ? 'active' : 'inactive'}`}
       role="tabpanel"
+      aria-labelledby={`tab-${tabId}`}
     >
       {HTMLReactParser(tabContent)}
       {hasDefaultTab && tabId !== DEFAULT_TAB &&

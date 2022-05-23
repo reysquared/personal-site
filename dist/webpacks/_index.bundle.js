@@ -74,12 +74,15 @@ function TabButton(_ref) {
 
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
-    className: activeTab === tabId ? 'tab-title active' : 'tab-title',
-    role: "tab",
-    "aria-controls": tabId,
-    "aria-selected": activeTab === tabId
+    role: "presentation",
+    className: activeTab === tabId ? 'tab-title active' : 'tab-title'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+    id: "tab-".concat(tabId),
     href: "#".concat(tabId),
+    role: "tab",
+    tabIndex: "0",
+    "aria-controls": tabId,
+    "aria-selected": activeTab === tabId,
     onClick: handleClick
   }, label));
 }
@@ -137,7 +140,8 @@ function TabContent(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
     id: tabId,
     className: "tab-panel ".concat(activeTab === tabId ? 'active' : 'inactive'),
-    role: "tabpanel"
+    role: "tabpanel",
+    "aria-labelledby": "tab-".concat(tabId)
   }, (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tabContent), hasDefaultTab && tabId !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
     setActiveTab: setActiveTab
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null)));
@@ -1228,10 +1232,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/html/tabs/00_default.html":
-/*!***************************************!*\
-  !*** ./src/html/tabs/00_default.html ***!
-  \***************************************/
+/***/ "./src/html/tabs/_00_default.html":
+/*!****************************************!*\
+  !*** ./src/html/tabs/_00_default.html ***!
+  \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1246,10 +1250,10 @@ var code = "<header>\n  <h2>Welcome Friend</h2>\n</header>\n<div class=\"customr
 
 /***/ }),
 
-/***/ "./src/html/tabs/01_bio.html":
-/*!***********************************!*\
-  !*** ./src/html/tabs/01_bio.html ***!
-  \***********************************/
+/***/ "./src/html/tabs/_01_bio.html":
+/*!************************************!*\
+  !*** ./src/html/tabs/_01_bio.html ***!
+  \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1258,16 +1262,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<header>\n  <h2>Kevin McSwiggen</h2>\n  <!-- TODO|kevin maybe I should make this default text be something about respecting your right to eschew javascript :P -->\n  <p class=\"subhead\" id=\"sillysub\">!</p>\n</header>\n<div class=\"customrule\"></div>\n<p>\n  Hello, I'm Kevin! I'm a computer science major from Harvey Mudd College\n  who graduated in Spring 2016 and is now conquering the real world.\n</p>\n<p>\n  I like doing code-y stuff of pretty much any kind. (No, really, almost anything.)\n</p>\n<p>Hobbies include headphones, cooking, and internet.</p>\n<p>\n  <!-- TODO|kevin update email address? make a mail form on the website? :thonk: -->\n  You can contact me at <code>reysquared (at) gmail.com</code> if you aren't\n  a robot. (If you are a robot, I probably can't stop you from contacting\n  me, but my replies will not be as prompt. Sorry.)\n</p>\n<br>\n<p>Courses from my last semester:</p>\n<pre>\nCourse #   Title             Times          Notes\nCSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)\nCSCI184    Clinic            T  11:00       (and all my other time besides)\nCSCI189    Practicum         3-5 hr/wk      (Makin' APPS!)\nCSCI195    Colloquium        R  4:15        (Presentations are mostly cool)\nECON045    Microeconomics    TR 1:15        (Pretending we're rational!)\nLGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)\nEAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)\n</pre>\n<script>\n  // It's my party and I'll inline pointless scripts if I want to!\n  var subOpts = [\n    'Lives bodily inside a laptop',\n    'Eats JavaScript for snax',\n    '\"It\\'s more of a computer art than a computer science.\"',\n    'is climing a mountain (why is he climbing a mountain?)',\n    'Need more sleep.',\n  ];\n  var choice = subOpts[Math.floor(Math.random() * subOpts.length)];\n  document.getElementById('sillysub').innerHTML = choice;\n</script>";
+var code = "<header>\n  <h2>Kevin McSwiggen</h2>\n  <!-- TODO|kevin maybe I should make this default text be something about respecting your right to eschew javascript :P -->\n  <p class=\"subhead\" id=\"sillysub\">!</p>\n</header>\n<div class=\"customrule\"></div>\n<p>\n  Hello, I'm Kevin! I'm a computer science major from Harvey Mudd College\n  who graduated in Spring 2016 and is now conquering the real world.\n</p>\n<p>\n  I like doing code-y stuff of pretty much any kind. (No, really, almost anything.)\n</p>\n<p>Hobbies include headphones, cooking, and internet.</p>\n<p>\n  <!-- TODO|kevin update email address? make a mail form on the website? :thonk: -->\n  You can contact me at <code>reysquared (at) gmail.com</code> if you aren't\n  a robot. (If you are a robot, I probably can't stop you from contacting\n  me, but my replies will not be as prompt. Sorry.)\n</p>\n<br>\n<p>Courses from my last semester:</p>\n<pre>\nCourse #   Title             Times          Notes\nCSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)\nCSCI184    Clinic            T  11:00       (and all my other time besides)\nCSCI189    Practicum         3-5 hr/wk      (Makin' APPS!)\nCSCI195    Colloquium        R  4:15        (Presentations are mostly cool)\nECON045    Microeconomics    TR 1:15        (Pretending we're rational!)\nLGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)\nEAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)\n</pre>\n<script>\n  // TODO|kevin ... this doesnt even make sense though does it? React won't end up running this.\n  // It's my party and I'll inline pointless scripts if I want to!\n  var subOpts = [\n    'Lives bodily inside a laptop',\n    'Eats JavaScript for snax',\n    '\"It\\'s more of a computer art than a computer science.\"',\n    'is climing a mountain (why is he climbing a mountain?)',\n    'Need more sleep.',\n  ];\n  var choice = subOpts[Math.floor(Math.random() * subOpts.length)];\n  document.getElementById('sillysub').innerHTML = choice;\n</script>";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
 /***/ }),
 
-/***/ "./src/html/tabs/02_resume.html":
-/*!**************************************!*\
-  !*** ./src/html/tabs/02_resume.html ***!
-  \**************************************/
+/***/ "./src/html/tabs/_02_resume.html":
+/*!***************************************!*\
+  !*** ./src/html/tabs/_02_resume.html ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1282,10 +1286,10 @@ var code = "<!-- TODO it would be way easier to just have styles specific to the
 
 /***/ }),
 
-/***/ "./src/html/tabs/03_projects.html":
-/*!****************************************!*\
-  !*** ./src/html/tabs/03_projects.html ***!
-  \****************************************/
+/***/ "./src/html/tabs/_03_projects.html":
+/*!*****************************************!*\
+  !*** ./src/html/tabs/_03_projects.html ***!
+  \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1300,10 +1304,10 @@ var code = "<h2>Personal and Academic Projects</h2>\n<div class=\"customrule\"><
 
 /***/ }),
 
-/***/ "./src/html/tabs/04_about.html":
-/*!*************************************!*\
-  !*** ./src/html/tabs/04_about.html ***!
-  \*************************************/
+/***/ "./src/html/tabs/_04_about.html":
+/*!**************************************!*\
+  !*** ./src/html/tabs/_04_about.html ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -36379,11 +36383,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 /* harmony import */ var react_components_TabsView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react_components/TabsView */ "./src/react_components/TabsView.jsx");
-/* harmony import */ var html_tabs_00_default_html__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! html/tabs/00_default.html */ "./src/html/tabs/00_default.html");
-/* harmony import */ var html_tabs_01_bio_html__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! html/tabs/01_bio.html */ "./src/html/tabs/01_bio.html");
-/* harmony import */ var html_tabs_02_resume_html__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! html/tabs/02_resume.html */ "./src/html/tabs/02_resume.html");
-/* harmony import */ var html_tabs_03_projects_html__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! html/tabs/03_projects.html */ "./src/html/tabs/03_projects.html");
-/* harmony import */ var html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! html/tabs/04_about.html */ "./src/html/tabs/04_about.html");
+/* harmony import */ var html_tabs_00_default_html__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! html/tabs/_00_default.html */ "./src/html/tabs/_00_default.html");
+/* harmony import */ var html_tabs_01_bio_html__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! html/tabs/_01_bio.html */ "./src/html/tabs/_01_bio.html");
+/* harmony import */ var html_tabs_02_resume_html__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! html/tabs/_02_resume.html */ "./src/html/tabs/_02_resume.html");
+/* harmony import */ var html_tabs_03_projects_html__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! html/tabs/_03_projects.html */ "./src/html/tabs/_03_projects.html");
+/* harmony import */ var html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! html/tabs/_04_about.html */ "./src/html/tabs/_04_about.html");
  // TODO|kevin not clear why this is needed and not just ReactDOM
 
  // TODO|kevin regardless of how I actually handle the tabsview invocation, I'll
@@ -36426,6 +36430,11 @@ document.addEventListener('DOMContentLoaded', function () {
     tabs: TABS_LIST,
     hasDefaultTab: true
   }))); // TODO|kevin also set up dark mode toggle below this
+  // TODO|kevin include the silly subheader script here? not sure how React deals
+  // with the component content changing in that way tbh, but... we'll see lol
+  // In the ABSOLUTE worst case scenario, I can create a new component to wrap
+  // the TabsView and put my scripts in useEffect
+  // TODO|kevin instead of replacing @ with (at) maybe I can make an email-address-revealer button lol
 }); // // TODO|kevin everything below is straight from the original tabs.js, just pulled out of the IIFE
 // // Simple shorthand function for pushing to the history
 // function pushHash(anchorName) {

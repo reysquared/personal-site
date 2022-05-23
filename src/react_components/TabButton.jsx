@@ -16,12 +16,18 @@ export default function TabButton({ tabId, label, activeTab, setActiveTab }) {
   // TODO|kevin hmmmm this might need :focus styles huh
   return (
     <li
+      role="presentation"
       className={activeTab === tabId ? 'tab-title active' : 'tab-title'}
-      role="tab"
-      aria-controls={tabId}
-      aria-selected={activeTab === tabId}
     >
-      <a href={`#${tabId}`} onClick={handleClick} >
+      <a
+        id={`tab-${tabId}`}
+        href={`#${tabId}`}
+        role="tab"
+        tabIndex="0"
+        aria-controls={tabId}
+        aria-selected={activeTab === tabId}
+        onClick={handleClick}
+      >
         {label}
       </a>
     </li>

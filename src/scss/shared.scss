@@ -1,77 +1,32 @@
-@import '_mixins';
+@import '_util';
+@import '_themes';
 
 /********** General Page Style **********/
-// TODO|kevin ahh I should probably pull some values out into constants huh
-// TODO|kevin define SCSS variables for the color values, and then use them to define
-// the root properties below AND to pass into the fallbacks.
-// SCSS variables for use in light color scheme and as default fallback
-// I would just leave them to be specified entirely in the custom properties if
-// I weren't referencing them for the fallbacks in the var-with-fallback mixin
-$bgcolor: #fff;
-$textcolor: #000;
-$capscolor: #6af;
-$flaircolor: #cef;
-$bordercolor: #69f;
-$strokecolor: #000;
-$inputborder: #888;
-$inputfocus: #333;
-$tabglowcolor: #aab;
-// Also make variables for these default (light mode) text-shadow values, cus they're real long
-$defaultcapsstroke: -1px -1px 0 $strokecolor,
-                    1px -1px 0 $strokecolor,
-                    -1px 1px 0 $strokecolor,
-                    1px 1px 0 $strokecolor,
-                    1px 0 0 $strokecolor, // TODO|kevin added these last four to cover horizontal gaps, but feels a BIT overkill...
-                    -1px 0 0 $strokecolor,
-                    0 1px 0 $strokecolor,
-                    0 -1px 0 $strokecolor;
-$defaulttabhover: 0 1px 0 0 $bordercolor,
-                  0 5px 0 0 $bgcolor,
-                  0 0 3px 0 $tabglowcolor;
-// TODO|kevin do SOMETHING with the .button styles...
 
-// TODO|kevin not positive about this additional attribute selector, but it makes some things easier for now.
-:root,
-[data-theme="light"] {
-  // color-scheme: light dark;  // TODO|kevin hmmm... this might actually be causing more trouble than it's worth if it isn't accompanied by other stuff.
-  color-scheme: light;
-  // Set up color variables TODO|kevin better comments lmao also maybe alpha-sort some of this fuckin shit
-  --main-bg-color: #{$bgcolor};
-  --main-text-color: #{$textcolor};
-  --initial-caps-color: #{$capscolor};
-  --customrule-flair-color: #{$flaircolor};
-  --initial-caps-stroke: #{$defaultcapsstroke};
-  --main-content-border: 1px solid #{$bordercolor};
-  --text-input-border: 1px solid #{$inputborder};
-  --text-input-border-focus: 2px solid #{$inputfocus};
-  --tab-hover-fill: #{$bordercolor};
-  --tab-hover-border: 1px solid #{$tabglowcolor};
-  --tab-hover-shadow: #{$defaulttabhover};
+:root {
+  // Default color scheme is light mode, this is what will be used if the user
+  // has JavaScript disabled or the browser doesn't support these media queries
+  @include light-theme;
+
+  [data-theme="dark"] {
+    // When dark theme is explicitly set, only support dark color scheme... for real
+    color-scheme: dark !important;
+    @include dark-theme;
+  }
 }
 
-[data-theme="dark"] {
-  color-scheme: dark;
-  // TODO|kevin make sure this shit is TIGHTTT
-  --main-bg-color: #223;  // TODO|kevin maybe #333 tho?
-  --main-text-color: #eee;
-  --initial-caps-color: #46e;
-  --customrule-flair-color: #236;
-  --initial-caps-stroke: -1px -1px 0 #fff,
-                         1px -1px 0 #fff,
-                         -1px 1px 0 #fff,
-                         1px 1px 0 #fff,
-                         1px 0 0 #fff,
-                         -1px 0 0 #fff,
-                         0 1px 0 #fff,
-                         0 -1px 0 #fff;
-  --main-content-border: 1px solid #{$bordercolor};
-  --text-input-border: 1px solid #333;
-  --text-input-border-focus: 2px solid #888;
-  --tab-hover-fill: #{$bordercolor};  // TODO|kevin ehhhh...
-  --tab-hover-border: 1px solid #{$tabglowcolor};  // TODO|kevin SHOULD this be different for dark mode...?
-  --tab-hover-shadow: 0 1px 0 0 #{$bordercolor},
-                      0 5px 0 0 #223,
-                      0 0 3px 0 #dde;
+@media (prefers-color-scheme: dark) {
+  :root {
+    // If the browser can detect a preference for dark mode, it should be honored
+    // unless it's been overridden explicitly
+    @include dark-theme;
+  
+    [data-theme="light"] {
+      // When light theme is explicitly set, only support light color scheme... for real
+      color-scheme: light !important;
+      @include light-theme;
+    }
+  }
 }
 
 html,
@@ -87,14 +42,10 @@ body {
   font-family: "DejaVu Serif", Georgia, serif;
 }
 
-/*Easy but only partial remedy for pre-HTML5 browsers (if you happen to be
-surfing the net from a fossil.) Doesn't help old versions of IE at all.*/
-// TODO|kevin do I even need some of these now that I've gotten rid of the legacy index? I'm PRETTY SURE it isn't comprehensive
-article,
+// Easy but only partial remedy for pre-HTML5 browsers (if you happen to be
+// surfing the net from a fossil.) Doesn't help old versions of IE at all.
+// Heavily abridged to just the semantic elements I'm actually using.
 aside,
-details,
-figcaption,
-figure,
 footer,
 header,
 hgroup,
@@ -104,7 +55,7 @@ section {
   display: block;
 }
 
-/** Content wrapper for the whole page **/
+// Content wrapper for the whole page
 #wrapper {
   min-height: 100%;
   position: relative;
@@ -130,19 +81,22 @@ h2 {
   }
 }
 
-/** Container for primary page content **/
+// Container for primary page content
 #main-content {
   padding-bottom: 100px;
 
   p:first-of-type:not(.subhead)::first-letter,
   hr+p::first-letter {
-    /*Yeeaaah, this is kind of egregious. It DOES look cool, though.*/
+      // Yeeaaah, this is kind of egregious. It DOES look cool, though.
+      // TODO|kevin Honestly this is just foolishness and should really be applied
+      // to a class instead of this nightmare selector, but... it IS also FUN.
       float: left;
       @include var-with-fallback(color, --initial-caps-color, $capscolor);
       font-size: 2em;
       font-weight: bold;
       line-height: 1em;
-      padding-right: 6px;
+      margin-top: -6px;
+      padding-right: 4px;
       @include var-with-fallback(text-shadow, --initial-caps-stroke, $defaultcapsstroke);
   }
 }
@@ -169,14 +123,13 @@ hr {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(102, 153, 255, 0.75), rgba(0, 0, 0, 0));
 }
 
-/** Custom horizontal rule (div) **/
-/* Shouts to css-tricks: https://css-tricks.com/examples/hrs/ Mine is on a div to be
-somewhat less ambiguous WRT standard.*/
+/** EXTRA-custom horizontal rule (div) **/
+// Shouts to css-tricks: https://css-tricks.com/examples/hrs/
+// Mine is on a div to be somewhat less ambiguous WRT standard.
 .customrule {
   margin-top: 20px;
   height: 15px;
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
-  // TODO|kevin make sure this width override actually works as intended
   border-width: 1px 0 0 0;
   border-radius: 15px;
 
@@ -184,9 +137,8 @@ somewhat less ambiguous WRT standard.*/
     display: block;
     height: 15px;
     margin-top: -16px;
-    /*One more than the height*/
+    // One more than the height
     content: "";
-    // TODO|kevin here too lmao
     @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
     border-width: 0 0 1px 0;
     border-radius: 15px;
@@ -304,8 +256,7 @@ somewhat less ambiguous WRT standard.*/
 .tab-title {
     display: inline-block;
     vertical-align: bottom;
-    width: 6em;
-    /*To stop tabs shifting from bold text*/
+    width: 6em; // Explicit width to stop tabs shifting from bolded text
 }
 
 .tab-title>a {
@@ -345,7 +296,6 @@ somewhat less ambiguous WRT standard.*/
 }
 
 
-
 /********** Tabbed Content Display **********/
 
 /** Container for all the tab panels **/
@@ -367,7 +317,7 @@ somewhat less ambiguous WRT standard.*/
   overflow: hidden;
 
   // TODO|kevin this should have a slight margin-bottom of its own (perhaps take
-  // some off of #tabs-content) so that it looks less crowded in noscript mode
+  // some off of #tabs-content too?) so it looks less crowded in noscript mode
 
   &.active {
     display: block;

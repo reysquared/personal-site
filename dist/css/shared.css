@@ -9,9 +9,7 @@
  * itself, which is ONLY useful in browsers that support the feature.
 */
 /********** General Page Style **********/
-:root,
-[data-theme="light"] {
-  color-scheme: light;
+:root {
   --main-bg-color: #fff;
   --main-text-color: #000;
   --initial-caps-color: #6af;
@@ -23,14 +21,13 @@
   --tab-hover-fill: #69f;
   --tab-hover-border: 1px solid #aab;
   --tab-hover-shadow: 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab; }
-
-[data-theme="dark"] {
-  color-scheme: dark;
-  --main-bg-color: #223;
-  --main-text-color: #eee;
-  --initial-caps-color: #46e;
-  --customrule-flair-color: #236;
-  --initial-caps-stroke: -1px -1px 0 #fff,
+  :root [data-theme="dark"] {
+    color-scheme: dark !important;
+    --main-bg-color: #223;
+    --main-text-color: #eee;
+    --initial-caps-color: #46e;
+    --customrule-flair-color: #236;
+    --initial-caps-stroke: -1px -1px 0 #fff,
                          1px -1px 0 #fff,
                          -1px 1px 0 #fff,
                          1px 1px 0 #fff,
@@ -38,14 +35,50 @@
                          -1px 0 0 #fff,
                          0 1px 0 #fff,
                          0 -1px 0 #fff;
-  --main-content-border: 1px solid #69f;
-  --text-input-border: 1px solid #333;
-  --text-input-border-focus: 2px solid #888;
-  --tab-hover-fill: #69f;
-  --tab-hover-border: 1px solid #aab;
-  --tab-hover-shadow: 0 1px 0 0 #69f,
+    --main-content-border: 1px solid #69f;
+    --text-input-border: 1px solid #333;
+    --text-input-border-focus: 2px solid #888;
+    --tab-hover-fill: #69f;
+    --tab-hover-border: 1px solid #dde;
+    --tab-hover-shadow: 0 1px 0 0 #69f,
                       0 5px 0 0 #223,
                       0 0 3px 0 #dde; }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-bg-color: #223;
+    --main-text-color: #eee;
+    --initial-caps-color: #46e;
+    --customrule-flair-color: #236;
+    --initial-caps-stroke: -1px -1px 0 #fff,
+                         1px -1px 0 #fff,
+                         -1px 1px 0 #fff,
+                         1px 1px 0 #fff,
+                         1px 0 0 #fff,
+                         -1px 0 0 #fff,
+                         0 1px 0 #fff,
+                         0 -1px 0 #fff;
+    --main-content-border: 1px solid #69f;
+    --text-input-border: 1px solid #333;
+    --text-input-border-focus: 2px solid #888;
+    --tab-hover-fill: #69f;
+    --tab-hover-border: 1px solid #dde;
+    --tab-hover-shadow: 0 1px 0 0 #69f,
+                      0 5px 0 0 #223,
+                      0 0 3px 0 #dde; }
+    :root [data-theme="light"] {
+      color-scheme: light !important;
+      --main-bg-color: #fff;
+      --main-text-color: #000;
+      --initial-caps-color: #6af;
+      --customrule-flair-color: #cef;
+      --initial-caps-stroke: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000;
+      --main-content-border: 1px solid #69f;
+      --text-input-border: 1px solid #888;
+      --text-input-border-focus: 2px solid #333;
+      --tab-hover-fill: #69f;
+      --tab-hover-border: 1px solid #aab;
+      --tab-hover-shadow: 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab; } }
 
 html,
 body {
@@ -60,13 +93,7 @@ body {
   color: var(--main-text-color, #000);
   font-family: "DejaVu Serif", Georgia, serif; }
 
-/*Easy but only partial remedy for pre-HTML5 browsers (if you happen to be
-surfing the net from a fossil.) Doesn't help old versions of IE at all.*/
-article,
 aside,
-details,
-figcaption,
-figure,
 footer,
 header,
 hgroup,
@@ -75,7 +102,6 @@ nav,
 section {
   display: block; }
 
-/** Content wrapper for the whole page **/
 #wrapper {
   min-height: 100%;
   position: relative;
@@ -95,19 +121,18 @@ h2 {
     content: "\00a0\00a0\00a0\00a0\2767\00a0";
     font-weight: bold; }
 
-/** Container for primary page content **/
 #main-content {
   padding-bottom: 100px; }
   #main-content p:first-of-type:not(.subhead)::first-letter,
   #main-content hr + p::first-letter {
-    /*Yeeaaah, this is kind of egregious. It DOES look cool, though.*/
     float: left;
     color: #6af;
     color: var(--initial-caps-color, #6af);
     font-size: 2em;
     font-weight: bold;
     line-height: 1em;
-    padding-right: 6px;
+    margin-top: -6px;
+    padding-right: 4px;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000;
     text-shadow: var(--initial-caps-stroke, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000); }
 
@@ -129,9 +154,7 @@ hr {
   height: 1px;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(102, 153, 255, 0.75), rgba(0, 0, 0, 0)); }
 
-/** Custom horizontal rule (div) **/
-/* Shouts to css-tricks: https://css-tricks.com/examples/hrs/ Mine is on a div to be
-somewhat less ambiguous WRT standard.*/
+/** EXTRA-custom horizontal rule (div) **/
 .customrule {
   margin-top: 20px;
   height: 15px;
@@ -143,7 +166,6 @@ somewhat less ambiguous WRT standard.*/
     display: block;
     height: 15px;
     margin-top: -16px;
-    /*One more than the height*/
     content: "";
     border: 1px solid #69f;
     border: var(--main-content-border, 1px solid #69f);
@@ -238,8 +260,7 @@ somewhat less ambiguous WRT standard.*/
 .tab-title {
   display: inline-block;
   vertical-align: bottom;
-  width: 6em;
-  /*To stop tabs shifting from bold text*/ }
+  width: 6em; }
 
 .tab-title > a {
   display: block;

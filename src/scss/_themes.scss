@@ -1,0 +1,64 @@
+// SCSS variables for use in light color scheme and as default fallbacks
+// I would just leave them to be specified entirely in the custom properties if
+// I weren't referencing them for the fallbacks to the var-with-fallback mixin
+$bgcolor: #fff;
+$textcolor: #000;
+$capscolor: #6af;
+$flaircolor: #cef;
+$bordercolor: #69f;
+$strokecolor: #000;
+$inputborder: #888;
+$inputfocus: #333;
+$tabglowcolor: #aab;
+// Also make variables for these default (light mode) text-shadow values, cus they're real long
+$defaultcapsstroke: -1px -1px 0 $strokecolor,
+                    1px -1px 0 $strokecolor,
+                    -1px 1px 0 $strokecolor,
+                    1px 1px 0 $strokecolor,
+                    1px 0 0 $strokecolor, // TODO|kevin added these last four to cover horizontal gaps, but feels a BIT overkill...
+                    -1px 0 0 $strokecolor,
+                    0 1px 0 $strokecolor,
+                    0 -1px 0 $strokecolor;
+$defaulttabhover: 0 1px 0 0 $bordercolor,
+                  0 5px 0 0 $bgcolor,
+                  0 0 3px 0 $tabglowcolor;
+
+// I do some real tomfoolery with media queries to support dark mode preferences
+// while also allowing them to be overridden, so mixins are easier to read
+@mixin light-theme {
+  --main-bg-color: #{$bgcolor};
+  --main-text-color: #{$textcolor};
+  --initial-caps-color: #{$capscolor};
+  --customrule-flair-color: #{$flaircolor};
+  --initial-caps-stroke: #{$defaultcapsstroke};
+  --main-content-border: 1px solid #{$bordercolor};
+  --text-input-border: 1px solid #{$inputborder};
+  --text-input-border-focus: 2px solid #{$inputfocus};
+  --tab-hover-fill: #{$bordercolor};
+  --tab-hover-border: 1px solid #{$tabglowcolor};
+  --tab-hover-shadow: #{$defaulttabhover};
+}
+
+@mixin dark-theme {
+  // TODO|kevin make sure this shit is TIGHTTT
+  --main-bg-color: #223;
+  --main-text-color: #eee;
+  --initial-caps-color: #46e;
+  --customrule-flair-color: #236;
+  --initial-caps-stroke: -1px -1px 0 #fff,
+                         1px -1px 0 #fff,
+                         -1px 1px 0 #fff,
+                         1px 1px 0 #fff,
+                         1px 0 0 #fff,
+                         -1px 0 0 #fff,
+                         0 1px 0 #fff,
+                         0 -1px 0 #fff;
+  --main-content-border: 1px solid #{$bordercolor};
+  --text-input-border: 1px solid #333;
+  --text-input-border-focus: 2px solid #888;
+  --tab-hover-fill: #{$bordercolor}; // TODO|kevin ehhhh... WE'LL THINK ABOUT IT
+  --tab-hover-border: 1px solid #dde;
+  --tab-hover-shadow: 0 1px 0 0 #{$bordercolor},
+                      0 5px 0 0 #223,
+                      0 0 3px 0 #dde;
+}
