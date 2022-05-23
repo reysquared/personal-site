@@ -53,7 +53,7 @@ directly accessible by URL.
 student's website, so everything in their directory should be owned by them,
 not root or www-data or whatever, especially if they plan to ever edit those
 files later. Directories should have the permissions `755 drwxr-xr-x`, ordinary
-files should be `644 -rw-r--r--`, and CGI scripts '700 -rwx------`. This means
+files should be `644 -rw-r--r--`, and CGI scripts `700 -rwx------`. This means
 that only the student's account can do anything with their own CGI scripts. It
 probably isn't critical that ALL script permissions are only for the student,
 but it IS critical that only the file owner has write permissions. And even so

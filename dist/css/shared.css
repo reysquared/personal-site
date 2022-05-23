@@ -1,6 +1,51 @@
+/*
+ * Not all browsers support CSS custom properties still, hence this mixin. It
+ * actually provides a fallback in two different ways. The first is the initial
+ * declaration, to handle browsers that don't support var() in which case the
+ * latter will be ignored entirely. However, for browsers that DO support it,
+ * the custom property value is determined at runtime, so if it is invalid or
+ * unset in that context, the first declaration will already have been discarded
+ * and the value will become unset. Hence the second fallback, within the var()
+ * itself, which is ONLY useful in browsers that support the feature.
+*/
 /********** General Page Style **********/
-:root {
-  color-scheme: light dark; }
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --main-bg-color: #fff;
+  --main-text-color: #000;
+  --initial-caps-color: #6af;
+  --customrule-flair-color: #cef;
+  --initial-caps-stroke: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000;
+  --main-content-border: 1px solid #69f;
+  --text-input-border: 1px solid #888;
+  --text-input-border-focus: 2px solid #333;
+  --tab-hover-fill: #69f;
+  --tab-hover-border: 1px solid #aab;
+  --tab-hover-shadow: 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab; }
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --main-bg-color: #223;
+  --main-text-color: #eee;
+  --initial-caps-color: #46e;
+  --customrule-flair-color: #236;
+  --initial-caps-stroke: -1px -1px 0 #fff,
+                         1px -1px 0 #fff,
+                         -1px 1px 0 #fff,
+                         1px 1px 0 #fff,
+                         1px 0 0 #fff,
+                         -1px 0 0 #fff,
+                         0 1px 0 #fff,
+                         0 -1px 0 #fff;
+  --main-content-border: 1px solid #69f;
+  --text-input-border: 1px solid #333;
+  --text-input-border-focus: 2px solid #888;
+  --tab-hover-fill: #69f;
+  --tab-hover-border: 1px solid #aab;
+  --tab-hover-shadow: 0 1px 0 0 #69f,
+                      0 5px 0 0 #223,
+                      0 0 3px 0 #dde; }
 
 html,
 body {
@@ -9,6 +54,10 @@ body {
   height: 100%; }
 
 body {
+  background: #fff;
+  background: var(--main-bg-color, #fff);
+  color: #000;
+  color: var(--main-text-color, #000);
   font-family: "DejaVu Serif", Georgia, serif; }
 
 /*Easy but only partial remedy for pre-HTML5 browsers (if you happen to be
@@ -46,15 +95,6 @@ h2 {
     content: "\00a0\00a0\00a0\00a0\2767\00a0";
     font-weight: bold; }
 
-figure {
-  text-align: center;
-  max-width: 30%; }
-  figure img {
-    width: 100%; }
-
-figcaption {
-  font-size: 70%; }
-
 /** Container for primary page content **/
 #main-content {
   padding-bottom: 100px; }
@@ -63,11 +103,13 @@ figcaption {
     /*Yeeaaah, this is kind of egregious. It DOES look cool, though.*/
     float: left;
     color: #6af;
+    color: var(--initial-caps-color, #6af);
     font-size: 2em;
     font-weight: bold;
     line-height: 1em;
     padding-right: 6px;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000;
+    text-shadow: var(--initial-caps-stroke, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000); }
 
 /** Footer anchored to page bottom **/
 #sticky-footer {
@@ -93,8 +135,8 @@ somewhat less ambiguous WRT standard.*/
 .customrule {
   margin-top: 20px;
   height: 15px;
-  border-style: solid;
-  border-color: #69f;
+  border: 1px solid #69f;
+  border: var(--main-content-border, 1px solid #69f);
   border-width: 1px 0 0 0;
   border-radius: 15px; }
   .customrule::before {
@@ -103,8 +145,8 @@ somewhat less ambiguous WRT standard.*/
     margin-top: -16px;
     /*One more than the height*/
     content: "";
-    border-style: solid;
-    border-color: #69f;
+    border: 1px solid #69f;
+    border: var(--main-content-border, 1px solid #69f);
     border-width: 0 0 1px 0;
     border-radius: 15px; }
   .customrule::after {
@@ -115,8 +157,10 @@ somewhat less ambiguous WRT standard.*/
     margin: 0 auto;
     display: block;
     border: 1px solid #69f;
+    border: var(--main-content-border, 1px solid #69f);
     border-radius: 6px;
     background-color: #cef;
+    background-color: var(--customrule-flair-color, #cef);
     text-align: center;
     top: -4px; }
 
@@ -145,9 +189,11 @@ somewhat less ambiguous WRT standard.*/
   width: 40em;
   height: 5em;
   border: 1px solid #888;
+  border: var(--text-input-border, 1px solid #888);
   resize: none; }
   .scriptbox:focus {
-    border: 2px solid #333; }
+    border: 2px solid #333;
+    border: var(--text-input-border-focus, 2px solid #333); }
 
 .ajax-status {
   text-align: center; }
@@ -175,6 +221,7 @@ somewhat less ambiguous WRT standard.*/
 .tabs-menu {
   height: 3em;
   border-bottom: 1px solid #69f;
+  border-bottom: var(--main-content-border, 1px solid #69f);
   text-align: center;
   position: relative; }
 
@@ -199,21 +246,32 @@ somewhat less ambiguous WRT standard.*/
   margin: 0 1px;
   padding: 5px 10px;
   background: #fff;
+  background: var(--main-bg-color, #fff);
   transition: background .2s ease, color .2s ease, padding .2s ease, border .2s ease;
   text-decoration: none;
   color: #000;
+  color: var(--main-text-color, #000);
   border-top: 1px solid #69f;
+  border-top: var(--main-content-border, 1px solid #69f);
   border-left: 1px solid #69f;
-  border-right: 1px solid #69f; }
+  border-left: var(--main-content-border, 1px solid #69f);
+  border-right: 1px solid #69f;
+  border-right: var(--main-content-border, 1px solid #69f); }
 
 .tab-title > a:hover {
   /*Hover highlighting for tab buttons*/
   background: #69f;
+  background: var(--tab-hover-fill, #69f);
   color: #fff;
+  color: var(--main-bg-color, #fff);
   border-top: 1px solid #aab;
+  border-top: var(--tab-hover-border, 1px solid #aab);
   border-left: 1px solid #aab;
+  border-left: var(--tab-hover-border, 1px solid #aab);
   border-right: 1px solid #aab;
-  box-shadow: 0 1px 0 0 #69f, 0 5px 0 0 white, 0 0 3px 0 #aab; }
+  border-right: var(--tab-hover-border, 1px solid #aab);
+  box-shadow: 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab;
+  box-shadow: var(--tab-hover-shadow, 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab); }
 
 .tab-title.active > a,
 .tab-title.active > a:hover {
@@ -222,7 +280,9 @@ somewhat less ambiguous WRT standard.*/
   /*Shifts active tab down, obscuring tabs-menu border for tab effect*/
   padding: 10px;
   background: #fff;
+  background: var(--main-bg-color, #fff);
   color: #000;
+  color: var(--main-text-color, #000);
   font-weight: bold;
   box-shadow: none; }
 
@@ -242,6 +302,7 @@ somewhat less ambiguous WRT standard.*/
   padding: 20px;
   width: 600px;
   border: 1px solid #69f;
+  border: var(--main-content-border, 1px solid #69f);
   overflow: hidden; }
   .tab-panel.active {
     display: block; }
