@@ -56,6 +56,8 @@ export const rotateChar = (ch, n) => {
 
 /**
  * // TODO|kevin lol VSCode auto-filled this param for me, that's cool.
+ * TODO|kevin I should really probably turn this into its own little git submodule
+ * see: https://git-scm.com/book/en/v2/Git-Tools-Submodules
  * @param {*} ch 
  * 
  * if c is the space character or an alphabetic character,

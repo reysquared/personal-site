@@ -3,32 +3,6 @@
 
 /********** General Page Style **********/
 
-:root {
-  // Default color scheme is light mode, this is what will be used if the user
-  // has JavaScript disabled or the browser doesn't support these media queries
-  @include light-theme;
-
-  [data-theme="dark"] {
-    // When dark theme is explicitly set, only support dark color scheme... for real
-    color-scheme: dark !important;
-    @include dark-theme;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    // If the browser can detect a preference for dark mode, it should be honored
-    // unless it's been overridden explicitly
-    @include dark-theme;
-  
-    [data-theme="light"] {
-      // When light theme is explicitly set, only support light color scheme... for real
-      color-scheme: light !important;
-      @include light-theme;
-    }
-  }
-}
-
 html,
 body {
   margin: 0;
@@ -95,7 +69,7 @@ h2 {
       font-size: 2em;
       font-weight: bold;
       line-height: 1em;
-      margin-top: -6px;
+      margin-top: -4px;
       padding-right: 4px;
       @include var-with-fallback(text-shadow, --initial-caps-stroke, $defaultcapsstroke);
   }
@@ -109,9 +83,14 @@ h2 {
   position: absolute;
   bottom: 0;
   left: 0;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 a {
+  // TODO|kevin ....... is this really necessary
   cursor: pointer;
 }
 
@@ -239,7 +218,6 @@ hr {
   @include var-with-fallback(border-bottom, --main-content-border, 1px solid $bordercolor);
   text-align: center;
   position: relative;
-  // TODO|kevin I might be able to just do something with overflow to make this scrollable at mobile widths
 }
 
 .tabs-list {
@@ -250,49 +228,55 @@ hr {
   left: 0;
   right: 0;
   bottom: 0;
+  // TODO|kevin this looks pretty good but it could do better I feel like tbh...
+  // setting flex on tab-title seems to only get me so far and the shrunk buttons
+  // cause the "tabs shift when selected" issue to return in a big way lol
+  display: flex;
+  align-items: end;
+  justify-content: center;
 }
 
 /** An individual item of the tab menu **/
 .tab-title {
-    display: inline-block;
-    vertical-align: bottom;
-    width: 6em; // Explicit width to stop tabs shifting from bolded text
-}
+  display: inline-block;
+  vertical-align: bottom;
+  width: 6em; // Explicit width to stop tabs shifting from bolded text
+  margin: 0 0.1em;
 
-.tab-title>a {
-  display: block;
-  margin: 0 1px;
-  padding: 5px 10px;
-  @include var-with-fallback(background, --main-bg-color, $bgcolor);
-  transition: background .2s ease, color .2s ease, padding .2s ease, border .2s ease;
-  text-decoration: none;
-  @include var-with-fallback(color, --main-text-color, $textcolor);
-  @include var-with-fallback(border-top, --main-content-border, 1px solid $bordercolor);
-  @include var-with-fallback(border-left, --main-content-border, 1px solid $bordercolor);
-  @include var-with-fallback(border-right, --main-content-border, 1px solid $bordercolor);
-}
+  > a {
+    display: block;
+    margin: 0 1px;
+    padding: 5px 10px;
+    @include var-with-fallback(background, --main-bg-color, $bgcolor);
+    transition: background .2s ease, color .2s ease, padding .2s ease, border .2s ease;
+    text-decoration: none;
+    @include var-with-fallback(color, --main-text-color, $textcolor);
+    @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+    border-width: 1px 1px 0 1px;
 
-.tab-title>a:hover {
-  /*Hover highlighting for tab buttons*/
-  @include var-with-fallback(background, --tab-hover-fill, $bordercolor);
-  // TODO|kevin ehhhh I'm not sure about this one--at best it's certainly not very semantic!
-  @include var-with-fallback(color, --main-bg-color, $bgcolor);  // color: #fff;
-  @include var-with-fallback(border-top, --tab-hover-border, 1px solid $tabglowcolor);
-  @include var-with-fallback(border-left, --tab-hover-border, 1px solid $tabglowcolor);
-  @include var-with-fallback(border-right, --tab-hover-border, 1px solid $tabglowcolor);
-  @include var-with-fallback(box-shadow, --tab-hover-shadow, $defaulttabhover);
-}
+    &:hover, &:focus {
+      /*Hover highlighting for tab buttons*/
+      @include var-with-fallback(background, --tab-hover-fill, $bordercolor);
+      // TODO|kevin ehhhh I'm not sure about this one--at best it's certainly not very semantic!
+      @include var-with-fallback(color, --main-bg-color, $bgcolor);  // color: #fff;
+      @include var-with-fallback(border, --tab-hover-border, 1px solid $tabglowcolor);
+      border-width: 1px 1px 0 1px;
+      @include var-with-fallback(box-shadow, --tab-hover-shadow, $defaulttabhover);
+    }
+  }
 
-.tab-title.active>a,
-.tab-title.active>a:hover {
-  position: relative;
-  bottom: -1px;
-  /*Shifts active tab down, obscuring tabs-menu border for tab effect*/
-  padding: 10px;
-  @include var-with-fallback(background, --main-bg-color, $bgcolor);
-  @include var-with-fallback(color, --main-text-color, $textcolor);
-  font-weight: bold;
-  box-shadow: none;
+  &.active > a {
+    &, &:hover, &:focus {
+      position: relative;
+      bottom: -1px;
+      /*Shifts active tab down, obscuring tabs-menu border for tab effect*/
+      padding: 10px;
+      @include var-with-fallback(background, --main-bg-color, $bgcolor);
+      @include var-with-fallback(color, --main-text-color, $textcolor);
+      font-weight: bold;
+      box-shadow: none;
+    }
+  }
 }
 
 
@@ -312,7 +296,7 @@ hr {
 .tab-panel {
   margin: 0 auto;
   padding: 20px;
-  width: 600px;
+  max-width: 600px;
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
   overflow: hidden;
 
@@ -325,5 +309,33 @@ hr {
 
   &.inactive {
     display: none;
+  }
+}
+
+
+// TODO|kevin do something with this fun pixel-art of my face lolol
+// filter: invert(100%) sepia(100%) saturate(10000%) hue-rotate(23deg) invert(100%) brightness(0.9) saturate(10%);
+// float: right;
+#pixelface {
+  @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+  float: right;  // TODO|kevin maybe?
+  height: 160px;
+  margin-left: 0.3em;
+  margin-top: 1em;
+  width: 160px;
+  background-size: 160px 160px;
+  background-image: url('../../images/pixelface-light-border@2x.png');
+
+  [data-theme="dark"] & {
+    background-image: url('../../images/pixelface-dark-border@2x.png');
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-image: url('../../images/pixelface-dark-border@2x.png');
+
+    [data-theme="light"] & {
+      // TODO|kevin this hullaballoo is pretty ridiculous, I should see how it actually compiles out
+      background-image: url('../../images/pixelface-light-border@2x.png');
+    }
   }
 }

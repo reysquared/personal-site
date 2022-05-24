@@ -1,26 +1,63 @@
 <header>
   <h2>Kevin McSwiggen</h2>
-  <!-- TODO|kevin maybe I should make this default text be something about respecting your right to eschew javascript :P -->
-  <p class="subhead" id="sillysub">!</p>
+  <p class="subhead" id="sillysub">respects your wise choice to eschew JavaScript</p>
 </header>
 <div class="customrule"></div>
+<div id="pixelface" role="img" aria-label="Pixel-art rendition of Kevin's face"></div>
 <p>
-  Hello, I'm Kevin! I'm a computer science major from Harvey Mudd College
-  who graduated in Spring 2016 and is now conquering the real world.
+  Hello, the name's Kevin McSwiggen! I'm a computer scientist, software engineer,
+  and web developer--three closely-related but distinct hats. I graduated from
+  Harvey Mudd College in Spring 2016 and since then have been living in the Bay
+  Area with my partner (now spouse!)
 </p>
 <p>
   I like doing code-y stuff of pretty much any kind. (No, really, almost anything.)
+  It's way more satisfying when I can do it with like-minded cool people, though.
+  If that might be you, hit me up!
 </p>
-<p>Hobbies include headphones, cooking, and internet.</p>
 <p>
-  <!-- TODO|kevin update email address? make a mail form on the website? :thonk: -->
-  You can contact me at <code>reysquared (at) gmail.com</code> if you aren't
-  a robot. (If you are a robot, I probably can't stop you from contacting
+  I'm conversant in Spanish, and speak a <em>little</em> bit of German, but I
+  don't get many chances to practice and I've never managed to stick it through
+  with Duolingo, so if you know of a more immersive (or less naggy) way to keep
+  the rust off, I'd also love to hear about it.
+</p>
+<p>
+  My hobbies include headphones, comics, food, fiction (SFF), and internet.
+  <ul>
+    <li>
+      The headphone collection is now more than a dozen items (I ended up with a
+      duplicate or two, for what it's worth.) I really gotta put some of these
+      suckers on Audiogon/craigslist/eBay, or SOMETHING.
+    </li>
+    <li>
+      Toward the start of the pandemic I got in on the Kickstarter for the comic
+      <a href="https://ohumanstar.com/">O Human Star</a> so now I've got a sweet
+      three-volume physical copy!
+    </li>
+    <li>
+      Some favorite authors: Margaret Atwood, Jorge Luis Borges, William Gibson,
+      Charles Stross. I finally read Jeff VanderMeer's <i>Annihilation</i> after
+      several years (and after watching the movie--if you're gonna do both, do
+      it in that order simply because the book is better. :P) The rest of the
+      trilogy is next when I get some time, unless my friends convince me to
+      pick up <i>The Long Way to a Small Angry Planet</i> first.
+    </li>
+    <li>
+      Although, before getting to that, I've also picked up some NON-fiction: I
+      started reading David Graeber's <i>Debt: The First 5000 Years</i>. Already
+      I can't recommend it enough, it <em>will</em> change your perspective.
+    </li>
+  </ul>
+</p>
+<p>
+  You can contact me at <b><code>reysquared (at) gmail.com</code></b> if you
+  aren't a robot. (If you are a robot, I probably can't stop you from contacting
   me, but my replies will not be as prompt. Sorry.)
 </p>
-<br>
-<p>Courses from my last semester:</p>
-<pre>
+<p hidden>
+  Courses from my last semester:
+</p>
+<pre hidden>
 Course #   Title             Times          Notes
 CSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)
 CSCI184    Clinic            T  11:00       (and all my other time besides)
@@ -30,16 +67,3 @@ ECON045    Microeconomics    TR 1:15        (Pretending we're rational!)
 LGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)
 EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
 </pre>
-<script>
-  // TODO|kevin ... this doesnt even make sense though does it? React won't end up running this.
-  // It's my party and I'll inline pointless scripts if I want to!
-  var subOpts = [
-    'Lives bodily inside a laptop',
-    'Eats JavaScript for snax',
-    '"It\'s more of a computer art than a computer science."',
-    'is climing a mountain (why is he climbing a mountain?)',
-    'Need more sleep.',
-  ];
-  var choice = subOpts[Math.floor(Math.random() * subOpts.length)];
-  document.getElementById('sillysub').innerHTML = choice;
-</script>

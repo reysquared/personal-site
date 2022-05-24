@@ -56,6 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // In the ABSOLUTE worst case scenario, I can create a new component to wrap
   // the TabsView and put my scripts in useEffect
 
+  // This silly snippet replaces the subheader on the Bio tab with ome of these lines.
+  const subOpts = [
+    'Lives bodily inside a laptop',
+    'Eats JavaScript for snax',
+    '"It\'s more of a computer art than a computer science."',
+    'is climing a mountain (why are they climbing a mountain?)',
+    'Need more sleep.',
+  ];
+  const choice = subOpts[Math.floor(Math.random() * subOpts.length)];
+  document.getElementById('sillysub').innerHTML = choice;
+
   // TODO|kevin instead of replacing @ with (at) maybe I can make an email-address-revealer button lol
 });
 // // TODO|kevin everything below is straight from the original tabs.js, just pulled out of the IIFE

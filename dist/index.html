@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <!-- TODO|kevin think I might want/need a meta tag for color scheme stuff? hmm. -->
   <!-- TODO|kevin also how do you specify a favicon again, and what should I use for one? -->
   <title>Kevin McSwiggen</title>
   <meta name="author" content="Kevin McSwiggen">
   <meta name="color-scheme" content="light dark">
 
   <link rel="stylesheet" type="text/css" href="css/shared.css">
-  <!-- <script src="tabs.js" defer></script> -->
-  <script src="webpacks/_index.bundle.js" defer></script>
+  <!-- TODO|kevin clean up the head in general lmao. also what order should these be in and which should be defered or not? bleh -->
+  <script src="webpacks/_themes.bundle.js"></script>
+  <script src="webpacks/index.bundle.js" defer></script>
 </head>
-
 <body>
   <div id="wrapper">
     <header class="main-header">
-      <h1>Kevin's Mudd Webspace</h1>
+      <h1>Kevin's Nice Webspace</h1>
       <p class="subhead">&ldquo;It's a website! ¯\_(ツ)_/¯&rdquo;</p>
+      <div id="theme-toggle-container"></div>
     </header>
     <div id="main-content">
       <noscript>
         <nav class="tabs-menu">
           <ul class="tabs-list">
             <li class="tab-title"><a href="#bio">Bio</a></li>
-            <li class="tab-title"><a href="#resume">R&eacute;sum&eacute;</a></li>
+            <li class="tab-title"><a href="#resume">Résumé</a></li>
             <li class="tab-title"><a href="#projects">Projects</a></li>
             <li class="tab-title"><a href="#siteinfo">About</a></li>
           </ul>
@@ -42,44 +41,92 @@
 </p>
 <br>
 <p>
-  I'm Kevin McSwiggen, a computer science graduate from Harvey Mudd College.
-  This page contains information about stuff that I'm doing currently and/or have done in the
-  past.
+  Hey there, I'm Kevin, a software engineer from Oakland. This page contains
+  information about stuff that I'm doing currently and/or have done in the past.
 </p>
 <hr>
 <p><b>News:</b></p>
 <ul>
-  <li>This just in: <code>typeof NaN === 'number'</code>, and my soul hurts.</li>
-  <li>Moved to the Bay Area, woohoo!</li>
-  <li>Started getting back into Age of Empires... uh-oh.</li>
-  <li>I wish I had taken Practicum every semester!</li>
-  <li><i>The Impossible Kid</i> by Aesop Rock currently has my vote for best album of 2016.</li>
+  <li>Got married, got a house, aaand... got laid off? All in the same six months. That's an eventful half-year!</li>
+  <li>Wow, this pandemic is still going, huh.</li>
+  <li><em>Finally</em> updating my website for the first time in ages, check it out:
+    <ul>
+      <li>Migrated from the Harvey Mudd CS department server to Github Pages</li>
+      <li>Re-implemented the entire interface in React (the main webpage still supports noscript though!)</li>
+      <li>Added a dark theme option</li>
+      <li>Have begun porting some of my ancient, broken Python 2 CGI scripts into JavaScript so they can also work on Pages</li>
+      <li>Updated the info on here too, obviously</li>
+    </ul>
+  </li>
+  <li>Prepping for Firefly '22, it's been a while since I went camping.</li>
+  <li>I'm a little past 70% in Breath of the Wild now, and second-guessing my choice to go to 100%.</li>
+  <li>
+    I don't have music recs from this year yet, but listen to Daisuke Tanabe's
+    <a href="https://daisuketanabe.bandcamp.com/album/cat-steps">Cat Steps</a>.
+  </li>
 </ul>
           </section>
           <section id="bio" class="tab-panel">
             <header>
   <h2>Kevin McSwiggen</h2>
-  <!-- TODO|kevin maybe I should make this default text be something about respecting your right to eschew javascript :P -->
-  <p class="subhead" id="sillysub">!</p>
+  <p class="subhead" id="sillysub">respects your wise choice to eschew JavaScript</p>
 </header>
 <div class="customrule"></div>
+<div id="pixelface" role="img" aria-label="Pixel-art rendition of Kevin's face"></div>
 <p>
-  Hello, I'm Kevin! I'm a computer science major from Harvey Mudd College
-  who graduated in Spring 2016 and is now conquering the real world.
+  Hello, the name's Kevin McSwiggen! I'm a computer scientist, software engineer,
+  and web developer--three closely-related but distinct hats. I graduated from
+  Harvey Mudd College in Spring 2016 and since then have been living in the Bay
+  Area with my partner (now spouse!)
 </p>
 <p>
   I like doing code-y stuff of pretty much any kind. (No, really, almost anything.)
+  It's way more satisfying when I can do it with like-minded cool people, though.
+  If that might be you, hit me up!
 </p>
-<p>Hobbies include headphones, cooking, and internet.</p>
 <p>
-  <!-- TODO|kevin update email address? make a mail form on the website? :thonk: -->
-  You can contact me at <code>reysquared (at) gmail.com</code> if you aren't
-  a robot. (If you are a robot, I probably can't stop you from contacting
+  I'm conversant in Spanish, and speak a <em>little</em> bit of German, but I
+  don't get many chances to practice and I've never managed to stick it through
+  with Duolingo, so if you know of a more immersive (or less naggy) way to keep
+  the rust off, I'd also love to hear about it.
+</p>
+<p>
+  My hobbies include headphones, comics, food, fiction (SFF), and internet.
+  <ul>
+    <li>
+      The headphone collection is now more than a dozen items (I ended up with a
+      duplicate or two, for what it's worth.) I really gotta put some of these
+      suckers on Audiogon/craigslist/eBay, or SOMETHING.
+    </li>
+    <li>
+      Toward the start of the pandemic I got in on the Kickstarter for the comic
+      <a href="https://ohumanstar.com/">O Human Star</a> so now I've got a sweet
+      three-volume physical copy!
+    </li>
+    <li>
+      Some favorite authors: Margaret Atwood, Jorge Luis Borges, William Gibson,
+      Charles Stross. I finally read Jeff VanderMeer's <i>Annihilation</i> after
+      several years (and after watching the movie--if you're gonna do both, do
+      it in that order simply because the book is better. :P) The rest of the
+      trilogy is next when I get some time, unless my friends convince me to
+      pick up <i>The Long Way to a Small Angry Planet</i> first.
+    </li>
+    <li>
+      Although, before getting to that, I've also picked up some NON-fiction: I
+      started reading David Graeber's <i>Debt: The First 5000 Years</i>. Already
+      I can't recommend it enough, it <em>will</em> change your perspective.
+    </li>
+  </ul>
+</p>
+<p>
+  You can contact me at <b><code>reysquared (at) gmail.com</code></b> if you
+  aren't a robot. (If you are a robot, I probably can't stop you from contacting
   me, but my replies will not be as prompt. Sorry.)
 </p>
-<br>
-<p>Courses from my last semester:</p>
-<pre>
+<p hidden>
+  Courses from my last semester:
+</p>
+<pre hidden>
 Course #   Title             Times          Notes
 CSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)
 CSCI184    Clinic            T  11:00       (and all my other time besides)
@@ -89,25 +136,12 @@ ECON045    Microeconomics    TR 1:15        (Pretending we're rational!)
 LGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)
 EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
 </pre>
-<script>
-  // TODO|kevin ... this doesnt even make sense though does it? React won't end up running this.
-  // It's my party and I'll inline pointless scripts if I want to!
-  var subOpts = [
-    'Lives bodily inside a laptop',
-    'Eats JavaScript for snax',
-    '"It\'s more of a computer art than a computer science."',
-    'is climing a mountain (why is he climbing a mountain?)',
-    'Need more sleep.',
-  ];
-  var choice = subOpts[Math.floor(Math.random() * subOpts.length)];
-  document.getElementById('sillysub').innerHTML = choice;
-</script>
+
             <a class="button go-back" href="#top">Main</a><br><br>
           </section>
           <section id="resume" class="tab-panel">
             <!-- TODO it would be way easier to just have styles specific to the resume section -->
-<h2>R&eacute;sum&eacute;</h2>
-<!-- TODO|kevin why not just use the actual character? it IS ascii isn't it? -->
+<h2>Résumé</h2>
 <div class="customrule"></div>
 <p><strong>OVERVIEW:</strong></p>
 <p>
@@ -122,8 +156,8 @@ EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
   structure use and implementation; debugging at source and assembly level
 </p>
 <p>
-  <strong>Software:</strong> Windows, Unix; Visual Studio; Microsoft Office; LaTeX;
-  Adobe Photoshop, Flash, Illustrator; GIMP
+  <strong>Software:</strong> Windows, OSX, Linux (Ubuntu/Gentoo); Visual Studio;
+  Office Suite; LaTeX; Adobe Photoshop, Illustrator; GIMP
 </p>
 
 <hr>
@@ -144,6 +178,8 @@ EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
             <h2>Personal and Academic Projects</h2>
 <div class="customrule"></div>
 <p>More things will become visible here overtime.</p>
+<!-- TODO|kevin I should make this tab specifically for projects that are ON THIS SITE. or at least have a link?
+Then the resume tab can link to them on this tab or whatever. -->
 <p>
   You can check out <a href="https://github.com/reysquared">my GitHub page</a>, but it's
   kind of empty right now. (Most of my repos happen to be private...) I'm working on it.
@@ -194,44 +230,32 @@ EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
             <h2>About This Webpage</h2>
 <div class="customrule"></div>
 <p>
-  I originally designed and coded this site as a demo project page for Harvey Mudd's intro
-  CS class. They are (were?) starting to integrate web technologies into the course as extra credit,
-  and Professor Dodds thought it would be really cool if the students had individual project
-  pages that they could update as they go along, both to take advantage of the new things
-  that they learn about the web, and to interactively show off some of the scripts they make
-  for the class.
+  This website started out as a demo project page for Harvey Mudd's intro CS class.
+  They are (were?) starting to integrate web technologies into the course as an
+  extra credit project, and Prof. Dodds thought it would be really cool if students
+  had individual portals they could update as they go along to show off the things
+  they made throughout the course while learning about a web stack at the same time.
+  So one summer while I was on Student CS Staff, I took a crack at a prototype!
 </p>
 <p>
-  This started out as something like a prototype. I tried as much as possible to make the look
-  both clean and classy, showing off all kinds of little details with CSS and such as kind of a
-  teaching page. I decided to do the whole thing in bog-standard JavaScript also, in part as a
-  demonstration and in part because using all of JQuery seemed like overkill for such a tiny
-  page, you know? (The experience was a little bit zen. More people should use plain JS.)
-</p>
-<!-- TODO|kevin I should significantly change or remove this section in general, huh? -->
-<p>
-  Of course, it looked slightly different at that point. The old version is enshrined
-  <a href="#deleted">here</a> for personal posterity, complete with boatloads of comments
-  all over the source, so curious students could more easily pick apart the page. Pardon the
-  kind of nonsense content&mdash;I wasn't responsible for designing the curriculum track, just
-  the webpage, so the text is mostly stupid garbage intended to fill the space. Some of the
-  technical information in the body text is also kind of meta and maybe inaccurate so ignore
-  that junk too. (The comments are still pretty good, though.)
+  Initially it was hosted for a brief time on Amazon Web Services, and then for
+  several years after that on the HMC Computer Science department server, under
+  my <a href="https://www.cs.hmc.edu/~kmcswiggen/">student webspace</a>. I'll
+  probably just make that redirect to this page at some point, I dunno... but
+  for now you can see a version of this site that's more than a half decade old!
+  Don't judge it too harshly, my standards have improved since I was in college.
 </p>
 <p>
-  The most important part of it, arguably, were the forms that could be used to interact with
-  server-side Python scripts (which would hypothetically be written by the students.) Though mostly
-  not super-involved, they would serve as templates for students curious about server interaction
-  and HTTP. Those are also still accessible below, for two different scripts and with two versions
-  (of differing input complexity) for each. If you try out the Mandelbrot generator, make sure you
-  turn off your pop-up blocker!
+  Originally done entirely in vanilla JavaScript, and with the frontend code
+  contained almost entirely inside a single IIFE, it's now implemented chiefly
+  in React and built using webpack, and the full source is available on GitHub.
+  The couple of Python CGI scripts it had, which were originally placeholders
+  to be replaced by CS5 students' own work, are in the process of being ported
+  into JavaScript (since it's a bit easier to host and zero effort to configure)
+  and will appear on the Projects tab as they're completed, probably as separate
+  git submodules.
 </p>
-<hr>
-<ul>
-  <li>Caesar Cypher: (<a href="interface1.html">Basic</a>) (<a href="interface1_advanced.html">Advanced</a>)</li>
-  <li>Mandelbrot Generator: (<a href="interface2.html">Basic</a>) (<a href="interface2_advanced.html">Advanced</a>)</li>
-</ul>
-<br>
+
             <a class="button go-back" href="#top">Main</a><br><br>
           </section>
         </div>
@@ -239,7 +263,9 @@ EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
     </div>
     <footer id="sticky-footer">
       <!-- TODO|kevin maybe I should make this into a partial too tbh. ALSO, dark mode toggle should go here.
-  ALSO, I should apply text-decoration: none to fix that stupid underline. ALSO, maybe remove/shrink these in general lmao -->
+        ALSO, I should apply text-decoration: none to fix that stupid underline.
+        TODO|kevin ALSO, maybe remove/shrink these in general lmao
+        or at the VERY LEAST I better re-run the fuckin validators !! -->
       &copy; 2022 Kevin McSwiggen
       <p>
         <a href="http://jigsaw.w3.org/css-validator/check/referer">
@@ -256,5 +282,4 @@ EAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)
     </footer>
   </div>
 </body>
-
 </html>

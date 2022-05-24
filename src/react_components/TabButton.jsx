@@ -5,6 +5,7 @@ export default function TabButton({ tabId, label, activeTab, setActiveTab }) {
   const handleClick = (event) => {
     event.preventDefault();
     setActiveTab(tabId);
+    window.history.pushState(null, null, `#${tabId}`);
   }
   // TODO|kevin still REALLY not sure if the onClick should be on the anchor or not.
   // If putting it on the li means that the default behavior for the href is still

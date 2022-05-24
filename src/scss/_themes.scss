@@ -62,3 +62,33 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
                       0 5px 0 0 #223,
                       0 0 3px 0 #dde;
 }
+
+:root {
+  // Default color scheme is light mode, this is what will be used if the user
+  // has JavaScript disabled or the browser doesn't support these media queries
+  @include light-theme;
+
+  [data-theme="dark"] {
+    // When dark theme is explicitly set, only support dark color scheme... for real
+    color-scheme: dark !important;
+    @include dark-theme;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    // If the browser can detect a preference for dark mode, it should be honored
+    // unless it's been overridden explicitly
+    @include dark-theme;
+
+    [data-theme="light"] {
+      // When light theme is explicitly set, only support light color scheme... for real
+      color-scheme: light !important;
+      @include light-theme;
+    }
+  }
+}
+
+#theme-toggle-container {
+  // TODO|kevin
+}

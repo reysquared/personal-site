@@ -1,6 +1,39 @@
-// TODO|kevin lessgooo
+import React from 'react';
 
-// const preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+export default function ThemeSwitcher({props}) {
+  const currentTheme = localStorage.getItem('theme');
+  const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const defaultDark = currentTheme === 'dark' || (!currentTheme && preferDark);
+
+  if (currentTheme) {
+    document.body.setAttribute('data-theme', currentTheme);
+  }
+
+  const setTheme = (event) => {
+    if (event.target.checked) {
+      document.body.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+    }
+  };
+
+  // TODO|kevin boy howdy this needs SO MUCH WORK but screw it lets just see if the dang ol checkbox itself works
+  return (
+    <>
+      <label></label>
+      <label id="theme-toggle">
+        <input
+          type="checkbox"
+          onChange={setTheme}
+          defaultChecked={defaultDark}
+        />
+      </label>
+    </>
+  );
+}
+// TODO|kevin lessgooo
 
 /*
 <label className="theme-toggle">

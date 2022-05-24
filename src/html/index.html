@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <!-- TODO|kevin think I might want/need a meta tag for color scheme stuff? hmm. -->
   <!-- TODO|kevin also how do you specify a favicon again, and what should I use for one? -->
   <title>Kevin McSwiggen</title>
   <meta name="author" content="Kevin McSwiggen">
   <meta name="color-scheme" content="light dark">
 
   <link rel="stylesheet" type="text/css" href="css/shared.css">
-  <!-- <script src="tabs.js" defer></script> -->
-  <script src="webpacks/_index.bundle.js" defer></script>
+  <!-- TODO|kevin clean up the head in general lmao. also what order should these be in and which should be defered or not? bleh -->
+  <script src="webpacks/_themes.bundle.js"></script>
+  <script src="webpacks/index.bundle.js" defer></script>
 </head>
-
 <body>
   <div id="wrapper">
     <header class="main-header">
-      <h1>Kevin's Mudd Webspace</h1>
+      <h1>Kevin's Nice Webspace</h1>
       <p class="subhead">&ldquo;It's a website! ¯\_(ツ)_/¯&rdquo;</p>
+      <div id="theme-toggle-container"></div>
     </header>
     <div id="main-content">
       <noscript>
         <nav class="tabs-menu">
           <ul class="tabs-list">
             <li class="tab-title"><a href="#bio">Bio</a></li>
-            <li class="tab-title"><a href="#resume">R&eacute;sum&eacute;</a></li>
+            <li class="tab-title"><a href="#resume">Résumé</a></li>
             <li class="tab-title"><a href="#projects">Projects</a></li>
             <li class="tab-title"><a href="#siteinfo">About</a></li>
           </ul>
@@ -55,7 +54,9 @@
     </div>
     <footer id="sticky-footer">
       <!-- TODO|kevin maybe I should make this into a partial too tbh. ALSO, dark mode toggle should go here.
-  ALSO, I should apply text-decoration: none to fix that stupid underline. ALSO, maybe remove/shrink these in general lmao -->
+        ALSO, I should apply text-decoration: none to fix that stupid underline.
+        TODO|kevin ALSO, maybe remove/shrink these in general lmao
+        or at the VERY LEAST I better re-run the fuckin validators !! -->
       &copy; 2022 Kevin McSwiggen
       <p>
         <a href="http://jigsaw.w3.org/css-validator/check/referer">
@@ -72,5 +73,4 @@
     </footer>
   </div>
 </body>
-
 </html>

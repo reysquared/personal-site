@@ -7,6 +7,7 @@ export default function ReturnButton({ setActiveTab }) {
   const clickHandler = (event) => {
     event.preventDefault();
     setActiveTab(DEFAULT_TAB);
+    window.history.pushState(null, null, '#');
     // TODO|kevin do some URL rewriting here yeah? clear out URL hash
   };
   return (

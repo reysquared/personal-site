@@ -8,7 +8,6 @@
  * and the value will become unset. Hence the second fallback, within the var()
  * itself, which is ONLY useful in browsers that support the feature.
 */
-/********** General Page Style **********/
 :root {
   --main-bg-color: #fff;
   --main-text-color: #000;
@@ -80,6 +79,7 @@
       --tab-hover-border: 1px solid #aab;
       --tab-hover-shadow: 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab; } }
 
+/********** General Page Style **********/
 html,
 body {
   margin: 0;
@@ -131,7 +131,7 @@ h2 {
     font-size: 2em;
     font-weight: bold;
     line-height: 1em;
-    margin-top: -6px;
+    margin-top: -4px;
     padding-right: 4px;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000;
     text-shadow: var(--initial-caps-stroke, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000); }
@@ -144,6 +144,8 @@ h2 {
   position: absolute;
   bottom: 0;
   left: 0; }
+  #sticky-footer a {
+    text-decoration: none; }
 
 a {
   cursor: pointer; }
@@ -254,58 +256,52 @@ hr {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0; }
+  bottom: 0;
+  display: flex;
+  align-items: end;
+  justify-content: center; }
 
 /** An individual item of the tab menu **/
 .tab-title {
   display: inline-block;
   vertical-align: bottom;
-  width: 6em; }
-
-.tab-title > a {
-  display: block;
-  margin: 0 1px;
-  padding: 5px 10px;
-  background: #fff;
-  background: var(--main-bg-color, #fff);
-  transition: background .2s ease, color .2s ease, padding .2s ease, border .2s ease;
-  text-decoration: none;
-  color: #000;
-  color: var(--main-text-color, #000);
-  border-top: 1px solid #69f;
-  border-top: var(--main-content-border, 1px solid #69f);
-  border-left: 1px solid #69f;
-  border-left: var(--main-content-border, 1px solid #69f);
-  border-right: 1px solid #69f;
-  border-right: var(--main-content-border, 1px solid #69f); }
-
-.tab-title > a:hover {
-  /*Hover highlighting for tab buttons*/
-  background: #69f;
-  background: var(--tab-hover-fill, #69f);
-  color: #fff;
-  color: var(--main-bg-color, #fff);
-  border-top: 1px solid #aab;
-  border-top: var(--tab-hover-border, 1px solid #aab);
-  border-left: 1px solid #aab;
-  border-left: var(--tab-hover-border, 1px solid #aab);
-  border-right: 1px solid #aab;
-  border-right: var(--tab-hover-border, 1px solid #aab);
-  box-shadow: 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab;
-  box-shadow: var(--tab-hover-shadow, 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab); }
-
-.tab-title.active > a,
-.tab-title.active > a:hover {
-  position: relative;
-  bottom: -1px;
-  /*Shifts active tab down, obscuring tabs-menu border for tab effect*/
-  padding: 10px;
-  background: #fff;
-  background: var(--main-bg-color, #fff);
-  color: #000;
-  color: var(--main-text-color, #000);
-  font-weight: bold;
-  box-shadow: none; }
+  width: 6em;
+  margin: 0 0.1em; }
+  .tab-title > a {
+    display: block;
+    margin: 0 1px;
+    padding: 5px 10px;
+    background: #fff;
+    background: var(--main-bg-color, #fff);
+    transition: background .2s ease, color .2s ease, padding .2s ease, border .2s ease;
+    text-decoration: none;
+    color: #000;
+    color: var(--main-text-color, #000);
+    border: 1px solid #69f;
+    border: var(--main-content-border, 1px solid #69f);
+    border-width: 1px 1px 0 1px; }
+    .tab-title > a:hover, .tab-title > a:focus {
+      /*Hover highlighting for tab buttons*/
+      background: #69f;
+      background: var(--tab-hover-fill, #69f);
+      color: #fff;
+      color: var(--main-bg-color, #fff);
+      border: 1px solid #aab;
+      border: var(--tab-hover-border, 1px solid #aab);
+      border-width: 1px 1px 0 1px;
+      box-shadow: 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab;
+      box-shadow: var(--tab-hover-shadow, 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab); }
+  .tab-title.active > a, .tab-title.active > a:hover, .tab-title.active > a:focus {
+    position: relative;
+    bottom: -1px;
+    /*Shifts active tab down, obscuring tabs-menu border for tab effect*/
+    padding: 10px;
+    background: #fff;
+    background: var(--main-bg-color, #fff);
+    color: #000;
+    color: var(--main-text-color, #000);
+    font-weight: bold;
+    box-shadow: none; }
 
 /********** Tabbed Content Display **********/
 /** Container for all the tab panels **/
@@ -321,7 +317,7 @@ hr {
 .tab-panel {
   margin: 0 auto;
   padding: 20px;
-  width: 600px;
+  max-width: 600px;
   border: 1px solid #69f;
   border: var(--main-content-border, 1px solid #69f);
   overflow: hidden; }
@@ -329,3 +325,21 @@ hr {
     display: block; }
   .tab-panel.inactive {
     display: none; }
+
+#pixelface {
+  border: 1px solid #69f;
+  border: var(--main-content-border, 1px solid #69f);
+  float: right;
+  height: 160px;
+  margin-left: 0.3em;
+  margin-top: 1em;
+  width: 160px;
+  background-size: 160px 160px;
+  background-image: url("../../images/pixelface-light-border@2x.png"); }
+  [data-theme="dark"] #pixelface {
+    background-image: url("../../images/pixelface-dark-border@2x.png"); }
+  @media (prefers-color-scheme: dark) {
+    #pixelface {
+      background-image: url("../../images/pixelface-dark-border@2x.png"); }
+      [data-theme="light"] #pixelface {
+        background-image: url("../../images/pixelface-light-border@2x.png"); } }
