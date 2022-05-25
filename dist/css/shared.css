@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * Not all browsers support CSS custom properties still, hence this mixin. It
  * actually provides a fallback in two different ways. The first is the initial
@@ -79,7 +80,65 @@
       --tab-hover-border: 1px solid #aab;
       --tab-hover-shadow: 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab; } }
 
+#theme-toggle-container input[type="checkbox"] {
+  appearance: none; }
+
+#theme-toggle-container span.theme-header {
+  display: inline-block;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  width: 4.5em;
+  text-align: center; }
+
+#theme-toggle-container span.theme-slider {
+  background: cornflowerblue;
+  border: 2px solid black;
+  border-radius: 1em;
+  color: black;
+  line-height: 1.4em;
+  width: 4.5em;
+  display: block; }
+  #theme-toggle-container span.theme-slider::after {
+    background: white;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 1px solid black;
+    content: '🌞';
+    float: left;
+    width: 1.4rem;
+    height: 1.4rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    padding-top: 1px; }
+  #theme-toggle-container span.theme-slider::before {
+    content: 'Light';
+    float: right;
+    margin-left: 0;
+    margin-right: 0.3em; }
+
+#theme-toggle-container input[type="checkbox"]:checked + span.theme-slider {
+  background: darkslateblue; }
+  #theme-toggle-container input[type="checkbox"]:checked + span.theme-slider::after {
+    content: '🌝';
+    float: right;
+    left: unset;
+    right: -1px;
+    font-size: 80%;
+    background: #223; }
+  #theme-toggle-container input[type="checkbox"]:checked + span.theme-slider::before {
+    content: 'Dark';
+    color: #eee;
+    float: left;
+    margin-left: 0.3em;
+    margin-right: 0; }
+
 /********** General Page Style **********/
+* {
+  transition: background 0.2s ease, color 0.2s ease; }
+
 html,
 body {
   margin: 0;
@@ -91,7 +150,8 @@ body {
   background: var(--main-bg-color, #fff);
   color: #000;
   color: var(--main-text-color, #000);
-  font-family: "DejaVu Serif", Georgia, serif; }
+  font-family: "DejaVu Serif", Georgia, serif;
+  font-size: 16px; }
 
 aside,
 footer,
@@ -122,7 +182,7 @@ h2 {
     font-weight: bold; }
 
 #main-content {
-  padding-bottom: 100px; }
+  padding-bottom: 4.25em; }
   #main-content p:first-of-type:not(.subhead)::first-letter,
   #main-content hr + p::first-letter {
     float: left;
@@ -131,15 +191,15 @@ h2 {
     font-size: 2em;
     font-weight: bold;
     line-height: 1em;
-    margin-top: -4px;
-    padding-right: 4px;
+    margin-top: -0.25rem;
+    padding-right: 0.25rem;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000;
     text-shadow: var(--initial-caps-stroke, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000); }
 
 /** Footer anchored to page bottom **/
 #sticky-footer {
   width: 100%;
-  height: 100px;
+  height: 6.25em;
   padding: 0 2em;
   position: absolute;
   bottom: 0;
@@ -158,35 +218,35 @@ hr {
 
 /** EXTRA-custom horizontal rule (div) **/
 .customrule {
-  margin-top: 20px;
-  height: 15px;
+  margin-top: 1.25em;
+  height: calc(1em - 1px);
   border: 1px solid #69f;
   border: var(--main-content-border, 1px solid #69f);
   border-width: 1px 0 0 0;
-  border-radius: 15px; }
+  border-radius: calc(1em - 1px); }
   .customrule::before {
     display: block;
-    height: 15px;
-    margin-top: -16px;
+    height: calc(1em - 1px);
+    margin-top: -1em;
     content: "";
     border: 1px solid #69f;
     border: var(--main-content-border, 1px solid #69f);
     border-width: 0 0 1px 0;
-    border-radius: 15px; }
+    border-radius: calc(1em - 1px); }
   .customrule::after {
     content: " ";
-    height: 6px;
-    width: 6px;
+    height: 0.5em;
+    width: 0.5em;
     position: relative;
     margin: 0 auto;
     display: block;
     border: 1px solid #69f;
     border: var(--main-content-border, 1px solid #69f);
-    border-radius: 6px;
+    border-radius: 50%;
     background-color: #cef;
     background-color: var(--customrule-flair-color, #cef);
     text-align: center;
-    top: -4px; }
+    top: calc(-0.25em - 1.5px); }
 
 /** Run and Go Back button formatting **/
 .button {
@@ -270,10 +330,10 @@ hr {
   .tab-title > a {
     display: block;
     margin: 0 1px;
-    padding: 5px 10px;
+    padding: 0.325em 0.625em;
     background: #fff;
     background: var(--main-bg-color, #fff);
-    transition: background .2s ease, color .2s ease, padding .2s ease, border .2s ease;
+    transition: background 0.2s ease, color 0.2s ease, padding 0.2s ease, border 0.2s ease;
     text-decoration: none;
     color: #000;
     color: var(--main-text-color, #000);
@@ -294,8 +354,7 @@ hr {
   .tab-title.active > a, .tab-title.active > a:hover, .tab-title.active > a:focus {
     position: relative;
     bottom: -1px;
-    /*Shifts active tab down, obscuring tabs-menu border for tab effect*/
-    padding: 10px;
+    padding: 0.625em;
     background: #fff;
     background: var(--main-bg-color, #fff);
     color: #000;
@@ -308,16 +367,16 @@ hr {
 #tabs-content {
   overflow: auto;
   /*Fix for horizontal scroll bar jump thanks to Ayke van Laetham: https://aykevl.nl/2014/09/fix-jumping-scrollbar*/
-  margin-left: calc(100vw - 100% + 20px);
-  margin-right: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px; }
+  margin-left: calc(100vw - 100% + 1.25em);
+  margin-right: 1.25em;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em; }
 
 /** Basic tab panel formatting **/
 .tab-panel {
-  margin: 0 auto;
-  padding: 20px;
-  max-width: 600px;
+  margin: 0 auto 1.5em;
+  padding: 1.25em;
+  max-width: 37.5em;
   border: 1px solid #69f;
   border: var(--main-content-border, 1px solid #69f);
   overflow: hidden; }
@@ -327,19 +386,22 @@ hr {
     display: none; }
 
 #pixelface {
-  border: 1px solid #69f;
-  border: var(--main-content-border, 1px solid #69f);
   float: right;
   height: 160px;
   margin-left: 0.3em;
-  margin-top: 1em;
+  margin: 1em 0.5em 0 0.5em;
   width: 160px;
   background-size: 160px 160px;
-  background-image: url("../../images/pixelface-light-border@2x.png"); }
+  background-image: url("../../images/pixelface-light-border@2x.png");
+  border: 1px solid;
+  border-color: #6af; }
   [data-theme="dark"] #pixelface {
-    background-image: url("../../images/pixelface-dark-border@2x.png"); }
+    background-image: url("../../images/pixelface-dark-border@2x.png");
+    border-color: #46e; }
   @media (prefers-color-scheme: dark) {
     #pixelface {
-      background-image: url("../../images/pixelface-dark-border@2x.png"); }
+      background-image: url("../../images/pixelface-dark-border@2x.png");
+      border-color: #46e; }
       [data-theme="light"] #pixelface {
-        background-image: url("../../images/pixelface-light-border@2x.png"); } }
+        background-image: url("../../images/pixelface-light-border@2x.png");
+        border-color: #6af; } }

@@ -1,11 +1,11 @@
 import React from 'react';
 
-// TODO|kevin make sure this all works gucci lol
-export default function TabButton({ tabId, label, activeTab, setActiveTab }) {
+
+export default function TabButton({ tab, activeTab, setActiveTab }) {
   const handleClick = (event) => {
     event.preventDefault();
-    setActiveTab(tabId);
-    window.history.pushState(null, null, `#${tabId}`);
+    setActiveTab(tab.id);
+    window.history.pushState(null, null, `#${tab.id}`);
   }
   // TODO|kevin still REALLY not sure if the onClick should be on the anchor or not.
   // If putting it on the li means that the default behavior for the href is still
@@ -18,18 +18,18 @@ export default function TabButton({ tabId, label, activeTab, setActiveTab }) {
   return (
     <li
       role="presentation"
-      className={activeTab === tabId ? 'tab-title active' : 'tab-title'}
+      className={activeTab === tab.id ? 'tab-title active' : 'tab-title'}
     >
       <a
-        id={`tab-${tabId}`}
-        href={`#${tabId}`}
+        id={`tab-${tab.id}`}
+        href={`#${tab.id}`}
         role="tab"
         tabIndex="0"
-        aria-controls={tabId}
-        aria-selected={activeTab === tabId}
+        aria-controls={tab.id}
+        aria-selected={activeTab === tab.id}
         onClick={handleClick}
       >
-        {label}
+        {tab.label}
       </a>
     </li>
   );

@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
+import { getTabFromFragmentId } from '../helpers/tabs';
 import TabButton from 'react_components/TabButton';
 import TabContent from 'react_components/TabContent';
 import { DEFAULT_TAB } from 'react_components/constants';
 
 
-// TODO|kevin it MIGHT be possible to turn this into a functional component using the useState hook actually...?
 export default class TabsView extends React.Component {
   constructor(props) {
     super(props);
@@ -32,47 +32,48 @@ export default class TabsView extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('hashchange', (event) => {
-      // TODO|kevin check if the hash exists
-      // if it does, check whether it is already a valid tab.
-        // if so, set tab.
-        // if not, attempt getTabFromFragmentId
-          // If that gets us a tab, set tab.
-            // Currently I have setActiveTab doing the history modification, so
-            // perhaps in this case I should also follow it up by setting the url hash one more time...? (wait, but how to do w/o creating an infinite loop?)
-          // If it doesn't, I think we should've already scrolled to it right...?
+    const handleHashChange = (event) => {
       const hash = (window.location.hash || '#').substring(1);
+      const targetTab = getTabFromFragmentId(hash);
+      // TODO|kevin comments here lol
       if (!hash && this.props.hasDefaultTab) {
         this.setActiveTab(DEFAULT_TAB);
-      } else {
-        this.setActiveTab(hash);  // TODO|kevin need to actually make sure this is a valid tab first, though...
+      } else if (targetTab) {
+        this.setActiveTab(targetTab);
+        // If the tab we just activated is not the target itself, we should
+        // scroll to that fragment now that the tab is visible
+        // if (hash !== targetTab) {
+        //   window.location.hash = '#' + hash;
+        // }
       }
-    });
+    }
+
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange();
   }
 
-  tabIsValid(tab) {
-    return _.findIndex(this.props.tabs, (t) => (t.tabId === tab)) !== -1;
+  tabIsValid(tabId) {
+    return _.findIndex(this.props.tabs, (t) => (t.id === tabId)) !== -1;
   }
 
-  setActiveTab(tab) {
-    if (!this.tabIsValid(tab)) return;  // TODO|kevin log a warning or something? idk man...
-    this.setState({ activeTab: tab });
+  setActiveTab(tabId) {
+    if (!this.tabIsValid(tabId)) return;  // TODO|kevin log a warning or something? idk man...
+    this.setState({ activeTab: tabId });
   }
 
   render() {
     return (
-      <div id="main-content">
+      <>
         <nav className="tabs-menu">
           <ul className="tabs-list" role="tablist">
             {this.props.tabs.map((tab) => {
               // The default tab panel doesn't have a corresponding tab button
-              if (this.props.hasDefaultTab && tab.tabId === DEFAULT_TAB) return;
+              if (this.props.hasDefaultTab && tab.id === DEFAULT_TAB) return;
               // TODO|kevin yknow... I should condense MOST of this stuff into just passing the tab object huh?
               return (
                 <TabButton
-                  key={tab.tabId}
-                  tabId={tab.tabId}
-                  label={tab.label}
+                  key={tab.id}
+                  tab={tab}
                   activeTab={this.state.activeTab}
                   setActiveTab={this.setActiveTab}
                 />
@@ -83,16 +84,15 @@ export default class TabsView extends React.Component {
         <div id="tabs-content">
           {this.props.tabs.map((tab) =>
             <TabContent
-              key={tab.tabId}
-              tabId={tab.tabId}
+              key={tab.id}
+              tab={tab}
               activeTab={this.state.activeTab}
-              tabContent={tab.tabContent}
               hasDefaultTab={this.props.hasDefaultTab}
               setActiveTab={this.setActiveTab}
             />
           )}
         </div>
-      </div>
+      </>
     );
   }
 }

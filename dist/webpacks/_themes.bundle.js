@@ -28,21 +28,31 @@ function ThemeSwitcher(_ref) {
   var setTheme = function setTheme(event) {
     if (event.target.checked) {
       document.body.setAttribute('data-theme', 'dark');
+      document.getElementById('theme-toggle').setAttribute('aria-checked', true);
       localStorage.setItem('theme', 'dark');
     } else {
       document.body.setAttribute('data-theme', 'light');
+      document.getElementById('theme-toggle').setAttribute('aria-checked', false);
       localStorage.setItem('theme', 'light');
     }
   }; // TODO|kevin boy howdy this needs SO MUCH WORK but screw it lets just see if the dang ol checkbox itself works
 
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
-    id: "theme-toggle"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    id: "theme-toggle",
+    "aria-role": "switch",
+    "aria-checked": defaultDark
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: "theme-header"
+  }, "Theme"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "checkbox",
     onChange: setTheme,
-    defaultChecked: defaultDark
-  })));
+    defaultChecked: defaultDark,
+    "aria-label": "Enable dark mode TODO|kevin I feel almost positive this isn't right dude"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: "theme-slider",
+    "aria-hidden": "true"
+  }, "\xA0")));
 } // TODO|kevin lessgooo
 
 /*

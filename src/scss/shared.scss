@@ -3,6 +3,11 @@
 
 /********** General Page Style **********/
 
+* {
+  // Make themes swap smoothly. Matches transition for tab activation so they stay in sync.
+  transition: background 0.2s ease, color 0.2s ease;
+}
+// TODO|kevin make almost all dimensions in this document relative to ems instead of px!
 html,
 body {
   margin: 0;
@@ -14,6 +19,7 @@ body {
   @include var-with-fallback(background, --main-bg-color, $bgcolor);
   @include var-with-fallback(color, --main-text-color, $textcolor);
   font-family: "DejaVu Serif", Georgia, serif;
+  font-size: 16px;
 }
 
 // Easy but only partial remedy for pre-HTML5 browsers (if you happen to be
@@ -57,7 +63,7 @@ h2 {
 
 // Container for primary page content
 #main-content {
-  padding-bottom: 100px;
+  padding-bottom: 4.25em;  // Same height as footer minus tab-panel bottom margin
 
   p:first-of-type:not(.subhead)::first-letter,
   hr+p::first-letter {
@@ -69,8 +75,8 @@ h2 {
       font-size: 2em;
       font-weight: bold;
       line-height: 1em;
-      margin-top: -4px;
-      padding-right: 4px;
+      margin-top: -0.25rem;
+      padding-right: 0.25rem;
       @include var-with-fallback(text-shadow, --initial-caps-stroke, $defaultcapsstroke);
   }
 }
@@ -78,7 +84,7 @@ h2 {
 /** Footer anchored to page bottom **/
 #sticky-footer {
   width: 100%;
-  height: 100px;
+  height: 6.25em;
   padding: 0 2em;
   position: absolute;
   bottom: 0;
@@ -106,35 +112,36 @@ hr {
 // Shouts to css-tricks: https://css-tricks.com/examples/hrs/
 // Mine is on a div to be somewhat less ambiguous WRT standard.
 .customrule {
-  margin-top: 20px;
-  height: 15px;
+  margin-top: 1.25em;
+  height: calc(1em - 1px);
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
   border-width: 1px 0 0 0;
-  border-radius: 15px;
+  border-radius: calc(1em - 1px);
 
   &::before {
     display: block;
-    height: 15px;
-    margin-top: -16px;
+    height: calc(1em - 1px);
+    margin-top: -1em;
     // One more than the height
     content: "";
     @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
     border-width: 0 0 1px 0;
-    border-radius: 15px;
+    border-radius: calc(1em - 1px);
   }
 
   &::after {
     content: " ";
-    height: 6px;
-    width: 6px;
+    height: 0.5em;
+    width: 0.5em;
     position: relative;
     margin: 0 auto;
     display: block;
     @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
-    border-radius: 6px;
+    border-radius: 50%;
     @include var-with-fallback(background-color, --customrule-flair-color, $flaircolor);
     text-align: center;
-    top: -4px;
+    // -1/2 height, -1px for own border, -0.5px to center on parent's border-top
+    top: calc(-0.25em - 1.5px);
   }
 }
 
@@ -246,9 +253,9 @@ hr {
   > a {
     display: block;
     margin: 0 1px;
-    padding: 5px 10px;
+    padding: 0.325em 0.625em;
     @include var-with-fallback(background, --main-bg-color, $bgcolor);
-    transition: background .2s ease, color .2s ease, padding .2s ease, border .2s ease;
+    transition: background 0.2s ease, color 0.2s ease, padding 0.2s ease, border 0.2s ease;
     text-decoration: none;
     @include var-with-fallback(color, --main-text-color, $textcolor);
     @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
@@ -257,8 +264,8 @@ hr {
     &:hover, &:focus {
       /*Hover highlighting for tab buttons*/
       @include var-with-fallback(background, --tab-hover-fill, $bordercolor);
-      // TODO|kevin ehhhh I'm not sure about this one--at best it's certainly not very semantic!
-      @include var-with-fallback(color, --main-bg-color, $bgcolor);  // color: #fff;
+      // Color tab text as background on hover
+      @include var-with-fallback(color, --main-bg-color, $bgcolor);
       @include var-with-fallback(border, --tab-hover-border, 1px solid $tabglowcolor);
       border-width: 1px 1px 0 1px;
       @include var-with-fallback(box-shadow, --tab-hover-shadow, $defaulttabhover);
@@ -268,9 +275,8 @@ hr {
   &.active > a {
     &, &:hover, &:focus {
       position: relative;
-      bottom: -1px;
-      /*Shifts active tab down, obscuring tabs-menu border for tab effect*/
-      padding: 10px;
+      bottom: -1px;  // Shifts active tab down, obscuring tabs-menu border for tab effect
+      padding: 0.625em;
       @include var-with-fallback(background, --main-bg-color, $bgcolor);
       @include var-with-fallback(color, --main-text-color, $textcolor);
       font-weight: bold;
@@ -286,17 +292,17 @@ hr {
 #tabs-content {
   overflow: auto;
   /*Fix for horizontal scroll bar jump thanks to Ayke van Laetham: https://aykevl.nl/2014/09/fix-jumping-scrollbar*/
-  margin-left: calc(100vw - 100% + 20px);
-  margin-right: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-left: calc(100vw - 100% + 1.25em);
+  margin-right: 1.25em;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
 }
 
 /** Basic tab panel formatting **/
 .tab-panel {
-  margin: 0 auto;
-  padding: 20px;
-  max-width: 600px;
+  margin: 0 auto 1.5em;
+  padding: 1.25em;
+  max-width: 37.5em;
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
   overflow: hidden;
 
@@ -312,30 +318,33 @@ hr {
   }
 }
 
-
-// TODO|kevin do something with this fun pixel-art of my face lolol
-// filter: invert(100%) sepia(100%) saturate(10000%) hue-rotate(23deg) invert(100%) brightness(0.9) saturate(10%);
-// float: right;
+// TODO|kevin I feel like I should be able to clean this up more. Plus maybe
+// make custom properties for the caps-color-based border styles and add fallback?
+// TODO|kevin also it doesn't REALLY need to be shared, does it? This is index-specific.
 #pixelface {
-  @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
-  float: right;  // TODO|kevin maybe?
+  float: right;  // TODO|kevin unset this for small enough screens and center the image with a classic margin: 0 auto;
   height: 160px;
   margin-left: 0.3em;
-  margin-top: 1em;
+  margin: 1em 0.5em 0 0.5em;
   width: 160px;
   background-size: 160px 160px;
   background-image: url('../../images/pixelface-light-border@2x.png');
+  border: 1px solid;
+  border-color: $capscolor;
 
   [data-theme="dark"] & {
     background-image: url('../../images/pixelface-dark-border@2x.png');
+    border-color: #46e;
   }
 
   @media (prefers-color-scheme: dark) {
     background-image: url('../../images/pixelface-dark-border@2x.png');
+    border-color: #46e;
 
     [data-theme="light"] & {
       // TODO|kevin this hullaballoo is pretty ridiculous, I should see how it actually compiles out
       background-image: url('../../images/pixelface-light-border@2x.png');
+      border-color: $capscolor;
     }
   }
 }

@@ -1,5 +1,5 @@
 // SCSS variables for use in light color scheme and as default fallbacks
-// I would just leave them to be specified entirely in the custom properties if
+// I might just leave them to be specified entirely in the custom properties if
 // I weren't referencing them for the fallbacks to the var-with-fallback mixin
 $bgcolor: #fff;
 $textcolor: #000;
@@ -11,11 +11,12 @@ $inputborder: #888;
 $inputfocus: #333;
 $tabglowcolor: #aab;
 // Also make variables for these default (light mode) text-shadow values, cus they're real long
+// including 8 values feels a BIT overkill, but w/o the last 4 there are obvious gaps at the serifs
 $defaultcapsstroke: -1px -1px 0 $strokecolor,
                     1px -1px 0 $strokecolor,
                     -1px 1px 0 $strokecolor,
                     1px 1px 0 $strokecolor,
-                    1px 0 0 $strokecolor, // TODO|kevin added these last four to cover horizontal gaps, but feels a BIT overkill...
+                    1px 0 0 $strokecolor,
                     -1px 0 0 $strokecolor,
                     0 1px 0 $strokecolor,
                     0 -1px 0 $strokecolor;
@@ -40,7 +41,6 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
 }
 
 @mixin dark-theme {
-  // TODO|kevin make sure this shit is TIGHTTT
   --main-bg-color: #223;
   --main-text-color: #eee;
   --initial-caps-color: #46e;
@@ -56,7 +56,7 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
   --main-content-border: 1px solid #{$bordercolor};
   --text-input-border: 1px solid #333;
   --text-input-border-focus: 2px solid #888;
-  --tab-hover-fill: #{$bordercolor}; // TODO|kevin ehhhh... WE'LL THINK ABOUT IT
+  --tab-hover-fill: #{$bordercolor};
   --tab-hover-border: 1px solid #dde;
   --tab-hover-shadow: 0 1px 0 0 #{$bordercolor},
                       0 5px 0 0 #223,
@@ -89,6 +89,111 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
   }
 }
 
+// #theme-toggle-container {
+//   // TODO|kevin
+
+//   input[type="checkbox"] {
+//     appearance: none;
+//   }
+
+//   span {
+//     background: white;
+//     color: black;
+
+//     &::before, &::after {
+//       border-radius: 4px;
+//       display: inline-block;
+//       min-width: 6ch;
+//     };
+
+//     &::after {
+//       content: 'Dark';
+//     }
+//     &::before {
+//       content: 'Light';
+//     }
+//   }
+//   // TODO|kevin should I really be using aria-checked properties here, or just letting the checkbox work like a checkbox???
+//   #theme-toggle[aria-checked="true"] span::after {
+//     background: black;  // TODO|kevin this is gonna need a lot of visual fucking-with regardless, just use SOMETHING...
+//     color: #eee;
+//   }
+
+//   #theme-toggle[aria-checked="false"] span::before {
+//     background-color: yellow;
+//     color: black;
+//   }
+// }
+
+// TODO|kevin okay let's try out a version where there's only ONE textual element
 #theme-toggle-container {
-  // TODO|kevin
+  input[type="checkbox"] {
+    appearance: none;
+  }
+
+  span.theme-header {
+    display: inline-block;
+    text-transform: lowercase;
+    font-variant: small-caps;
+    width: 4.5em;
+    text-align: center;
+  }
+
+  span.theme-slider {
+    background: cornflowerblue;  // Sunny!!!
+    border: 2px solid black;
+    border-radius: 1em;
+    color: black;
+    line-height: 1.4em;
+    width: 4.5em;
+    display: block;
+    
+    &::after {
+      background: white;
+      // Describe unchecked state by default
+      border-radius: 50%;
+      box-sizing: border-box;
+      border: 1px solid black;
+      // display: inline-block;
+      content: '🌞';
+      float: left;
+      width: 1.4rem;
+      height: 1.4rem;
+      // position: relative;
+      // left: -1px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      padding-top: 1px;
+    }
+    &::before {
+      content: 'Light';
+      float: right;
+      margin-left: 0;
+      margin-right: 0.3em;
+    }
+  }
+
+  input[type="checkbox"]:checked + span.theme-slider {
+    background: darkslateblue;
+
+    &::after {
+      content: '🌝';
+      float: right;
+      left: unset;
+      right: -1px;
+      // The "body" of the sun is smaller because of the rays, shrink moon to compensate
+      font-size: 80%;
+      background: #223;
+    }
+    &::before {
+      content: 'Dark';
+      color: #eee;
+      float: left;
+      margin-left: 0.3em;
+      margin-right: 0;
+    }
+  }
 }

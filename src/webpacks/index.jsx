@@ -13,29 +13,43 @@ import TabSiteinfoRaw from 'html/tabs/_04_about.html';
 
 const TABS_LIST = [
   {
-    tabId: 'default',
+    id: 'default',
     label: 'TODO|kevin this isnt actually needed lololol',
-    tabContent: DefaultTabRaw,
+    content: DefaultTabRaw,
   },
   {
-    tabId: 'bio',
+    id: 'bio',
     label: 'Bio',
-    tabContent: TabBioRaw,
+    content: TabBioRaw,
+    // Specifying an `effect` function for any tab will get passed to useEffect
+    // for the corresponding TabContent component. A lil janky, but it works!
+    effect: () => {
+      // This silly snippet replaces the Bio subheader with one of these lines
+      const subOpts = [
+        'Lives bodily inside a laptop',
+        'Eats JavaScript for snax',
+        '"It\'s more of a computer art than a computer science."',
+        'is climing a mountain (why are they climbing a mountain?)',
+        'Need more sleep.',
+      ];
+      const choice = subOpts[Math.floor(Math.random() * subOpts.length)];
+      document.getElementById('sillysub').innerHTML = choice;
+    },
   },
   {
-    tabId: 'resume',
+    id: 'resume',
     label: 'Résumé',
-    tabContent: TabResumeRaw,
+    content: TabResumeRaw,
   },
   {
-    tabId: 'projects',
+    id: 'projects',
     label: 'Projects',
-    tabContent: TabProjectsRaw,
+    content: TabProjectsRaw,
   },
   {
-    tabId: 'siteinfo',
+    id: 'siteinfo',
     label: 'About',
-    tabContent: TabSiteinfoRaw,
+    content: TabSiteinfoRaw,
   },
 ];
 
@@ -55,17 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // with the component content changing in that way tbh, but... we'll see lol
   // In the ABSOLUTE worst case scenario, I can create a new component to wrap
   // the TabsView and put my scripts in useEffect
-
-  // This silly snippet replaces the subheader on the Bio tab with ome of these lines.
-  const subOpts = [
-    'Lives bodily inside a laptop',
-    'Eats JavaScript for snax',
-    '"It\'s more of a computer art than a computer science."',
-    'is climing a mountain (why are they climbing a mountain?)',
-    'Need more sleep.',
-  ];
-  const choice = subOpts[Math.floor(Math.random() * subOpts.length)];
-  document.getElementById('sillysub').innerHTML = choice;
 
   // TODO|kevin instead of replacing @ with (at) maybe I can make an email-address-revealer button lol
 });

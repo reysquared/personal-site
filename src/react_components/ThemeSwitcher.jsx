@@ -22,13 +22,19 @@ export default function ThemeSwitcher({props}) {
   // TODO|kevin boy howdy this needs SO MUCH WORK but screw it lets just see if the dang ol checkbox itself works
   return (
     <>
-      <label></label>
-      <label id="theme-toggle">
+      <label
+        id="theme-toggle"
+        aria-role="switch"
+        aria-checked={defaultDark}
+        >
+        <span className="theme-header">Theme</span>
         <input
           type="checkbox"
           onChange={setTheme}
           defaultChecked={defaultDark}
+          aria-label="Enable dark mode"
         />
+        <span className="theme-slider" aria-hidden="true">&nbsp;</span>
       </label>
     </>
   );

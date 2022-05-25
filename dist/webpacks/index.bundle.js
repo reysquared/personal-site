@@ -1,6 +1,40 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/helpers/tabs.js":
+/*!*****************************!*\
+  !*** ./src/helpers/tabs.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getTabFromFragmentId": () => (/* binding */ getTabFromFragmentId)
+/* harmony export */ });
+// TODO|kevin NOTE that fragId should already have the leading # removed
+var getTabFromFragmentId = function getTabFromFragmentId(fragId) {
+  if (fragId && fragId !== 'top') {
+    // top is a special fragid for the top of the document.
+    // Figure out what tab (if any) is the parent of the targeted anchor
+    var currElement = document.getElementById(fragId);
+    if (!currElement) return; // No element with that ID found, get outta here!
+
+    while (currElement.parentNode && !currElement.classList.contains('tab-panel')) {
+      // Bubble upward through the element's parents until either we find an element of class
+      // tab-panel or we can't go up any further.
+      currElement = currElement.parentNode;
+    }
+
+    if (currElement.classList.contains('tab-panel')) {
+      // We have found the tab panel that contained the given pragment!
+      return currElement.id;
+    }
+  }
+};
+
+/***/ }),
+
 /***/ "./src/react_components/ReturnButton.jsx":
 /*!***********************************************!*\
   !*** ./src/react_components/ReturnButton.jsx ***!
@@ -53,18 +87,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
- // TODO|kevin make sure this all works gucci lol
 
 function TabButton(_ref) {
-  var tabId = _ref.tabId,
-      label = _ref.label,
+  var tab = _ref.tab,
       activeTab = _ref.activeTab,
       setActiveTab = _ref.setActiveTab;
 
   var handleClick = function handleClick(event) {
     event.preventDefault();
-    setActiveTab(tabId);
-    window.history.pushState(null, null, "#".concat(tabId));
+    setActiveTab(tab.id);
+    window.history.pushState(null, null, "#".concat(tab.id));
   }; // TODO|kevin still REALLY not sure if the onClick should be on the anchor or not.
   // If putting it on the li means that the default behavior for the href is still
   // prevented, then I think PROBABLY it should go on the higher up element. but
@@ -77,16 +109,16 @@ function TabButton(_ref) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
     role: "presentation",
-    className: activeTab === tabId ? 'tab-title active' : 'tab-title'
+    className: activeTab === tab.id ? 'tab-title active' : 'tab-title'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
-    id: "tab-".concat(tabId),
-    href: "#".concat(tabId),
+    id: "tab-".concat(tab.id),
+    href: "#".concat(tab.id),
     role: "tab",
     tabIndex: "0",
-    "aria-controls": tabId,
-    "aria-selected": activeTab === tabId,
+    "aria-controls": tab.id,
+    "aria-selected": activeTab === tab.id,
     onClick: handleClick
-  }, label));
+  }, tab.label));
 }
 
 /***/ }),
@@ -110,41 +142,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // TODO|kevin this SHOULD be convertible to a purely functional component
-// TODO|kevin depending on how I get routing to work, the go-back button should
-// MAYBE also be its own React component. BUT, WE WILL START WITH NO ROUTING.
-// export default class TabContent extends React.Component {
-//   render() {
-//     return (
-//       <section id={this.props.tabId} class="tab-panel">
-//         {HTMLReactParser(this.props.tabContent)}
-//         <a class="button go-back" href="#top">Main</a><br/><br/>
-//       </section>
-//     );
-//   }
-// }
 
 function TabContent(_ref) {
-  var tabId = _ref.tabId,
+  var tab = _ref.tab,
       activeTab = _ref.activeTab,
-      tabContent = _ref.tabContent,
       hasDefaultTab = _ref.hasDefaultTab,
       setActiveTab = _ref.setActiveTab;
+
   // TODO|kevin bluh.... does this ALSO need setActiveTab to set a handler on the button?
   // does it make sense to have a ReturnButton as its own thing if we're setting
   // a handler in THIS render?  I guess maybe to separate the HTML for the button...
   // TODO|kevin bluh this maybe also needs aria-labelledby?
   // TODO|kevin I don't THINK it needs aria-hidden as long as it's actually
   // visually "display: none" but maybe double-check on that.
-  // Only show a "go back" button if default tab is enabled and this is NOT the
+  // TODO|kevin comment for this snippet probably
+  if (tab.effect) {
+    react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(tab.effect);
+  } // Only show a "go back" button if default tab is enabled and this is NOT the
   // default tab. if the default tab is active we're already "back", and if it
   // isn't enabled at all then there's already a button for this tab in the nav
+
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
-    id: tabId,
-    className: "tab-panel ".concat(activeTab === tabId ? 'active' : 'inactive'),
+    id: tab.id,
+    className: "tab-panel ".concat(activeTab === tab.id ? 'active' : 'inactive'),
     role: "tabpanel",
-    "aria-labelledby": "tab-".concat(tabId)
-  }, (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tabContent), hasDefaultTab && tabId !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    "aria-labelledby": "tab-".concat(tab.id)
+  }, (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tab.content), hasDefaultTab && tab.id !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
     setActiveTab: setActiveTab
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null)));
 }
@@ -166,9 +190,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_components_TabButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react_components/TabButton */ "./src/react_components/TabButton.jsx");
-/* harmony import */ var react_components_TabContent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/TabContent */ "./src/react_components/TabContent.jsx");
-/* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
+/* harmony import */ var _helpers_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/tabs */ "./src/helpers/tabs.js");
+/* harmony import */ var react_components_TabButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/TabButton */ "./src/react_components/TabButton.jsx");
+/* harmony import */ var react_components_TabContent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react_components/TabContent */ "./src/react_components/TabContent.jsx");
+/* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -195,7 +220,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
- // TODO|kevin it MIGHT be possible to turn this into a functional component using the useState hook actually...?
+
+
 
 var TabsView = /*#__PURE__*/function (_React$Component) {
   _inherits(TabsView, _React$Component);
@@ -215,7 +241,7 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
     // TODO|kevin perhaps should throw an error if hasDefaultTab but there's no tab with the "default" id
 
 
-    var startingTab = props.hasDefaultTab ? react_components_constants__WEBPACK_IMPORTED_MODULE_4__.DEFAULT_TAB : props.tabs[0].tabId;
+    var startingTab = props.hasDefaultTab ? react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB : props.tabs[0].tabId;
     var activeTab = props.startingTab || startingTab; // TODO|kevin also, yknow, if I grab the URL hash here in the constructor
     // then I might not actually NEED a fully-fledged routing library...?
     // I would probably just need to add like, a history.pushState() in my tab button onClick handler
@@ -233,39 +259,39 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      window.addEventListener('hashchange', function (event) {
-        // TODO|kevin check if the hash exists
-        // if it does, check whether it is already a valid tab.
-        // if so, set tab.
-        // if not, attempt getTabFromFragmentId
-        // If that gets us a tab, set tab.
-        // Currently I have setActiveTab doing the history modification, so
-        // perhaps in this case I should also follow it up by setting the url hash one more time...? (wait, but how to do w/o creating an infinite loop?)
-        // If it doesn't, I think we should've already scrolled to it right...?
+      var handleHashChange = function handleHashChange(event) {
         var hash = (window.location.hash || '#').substring(1);
+        var targetTab = (0,_helpers_tabs__WEBPACK_IMPORTED_MODULE_2__.getTabFromFragmentId)(hash); // TODO|kevin comments here lol
 
         if (!hash && _this2.props.hasDefaultTab) {
-          _this2.setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_4__.DEFAULT_TAB);
-        } else {
-          _this2.setActiveTab(hash); // TODO|kevin need to actually make sure this is a valid tab first, though...
+          _this2.setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB);
+        } else if (targetTab) {
+          _this2.setActiveTab(targetTab); // If the tab we just activated is not the target itself, we should
+          // scroll to that fragment now that the tab is visible
+          // if (hash !== targetTab) {
+          //   window.location.hash = '#' + hash;
+          // }
 
         }
-      });
+      };
+
+      window.addEventListener('hashchange', handleHashChange);
+      handleHashChange();
     }
   }, {
     key: "tabIsValid",
-    value: function tabIsValid(tab) {
+    value: function tabIsValid(tabId) {
       return lodash__WEBPACK_IMPORTED_MODULE_0___default().findIndex(this.props.tabs, function (t) {
-        return t.tabId === tab;
+        return t.id === tabId;
       }) !== -1;
     }
   }, {
     key: "setActiveTab",
-    value: function setActiveTab(tab) {
-      if (!this.tabIsValid(tab)) return; // TODO|kevin log a warning or something? idk man...
+    value: function setActiveTab(tabId) {
+      if (!this.tabIsValid(tabId)) return; // TODO|kevin log a warning or something? idk man...
 
       this.setState({
-        activeTab: tab
+        activeTab: tabId
       });
     }
   }, {
@@ -273,32 +299,28 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
-        id: "main-content"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("nav", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement((react__WEBPACK_IMPORTED_MODULE_1___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("nav", {
         className: "tabs-menu"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("ul", {
         className: "tabs-list",
         role: "tablist"
       }, this.props.tabs.map(function (tab) {
         // The default tab panel doesn't have a corresponding tab button
-        if (_this3.props.hasDefaultTab && tab.tabId === react_components_constants__WEBPACK_IMPORTED_MODULE_4__.DEFAULT_TAB) return; // TODO|kevin yknow... I should condense MOST of this stuff into just passing the tab object huh?
+        if (_this3.props.hasDefaultTab && tab.id === react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB) return; // TODO|kevin yknow... I should condense MOST of this stuff into just passing the tab object huh?
 
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_components_TabButton__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          key: tab.tabId,
-          tabId: tab.tabId,
-          label: tab.label,
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_components_TabButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          key: tab.id,
+          tab: tab,
           activeTab: _this3.state.activeTab,
           setActiveTab: _this3.setActiveTab
         });
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
         id: "tabs-content"
       }, this.props.tabs.map(function (tab) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_components_TabContent__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          key: tab.tabId,
-          tabId: tab.tabId,
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_components_TabContent__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          key: tab.id,
+          tab: tab,
           activeTab: _this3.state.activeTab,
-          tabContent: tab.tabContent,
           hasDefaultTab: _this3.props.hasDefaultTab,
           setActiveTab: _this3.setActiveTab
         });
@@ -1301,7 +1323,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<header>\n  <h2>Kevin McSwiggen</h2>\n  <p class=\"subhead\" id=\"sillysub\">respects your wise choice to eschew JavaScript</p>\n</header>\n<div class=\"customrule\"></div>\n<div id=\"pixelface\" role=\"img\" aria-label=\"Pixel-art rendition of Kevin's face\"></div>\n<p>\n  Hello, the name's Kevin McSwiggen! I'm a computer scientist, software engineer,\n  and web developer--three closely-related but distinct hats. I graduated from\n  Harvey Mudd College in Spring 2016 and since then have been living in the Bay\n  Area with my partner (now spouse!)\n</p>\n<p>\n  I like doing code-y stuff of pretty much any kind. (No, really, almost anything.)\n  It's way more satisfying when I can do it with like-minded cool people, though.\n  If that might be you, hit me up!\n</p>\n<p>\n  I'm conversant in Spanish, and speak a <em>little</em> bit of German, but I\n  don't get many chances to practice and I've never managed to stick it through\n  with Duolingo, so if you know of a more immersive (or less naggy) way to keep\n  the rust off, I'd also love to hear about it.\n</p>\n<p>\n  My hobbies include headphones, comics, food, fiction (SFF), and internet.\n  <ul>\n    <li>\n      The headphone collection is now more than a dozen items (I ended up with a\n      duplicate or two, for what it's worth.) I really gotta put some of these\n      suckers on Audiogon/craigslist/eBay, or SOMETHING.\n    </li>\n    <li>\n      Toward the start of the pandemic I got in on the Kickstarter for the comic\n      <a href=\"https://ohumanstar.com/\">O Human Star</a> so now I've got a sweet\n      three-volume physical copy!\n    </li>\n    <li>\n      Some favorite authors: Margaret Atwood, Jorge Luis Borges, William Gibson,\n      Charles Stross. I finally read Jeff VanderMeer's <i>Annihilation</i> after\n      several years (and after watching the movie--if you're gonna do both, do\n      it in that order simply because the book is better. :P) The rest of the\n      trilogy is next when I get some time, unless my friends convince me to\n      pick up <i>The Long Way to a Small Angry Planet</i> first.\n    </li>\n    <li>\n      Although, before getting to that, I've also picked up some NON-fiction: I\n      started reading David Graeber's <i>Debt: The First 5000 Years</i>. Already\n      I can't recommend it enough, it <em>will</em> change your perspective.\n    </li>\n  </ul>\n</p>\n<p>\n  You can contact me at <b><code>reysquared (at) gmail.com</code></b> if you\n  aren't a robot. (If you are a robot, I probably can't stop you from contacting\n  me, but my replies will not be as prompt. Sorry.)\n</p>\n<p hidden>\n  Courses from my last semester:\n</p>\n<pre hidden>\nCourse #   Title             Times          Notes\nCSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)\nCSCI184    Clinic            T  11:00       (and all my other time besides)\nCSCI189    Practicum         3-5 hr/wk      (Makin' APPS!)\nCSCI195    Colloquium        R  4:15        (Presentations are mostly cool)\nECON045    Microeconomics    TR 1:15        (Pretending we're rational!)\nLGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)\nEAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)\n</pre>\n";
+var code = "<header>\n  <h2>Kevin McSwiggen</h2>\n  <p class=\"subhead\" id=\"sillysub\">...respects your wise choice to eschew JavaScript</p>\n</header>\n<div class=\"customrule\"></div>\n<div id=\"pixelface\" role=\"img\" aria-label=\"Pixel-art rendition of Kevin's face\"></div>\n<p>\n  Hello, the name's Kevin McSwiggen! My pronouns are they/them (or occasionally\n  he/him around older relatives.) I'm a computer scientist, software engineer,\n  and web developer--three closely-related but distinct hats. I graduated from\n  Harvey Mudd College in Spring 2016 and since then have been living in the Bay\n  Area with my partner (now spouse!)\n</p>\n<p>\n  I like doing code-y stuff of pretty much any kind. (No really, almost anything.)\n  It's way more satisfying when I can do it with like-minded cool people, though.\n  If that might be you, hit me up!\n</p>\n<p>\n  I'm conversant in Spanish, and speak a <em>little</em> bit of German, but I\n  don't get many chances to practice and I've never managed to stick it through\n  with Duolingo, so if you know of a more immersive (or less naggy) way to keep\n  the rust off, I'd also love to hear about it.\n</p>\n<p>\n  My hobbies include headphones, comics, food, fiction (SFF), and internet.\n  <ul>\n    <li>\n      The headphone collection is now more than a dozen items (I ended up with a\n      duplicate or two, for what it's worth.) I really gotta put some of these\n      suckers on Audiogon/craigslist/eBay, or SOMETHING.\n    </li>\n    <li>\n      Toward the start of the pandemic I got in on the Kickstarter for the comic\n      <a href=\"https://ohumanstar.com/\">O Human Star</a> so now I've got a sweet\n      three-volume physical copy!\n    </li>\n    <li>\n      Some favorite authors: Margaret Atwood, Jorge Luis Borges, William Gibson,\n      Charles Stross. I finally read Jeff VanderMeer's <i>Annihilation</i> after\n      several years (and after watching the movie--if you're gonna do both, do\n      it in that order, simply because the book is better. :P) The rest of the\n      trilogy is next when I get some time, unless my friends convince me to\n      pick up <i>The Long Way to a Small Angry Planet</i> first.\n    </li>\n    <li>\n      Although, before getting to that, I've also picked up some NON-fiction: I\n      started reading David Graeber's <i>Debt: The First 5000 Years</i>. Already\n      I can't recommend it enough, it <em>will</em> change your perspective.\n    </li>\n  </ul>\n</p>\n<p>\n  You can contact me at <b><code>reysquared(at)gmail(dot)com</code></b> if you\n  aren't a robot. (If you are a robot, I probably can't stop you from contacting\n  me, but my replies will not be as prompt. Sorry.)\n</p>\n<p hidden>\n  Courses from my last semester:\n</p>\n<pre hidden>\nCourse #   Title             Times          Notes\nCSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)\nCSCI184    Clinic            T  11:00       (and all my other time besides)\nCSCI189    Practicum         3-5 hr/wk      (Makin' APPS!)\nCSCI195    Colloquium        R  4:15        (Presentations are mostly cool)\nECON045    Microeconomics    TR 1:15        (Pretending we're rational!)\nLGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)\nEAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)\n</pre>\n";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
@@ -1319,7 +1341,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<!-- TODO it would be way easier to just have styles specific to the resume section -->\n<h2>Résumé</h2>\n<div class=\"customrule\"></div>\n<p><strong>OVERVIEW:</strong></p>\n<p>\n  <strong>Programming Languages:</strong> proficient with C++, C&#9839;, CSS, HTML,\n  JavaScript, Python; knowledgeable in Haskell, Java, Objective-C; familiarity working\n  with Prolog, Racket, x86 assembly\n</p>\n<p>\n  <strong>Development Experience:</strong> working with a team on a year-long project\n  as part of clinic; web design using HTML5 semantics; small and medium-scale program\n  design and development; writing and refactoring code for performance; complex data\n  structure use and implementation; debugging at source and assembly level\n</p>\n<p>\n  <strong>Software:</strong> Windows, OSX, Linux (Ubuntu/Gentoo); Visual Studio;\n  Office Suite; LaTeX; Adobe Photoshop, Illustrator; GIMP\n</p>\n\n<hr>\n<p><strong>EDUCATION:</strong></p>\n<p>\n  <strong>HARVEY MUDD COLLEGE, Claremont, CA</strong><br>\n  B.S. Computer Science; Concentration in Philosophy &#8211; May 2016 &#8211; Major GPA: 3.4<br>\n  Dean's List Fall 2014, Fall 2015\n</p>\n\n<p>\n  For further professional info about me, my full resume is here:\n  <a href=\"#deleted\">[link]</a>\n</p>";
+var code = "<!-- TODO it would be way easier to just have some styles/classes specific to the resume section -->\n<h2>Résumé</h2>\n<div class=\"customrule\"></div>\n<p><strong>OVERVIEW:</strong></p>\n<p>\n  <strong>Programming Languages:</strong> proficient with C++, C&#9839;, CSS, HTML,\n  JavaScript, Python; knowledgeable in Haskell, Java, Objective-C; familiarity working\n  with Prolog, Racket, x86 assembly\n</p>\n<p>\n  <strong>Development Experience:</strong> working with a team on a year-long project\n  as part of clinic; web design using HTML5 semantics; small and medium-scale program\n  design and development; writing and refactoring code for performance; complex data\n  structure use and implementation; debugging at source and assembly level\n</p>\n<p>\n  <strong>Software:</strong> Windows, OSX, Linux (Ubuntu/Gentoo); Visual Studio;\n  Office Suite; LaTeX; Adobe Photoshop, Illustrator; GIMP\n</p>\n\n<hr>\n<p><strong>EDUCATION:</strong></p>\n<p>\n  <strong>HARVEY MUDD COLLEGE, Claremont, CA</strong><br>\n  B.S. Computer Science; Concentration in Philosophy &#8211; May 2016 &#8211; Major GPA: 3.4<br>\n  Dean's List Fall 2014, Fall 2015\n</p>\n\n<p>\n  For further professional info about me, my full resume is here:\n  <a href=\"#deleted\">[link]</a>\n</p>";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
@@ -53664,25 +53686,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var TABS_LIST = [{
-  tabId: 'default',
+  id: 'default',
   label: 'TODO|kevin this isnt actually needed lololol',
-  tabContent: html_tabs_00_default_html__WEBPACK_IMPORTED_MODULE_3__["default"]
+  content: html_tabs_00_default_html__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
-  tabId: 'bio',
+  id: 'bio',
   label: 'Bio',
-  tabContent: html_tabs_01_bio_html__WEBPACK_IMPORTED_MODULE_4__["default"]
+  content: html_tabs_01_bio_html__WEBPACK_IMPORTED_MODULE_4__["default"],
+  // Specifying an `effect` function for any tab will get passed to useEffect
+  // for the corresponding TabContent component. A lil janky, but it works!
+  effect: function effect() {
+    // This silly snippet replaces the Bio subheader with one of these lines
+    var subOpts = ['Lives bodily inside a laptop', 'Eats JavaScript for snax', '"It\'s more of a computer art than a computer science."', 'is climing a mountain (why are they climbing a mountain?)', 'Need more sleep.'];
+    var choice = subOpts[Math.floor(Math.random() * subOpts.length)];
+    document.getElementById('sillysub').innerHTML = choice;
+  }
 }, {
-  tabId: 'resume',
+  id: 'resume',
   label: 'Résumé',
-  tabContent: html_tabs_02_resume_html__WEBPACK_IMPORTED_MODULE_5__["default"]
+  content: html_tabs_02_resume_html__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
-  tabId: 'projects',
+  id: 'projects',
   label: 'Projects',
-  tabContent: html_tabs_03_projects_html__WEBPACK_IMPORTED_MODULE_6__["default"]
+  content: html_tabs_03_projects_html__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
-  tabId: 'siteinfo',
+  id: 'siteinfo',
   label: 'About',
-  tabContent: html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_7__["default"]
+  content: html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_7__["default"]
 }];
 document.addEventListener('DOMContentLoaded', function () {
   // TODO|kevin stuff to do when the document loads! this... MIGHT be everything at this level though?
@@ -53697,11 +53727,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // with the component content changing in that way tbh, but... we'll see lol
   // In the ABSOLUTE worst case scenario, I can create a new component to wrap
   // the TabsView and put my scripts in useEffect
-  // This silly snippet replaces the subheader on the Bio tab with ome of these lines.
-
-  var subOpts = ['Lives bodily inside a laptop', 'Eats JavaScript for snax', '"It\'s more of a computer art than a computer science."', 'is climing a mountain (why are they climbing a mountain?)', 'Need more sleep.'];
-  var choice = subOpts[Math.floor(Math.random() * subOpts.length)];
-  document.getElementById('sillysub').innerHTML = choice; // TODO|kevin instead of replacing @ with (at) maybe I can make an email-address-revealer button lol
+  // TODO|kevin instead of replacing @ with (at) maybe I can make an email-address-revealer button lol
 }); // // TODO|kevin everything below is straight from the original tabs.js, just pulled out of the IIFE
 // // Simple shorthand function for pushing to the history
 // function pushHash(anchorName) {
