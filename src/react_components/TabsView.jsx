@@ -40,11 +40,6 @@ export default class TabsView extends React.Component {
         this.setActiveTab(DEFAULT_TAB);
       } else if (targetTab) {
         this.setActiveTab(targetTab);
-        // If the tab we just activated is not the target itself, we should
-        // scroll to that fragment now that the tab is visible
-        // if (hash !== targetTab) {
-        //   window.location.hash = '#' + hash;
-        // }
       }
     }
 

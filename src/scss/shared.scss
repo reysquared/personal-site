@@ -10,15 +10,15 @@
 // TODO|kevin make almost all dimensions in this document relative to ems instead of px!
 html,
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 body {
   @include var-with-fallback(background, --main-bg-color, $bgcolor);
   @include var-with-fallback(color, --main-text-color, $textcolor);
-  font-family: "DejaVu Serif", Georgia, serif;
+  font-family: 'DejaVu Serif', Georgia, serif;
   font-size: 16px;
 }
 
@@ -38,8 +38,8 @@ section {
 // Content wrapper for the whole page
 #wrapper {
   min-height: 100%;
-  position: relative;
   overflow-x: hidden;
+  position: relative;
 }
 
 .main-header {
@@ -56,7 +56,7 @@ h2 {
   font-style: italic;
 
   &::before {
-    content: "\00a0\00a0\00a0\00a0\2767\00a0";
+    content: '\00a0\00a0\00a0\00a0\2767\00a0';
     font-weight: bold;
   }
 }
@@ -67,31 +67,38 @@ h2 {
 
   p:first-of-type:not(.subhead)::first-letter,
   hr+p::first-letter {
-      // Yeeaaah, this is kind of egregious. It DOES look cool, though.
-      // TODO|kevin Honestly this is just foolishness and should really be applied
-      // to a class instead of this nightmare selector, but... it IS also FUN.
-      float: left;
-      @include var-with-fallback(color, --initial-caps-color, $capscolor);
-      font-size: 2em;
-      font-weight: bold;
-      line-height: 1em;
-      margin-top: -0.25rem;
-      padding-right: 0.25rem;
-      @include var-with-fallback(text-shadow, --initial-caps-stroke, $defaultcapsstroke);
+    // Yeeaaah, this is kind of egregious. It DOES look cool, though.
+    // TODO|kevin Honestly this is just foolishness and should really be applied
+    // to a class instead of this nightmare selector, but... it IS also FUN.
+    @include var-with-fallback(color, --initial-caps-color, $capscolor);
+    float: left;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1em;
+    margin-top: -0.25rem;
+    padding-right: 0.25rem;
+    @include var-with-fallback(text-shadow, --initial-caps-stroke, $defaultcapsstroke);
   }
 }
 
 /** Footer anchored to page bottom **/
 #sticky-footer {
-  width: 100%;
+  display: flex;
   height: 6.25em;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 37.5em;
   padding: 0 2em;
   position: absolute;
-  bottom: 0;
-  left: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 
   a {
     text-decoration: none;
+    img {
+      height: 24px;
+    }
   }
 }
 
@@ -102,66 +109,79 @@ a {
 
 /** Custom horizontal rule **/
 hr {
-  border: 0;
-  height: 1px;
   // This actually looks pretty good in both light and dark modes, not touchin' it
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(102, 153, 255, 0.75), rgba(0, 0, 0, 0));
+  border: 0;
+  height: 1px;
 }
 
 /** EXTRA-custom horizontal rule (div) **/
 // Shouts to css-tricks: https://css-tricks.com/examples/hrs/
 // Mine is on a div to be somewhat less ambiguous WRT standard.
 .customrule {
-  margin-top: 1.25em;
-  height: calc(1em - 1px);
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
-  border-width: 1px 0 0 0;
   border-radius: calc(1em - 1px);
+  border-width: 1px 0 0 0;
+  height: calc(1em - 1px);
+  margin-top: 1.25em;
 
   &::before {
+    @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+    border-radius: calc(1em - 1px);
+    border-width: 0 0 1px 0;
+    content: '';
     display: block;
     height: calc(1em - 1px);
-    margin-top: -1em;
-    // One more than the height
-    content: "";
-    @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
-    border-width: 0 0 1px 0;
-    border-radius: calc(1em - 1px);
+    margin-top: -1em;  // One more than the height
   }
 
   &::after {
-    content: " ";
-    height: 0.5em;
-    width: 0.5em;
-    position: relative;
-    margin: 0 auto;
-    display: block;
+    @include var-with-fallback(background, --customrule-flair-color, $flaircolor);
     @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
     border-radius: 50%;
-    @include var-with-fallback(background-color, --customrule-flair-color, $flaircolor);
+    content: ' ';
+    display: block;
+    height: 0.5em;
+    margin: 0 auto;
+    position: relative;
+      // -1/2 height, -1px for own border, -0.5px to center on parent's border-top
+      top: calc(-0.25em - 1.5px);
     text-align: center;
-    // -1/2 height, -1px for own border, -0.5px to center on parent's border-top
-    top: calc(-0.25em - 1.5px);
+    width: 0.5em;
   }
 }
 
 /** Run and Go Back button formatting **/
 // TODO|kevin honestly this feels kinda ugly now. I can do better than this.
 .button {
-  font: bold .7em Arial;
+  @include var-with-fallback(background, --main-bg-color, $bgcolor);
+  @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+  @include var-with-fallback(color, --main-text-color, $textcolor);
+  display: inline-block;
+  font-size: 0.875em;
+  font-weight: bold;
+  padding: 0.5em 1.5em 0.5em 1.5em;
   text-decoration: none;
-  background-color: #ddd;
-  color: #333;
-  padding: 2px 6px 2px 6px;
-  border: outset 2px #bbb;
+
+  &.go-back {
+    margin: 1em 0;
+  }
 
   &:hover {
-    background-color: #eee;
+    @include var-with-fallback(background, --tab-hover-fill, $bordercolor);
+    @include var-with-fallback(border, --tab-hover-border, 1px solid $tabglowcolor);
+    @include var-with-fallback(color, --main-bg-color, $bgcolor);
+    // TODO|kevin how might I update var-with-fallback to support this pattern more flexibly?
+    box-shadow: 0 0 3px 0 $tabglowcolor;
+    box-shadow: 0 0 3px 0 var(--tab-glow-color);
   }
 
   &:active {
-    background-color: #999;
-    border: inset 2px #bbb;
+    @include var-with-fallback(background, --customrule-flair-color, $flaircolor);
+    @include var-with-fallback(border-color, --initial-caps-color, $capscolor);
+    @include var-with-fallback(color, --main-text-color, $textcolor);
+    // It's nice to animate colors in general, but :active response should be IMMEDIATE
+    transition: 0s;
   }
 }
 
@@ -171,16 +191,16 @@ hr {
 
 /** Container div for script input **/
 .script-interface {
-  width: 500px;
   margin: 0 auto;
+  width: 500px;
 }
 
 /** Input + output textbox formatting **/
 .scriptbox {
-  width: 40em;
-  height: 5em;
   @include var-with-fallback(border, --text-input-border, 1px solid $inputborder);
+  height: 5em;
   resize: none;
+  width: 40em;
 
   &:focus {
     @include var-with-fallback(border, --text-input-border-focus, 2px solid $inputfocus);
@@ -199,12 +219,11 @@ hr {
 /*to keep the Run button centered.*/
 .ajax-status.success::after,
 .ajax-status.failure::after {
-  position: relative;
-  left: 10px;
+  content: '';
   margin: 0;
-  padding: 0px 8px;
-  content: "";
-  /*Necessary for the element to display*/
+  padding: 0px 8px;  // Necessary for the element to display
+  position: relative;
+    left: 10px;
 }
 
 .ajax-status.success::after {
@@ -221,66 +240,73 @@ hr {
 
 /** Container div for tab buttons **/
 .tabs-menu {
-  height: 3em;
   @include var-with-fallback(border-bottom, --main-content-border, 1px solid $bordercolor);
-  text-align: center;
+  height: 3em;
   position: relative;
+  text-align: center;
 }
 
 .tabs-list {
+  align-items: end;
+  display: flex;
+  justify-content: center;
+  list-style: none;
   margin: 0 auto;
   padding: 0;
-  list-style: none;
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
   // TODO|kevin this looks pretty good but it could do better I feel like tbh...
   // setting flex on tab-title seems to only get me so far and the shrunk buttons
   // cause the "tabs shift when selected" issue to return in a big way lol
-  display: flex;
-  align-items: end;
-  justify-content: center;
 }
 
 /** An individual item of the tab menu **/
 .tab-title {
   display: inline-block;
+  margin: 0 0.1em;
   vertical-align: bottom;
   width: 6em; // Explicit width to stop tabs shifting from bolded text
-  margin: 0 0.1em;
 
   > a {
+    @include var-with-fallback(background, --main-bg-color, $bgcolor);
+    @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+    border-width: 1px 1px 0 1px;
+    @include var-with-fallback(color, --main-text-color, $textcolor);
     display: block;
     margin: 0 1px;
     padding: 0.325em 0.625em;
-    @include var-with-fallback(background, --main-bg-color, $bgcolor);
-    transition: background 0.2s ease, color 0.2s ease, padding 0.2s ease, border 0.2s ease;
     text-decoration: none;
-    @include var-with-fallback(color, --main-text-color, $textcolor);
-    @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
-    border-width: 1px 1px 0 1px;
+    transition: background 0.2s ease, color 0.2s ease, padding 0.2s ease, border 0.2s ease;
 
+    /*Hover highlighting for tab buttons*/
     &:hover, &:focus {
-      /*Hover highlighting for tab buttons*/
       @include var-with-fallback(background, --tab-hover-fill, $bordercolor);
-      // Color tab text as background on hover
-      @include var-with-fallback(color, --main-bg-color, $bgcolor);
       @include var-with-fallback(border, --tab-hover-border, 1px solid $tabglowcolor);
       border-width: 1px 1px 0 1px;
       @include var-with-fallback(box-shadow, --tab-hover-shadow, $defaulttabhover);
+      // Color tab text as background on hover
+      @include var-with-fallback(color, --main-bg-color, $bgcolor);
+    }
+
+    &:active {
+      @include var-with-fallback(background, --customrule-flair-color, $flaircolor);
+      @include var-with-fallback(border-color, --initial-caps-color, $capscolor);
+      @include var-with-fallback(color, --main-text-color, $textcolor);
+      transition: 0s;
     }
   }
 
   &.active > a {
     &, &:hover, &:focus {
-      position: relative;
-      bottom: -1px;  // Shifts active tab down, obscuring tabs-menu border for tab effect
-      padding: 0.625em;
       @include var-with-fallback(background, --main-bg-color, $bgcolor);
+      box-shadow: none;
       @include var-with-fallback(color, --main-text-color, $textcolor);
       font-weight: bold;
-      box-shadow: none;
+      padding: 0.625em;
+      position: relative;
+        bottom: -1px;  // Shifts active tab down, obscuring tabs-menu border for tab effect
     }
   }
 }
@@ -290,24 +316,21 @@ hr {
 
 /** Container for all the tab panels **/
 #tabs-content {
-  overflow: auto;
   /*Fix for horizontal scroll bar jump thanks to Ayke van Laetham: https://aykevl.nl/2014/09/fix-jumping-scrollbar*/
+  margin-bottom: 1.25em;
   margin-left: calc(100vw - 100% + 1.25em);
   margin-right: 1.25em;
   margin-top: 1.25em;
-  margin-bottom: 1.25em;
+  overflow: auto;
 }
 
 /** Basic tab panel formatting **/
 .tab-panel {
-  margin: 0 auto 1.5em;
-  padding: 1.25em;
-  max-width: 37.5em;
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+  margin: 0 auto 1.5em;
+  max-width: 37.5em;
   overflow: hidden;
-
-  // TODO|kevin this should have a slight margin-bottom of its own (perhaps take
-  // some off of #tabs-content too?) so it looks less crowded in noscript mode
+  padding: 1.25em;
 
   &.active {
     display: block;
@@ -322,15 +345,14 @@ hr {
 // make custom properties for the caps-color-based border styles and add fallback?
 // TODO|kevin also it doesn't REALLY need to be shared, does it? This is index-specific.
 #pixelface {
-  float: right;  // TODO|kevin unset this for small enough screens and center the image with a classic margin: 0 auto;
-  height: 160px;
-  margin-left: 0.3em;
-  margin: 1em 0.5em 0 0.5em;
-  width: 160px;
-  background-size: 160px 160px;
   background-image: url('../../images/pixelface-light-border@2x.png');
+  background-size: 160px 160px;
   border: 1px solid;
   border-color: $capscolor;
+  float: right;
+  height: 160px;
+  margin: 1em 0.5em 0 0.5em;
+  width: 160px;
 
   [data-theme="dark"] & {
     background-image: url('../../images/pixelface-dark-border@2x.png');
@@ -342,9 +364,13 @@ hr {
     border-color: #46e;
 
     [data-theme="light"] & {
-      // TODO|kevin this hullaballoo is pretty ridiculous, I should see how it actually compiles out
       background-image: url('../../images/pixelface-light-border@2x.png');
       border-color: $capscolor;
     }
+  }
+
+  @media (max-width: 440px) {
+    float: unset;
+    margin: 0 auto;
   }
 }

@@ -28,46 +28,29 @@ function ThemeSwitcher(_ref) {
   var setTheme = function setTheme(event) {
     if (event.target.checked) {
       document.body.setAttribute('data-theme', 'dark');
-      document.getElementById('theme-toggle').setAttribute('aria-checked', true);
       localStorage.setItem('theme', 'dark');
     } else {
       document.body.setAttribute('data-theme', 'light');
-      document.getElementById('theme-toggle').setAttribute('aria-checked', false);
       localStorage.setItem('theme', 'light');
     }
-  }; // TODO|kevin boy howdy this needs SO MUCH WORK but screw it lets just see if the dang ol checkbox itself works
+  }; // TODO|kevin boy howdy I have very little confidence in the ARIA setup here
 
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
-    id: "theme-toggle",
-    "aria-role": "switch",
-    "aria-checked": defaultDark
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    id: "theme-toggle"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     className: "theme-header"
   }, "Theme"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "checkbox",
     onChange: setTheme,
     defaultChecked: defaultDark,
-    "aria-label": "Enable dark mode TODO|kevin I feel almost positive this isn't right dude"
+    role: "switch",
+    "aria-label": "Enable dark mode"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     className: "theme-slider",
     "aria-hidden": "true"
-  }, "\xA0")));
-} // TODO|kevin lessgooo
-
-/*
-<label className="theme-toggle">
-  <input type="checkbox" id="theme-switcher" />
-  <div className="theme-slider"></div>
-</label>
-// I think this second one is more like what I want actually? some folks make the
-// point that a checkbox CAN imply a form submission instead of an immediate toggle?
-<label for="toggle">Important binary setting
-<button type="button" id="toggle" role="switch" aria-checked="true">
-  <span>on</span><span>off</span>  
-</button>
-</label>
-*/
+  }, "\xA0"));
+}
 
 /***/ }),
 

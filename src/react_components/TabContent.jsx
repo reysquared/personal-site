@@ -29,10 +29,7 @@ export default function TabContent({ tab, activeTab, hasDefaultTab, setActiveTab
     >
       {HTMLReactParser(tab.content)}
       {hasDefaultTab && tab.id !== DEFAULT_TAB &&
-        <>
-          <ReturnButton setActiveTab={setActiveTab}/>
-          <br/><br/>
-        </>
+        <ReturnButton setActiveTab={setActiveTab} />
       }
     </section>
   );

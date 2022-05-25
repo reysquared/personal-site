@@ -19,38 +19,20 @@ export default function ThemeSwitcher({props}) {
     }
   };
 
-  // TODO|kevin boy howdy this needs SO MUCH WORK but screw it lets just see if the dang ol checkbox itself works
+  // TODO|kevin boy howdy I have very little confidence in the ARIA setup here
   return (
-    <>
-      <label
-        id="theme-toggle"
-        aria-role="switch"
-        aria-checked={defaultDark}
-        >
-        <span className="theme-header">Theme</span>
-        <input
-          type="checkbox"
-          onChange={setTheme}
-          defaultChecked={defaultDark}
-          aria-label="Enable dark mode"
-        />
-        <span className="theme-slider" aria-hidden="true">&nbsp;</span>
-      </label>
-    </>
+    <label
+      id="theme-toggle"
+    >
+      <span className="theme-header">Theme</span>
+      <input
+        type="checkbox"
+        onChange={setTheme}
+        defaultChecked={defaultDark}
+        role="switch"
+        aria-label="Enable dark mode"
+      />
+      <span className="theme-slider" aria-hidden="true">&nbsp;</span>
+    </label>
   );
 }
-// TODO|kevin lessgooo
-
-/*
-<label className="theme-toggle">
-  <input type="checkbox" id="theme-switcher" />
-  <div className="theme-slider"></div>
-</label>
-// I think this second one is more like what I want actually? some folks make the
-// point that a checkbox CAN imply a form submission instead of an immediate toggle?
-<label for="toggle">Important binary setting
-<button type="button" id="toggle" role="switch" aria-checked="true">
-  <span>on</span><span>off</span>  
-</button>
-</label>
-*/

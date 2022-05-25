@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <!-- TODO|kevin also how do you specify a favicon again, and what should I use for one? -->
+  <!-- TODO|kevin how do you specify a favicon again, and what should I use for one? -->
   <title>Kevin McSwiggen</title>
   <meta name="author" content="Kevin McSwiggen">
   <meta name="color-scheme" content="light dark">
@@ -17,7 +17,6 @@
     <header class="main-header">
       <h1>Kevin's Nice Homepage</h1>
       <p class="subhead">&ldquo;It's a website! ¯\_(ツ)_/¯&rdquo;</p>
-      <div id="theme-toggle-container"></div>
     </header>
     <div id="main-content">
       <noscript>
@@ -35,41 +34,41 @@
           </section>
           <section id="bio" class="tab-panel">
             ${require('tabs/_01_bio.html')}
-            <a class="button go-back" href="#top">Main</a><br><br>
+            <a class="button go-back" href="#top">Main</a>
           </section>
           <section id="resume" class="tab-panel">
             ${require('tabs/_02_resume.html')}
-            <a class="button go-back" href="#top">Main</a><br><br>
+            <a class="button go-back" href="#top">Main</a>
           </section>
           <section id="projects" class="tab-panel">
             ${require('tabs/_03_projects.html')}
-            <a class="button go-back" href="#top">Main</a><br><br>
+            <a class="button go-back" href="#top">Main</a>
           </section>
           <section id="siteinfo" class="tab-panel">
             ${require('tabs/_04_about.html')}
-            <a class="button go-back" href="#top">Main</a><br><br>
+            <a class="button go-back" href="#top">Main</a>
           </section>
         </div>
       </noscript>
     </div>
     <footer id="sticky-footer">
-      <!-- TODO|kevin maybe I should make this into a partial too tbh. ALSO, dark mode toggle should go here.
-        ALSO, I should apply text-decoration: none to fix that stupid underline.
+      <!-- TODO|kevin maybe I should make this into a partial too tbh
         TODO|kevin ALSO, maybe remove/shrink these in general lmao
         or at the VERY LEAST I better re-run the fuckin validators !! -->
-      &copy; 2022 Kevin McSwiggen
-      <p>
+        <div>
+        &copy; 2022 Kevin McSwiggen<br><br>
         <a href="http://jigsaw.w3.org/css-validator/check/referer">
-          <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss"
+          <img src="http://jigsaw.w3.org/css-validator/images/vcss"
             alt="Valid CSS!">
         </a>
         &nbsp;&nbsp;
         <a href="http://www.w3.org/html/logo/">
-          <img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-semantics.png" height="32"
+          <img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-semantics.png"
             alt="HTML5 Powered with CSS3 / Styling, and Semantics"
             title="HTML5 Powered with CSS3 / Styling, and Semantics">
         </a>
-      </p>
+      </div>
+      <div id="theme-toggle-container"></div>
     </footer>
   </div>
 </body>

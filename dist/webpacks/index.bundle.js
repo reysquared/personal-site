@@ -168,9 +168,9 @@ function TabContent(_ref) {
     className: "tab-panel ".concat(activeTab === tab.id ? 'active' : 'inactive'),
     role: "tabpanel",
     "aria-labelledby": "tab-".concat(tab.id)
-  }, (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tab.content), hasDefaultTab && tab.id !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tab.content), hasDefaultTab && tab.id !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
     setActiveTab: setActiveTab
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null)));
+  }));
 }
 
 /***/ }),
@@ -266,12 +266,7 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
         if (!hash && _this2.props.hasDefaultTab) {
           _this2.setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB);
         } else if (targetTab) {
-          _this2.setActiveTab(targetTab); // If the tab we just activated is not the target itself, we should
-          // scroll to that fragment now that the tab is visible
-          // if (hash !== targetTab) {
-          //   window.location.hash = '#' + hash;
-          // }
-
+          _this2.setActiveTab(targetTab);
         }
       };
 
@@ -1305,7 +1300,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<header>\n  <h2>Welcome Friend</h2>\n</header>\n<div class=\"customrule\"></div>\n<p>\n  You're telling me I can write whatever I want here? Like, <em>anything?</em> Wow. All this\n  power is kind of humbling. Maybe I should put down the keyboard.\n</p>\n<br>\n<p>\n  Hey there, I'm Kevin, a software engineer from Oakland. This page contains\n  information about stuff that I'm doing currently and/or have done in the past.\n</p>\n<hr>\n<p><b>News:</b></p>\n<ul>\n  <li>Got married, got a house, aaand... got laid off? All in the same six months. That's an eventful half-year!</li>\n  <li>Wow, this pandemic is still going, huh.</li>\n  <li><em>Finally</em> updating my website for the first time in ages, check it out:\n    <ul>\n      <li>Migrated from the Harvey Mudd CS department server to Github Pages</li>\n      <li>Re-implemented the entire interface in React (the main webpage still supports noscript though!)</li>\n      <li>Added a dark theme option</li>\n      <li>Have begun porting some of my ancient, broken Python 2 CGI scripts into JavaScript so they can also work on Pages</li>\n      <li>Updated the info on here too, obviously</li>\n    </ul>\n  </li>\n  <li>Prepping for Firefly '22, it's been a while since I went camping.</li>\n  <li>I'm a little past 70% in Breath of the Wild now, and second-guessing my choice to go to 100%.</li>\n  <li>\n    I don't have music recs from this year yet, but listen to Daisuke Tanabe's\n    <a href=\"https://daisuketanabe.bandcamp.com/album/cat-steps\">Cat Steps</a>.\n  </li>\n</ul>";
+var code = "<header>\n  <h2>Welcome Friend</h2>\n</header>\n<div class=\"customrule\"></div>\n<p>\n  You're telling me I can write whatever I want here? Like, <em>anything?</em> Wow. All this\n  power is kind of humbling. Maybe I should put down the keyboard.\n</p>\n<br>\n<p>\n  Hey there, I'm Kevin, a software engineer from Oakland. This page contains\n  information about stuff that I'm doing currently and/or have done in the past.\n</p>\n<hr>\n<p><b>News:</b></p>\n<ul>\n  <li>Got married, got a house, aaand... got laid off? All in the same six months. That's an eventful half-year!</li>\n  <li>Wow, this pandemic is still going, huh.</li>\n  <li><em>Finally</em> updating my website for the first time in ages, check it out:\n    <ul>\n      <li>Migrated from the Harvey Mudd CS department server to Github Pages</li>\n      <li>Re-implemented the entire interface in React (the main webpage still supports noscript though!)</li>\n      <li>Added a dark theme option</li>\n      <li>Have begun porting some of my ancient, broken Python 2 CGI scripts into JavaScript so they can also work on Pages</li>\n      <li>Updated the info on here too, obviously</li>\n      <li>Did my best to make the interactive elements WAI-ARIA compliant. If you notice any defficiencies, please let me know!</li>\n    </ul>\n  </li>\n  <li>Prepping for Firefly '22, it's been a while since I went camping.</li>\n  <li>I'm a little past 70% in Breath of the Wild now, and second-guessing my choice to go to 100%.</li>\n  <li>\n    I don't have music recs from this year yet, but listen to Daisuke Tanabe's\n    <a href=\"https://daisuketanabe.bandcamp.com/album/cat-steps\">Cat Steps</a>.\n  </li>\n</ul>";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 

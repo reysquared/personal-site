@@ -36,6 +36,7 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
   --text-input-border: 1px solid #{$inputborder};
   --text-input-border-focus: 2px solid #{$inputfocus};
   --tab-hover-fill: #{$bordercolor};
+  --tab-glow-color: #{$tabglowcolor};
   --tab-hover-border: 1px solid #{$tabglowcolor};
   --tab-hover-shadow: #{$defaulttabhover};
 }
@@ -57,6 +58,7 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
   --text-input-border: 1px solid #333;
   --text-input-border-focus: 2px solid #888;
   --tab-hover-fill: #{$bordercolor};
+  --tab-glow-color: #dde;
   --tab-hover-border: 1px solid #dde;
   --tab-hover-shadow: 0 1px 0 0 #{$bordercolor},
                       0 5px 0 0 #223,
@@ -89,84 +91,47 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
   }
 }
 
-// #theme-toggle-container {
-//   // TODO|kevin
-
-//   input[type="checkbox"] {
-//     appearance: none;
-//   }
-
-//   span {
-//     background: white;
-//     color: black;
-
-//     &::before, &::after {
-//       border-radius: 4px;
-//       display: inline-block;
-//       min-width: 6ch;
-//     };
-
-//     &::after {
-//       content: 'Dark';
-//     }
-//     &::before {
-//       content: 'Light';
-//     }
-//   }
-//   // TODO|kevin should I really be using aria-checked properties here, or just letting the checkbox work like a checkbox???
-//   #theme-toggle[aria-checked="true"] span::after {
-//     background: black;  // TODO|kevin this is gonna need a lot of visual fucking-with regardless, just use SOMETHING...
-//     color: #eee;
-//   }
-
-//   #theme-toggle[aria-checked="false"] span::before {
-//     background-color: yellow;
-//     color: black;
-//   }
-// }
-
-// TODO|kevin okay let's try out a version where there's only ONE textual element
-#theme-toggle-container {
+// 
+#theme-toggle {
   input[type="checkbox"] {
     appearance: none;
+    margin: 0;
   }
 
   span.theme-header {
+    border: 2px solid transparent;
     display: inline-block;
-    text-transform: lowercase;
     font-variant: small-caps;
-    width: 4.5em;
     text-align: center;
+    text-transform: lowercase;
+    width: 4.5em;
   }
 
   span.theme-slider {
-    background: cornflowerblue;  // Sunny!!!
+    background: lightyellow;
     border: 2px solid black;
     border-radius: 1em;
     color: black;
+    display: block;
     line-height: 1.4em;
     width: 4.5em;
-    display: block;
     
+    // These pseudoelements describe the unchecked state by default
     &::after {
-      background: white;
-      // Describe unchecked state by default
+      align-content: center;
+      background: cornflowerblue;
+      border: 1px solid cornflowerblue;
       border-radius: 50%;
       box-sizing: border-box;
-      border: 1px solid black;
-      // display: inline-block;
       content: '🌞';
-      float: left;
-      width: 1.4rem;
-      height: 1.4rem;
-      // position: relative;
-      // left: -1px;
-      text-align: center;
       display: flex;
       flex-direction: column;
+      float: left;
+      height: 1.4rem;
       justify-content: center;
-      align-content: center;
       padding-top: 1px;
+      text-align: center;
+      width: 1.4rem;
     }
     &::before {
       content: 'Light';
@@ -176,21 +141,22 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
     }
   }
 
+  // Styles for checked state have higher specificity
   input[type="checkbox"]:checked + span.theme-slider {
     background: darkslateblue;
+    border-color: #eee;
 
     &::after {
+      background: black;
+      border-color: black;
       content: '🌝';
       float: right;
-      left: unset;
-      right: -1px;
       // The "body" of the sun is smaller because of the rays, shrink moon to compensate
       font-size: 80%;
-      background: #223;
     }
     &::before {
-      content: 'Dark';
       color: #eee;
+      content: 'Dark';
       float: left;
       margin-left: 0.3em;
       margin-right: 0;
