@@ -1,7 +1,10 @@
 import React from 'react';
 
+import { supportsLocalStorage } from 'helpers/misc';
+
 export default function ThemeSwitcher({props}) {
-  const currentTheme = localStorage.getItem('theme');
+  const canStore = supportsLocalStorage();
+  const currentTheme = (canStore && localStorage.getItem('theme'));
   const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   const defaultDark = currentTheme === 'dark' || (!currentTheme && preferDark);
 
@@ -10,16 +13,14 @@ export default function ThemeSwitcher({props}) {
   }
 
   const setTheme = (event) => {
-    if (event.target.checked) {
-      document.body.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.body.setAttribute('data-theme', 'light');
-      localStorage.setItem('theme', 'light');
+    const targetTheme = (event.target.checked ? 'dark' : 'light');
+    document.body.setAttribute('data-theme', targetTheme);
+    if (canStore) {
+      localStorage.setItem('theme', 'targetTheme');
     }
   };
 
-  // TODO|kevin boy howdy I have very little confidence in the ARIA setup here
+  // TODO|kevin TEST WITH SCREEN READER BLAAARRGRHRGHG
   return (
     <label
       id="theme-toggle"

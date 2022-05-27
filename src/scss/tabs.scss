@@ -1,1 +1,95 @@
-// TODO|kevin split out tabbed interface SCSS into this file. keep theme/typographic/etc in shared.scss
+@import '_themes';
+@import '_util';
+
+/********** Tabbed Menu Buttons **********/
+
+/** Container div for tab buttons **/
+.tabs-menu {
+  @include var-with-fallback(border-bottom, --main-content-border, 1px solid $bordercolor);
+  height: 3em;
+  position: relative;
+  text-align: center;
+}
+
+.tabs-list {
+  align-items: end;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  // TODO|kevin this looks pretty good but it could do better I feel like tbh...
+  // setting flex on tab-title seems to only get me so far and the shrunk buttons
+  // cause the "tabs shift when selected" issue to return in a big way lol
+}
+
+/** An individual item of the tab menu **/
+.tab-title {
+  display: inline-block;
+  margin: 0 0.1em;
+  vertical-align: bottom;
+  width: 6em; // Explicit width to stop tabs shifting from bolded text
+
+  >a {
+    @include var-with-fallback(background, --main-bg-color, $bgcolor);
+    @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+    border-width: 1px 1px 0 1px;
+    @include var-with-fallback(color, --main-text-color, $textcolor);
+    display: block;
+    margin: 0 1px;
+    padding: 0.325em 0.625em;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, padding 0.2s ease, border 0.2s ease;
+
+    /*Hover highlighting for tab buttons*/
+    &:hover,
+    &:focus {
+      @include var-with-fallback(background, --tab-hover-fill, $bordercolor);
+      @include var-with-fallback(border, --tab-hover-border, 1px solid $tabglowcolor);
+      border-width: 1px 1px 0 1px;
+      @include var-with-fallback(box-shadow, --tab-hover-shadow, $defaulttabhover);
+      // Color tab text as background on hover
+      @include var-with-fallback(color, --main-bg-color, $bgcolor);
+    }
+
+    &:active {
+      @include var-with-fallback(background, --customrule-flair-color, $flaircolor);
+      @include var-with-fallback(border-color, --initial-caps-color, $capscolor);
+      @include var-with-fallback(color, --main-text-color, $textcolor);
+      transition: 0s;
+    }
+  }
+
+  &.active>a {
+
+    &,
+    &:hover,
+    &:focus {
+      @include var-with-fallback(background, --main-bg-color, $bgcolor);
+      box-shadow: none;
+      @include var-with-fallback(color, --main-text-color, $textcolor);
+      font-weight: bold;
+      padding: 0.625em;
+      position: relative;
+      bottom: -1px; // Shifts active tab down, obscuring tabs-menu border for tab effect
+    }
+  }
+}
+
+
+/********** Tabbed Content Display **********/
+
+/** Basic tab panel formatting **/
+.tab-panel {
+  &.active {
+    display: block;
+  }
+
+  &.inactive {
+    display: none;
+  }
+}

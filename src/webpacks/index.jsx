@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react';  // TODO|kevin not clear why this is needed and not just ReactDOM
+import React, { StrictMode } from 'react';
 import ReactDOMClient from 'react-dom/client';
 // TODO|kevin regardless of how I actually handle the tabsview invocation, I'll
 // need to import the tab contents in THIS file. ...buuuut I also might not be
@@ -54,13 +54,12 @@ const TABS_LIST = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-  // TODO|kevin stuff to do when the document loads! this... MIGHT be everything at this level though?
   const rootEl = document.getElementById('main-content');
   const root = ReactDOMClient.createRoot(rootEl);
   // TODO|kevin StrictMode component is only for debugging, remove later!
   root.render(
     <StrictMode>
-      <TabsView tabs={TABS_LIST} hasDefaultTab={true} />
+      <TabsView tabs={TABS_LIST} hasDefaultTab={true} containerClass="content" />
     </StrictMode>
   );
   // TODO|kevin also set up dark mode toggle below this

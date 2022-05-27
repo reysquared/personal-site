@@ -76,11 +76,12 @@ export default class TabsView extends React.Component {
             })}
           </ul>
         </nav>
-        <div id="tabs-content">
+        <div className="inner-content">
           {this.props.tabs.map((tab) =>
             <TabContent
               key={tab.id}
               tab={tab}
+              containerClass={this.props.containerClass}
               activeTab={this.state.activeTab}
               hasDefaultTab={this.props.hasDefaultTab}
               setActiveTab={this.setActiveTab}

@@ -145,6 +145,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function TabContent(_ref) {
   var tab = _ref.tab,
+      containerClass = _ref.containerClass,
       activeTab = _ref.activeTab,
       hasDefaultTab = _ref.hasDefaultTab,
       setActiveTab = _ref.setActiveTab;
@@ -163,9 +164,15 @@ function TabContent(_ref) {
   // isn't enabled at all then there's already a button for this tab in the nav
 
 
+  var className = 'tab-panel ' + (activeTab === tab.id ? 'active' : 'inactive');
+
+  if (containerClass) {
+    className += ' ' + containerClass;
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
     id: tab.id,
-    className: "tab-panel ".concat(activeTab === tab.id ? 'active' : 'inactive'),
+    className: className,
     role: "tabpanel",
     "aria-labelledby": "tab-".concat(tab.id)
   }, (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tab.content), hasDefaultTab && tab.id !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -310,11 +317,12 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
           setActiveTab: _this3.setActiveTab
         });
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
-        id: "tabs-content"
+        className: "inner-content"
       }, this.props.tabs.map(function (tab) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_components_TabContent__WEBPACK_IMPORTED_MODULE_4__["default"], {
           key: tab.id,
           tab: tab,
+          containerClass: _this3.props.containerClass,
           activeTab: _this3.state.activeTab,
           hasDefaultTab: _this3.props.hasDefaultTab,
           setActiveTab: _this3.setActiveTab
@@ -1354,7 +1362,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<h2>Personal and Academic Projects</h2>\n<div class=\"customrule\"></div>\n<p>More things will become visible here overtime.</p>\n<!-- TODO|kevin I should make this tab specifically for projects that are ON THIS SITE. or at least have a link?\nThen the resume tab can link to them on this tab or whatever. -->\n<p>\n  You can check out <a href=\"https://github.com/reysquared\">my GitHub page</a>, but it's\n  kind of empty right now. (Most of my repos happen to be private...) I'm working on it.\n</p>\n<br>\n<p><b>Past Projects</b>:</p>\n<ul>\n  <li>\n    <a href=\"https://github.com/zsweedyk/CS121F14S3_Team2\">Fraction Blaster</a> &ndash; an iPad\n    game for elementary school students <i>in spaaace!</i> Developed by Louis Brann, Kevin Choi,\n    Alejandro Mendoza, and of course myself. Now available for free on the app store!\n  </li>\n  <li>\n    The C proxy that will never let you down &ndash; a project for CS105 that injects Rick\n    Astley's &ldquo;Never Gonna Give You Up&rdquo; into every page you load, because we're bad people.\n    Developed by me and Chris Brown. (Link forthcoming)\n  </li>\n  <li>More/older things that I'll add here eventually</li>\n</ul>\n<p><b>Scraps</b> which I already have online:</p>\n<ul>\n  <li><a href=\"asciiseal.txt\">asciiseal.txt</a> &ndash; Text Mode Improper Use</li>\n  <li><a href=\"topoapp/topoapp.html\">topoapp.html</a> &ndash; A brief foray into geographic visualization with d3 and\n    TopoJSON</li>\n</ul>\n<p><b>Coming Soon</b> to <s>a webpage near you</s> right here:\n<ul>\n  <li>An HTML5 app for making and saving ink annotations on videos! (Under development)</li>\n  <li>Implementation and analysis of a segmented prime sieve (Needs to be made web-friendly)</li>\n  <li>\n    At some point I'm gonna look into fixing the brief display issues when this page first\n    loads. It's intended to be accessible even if you have JavaScript disabled, but this makes\n    it look less good for people who DON'T have it disabled, if only for a brief moment.\n  </li>\n  <li>\n    Numerous small JavaScript utilities (useful stuff) and dealies (fun stuff; technical term).\n    <ul>\n      <li>Markov-generated sin</li>\n      <li>Ken-ken helper</li>\n      <li>JSON visualizer, because sometimes it's cathartic to reinvent the wheel</li>\n    </ul>\n  </li>\n  <li>Probably more?</li>\n</ul>";
+var code = "<h2>Personal and Academic Projects</h2>\n<div class=\"customrule\"></div>\n<p>More things will become visible here overtime.</p>\n<!-- TODO|kevin I should make this tab specifically for projects that are ON THIS SITE. or at least have a link?\nThen the resume tab can link to them on this tab or whatever. -->\n<p>\n  You can check out <a href=\"https://github.com/reysquared\">my GitHub page</a>, but it's\n  kind of empty right now. (Most of my repos happen to be private...) I'm working on it.\n</p>\n<br>\n<p><b>Past Projects</b>:</p>\n<ul>\n  <li>\n    <a href=\"https://github.com/zsweedyk/CS121F14S3_Team2\">Fraction Blaster</a> &ndash; an iPad\n    game for elementary school students <i>in spaaace!</i> Developed by Louis Brann, Kevin Choi,\n    Alejandro Mendoza, and of course myself. Now available for free on the app store!\n  </li>\n  <li>\n    The C proxy that will never let you down &ndash; a project for CS105 that injects Rick\n    Astley's &ldquo;Never Gonna Give You Up&rdquo; into every page you load, because we're bad people.\n    Developed by me and Chris Brown. (Link forthcoming)\n  </li>\n  <li>More/older things that I'll add here eventually</li>\n</ul>\n<p><b>Scraps</b> which I already have online:</p>\n<ul>\n  <li><a href=\"asciiseal.txt\">asciiseal.txt</a> &ndash; Text Mode Improper Use</li>\n  <li><a href=\"topoapp/topoapp.html\">topoapp.html</a> &ndash; A brief foray into geographic visualization with d3 and\n    TopoJSON</li>\n</ul>\n<p><b>Coming Soon</b> to <s>a webpage near you</s> right here:\n<ul>\n  <li>An HTML5 app for making and saving ink annotations on videos! (Under development)</li>\n  <li>Implementation and analysis of a segmented prime sieve (Needs to be made web-friendly)</li>\n  <li>\n    At some point I'm gonna look into fixing the brief display issues when this page first\n    loads. It's intended to be accessible even if you have JavaScript disabled, but this makes\n    it look less good for people who DON'T have it disabled, if only for a brief moment.\n  </li>\n  <li>\n    Numerous small JavaScript utilities (useful stuff) and dealies (fun stuff; technical term).\n    <ul>\n      <li>Markov-generated sin</li>\n      <li>Ken-ken helper</li>\n      <li>JSON visualizer, because sometimes it's cathartic to reinvent the wheel</li>\n    </ul>\n  </li>\n  <li>Probably more?</li>\n</ul>\n<!-- TODO|kevin dumping some links to the \"old\" projects here lol -->\n<p>Former Python CGI scripts ported to JavaScript:</p>\n<ul>\n  <li><a href=\"caesarsolver.html\">Caesar Cipher Solver</a></li>\n</ul>";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
@@ -53668,7 +53676,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var html_tabs_02_resume_html__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! html/tabs/_02_resume.html */ "./src/html/tabs/_02_resume.html");
 /* harmony import */ var html_tabs_03_projects_html__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! html/tabs/_03_projects.html */ "./src/html/tabs/_03_projects.html");
 /* harmony import */ var html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! html/tabs/_04_about.html */ "./src/html/tabs/_04_about.html");
- // TODO|kevin not clear why this is needed and not just ReactDOM
 
  // TODO|kevin regardless of how I actually handle the tabsview invocation, I'll
 // need to import the tab contents in THIS file. ...buuuut I also might not be
@@ -53710,13 +53717,13 @@ var TABS_LIST = [{
   content: html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_7__["default"]
 }];
 document.addEventListener('DOMContentLoaded', function () {
-  // TODO|kevin stuff to do when the document loads! this... MIGHT be everything at this level though?
   var rootEl = document.getElementById('main-content');
   var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootEl); // TODO|kevin StrictMode component is only for debugging, remove later!
 
   root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabsView__WEBPACK_IMPORTED_MODULE_2__["default"], {
     tabs: TABS_LIST,
-    hasDefaultTab: true
+    hasDefaultTab: true,
+    containerClass: "content"
   }))); // TODO|kevin also set up dark mode toggle below this
   // TODO|kevin include the silly subheader script here? not sure how React deals
   // with the component content changing in that way tbh, but... we'll see lol

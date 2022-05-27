@@ -1,5 +1,5 @@
 @import '_util';
-@import '_themes';
+@import '_themetoggle';
 
 /********** General Page Style **********/
 
@@ -63,7 +63,8 @@ h2 {
 
 // Container for primary page content
 #main-content {
-  padding-bottom: 4.25em;  // Same height as footer minus tab-panel bottom margin
+  margin-bottom: 2em;  // TODO|kevin does this fuck things up on the main page?
+  padding-bottom: 4.25em;  // Same height as footer minus section.content bottom margin
 
   p:first-of-type:not(.subhead)::first-letter,
   hr+p::first-letter {
@@ -79,6 +80,15 @@ h2 {
     padding-right: 0.25rem;
     @include var-with-fallback(text-shadow, --initial-caps-stroke, $defaultcapsstroke);
   }
+
+}
+
+.inner-content {
+  /*Fix for horizontal scroll bar jump thanks to Ayke van Laetham: https://aykevl.nl/2014/09/fix-jumping-scrollbar*/
+  margin-left: calc(100vw - 100% + 1.25em);
+  margin-right: 1.25em;
+  margin-top: 1.25em;
+  overflow: auto;
 }
 
 /** Footer anchored to page bottom **/
@@ -158,13 +168,14 @@ hr {
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
   @include var-with-fallback(color, --main-text-color, $textcolor);
   display: inline-block;
+  font-family: inherit;
   font-size: 0.875em;
   font-weight: bold;
   padding: 0.5em 1.5em 0.5em 1.5em;
   text-decoration: none;
 
   &.go-back {
-    margin: 1em 0;
+    margin: 0.5em 0;
   }
 
   &:hover {
@@ -185,160 +196,13 @@ hr {
   }
 }
 
-
-/********** JavaScript-Python Interface **********/
-// TODO|kevin some of this stuff MIGHT become irrelevant lol
-
-/** Container div for script input **/
-.script-interface {
-  margin: 0 auto;
-  width: 500px;
-}
-
-/** Input + output textbox formatting **/
-.scriptbox {
-  @include var-with-fallback(border, --text-input-border, 1px solid $inputborder);
-  height: 5em;
-  resize: none;
-  width: 40em;
-
-  &:focus {
-    @include var-with-fallback(border, --text-input-border-focus, 2px solid $inputfocus);
-  }
-}
-
-// TODO|kevin idk if I'll actually use any of these .ajax-status styles...
-.ajax-status {
-  text-align: center;
-}
-
-/** Status icons for AJAX submission buttons! **/
-.ajax-status.success::before,
-/*Add empty pseudo-element on left side as well,*/
-.ajax-status.failure::before,
-/*to keep the Run button centered.*/
-.ajax-status.success::after,
-.ajax-status.failure::after {
-  content: '';
-  margin: 0;
-  padding: 0px 8px;  // Necessary for the element to display
-  position: relative;
-    left: 10px;
-}
-
-.ajax-status.success::after {
-  background: transparent url('images/success.png') no-repeat;
-}
-
-.ajax-status.failure::after {
-  background: transparent url('images/failure.gif') no-repeat;
-}
-
-
-
-/********** Tabbed Menu Buttons **********/
-
-/** Container div for tab buttons **/
-.tabs-menu {
-  @include var-with-fallback(border-bottom, --main-content-border, 1px solid $bordercolor);
-  height: 3em;
-  position: relative;
-  text-align: center;
-}
-
-.tabs-list {
-  align-items: end;
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  // TODO|kevin this looks pretty good but it could do better I feel like tbh...
-  // setting flex on tab-title seems to only get me so far and the shrunk buttons
-  // cause the "tabs shift when selected" issue to return in a big way lol
-}
-
-/** An individual item of the tab menu **/
-.tab-title {
-  display: inline-block;
-  margin: 0 0.1em;
-  vertical-align: bottom;
-  width: 6em; // Explicit width to stop tabs shifting from bolded text
-
-  > a {
-    @include var-with-fallback(background, --main-bg-color, $bgcolor);
-    @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
-    border-width: 1px 1px 0 1px;
-    @include var-with-fallback(color, --main-text-color, $textcolor);
-    display: block;
-    margin: 0 1px;
-    padding: 0.325em 0.625em;
-    text-decoration: none;
-    transition: background 0.2s ease, color 0.2s ease, padding 0.2s ease, border 0.2s ease;
-
-    /*Hover highlighting for tab buttons*/
-    &:hover, &:focus {
-      @include var-with-fallback(background, --tab-hover-fill, $bordercolor);
-      @include var-with-fallback(border, --tab-hover-border, 1px solid $tabglowcolor);
-      border-width: 1px 1px 0 1px;
-      @include var-with-fallback(box-shadow, --tab-hover-shadow, $defaulttabhover);
-      // Color tab text as background on hover
-      @include var-with-fallback(color, --main-bg-color, $bgcolor);
-    }
-
-    &:active {
-      @include var-with-fallback(background, --customrule-flair-color, $flaircolor);
-      @include var-with-fallback(border-color, --initial-caps-color, $capscolor);
-      @include var-with-fallback(color, --main-text-color, $textcolor);
-      transition: 0s;
-    }
-  }
-
-  &.active > a {
-    &, &:hover, &:focus {
-      @include var-with-fallback(background, --main-bg-color, $bgcolor);
-      box-shadow: none;
-      @include var-with-fallback(color, --main-text-color, $textcolor);
-      font-weight: bold;
-      padding: 0.625em;
-      position: relative;
-        bottom: -1px;  // Shifts active tab down, obscuring tabs-menu border for tab effect
-    }
-  }
-}
-
-
-/********** Tabbed Content Display **********/
-
-/** Container for all the tab panels **/
-#tabs-content {
-  /*Fix for horizontal scroll bar jump thanks to Ayke van Laetham: https://aykevl.nl/2014/09/fix-jumping-scrollbar*/
-  margin-bottom: 1.25em;
-  margin-left: calc(100vw - 100% + 1.25em);
-  margin-right: 1.25em;
-  margin-top: 1.25em;
-  overflow: auto;
-}
-
-/** Basic tab panel formatting **/
-.tab-panel {
+/** Container styles for main content section(s) **/
+section.content {
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
   margin: 0 auto 1.5em;
   max-width: 37.5em;
   overflow: hidden;
   padding: 1.25em;
-
-  &.active {
-    display: block;
-  }  
-
-  &.inactive {
-    display: none;
-  }
 }
 
 // TODO|kevin I feel like I should be able to clean this up more. Plus maybe
@@ -373,4 +237,70 @@ hr {
     float: unset;
     margin: 0 auto;
   }
+}
+
+/********** JavaScript-Python Interface **********/
+// TODO|kevin some of this stuff MIGHT become irrelevant lol
+
+fieldset {
+  @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+  display: flex;
+  flex-direction: column;
+
+  // Since I universally prefer to have labels that contain their form elements,
+  // I also end up using them for content grouping sometimes
+  label {
+    margin: 0.5em 0;
+
+    span {
+      display: block;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  /** Input + output textbox formatting **/
+  .scriptbox {
+    @include var-with-fallback(border, --text-input-border, 1px solid $inputborder);
+    box-sizing: border-box;
+    font-family: 'DejaVu Sans Mono', 'Courier New', monospace;
+    min-height: 5em;
+    resize: none;
+    width: 100%;
+  
+    &:focus {
+      @include var-with-fallback(border, --text-input-border-focus, 2px solid $inputfocus);
+    }
+  }
+
+  .small-number {
+    width: 3em;
+  }
+}
+
+
+// TODO|kevin idk if I'll actually use any of these .ajax-status styles...
+.ajax-status {
+  text-align: center;
+}
+
+/** Status icons for AJAX submission buttons! **/
+.ajax-status.success::before,
+/*Add empty pseudo-element on left side as well,*/
+.ajax-status.failure::before,
+/*to keep the Run button centered.*/
+.ajax-status.success::after,
+.ajax-status.failure::after {
+  content: '';
+  margin: 0;
+  padding: 0px 8px;  // Necessary for the element to display
+  position: relative;
+    left: 10px;
+}
+
+.ajax-status.success::after {
+  background: transparent url('images/success.png') no-repeat;
+}
+
+.ajax-status.failure::after {
+  background: transparent url('images/failure.gif') no-repeat;
 }

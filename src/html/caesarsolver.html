@@ -1,2 +1,45 @@
-<!-- TODO|kevin tbh THIS should be my next priority I think. Leave the Mandel shit for now,
-gotta get a handle on a non-shitty interface lmfao -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  ${require('shared/_headcontent.html') title="Caesar Solver"}
+  <link rel="stylesheet" type="text/css" href="css/caesar.css">
+  <script src="webpacks/caesar.bundle.js" defer></script>
+</head>
+<body>
+  <div id="wrapper">
+    <header class="main-header">
+      <!-- TODO|kevin maybe I should organize more of this shit into directories
+      and rename files like this to index.html in said directories. I'm GUESSING
+      Pages handles that in the way I would want it to...? -->
+      <!-- TODO|kevin this needs a back button, and this is quite possibly the right place to put it -->
+      <h1>Probabilistic Caesar Decipher</h1>
+    </header>
+    <div id="main-content">
+      <section class="content">
+        <p>
+          This is a simple encrypter/decrypter for an English-alphabet 
+          <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar cipher</a>
+          (or "shift cipher") which transforms a piece of text by "rotating" all
+          the alphabetic characters to a different position in the alphabet by a
+          particular offset amount. (The tool ignores any non-alpha characters.)
+        </p>
+        <p>
+          Since decryption is performed by the same operation as encryption but
+          with a different offset, you can click the "Invert" button to quickly
+          swap to the mod-26 complement of the current rotation value.
+        </p>
+        <p>
+          If you THINK you have a Caesar ciphertext but you aren't sure, you can
+          hit the Auto-Decipher button. This determines the output for every
+          possible rotation value and, using monogram frequencies for English
+          text, applies the offset it considers the most likely to produce an
+          English string.
+        </p>
+        <div id="caesar-solver"></div>
+      </section>
+    </div>
+    <footer id="sticky-footer">
+      ${require('shared/_footercontent.html')}
+    </footer>
+  </div>
+</body>

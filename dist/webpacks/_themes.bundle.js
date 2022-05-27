@@ -2,6 +2,30 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/helpers/misc.js":
+/*!*****************************!*\
+  !*** ./src/helpers/misc.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "supportsLocalStorage": () => (/* binding */ supportsLocalStorage)
+/* harmony export */ });
+function supportsLocalStorage() {
+  var teststr = '__localstorage_test__';
+
+  try {
+    localStorage.setItem(teststr, teststr);
+    localStorage.removeItem(teststr);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+/***/ }),
+
 /***/ "./src/react_components/ThemeSwitcher.jsx":
 /*!************************************************!*\
   !*** ./src/react_components/ThemeSwitcher.jsx ***!
@@ -14,10 +38,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var helpers_misc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! helpers/misc */ "./src/helpers/misc.js");
+
 
 function ThemeSwitcher(_ref) {
   var props = _ref.props;
-  var currentTheme = localStorage.getItem('theme');
+  var canStore = (0,helpers_misc__WEBPACK_IMPORTED_MODULE_1__.supportsLocalStorage)();
+  var currentTheme = canStore && localStorage.getItem('theme');
   var preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   var defaultDark = currentTheme === 'dark' || !currentTheme && preferDark;
 
@@ -26,14 +53,13 @@ function ThemeSwitcher(_ref) {
   }
 
   var setTheme = function setTheme(event) {
-    if (event.target.checked) {
-      document.body.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.body.setAttribute('data-theme', 'light');
-      localStorage.setItem('theme', 'light');
+    var targetTheme = event.target.checked ? 'dark' : 'light';
+    document.body.setAttribute('data-theme', targetTheme);
+
+    if (canStore) {
+      localStorage.setItem('theme', 'targetTheme');
     }
-  }; // TODO|kevin boy howdy I have very little confidence in the ARIA setup here
+  }; // TODO|kevin TEST WITH SCREEN READER BLAAARRGRHRGHG
 
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {

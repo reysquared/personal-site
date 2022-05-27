@@ -188,6 +188,7 @@ h2 {
     font-weight: bold; }
 
 #main-content {
+  margin-bottom: 2em;
   padding-bottom: 4.25em; }
   #main-content p:first-of-type:not(.subhead)::first-letter,
   #main-content hr + p::first-letter {
@@ -201,6 +202,13 @@ h2 {
     padding-right: 0.25rem;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000;
     text-shadow: var(--initial-caps-stroke, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000); }
+
+.inner-content {
+  /*Fix for horizontal scroll bar jump thanks to Ayke van Laetham: https://aykevl.nl/2014/09/fix-jumping-scrollbar*/
+  margin-left: calc(100vw - 100% + 1.25em);
+  margin-right: 1.25em;
+  margin-top: 1.25em;
+  overflow: auto; }
 
 /** Footer anchored to page bottom **/
 #sticky-footer {
@@ -269,12 +277,13 @@ hr {
   color: #000;
   color: var(--main-text-color, #000);
   display: inline-block;
+  font-family: inherit;
   font-size: 0.875em;
   font-weight: bold;
   padding: 0.5em 1.5em 0.5em 1.5em;
   text-decoration: none; }
   .button.go-back {
-    margin: 1em 0; }
+    margin: 0.5em 0; }
   .button:hover {
     background: #69f;
     background: var(--tab-hover-fill, #69f);
@@ -293,135 +302,14 @@ hr {
     color: var(--main-text-color, #000);
     transition: 0s; }
 
-/********** JavaScript-Python Interface **********/
-/** Container div for script input **/
-.script-interface {
-  margin: 0 auto;
-  width: 500px; }
-
-/** Input + output textbox formatting **/
-.scriptbox {
-  border: 1px solid #888;
-  border: var(--text-input-border, 1px solid #888);
-  height: 5em;
-  resize: none;
-  width: 40em; }
-  .scriptbox:focus {
-    border: 2px solid #333;
-    border: var(--text-input-border-focus, 2px solid #333); }
-
-.ajax-status {
-  text-align: center; }
-
-/** Status icons for AJAX submission buttons! **/
-.ajax-status.success::before,
-.ajax-status.failure::before,
-.ajax-status.success::after,
-.ajax-status.failure::after {
-  content: '';
-  margin: 0;
-  padding: 0px 8px;
-  position: relative;
-  left: 10px; }
-
-.ajax-status.success::after {
-  background: transparent url("images/success.png") no-repeat; }
-
-.ajax-status.failure::after {
-  background: transparent url("images/failure.gif") no-repeat; }
-
-/********** Tabbed Menu Buttons **********/
-/** Container div for tab buttons **/
-.tabs-menu {
-  border-bottom: 1px solid #69f;
-  border-bottom: var(--main-content-border, 1px solid #69f);
-  height: 3em;
-  position: relative;
-  text-align: center; }
-
-.tabs-list {
-  align-items: end;
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0; }
-
-/** An individual item of the tab menu **/
-.tab-title {
-  display: inline-block;
-  margin: 0 0.1em;
-  vertical-align: bottom;
-  width: 6em; }
-  .tab-title > a {
-    background: #fff;
-    background: var(--main-bg-color, #fff);
-    border: 1px solid #69f;
-    border: var(--main-content-border, 1px solid #69f);
-    border-width: 1px 1px 0 1px;
-    color: #000;
-    color: var(--main-text-color, #000);
-    display: block;
-    margin: 0 1px;
-    padding: 0.325em 0.625em;
-    text-decoration: none;
-    transition: background 0.2s ease, color 0.2s ease, padding 0.2s ease, border 0.2s ease;
-    /*Hover highlighting for tab buttons*/ }
-    .tab-title > a:hover, .tab-title > a:focus {
-      background: #69f;
-      background: var(--tab-hover-fill, #69f);
-      border: 1px solid #aab;
-      border: var(--tab-hover-border, 1px solid #aab);
-      border-width: 1px 1px 0 1px;
-      box-shadow: 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab;
-      box-shadow: var(--tab-hover-shadow, 0 1px 0 0 #69f, 0 5px 0 0 #fff, 0 0 3px 0 #aab);
-      color: #fff;
-      color: var(--main-bg-color, #fff); }
-    .tab-title > a:active {
-      background: #cef;
-      background: var(--customrule-flair-color, #cef);
-      border-color: #6af;
-      border-color: var(--initial-caps-color, #6af);
-      color: #000;
-      color: var(--main-text-color, #000);
-      transition: 0s; }
-  .tab-title.active > a, .tab-title.active > a:hover, .tab-title.active > a:focus {
-    background: #fff;
-    background: var(--main-bg-color, #fff);
-    box-shadow: none;
-    color: #000;
-    color: var(--main-text-color, #000);
-    font-weight: bold;
-    padding: 0.625em;
-    position: relative;
-    bottom: -1px; }
-
-/********** Tabbed Content Display **********/
-/** Container for all the tab panels **/
-#tabs-content {
-  /*Fix for horizontal scroll bar jump thanks to Ayke van Laetham: https://aykevl.nl/2014/09/fix-jumping-scrollbar*/
-  margin-bottom: 1.25em;
-  margin-left: calc(100vw - 100% + 1.25em);
-  margin-right: 1.25em;
-  margin-top: 1.25em;
-  overflow: auto; }
-
-/** Basic tab panel formatting **/
-.tab-panel {
+/** Container styles for main content section(s) **/
+section.content {
   border: 1px solid #69f;
   border: var(--main-content-border, 1px solid #69f);
   margin: 0 auto 1.5em;
   max-width: 37.5em;
   overflow: hidden;
   padding: 1.25em; }
-  .tab-panel.active {
-    display: block; }
-  .tab-panel.inactive {
-    display: none; }
 
 #pixelface {
   background-image: url("../../images/pixelface-light-border@2x.png");
@@ -446,3 +334,49 @@ hr {
     #pixelface {
       float: unset;
       margin: 0 auto; } }
+
+/********** JavaScript-Python Interface **********/
+fieldset {
+  border: 1px solid #69f;
+  border: var(--main-content-border, 1px solid #69f);
+  display: flex;
+  flex-direction: column;
+  /** Input + output textbox formatting **/ }
+  fieldset label {
+    margin: 0.5em 0; }
+    fieldset label span {
+      display: block;
+      margin-bottom: 0.5em; }
+  fieldset .scriptbox {
+    border: 1px solid #888;
+    border: var(--text-input-border, 1px solid #888);
+    box-sizing: border-box;
+    font-family: 'DejaVu Sans Mono', 'Courier New', monospace;
+    min-height: 5em;
+    resize: none;
+    width: 100%; }
+    fieldset .scriptbox:focus {
+      border: 2px solid #333;
+      border: var(--text-input-border-focus, 2px solid #333); }
+  fieldset .small-number {
+    width: 3em; }
+
+.ajax-status {
+  text-align: center; }
+
+/** Status icons for AJAX submission buttons! **/
+.ajax-status.success::before,
+.ajax-status.failure::before,
+.ajax-status.success::after,
+.ajax-status.failure::after {
+  content: '';
+  margin: 0;
+  padding: 0px 8px;
+  position: relative;
+  left: 10px; }
+
+.ajax-status.success::after {
+  background: transparent url("images/success.png") no-repeat; }
+
+.ajax-status.failure::after {
+  background: transparent url("images/failure.gif") no-repeat; }

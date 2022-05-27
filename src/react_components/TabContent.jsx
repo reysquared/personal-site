@@ -4,7 +4,7 @@ import { DEFAULT_TAB } from 'react_components/constants';
 import ReturnButton from 'react_components/ReturnButton';
 
 
-export default function TabContent({ tab, activeTab, hasDefaultTab, setActiveTab }) {
+export default function TabContent({ tab, containerClass, activeTab, hasDefaultTab, setActiveTab }) {
   // TODO|kevin bluh.... does this ALSO need setActiveTab to set a handler on the button?
   // does it make sense to have a ReturnButton as its own thing if we're setting
   // a handler in THIS render?  I guess maybe to separate the HTML for the button...
@@ -20,10 +20,14 @@ export default function TabContent({ tab, activeTab, hasDefaultTab, setActiveTab
   // Only show a "go back" button if default tab is enabled and this is NOT the
   // default tab. if the default tab is active we're already "back", and if it
   // isn't enabled at all then there's already a button for this tab in the nav
+  let className = 'tab-panel ' + (activeTab === tab.id ? 'active' : 'inactive');
+  if (containerClass) {
+    className += ' ' + containerClass;
+  }
   return (
     <section
       id={tab.id}
-      className={`tab-panel ${activeTab === tab.id ? 'active' : 'inactive'}`}
+      className={className}
       role="tabpanel"
       aria-labelledby={`tab-${tab.id}`}
     >

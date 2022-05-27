@@ -92,6 +92,7 @@ export const autoDecipher = (cipherText) => {
   const candidates = _.range(26).map((n) => encipher(cipherText, n));
   const scores = candidates.map((candidate) => scoreString(candidate));
   const mostLikelyOffset = scores.indexOf(_.max(scores));
-  // TODO|kevin also return the offset used?
-  return candidates[mostLikelyOffset];
+  // TODO|kevin also return the offset used? or JUST return the offset?
+  // return candidates[mostLikelyOffset];
+  return mostLikelyOffset;
 };
