@@ -249,7 +249,7 @@ fieldset {
 
   // Since I universally prefer to have labels that contain their form elements,
   // I also end up using them for content grouping sometimes
-  label {
+  > label {
     margin: 0.5em 0;
 
     span {

@@ -342,9 +342,9 @@ fieldset {
   display: flex;
   flex-direction: column;
   /** Input + output textbox formatting **/ }
-  fieldset label {
+  fieldset > label {
     margin: 0.5em 0; }
-    fieldset label span {
+    fieldset > label span {
       display: block;
       margin-bottom: 0.5em; }
   fieldset .scriptbox {

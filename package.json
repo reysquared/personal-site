@@ -5,7 +5,6 @@
   "browser": "index.html",
   "scripts": {
     "prepare": "npm run scss && npm run template && npm run webpack",
-
     "scss": "node-sass src/scss -o dist/css",
     "template": "html-includes --src src/html --dest dist",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -38,6 +37,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
+    "bignumber.js": "^9.0.2",
     "html-react-parser": "^1.4.12",
     "lodash": "^4.17.21",
     "react": "^18.1.0",

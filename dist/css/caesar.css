@@ -1,3 +1,6 @@
+.main-header {
+  text-align: center; }
+
 .rotation-inputs {
   display: flex; }
   .rotation-inputs input.small-number {

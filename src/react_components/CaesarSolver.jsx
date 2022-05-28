@@ -42,8 +42,7 @@ export default function CaesarSolver({ initialText, initialRotation }) {
         <span>
           Input text
         </span>
-        <input
-          type="text"
+        <textarea
           className="scriptbox"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
@@ -81,8 +80,7 @@ export default function CaesarSolver({ initialText, initialRotation }) {
         <span>
           Output text
         </span>
-        <input
-          type="text"
+        <textarea
           className="scriptbox"
           readOnly
           value={encipher(inputText, rotation)}
