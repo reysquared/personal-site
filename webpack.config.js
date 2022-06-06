@@ -30,8 +30,15 @@ const moduleConfig = {
   },
   devtool: 'source-map',
   resolve: {
+    alias: {
+      // Alias the caman js library for imports
+      'caman': 'helpers/caman.min.js',
+    },
     extensions: ['', '.js', '.jsx'],
-    modules: ['node_modules', 'src'],
+    modules: [
+      path.resolve(__dirname, 'node_modules'),
+      path.resolve(__dirname, 'src'),
+    ],
   }
 };
 

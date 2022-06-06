@@ -14,7 +14,8 @@ export default function TabButton({ tab, activeTab, setActiveTab }) {
   // TODO|kevin check if this is keyboard accessible at all...? in EITHER approach, really.
   // I THINK I need to add a tabindex=0 and maybe also some other handling.
   // Maybe instead I actually need to put the aria roles on the <a>...?
-  // TODO|kevin hmmmm this might need :focus styles huh
+  // TODO|kevin okay wait do I actually need tabindex=0 or was that also just a
+  // side-effect from that fucked up OSX setting?
   return (
     <li
       role="presentation"

@@ -10,8 +10,54 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "gcd": () => (/* binding */ gcd),
+/* harmony export */   "getMouseCoordsWithinEventTarget": () => (/* binding */ getMouseCoordsWithinEventTarget),
 /* harmony export */   "supportsLocalStorage": () => (/* binding */ supportsLocalStorage)
 /* harmony export */ });
+// *NOTE* RETURNED COORDINATES USE A *CARTESIAN* ORIGIN, NOT IMAGEDATA ORIGIN!
+// y = 0 is at the BOTTOM of the target element's box, NOT the top!
+// I am also 99% sure this WILL NOT WORK CORRECTLY on scaled elements.
+function getMouseCoordsWithinEventTarget(e) {
+  var targetStyles = getComputedStyle(e.target);
+  var boxSizing = targetStyles.getPropertyValue('box-sizing');
+  var contentBox = boxSizing === 'content-box';
+  var borderOffsetX = 0,
+      borderOffsetY = 0;
+
+  if (contentBox) {
+    // These return as "_px" string values but seem to ALWAYS be computed in px,
+    // so just passing the strings to parseInt gives us exactly what we want
+    borderOffsetX = parseInt(targetStyles.getPropertyValue('border-left-width'));
+    borderOffsetY = parseInt(targetStyles.getPropertyValue('border-bottom-width'));
+  }
+
+  var targetRect = e.target.getBoundingClientRect();
+  var relativeX = e.clientX - targetRect.left - borderOffsetX;
+  var relativeY = targetRect.bottom - e.clientY - borderOffsetY;
+  return {
+    x: Math.max(0, Math.min(relativeX, e.target.clientWidth)),
+    y: Math.max(0, Math.min(relativeY, e.target.clientHeight))
+  }; // OKAY, so in box-sizing content-box, this SEEMS to be basically
+  // treating the bottom corner of the BORDER as the origin, so we need to offset
+  // from that basically. x values should subtract the width of the LEFT border
+  // (and then clamp to the known dimensions)
+  // and y values should subtract the width of...... hmm. should subtract the
+  // width of the bottom border, but MAYBE more than that?
+  // We should clamp values to [0, e.target.clientWidth/Height] which is the
+  // size of the content INCLUDING padding but NOT border
+}
+function gcd(a, b) {
+  a = Math.abs(a);
+  b = Math.abs(b);
+
+  while (b) {
+    var t = b;
+    b = a % b;
+    a = t;
+  }
+
+  return a;
+}
 function supportsLocalStorage() {
   var teststr = '__localstorage_test__';
 

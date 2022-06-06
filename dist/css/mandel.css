@@ -1,0 +1,49 @@
+.fractal-viewer {
+  position: relative; }
+  .fractal-viewer.loading {
+    pointer-events: none; }
+    .fractal-viewer.loading::after {
+      background-color: rgba(0, 0, 0, 0.25);
+      color: white;
+      content: 'Loading...';
+      font-size: 1.5em;
+      margin: -1.25em;
+      padding-top: 10em;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      text-align: center; }
+  .fractal-viewer .julia-canvas-wrapper,
+  .fractal-viewer .mandelbrot-canvas-wrapper {
+    background-color: white;
+    border: 1px solid black;
+    display: inline-block; }
+  .fractal-viewer #julia-canvas,
+  .fractal-viewer #mandelbrot-canvas {
+    vertical-align: middle; }
+  .fractal-viewer .mandelbrot-canvas-wrapper {
+    margin: 0 auto; }
+  .fractal-viewer .main-inputs {
+    float: left;
+    width: 50%; }
+  .fractal-viewer .more-inputs {
+    display: block; }
+  .fractal-viewer fieldset > label {
+    margin-top: 0; }
+  .fractal-viewer fieldset.color-picker {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 1em 0.5em; }
+    .fractal-viewer fieldset.color-picker input {
+      margin-right: 1.5em; }
+    .fractal-viewer fieldset.color-picker .color-preview {
+      height: 2.5em;
+      width: 2.5em; }
+  .fractal-viewer fieldset.coordinate-range-picker .coordinate-range {
+    flex-direction: row;
+    flex-wrap: wrap; }
+    .fractal-viewer fieldset.coordinate-range-picker .coordinate-range .long-number {
+      margin-right: 1em; }

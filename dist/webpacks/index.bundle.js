@@ -104,7 +104,8 @@ function TabButton(_ref) {
   // TODO|kevin check if this is keyboard accessible at all...? in EITHER approach, really.
   // I THINK I need to add a tabindex=0 and maybe also some other handling.
   // Maybe instead I actually need to put the aria roles on the <a>...?
-  // TODO|kevin hmmmm this might need :focus styles huh
+  // TODO|kevin okay wait do I actually need tabindex=0 or was that also just a
+  // side-effect from that fucked up OSX setting?
 
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
@@ -53855,7 +53856,6 @@ document.addEventListener('DOMContentLoaded', function () {
 //     // otherwise things will certainly break.
 //   }
 //   function activateFragment() {
-//     console.log("starting to activate fragment");
 //     // Grab URL parameters and activate tab as necessary
 //     // If the URL has no fragment identifier, use the "default" of '#' followed by nothing.
 //     var hash = window.location.hash || '#';

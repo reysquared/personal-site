@@ -1,5 +1,94 @@
-// TODO|kevin OKAY so I think what I wanna do for this bad boy is to have the
-// controls along the left edge, and have the canvas be to the right and more or
-// less arbitrarily expandable.
-// TODO|kevin OH MAN it would be fucking cool as hell if this supported both
-// an RGB mode and an HSL mode. could finally get rainbow-rotated escape colors!
+.fractal-viewer {
+  position: relative;
+
+  &.loading {
+    pointer-events: none;
+
+    &::after {
+      // TODO|kevin I think SOMETHING like this should work...
+      // gettin a little crazy though lmao
+      background-color: rgba(0, 0, 0, 0.25);
+      color: white;  // TODO|kevin use themes, prove it can be done!!! lmao
+      content: 'Loading...';
+      font-size: 1.5em;
+      margin: -1.25em;  // TODO|kevin account for section.content padding
+      padding-top: 10em;
+      position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+      text-align: center;
+    }
+  }
+
+  .julia-canvas-wrapper,
+  .mandelbrot-canvas-wrapper {
+    background-color: white;  // TODO|kevin ehhhh I dunno, seems fine?
+    border: 1px solid black;
+    display: inline-block;
+  }
+
+  #julia-canvas,
+  #mandelbrot-canvas {
+    // Which vertical align doesn't hugely matter as long as it isn't a text-based one
+    vertical-align: middle;
+  }
+
+  // TODO|kevin cursor pointer for mandelcanvas? does that work? but ONLY for :hover
+  // so that it goes back to reg pointer when pointer events are disabled?
+  // (... is that actually necessary or does it just work lol)
+  .mandelbrot-canvas-wrapper {
+    margin: 0 auto;
+  }
+
+  .main-inputs {
+    float: left;
+    width: 50%;  // TODO|kevin ehhh iunno, just to start
+  }
+
+  .more-inputs {
+    display: block;
+    // TODO|kevin this should have stuff for the collapsible controls eventually
+    // but right now nothing actually has this class lol i just wanna stop seeing the warning squiggles
+  }
+
+  fieldset {
+    > label {
+      margin-top: 0;  // override shared.scss for more compact panels
+      // TODO|kevin I may end up regretting this and/or having to bring it back
+      // when I eventually attempt to mobile-friendly this stylesheet
+    }
+  
+    &.color-picker {
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;  // TODO|kevin can't decide between square to the right or bar below for the preview
+      padding: 0 1em 0.5em;
+
+      input {
+        margin-right: 1.5em;
+      }
+
+      .color-preview {
+        height: 2.5em;
+        width: 2.5em;
+      }
+    }
+  
+    &.coordinate-range-picker {
+      .coordinate-range {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .long-number {
+          margin-right: 1em;
+        }
+      }
+    }
+
+    &.dimensions-picker {
+      // TODO|kevin
+    }
+  }
+}

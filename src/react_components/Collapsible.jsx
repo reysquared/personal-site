@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 // GOAL: SHOULD BE ANIMATABLE!!!!
 
 // TODO|kevin I also want this to be WAI-ARIA compliant ideally!
+// TODO|kevin ... do I need the props unwrap, what was that about again
 export default function Collapsible({ regionId, startCollapsed = true, ...props }) {
   const [isCollapsed, setCollapsed] = useState(startCollapsed);
   // TODO|kevin do I actually need to do this `...props` thing or is there a cleaner
@@ -16,7 +17,9 @@ export default function Collapsible({ regionId, startCollapsed = true, ...props 
   // TODO|kevin since I'm planning to animate the collapse using height, i.e.
   // the contents will not be display: none when hidden, I think I need to be
   // sure to use the aria-hidden attribute when the panel is collapsed
-  // TODO|kevin does this need tabindex? does EVERYTHING need tabindex???
+  // TODO|kevin does this need tabindex?
+  // TODO|kevin I feel like this should probably accept SOME kind of configurable
+  // real label or header. And then I should prolly add aria-labelledby or s/t
   return (
     <div>
       <button

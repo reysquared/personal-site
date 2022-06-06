@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<!-- TODO|kevin how do you specify a favicon again, and what should I use for one? -->
+<title>Kevin McSwiggen - Mandelbrot Visualizer</title>
+<meta name="author" content="Kevin McSwiggen">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" type="text/css" href="css/shared.css">
+<!-- TODO|kevin clean up the head in general lmao. also what order should these be in and which should be defered or not? bleh -->
+<script src="webpacks/_themes.bundle.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/mandel.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.0.0/caman.full.min.js"></script>
+  <script src="webpacks/mandel.bundle.js"></script>
+</head>
+
+<body>
+  <div id="wrapper">
+    <header class="main-header">
+      <!-- TODO|kevin maybe I should organize more of this shit into directories
+      and rename files like this to index.html in said directories. I'm GUESSING
+      Pages handles that in the way I would want it to...? -->
+      <!-- TODO|kevin this needs a back button, and this is quite possibly the right place to put it -->
+      <h1>Camandel</h1>
+      <p class="subhead">Mandelbrot viewer using CamanJS</p>
+    </header>
+    <div id="main-content">
+      <section class="content">
+        <div id="mandel-canvas-container">
+          <canvas
+            id="edit-canvas"
+            data-caman-hidpi-disabled="true"
+            data-camanwidth="500"
+            data-camanheight="500"
+            height="500"
+            width="500"
+          ></canvas>
+          <!-- <img src="../images/pixelface-dark-border@2x.png"
+            id="edit-canvas"
+            data-caman-hidpi-disabled="true"
+            data-camanwidth="160"
+            data-camanheight="160"
+          > -->
+        </div>
+      </section>
+      <button id="mandelbutton">RUN PLEASE</button>
+    </div>
+    <footer id="sticky-footer">
+      <!-- TODO|kevin maybe I should make this into a partial too tbh
+        TODO|kevin ALSO, maybe remove/shrink these in general lmao
+        or at the VERY LEAST I better re-run the fuckin validators !! -->
+<div>
+  &copy; 2022 Kevin McSwiggen<br><br>
+  <a href="http://jigsaw.w3.org/css-validator/check/referer">
+    <img src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS!">
+  </a>
+  &nbsp;&nbsp;
+  <a href="http://www.w3.org/html/logo/">
+    <img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-semantics.png"
+      alt="HTML5 Powered with CSS3 / Styling, and Semantics" title="HTML5 Powered with CSS3 / Styling, and Semantics">
+  </a>
+</div>
+<div id="theme-toggle-container"></div>
+    </footer>
+  </div>
+</body>

@@ -207,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //   }
 
 //   function activateFragment() {
-//     console.log("starting to activate fragment");
 //     // Grab URL parameters and activate tab as necessary
 //     // If the URL has no fragment identifier, use the "default" of '#' followed by nothing.
 //     var hash = window.location.hash || '#';

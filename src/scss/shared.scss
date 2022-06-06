@@ -5,7 +5,8 @@
 
 * {
   // Make themes swap smoothly. Matches transition for tab activation so they stay in sync.
-  transition: background 0.2s ease, color 0.2s ease;
+  // TODO|kevin transition box-shadow???? maybe not here tho
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 // TODO|kevin make almost all dimensions in this document relative to ems instead of px!
 html,
@@ -244,8 +245,10 @@ section.content {
 
 fieldset {
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+  // TODO|kevin hmmm... should some of this really be in caesar.scss?
   display: flex;
   flex-direction: column;
+  margin: 0;
 
   // Since I universally prefer to have labels that contain their form elements,
   // I also end up using them for content grouping sometimes
@@ -266,14 +269,23 @@ fieldset {
     min-height: 5em;
     resize: none;
     width: 100%;
-  
+
     &:focus {
       @include var-with-fallback(border, --text-input-border-focus, 2px solid $inputfocus);
     }
   }
 
   .small-number {
-    width: 3em;
+    width: 3.5em;
+  }
+
+  // TODO|kevin just tryin' stuff on for size
+  .medium-number {
+    width: 5em;
+  }
+
+  .long-number {
+    width: 10em;
   }
 }
 

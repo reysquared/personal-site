@@ -32,12 +32,14 @@
     "glob": "^8.0.3",
     "html-includes": "^4.4.1",
     "html-loader": "^3.1.0",
+    "imports-loader": "^0.8.0",
     "node-sass": "^7.0.1",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
     "bignumber.js": "^9.0.2",
+    "complex.js": "^2.1.1",
     "html-react-parser": "^1.4.12",
     "lodash": "^4.17.21",
     "react": "^18.1.0",
