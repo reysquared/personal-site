@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getTabFromFragmentId": () => (/* binding */ getTabFromFragmentId)
 /* harmony export */ });
-// TODO|kevin NOTE that fragId should already have the leading # removed
+// NOTE fragId should already have the leading # removed
 var getTabFromFragmentId = function getTabFromFragmentId(fragId) {
   if (fragId && fragId !== 'top') {
     // top is a special fragid for the top of the document.
@@ -50,16 +50,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
 
- // TODO|kevin I should probably install lodash as a dependency
 
 function ReturnButton(_ref) {
   var setActiveTab = _ref.setActiveTab;
 
-  // TODO|kevin make sure these aria roles aren't totally busted lolol
   var clickHandler = function clickHandler(event) {
     event.preventDefault();
-    setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TAB);
-    window.history.pushState(null, null, '#'); // TODO|kevin do some URL rewriting here yeah? clear out URL hash
+    setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TAB); // simple lil' hook for the url hash-routing, cus I'm too lazy to install
+    // react-router on a serverless host when HashRouter is deprecated anyway
+
+    window.history.pushState(null, null, '#');
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
@@ -97,16 +97,7 @@ function TabButton(_ref) {
     event.preventDefault();
     setActiveTab(tab.id);
     window.history.pushState(null, null, "#".concat(tab.id));
-  }; // TODO|kevin still REALLY not sure if the onClick should be on the anchor or not.
-  // If putting it on the li means that the default behavior for the href is still
-  // prevented, then I think PROBABLY it should go on the higher up element. but
-  // maybe it also needs a stopPropagation or something? or maybe it just doesn't work.
-  // TODO|kevin check if this is keyboard accessible at all...? in EITHER approach, really.
-  // I THINK I need to add a tabindex=0 and maybe also some other handling.
-  // Maybe instead I actually need to put the aria roles on the <a>...?
-  // TODO|kevin okay wait do I actually need tabindex=0 or was that also just a
-  // side-effect from that fucked up OSX setting?
-
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
     role: "presentation",
@@ -151,13 +142,8 @@ function TabContent(_ref) {
       hasDefaultTab = _ref.hasDefaultTab,
       setActiveTab = _ref.setActiveTab;
 
-  // TODO|kevin bluh.... does this ALSO need setActiveTab to set a handler on the button?
-  // does it make sense to have a ReturnButton as its own thing if we're setting
-  // a handler in THIS render?  I guess maybe to separate the HTML for the button...
-  // TODO|kevin bluh this maybe also needs aria-labelledby?
-  // TODO|kevin I don't THINK it needs aria-hidden as long as it's actually
-  // visually "display: none" but maybe double-check on that.
-  // TODO|kevin comment for this snippet probably
+  // A lazy lil way to attach some basic dynamic content while still having the
+  // tab content specified programmatically. Runs EVERY render though, be aware!
   if (tab.effect) {
     react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(tab.effect);
   } // Only show a "go back" button if default tab is enabled and this is NOT the
@@ -245,17 +231,11 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
 
     lodash__WEBPACK_IMPORTED_MODULE_0___default().bindAll(_assertThisInitialized(_this), ['setActiveTab', 'tabIsValid']); // Ideally if you want a "default" tab it should be first in the list, but
     // if it isn't the ReturnButtons will still work correctly, so this just
-    // has the first tab in the list start activated. Shrugs. TODO|kevin update comments lol
-    // TODO|kevin perhaps should throw an error if hasDefaultTab but there's no tab with the "default" id
+    // has the first tab in the list start activated. Shrugs.
 
 
     var startingTab = props.hasDefaultTab ? react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB : props.tabs[0].tabId;
-    var activeTab = props.startingTab || startingTab; // TODO|kevin also, yknow, if I grab the URL hash here in the constructor
-    // then I might not actually NEED a fully-fledged routing library...?
-    // I would probably just need to add like, a history.pushState() in my tab button onClick handler
-    // TODO|kevin oh, right, and uh, a hashchange event listener, probably defined HERE,
-    // which does a setState / generally models the old activateFragment
-
+    var activeTab = props.startingTab || startingTab;
     _this.state = {
       activeTab: activeTab
     };
@@ -267,15 +247,25 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      // tiny homebrewed URL routing hook so the tabs can be easily linked to!
       var handleHashChange = function handleHashChange(event) {
-        var hash = (window.location.hash || '#').substring(1);
-        var targetTab = (0,_helpers_tabs__WEBPACK_IMPORTED_MODULE_2__.getTabFromFragmentId)(hash); // TODO|kevin comments here lol
+        var hash = (window.location.hash || '#').substring(1); // If hash isn't a tab ID, it might be a real anchor WITHIN a tab. Find
+        // out! If it's not a real anchor, or not within a tab, returns undefined.
+
+        var targetTab = (0,_helpers_tabs__WEBPACK_IMPORTED_MODULE_2__.getTabFromFragmentId)(hash);
 
         if (!hash && _this2.props.hasDefaultTab) {
+          // If the hash was empty, reset to the default, if any.
           _this2.setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB);
         } else if (targetTab) {
+          // If we found a different target tab, acrivate it.
           _this2.setActiveTab(targetTab);
-        }
+        } // Otherwise it's one of three things: 1) an invalid hash (DNE in document)
+        // 2) a valid hash that just isn't within a tab, or 2.5) an empty hash and
+        // we have no default tab, in which case it's treated as the valid hash for
+        // returning to the top of the document. Regardless, there's no need to do
+        // anything else because the UA's default hashchange behavior is just fine!
+
       };
 
       window.addEventListener('hashchange', handleHashChange);
@@ -291,7 +281,10 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "setActiveTab",
     value: function setActiveTab(tabId) {
-      if (!this.tabIsValid(tabId)) return; // TODO|kevin log a warning or something? idk man...
+      if (!this.tabIsValid(tabId)) {
+        console.error("tried to set invalid tab as active: ".concat(tabId));
+        return;
+      }
 
       this.setState({
         activeTab: tabId
@@ -309,8 +302,7 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
         role: "tablist"
       }, this.props.tabs.map(function (tab) {
         // The default tab panel doesn't have a corresponding tab button
-        if (_this3.props.hasDefaultTab && tab.id === react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB) return; // TODO|kevin yknow... I should condense MOST of this stuff into just passing the tab object huh?
-
+        if (_this3.props.hasDefaultTab && tab.id === react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB) return;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_components_TabButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
           key: tab.id,
           tab: tab,
@@ -348,9 +340,11 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DEFAULT_MANDELBROT_CANVAS_SIZE": () => (/* binding */ DEFAULT_MANDELBROT_CANVAS_SIZE),
 /* harmony export */   "DEFAULT_TAB": () => (/* binding */ DEFAULT_TAB)
 /* harmony export */ });
 var DEFAULT_TAB = 'default';
+var DEFAULT_MANDELBROT_CANVAS_SIZE = 600;
 
 /***/ }),
 
@@ -1327,7 +1321,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<header>\n  <h2>Kevin McSwiggen</h2>\n  <p class=\"subhead\" id=\"sillysub\">...respects your wise choice to eschew JavaScript</p>\n</header>\n<div class=\"customrule\"></div>\n<div id=\"pixelface\" role=\"img\" aria-label=\"Pixel-art rendition of Kevin's face\"></div>\n<p>\n  Hello, the name's Kevin McSwiggen! My pronouns are they/them (or occasionally\n  he/him around older relatives.) I'm a computer scientist, software engineer,\n  and web developer--three closely-related but distinct hats. I graduated from\n  Harvey Mudd College in Spring 2016 and since then have been living in the Bay\n  Area with my partner (now spouse!)\n</p>\n<p>\n  I like doing code-y stuff of pretty much any kind. (No really, almost anything.)\n  It's way more satisfying when I can do it with like-minded cool people, though.\n  If that might be you, hit me up!\n</p>\n<p>\n  I'm conversant in Spanish, and speak a <em>little</em> bit of German, but I\n  don't get many chances to practice and I've never managed to stick it through\n  with Duolingo, so if you know of a more immersive (or less naggy) way to keep\n  the rust off, I'd also love to hear about it.\n</p>\n<p>\n  My hobbies include headphones, comics, food, fiction (SFF), and internet.\n  <ul>\n    <li>\n      The headphone collection is now more than a dozen items (I ended up with a\n      duplicate or two, for what it's worth.) I really gotta put some of these\n      suckers on Audiogon/craigslist/eBay, or SOMETHING.\n    </li>\n    <li>\n      Toward the start of the pandemic I got in on the Kickstarter for the comic\n      <a href=\"https://ohumanstar.com/\">O Human Star</a> so now I've got a sweet\n      three-volume physical copy!\n    </li>\n    <li>\n      Some favorite authors: Margaret Atwood, Jorge Luis Borges, William Gibson,\n      Charles Stross. I finally read Jeff VanderMeer's <i>Annihilation</i> after\n      several years (and after watching the movie--if you're gonna do both, do\n      it in that order, simply because the book is better. :P) The rest of the\n      trilogy is next when I get some time, unless my friends convince me to\n      pick up <i>The Long Way to a Small Angry Planet</i> first.\n    </li>\n    <li>\n      Although, before getting to that, I've also picked up some NON-fiction: I\n      started reading David Graeber's <i>Debt: The First 5000 Years</i>. Already\n      I can't recommend it enough, it <em>will</em> change your perspective.\n    </li>\n  </ul>\n</p>\n<p>\n  You can contact me at <b><code>reysquared(at)gmail(dot)com</code></b> if you\n  aren't a robot. (If you are a robot, I probably can't stop you from contacting\n  me, but my replies will not be as prompt. Sorry.)\n</p>\n<p hidden>\n  Courses from my last semester:\n</p>\n<pre hidden>\nCourse #   Title             Times          Notes\nCSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)\nCSCI184    Clinic            T  11:00       (and all my other time besides)\nCSCI189    Practicum         3-5 hr/wk      (Makin' APPS!)\nCSCI195    Colloquium        R  4:15        (Presentations are mostly cool)\nECON045    Microeconomics    TR 1:15        (Pretending we're rational!)\nLGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)\nEAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)\n</pre>\n";
+var code = "<header>\n  <h2>Kevin McSwiggen</h2>\n  <p class=\"subhead\" id=\"sillysub\">...respects your wise choice to eschew JavaScript</p>\n</header>\n<div class=\"customrule\"></div>\n<div id=\"pixelface\" role=\"img\" aria-label=\"Pixel-art rendition of Kevin's face\"></div>\n<p>\n  Hello, the name's Kevin McSwiggen! My pronouns are they/them. <!-- (or occasionally\n  he/him around older relatives.) --> I'm a computer scientist, software engineer,\n  and web developer&mdash;three closely-related but distinct hats. I graduated\n  from Harvey Mudd College in Spring 2016 and since then have been living in the\n  Bay Area with my partner (now spouse!)\n</p>\n<p>\n  I like doing code-y stuff of pretty much any kind. (No really, almost anything.)\n  It's way more satisfying when I can do it with like-minded cool people, though.\n  If that might be you, hit me up!\n</p>\n<p>\n  I'm conversant in Spanish, and speak a <em>little</em> bit of German, but I\n  don't get many chances to practice and I've never managed to stick it through\n  with Duolingo, so if you know of a more immersive (or less naggy) way to keep\n  the rust off, I'd also love to hear about it.\n</p>\n<p>\n  My hobbies include headphones, comics, food, fiction (SFF), and internet.\n  <!-- TODO|kevin hey, I should mention Philosophy of Mind somewhere on here! -->\n  <!-- Other things that might be cool to mention (along with perhaps slightly)\n  shrinking what I already have here lol) -- art? puzzles? Project Euler? (do I\n  still have an account on that?) -->\n  <ul>\n    <li>\n      The headphone collection is now more than a dozen items (I ended up with a\n      duplicate or two, for what it's worth.) I really gotta put some of these\n      suckers on Audiogon/craigslist/eBay, or SOMETHING.\n    </li>\n    <li>\n      Toward the start of the pandemic I got in on the Kickstarter for the comic\n      <a href=\"https://ohumanstar.com/\">O Human Star</a> so now I've got a sweet\n      three-volume physical copy!\n    </li>\n    <li>\n      Some favorite authors: Margaret Atwood, Jorge Luis Borges, William Gibson,\n      Charles Stross. I finally read Jeff VanderMeer's <i>Annihilation</i> after\n      several years (and after watching the movie&mdash;if you're gonna do both,\n      do it in that order, simply because the book is better. :P) The rest of\n      the trilogy is next when I get some time, unless my friends convince me to\n      pick up <i>The Long Way to a Small Angry Planet</i> first.\n    </li>\n    <li>\n      Although, before getting to that, I've also picked up some NON-fiction: I\n      started reading David Graeber's <i>Debt: The First 5000 Years</i>. Already\n      I can't recommend it enough, it <em>will</em> change your perspective.\n    </li>\n  </ul>\n</p>\n<p>\n  You can contact me at <b><code>reysquared(at)gmail(dot)com</code></b> if you\n  aren't a robot. (If you are a robot, I probably can't stop you from contacting\n  me, but my replies will not be as prompt. Sorry.)\n</p>\n<p hidden>\n  Courses from my last semester:\n</p>\n<pre hidden>\nCourse #   Title             Times          Notes\nCSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)\nCSCI184    Clinic            T  11:00       (and all my other time besides)\nCSCI189    Practicum         3-5 hr/wk      (Makin' APPS!)\nCSCI195    Colloquium        R  4:15        (Presentations are mostly cool)\nECON045    Microeconomics    TR 1:15        (Pretending we're rational!)\nLGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)\nEAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)\n</pre>\n";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
@@ -1363,7 +1357,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<h2>Personal and Academic Projects</h2>\n<div class=\"customrule\"></div>\n<p>More things will become visible here overtime.</p>\n<!-- TODO|kevin I should make this tab specifically for projects that are ON THIS SITE. or at least have a link?\nThen the resume tab can link to them on this tab or whatever. -->\n<p>\n  You can check out <a href=\"https://github.com/reysquared\">my GitHub page</a>, but it's\n  kind of empty right now. (Most of my repos happen to be private...) I'm working on it.\n</p>\n<br>\n<p><b>Past Projects</b>:</p>\n<ul>\n  <li>\n    <a href=\"https://github.com/zsweedyk/CS121F14S3_Team2\">Fraction Blaster</a> &ndash; an iPad\n    game for elementary school students <i>in spaaace!</i> Developed by Louis Brann, Kevin Choi,\n    Alejandro Mendoza, and of course myself. Now available for free on the app store!\n  </li>\n  <li>\n    The C proxy that will never let you down &ndash; a project for CS105 that injects Rick\n    Astley's &ldquo;Never Gonna Give You Up&rdquo; into every page you load, because we're bad people.\n    Developed by me and Chris Brown. (Link forthcoming)\n  </li>\n  <li>More/older things that I'll add here eventually</li>\n</ul>\n<p><b>Scraps</b> which I already have online:</p>\n<ul>\n  <li><a href=\"asciiseal.txt\">asciiseal.txt</a> &ndash; Text Mode Improper Use</li>\n  <li><a href=\"topoapp/topoapp.html\">topoapp.html</a> &ndash; A brief foray into geographic visualization with d3 and\n    TopoJSON</li>\n</ul>\n<p><b>Coming Soon</b> to <s>a webpage near you</s> right here:\n<ul>\n  <li>An HTML5 app for making and saving ink annotations on videos! (Under development)</li>\n  <li>Implementation and analysis of a segmented prime sieve (Needs to be made web-friendly)</li>\n  <li>\n    At some point I'm gonna look into fixing the brief display issues when this page first\n    loads. It's intended to be accessible even if you have JavaScript disabled, but this makes\n    it look less good for people who DON'T have it disabled, if only for a brief moment.\n  </li>\n  <li>\n    Numerous small JavaScript utilities (useful stuff) and dealies (fun stuff; technical term).\n    <ul>\n      <li>Markov-generated sin</li>\n      <li>Ken-ken helper</li>\n      <li>JSON visualizer, because sometimes it's cathartic to reinvent the wheel</li>\n    </ul>\n  </li>\n  <li>Probably more?</li>\n</ul>\n<!-- TODO|kevin dumping some links to the \"old\" projects here lol -->\n<p>Former Python CGI scripts ported to JavaScript:</p>\n<ul>\n  <li><a href=\"caesarsolver.html\">Caesar Cipher Solver</a></li>\n</ul>";
+var code = "<h2>Personal and Academic Projects</h2>\n<div class=\"customrule\"></div>\n<p>More things will become visible here overtime.</p>\n<!-- TODO|kevin I should make this tab specifically for projects that are ON THIS SITE. or at least have a link?\nThen the resume tab can link to them on this tab or whatever. -->\n<p>\n  You can check out <a href=\"https://github.com/reysquared\">my GitHub page</a>, but it's\n  kind of empty right now. (Most of my repos happen to be private...) I'm working on it.\n</p>\n<br>\n<p><b>Past Projects</b>:</p>\n<ul>\n  <li>\n    <a href=\"https://github.com/zsweedyk/CS121F14S3_Team2\">Fraction Blaster</a> &ndash; an iPad\n    game for elementary school students <i>in spaaace!</i> Developed by Louis Brann, Kevin Choi,\n    Alejandro Mendoza, and of course myself. Now available for free on the app store!\n  </li>\n  <li>\n    The C proxy that will never let you down &ndash; a project for CS105 that injects Rick\n    Astley's &ldquo;Never Gonna Give You Up&rdquo; into every page you load, because we're bad people.\n    Developed by me and Chris Brown. (Link forthcoming)\n  </li>\n  <li>More/older things that I'll add here eventually</li>\n</ul>\n<p><b>Scraps</b> which I already have online:</p>\n<ul>\n  <li><a href=\"asciiseal.txt\">asciiseal.txt</a> &ndash; Text Mode Improper Use</li>\n  <li><a href=\"topoapp/topoapp.html\">topoapp.html</a> &ndash; A brief foray into geographic visualization with d3 and\n    TopoJSON</li>\n</ul>\n<p><b>Coming Soon</b> to <s>a webpage near you</s> right here:\n<ul>\n  <li>An HTML5 app for making and saving ink annotations on videos! (Under development)</li>\n  <li>Implementation and analysis of a segmented prime sieve (Needs to be made web-friendly)</li>\n  <li>\n    At some point I'm gonna look into fixing the brief display issues when this page first\n    loads. It's intended to be accessible even if you have JavaScript disabled, but this makes\n    it look less good for people who DON'T have it disabled, if only for a brief moment.\n  </li>\n  <li>\n    Numerous small JavaScript utilities (useful stuff) and dealies (fun stuff; technical term).\n    <ul>\n      <li>Markov-generated sin</li>\n      <li>Ken-ken helper</li>\n      <li>JSON visualizer, because sometimes it's cathartic to reinvent the wheel</li>\n    </ul>\n  </li>\n  <li>Probably more?</li>\n</ul>\n<!-- TODO|kevin dumping some links to the \"old\" projects here lol -->\n<p>Former Python CGI scripts ported to JavaScript:</p>\n<ul>\n  <li><a href=\"caesarsolver.html\">Caesar Cipher Solver</a></li>\n  <li><a href=\"mandelbrot.html\">Mandelbrot Fractal Visualizer</a></li>\n</ul>";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
@@ -1381,7 +1375,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<h2>About This Webpage</h2>\n<div class=\"customrule\"></div>\n<p>\n  This website started out as a demo project page for Harvey Mudd's intro CS class.\n  They are (were?) starting to integrate web technologies into the course as an\n  extra credit project, and Prof. Dodds thought it would be really cool if students\n  had individual portals they could update as they go along to show off the things\n  they made throughout the course while learning about a web stack at the same time.\n  So one summer while I was on Student CS Staff, I took a crack at a prototype!\n</p>\n<p>\n  Initially it was hosted for a brief time on Amazon Web Services, and then for\n  several years after that on the HMC Computer Science department server, under\n  my <a href=\"https://www.cs.hmc.edu/~kmcswiggen/\">student webspace</a>. I'll\n  probably just make that redirect to this page at some point, I dunno... but\n  for now you can see a version of this site that's more than a half decade old!\n  Don't judge it too harshly, my standards have improved since I was in college.\n</p>\n<p>\n  Originally done entirely in vanilla JavaScript, and with the frontend code\n  contained almost entirely inside a single IIFE, it's now implemented chiefly\n  in React and built using webpack, and the full source is available on GitHub.\n  The couple of Python CGI scripts it had, which were originally placeholders\n  to be replaced by CS5 students' own work, are in the process of being ported\n  into JavaScript (since it's a bit easier to host and zero effort to configure)\n  and will appear on the Projects tab as they're completed, probably as separate\n  git submodules.\n</p>\n";
+var code = "<h2>About This Webpage</h2>\n<div class=\"customrule\"></div>\n<p>\n  This website started out as a demo project page for Harvey Mudd's intro CS class.\n  They are (were?) starting to integrate web technologies into the course as an\n  extra credit project, and Prof. Dodds thought it would be really cool if students\n  had individual portals they could update as they go along to show off the things\n  they made throughout the course while learning about a web stack at the same time.\n  So one summer while I was on Student CS Staff, I took a crack at a prototype!\n</p>\n<p>\n  Initially it was hosted for a brief time on Amazon Web Services, and then for\n  several years after that on the Harvey Mudd CS department server, under my\n  <a href=\"https://www.cs.hmc.edu/~kmcswiggen/\">student webspace</a>. I'll\n  probably just make that redirect to this page at some point, I dunno... but\n  for now you can see a version of this site that's more than a half decade old!\n  Don't judge it too harshly, my standards have improved since I was in college.\n</p>\n<p>\n  Originally done entirely in vanilla JavaScript, and with the frontend code\n  contained almost entirely inside a single IIFE, it's now implemented chiefly\n  in React and built using webpack, and the full source is available on GitHub.\n  The couple of Python CGI scripts it had, which were originally placeholders\n  to be replaced by CS5 students' own work, are in the process of being ported\n  into JavaScript (since it's a bit easier to host and zero effort to configure)\n  and will appear on the Projects tab as they're completed&mdash;probably as\n  separate git submodules... eventually.\n</p>\n<!-- TODO|kevin ADD A CONTACT FORM HERE???? -->\n";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
@@ -53725,12 +53719,7 @@ document.addEventListener('DOMContentLoaded', function () {
     tabs: TABS_LIST,
     hasDefaultTab: true,
     containerClass: "content"
-  }))); // TODO|kevin also set up dark mode toggle below this
-  // TODO|kevin include the silly subheader script here? not sure how React deals
-  // with the component content changing in that way tbh, but... we'll see lol
-  // In the ABSOLUTE worst case scenario, I can create a new component to wrap
-  // the TabsView and put my scripts in useEffect
-  // TODO|kevin instead of replacing @ with (at) maybe I can make an email-address-revealer button lol
+  }))); // TODO|kevin instead of replacing @ with (at) maybe I can make an email-address-revealer button lol
 }); // // TODO|kevin everything below is straight from the original tabs.js, just pulled out of the IIFE
 // // Simple shorthand function for pushing to the history
 // function pushHash(anchorName) {

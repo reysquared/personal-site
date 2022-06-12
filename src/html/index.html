@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   ${require('shared/_headcontent.html') title="Homepage"}
-  <link rel="stylesheet" type="text/css" href="css/tabs.css">
-  <!-- TODO|kevin ... I dont think any of my head scripts REALLY need `defer` right...? -->
-  <script src="webpacks/index.bundle.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/tabs.css">
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <script src="/webpacks/index.bundle.js" defer></script>
 </head>
 <body>
   <div id="wrapper">
@@ -50,4 +50,21 @@
     </footer>
   </div>
 </body>
+<!--
+  Congrats, you curious monkey, you checked the source. There's a comment like
+  this one on all the major pages, so now you can read my discreet list of...
+
+  *** POSSIBLE FUTURE TODOS FOR THIS PAGE ***
+
+  - organize subpages into directories and rename other html src files to index.html
+  - add actual automated tests for my React components lmfao (especially CoordinateWindowPicker)
+  - convert more class components into functions, I was reading older tutorials
+    when I started this project :P learning by doing!
+  - get a more fully-featured templating engine?  ...ehhh, maybe when I can
+    actually do server-side rendering, probably not for GitHub Pages tbh
+  - figure out a solution for displaying more tabs at smaller resolutions (scrollable list?)
+  - enable webpack tree-shaking, install webpack-merge and split up my config
+    into .common.js, .dev.js and .prod.js files. too much happening in my package.json
+    scripts at the moment lol.
+-->
 </html>

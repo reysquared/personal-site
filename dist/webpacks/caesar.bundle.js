@@ -55,7 +55,7 @@ var LETTER_PROBABILITIES = {
   'j': 0.0008,
   'q': 0.0008,
   'z': 0.0005
-}; // TODO|kevin give some basic docstrings on these fuckers lmao
+}; // Take a single ASCII character and rotate it by n
 
 var rotateChar = function rotateChar(ch, n) {
   var offset; // Difference between a letter's alphabet position and ASCII code
@@ -78,19 +78,6 @@ var rotateChar = function rotateChar(ch, n) {
 
   return String.fromCharCode(letterCode + offset);
 };
-/**
- * // TODO|kevin lol VSCode auto-filled this param for me, that's cool.
- * TODO|kevin I should really probably turn this into its own little git submodule
- * see: https://git-scm.com/book/en/v2/Git-Tools-Submodules
- * @param {*} ch 
- * 
- * if c is the space character or an alphabetic character,
-        we return its monogram probability (for english),
-        otherwise we return 1.0 We ignore capitalization.
-        Adapted from
-        http://www.cs.chalmers.se/Cs/Grundutb/Kurser/krypto/en_stat.html
- */
-
 var letterProbability = function letterProbability(ch) {
   var normalizedCh = ch.toLowerCase();
   return LETTER_PROBABILITIES[normalizedCh] || 1.0;
@@ -115,13 +102,15 @@ var encipher = function encipher(plainText, n) {
   }
 
   return cipherText;
-}; // TODO|kevin NOTE this is not guaranteed to play nicely with Unicode strings, more testing is needed...
+}; // NOTE not guaranteed to play nicely with Unicode chars, more testing needed...
 
 var scoreString = function scoreString(text) {
   return lodash__WEBPACK_IMPORTED_MODULE_0___default().reduce(text, function (acc, val) {
     return acc * letterProbability(val);
   }, 1.0);
-};
+}; // Given a ciphertext, attempts to guess the rotation value whose output seems
+// most like an English string based on letter monogram probabilities
+
 var autoDecipher = function autoDecipher(cipherText) {
   var candidates = lodash__WEBPACK_IMPORTED_MODULE_0___default().range(26).map(function (n) {
     return encipher(cipherText, n);
@@ -130,9 +119,7 @@ var autoDecipher = function autoDecipher(cipherText) {
   var scores = candidates.map(function (candidate) {
     return scoreString(candidate);
   });
-  var mostLikelyOffset = scores.indexOf(lodash__WEBPACK_IMPORTED_MODULE_0___default().max(scores)); // TODO|kevin also return the offset used? or JUST return the offset?
-  // return candidates[mostLikelyOffset];
-
+  var mostLikelyOffset = scores.indexOf(lodash__WEBPACK_IMPORTED_MODULE_0___default().max(scores));
   return mostLikelyOffset;
 };
 
@@ -164,36 +151,7 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-// TODO|kevin okay, what bits should THIS have? hmm
 
-
-/*
-  so the bits this needs... a TEXT INPUT, firstly.
-  obviously also a TEXT OUTPUT
-  a ROTATION VALUE input
-  and a button to click to auto-rotate the bad boy, thereby programmatically setting the rotation value, right?
-
-  so our STATE is comprised of 1) the input text, and 2) the rotation value.
-
-  I think the way I want it to be VISUALLY structured is 
-
-  introductory explanatory text (fairly brief, couple sentences ideally)
-  [ INPUT TEXT BOX ]
-  rotation value: [rot value] [ DETERMINE AUTOMATICALLY button ]
-  [ OUTPUT TEXT BOX ]
-
-  maybe an "invert" button somewhere in that middle row too, to quickly swap the
-  rotation value to its mod26 complement
-
-  SO WHAT FUNCTIONS DO WE NEED?
-  - handle onChange from the text input
-  - handle onChange from the rotation value input
-  - handle onClick from the auto-decrypt button
-    - should update the value of the rotation input
-    - should PROBABLY also update the value of the output? but that should happen
-      as a natural consequence of the input->state update, so it may be hard to avoid wasted work lol
-  - handle onClick from the complement button
-*/
 
 function CaesarSolver(_ref) {
   var initialText = _ref.initialText,
@@ -207,9 +165,7 @@ function CaesarSolver(_ref) {
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(parseInt(initialRotation)),
       _useState4 = _slicedToArray(_useState3, 2),
       rotation = _useState4[0],
-      setRotation = _useState4[1]; // TODO|kevin ehhhh probably don't actually want .content on this component itself
-  // rather, I want that on the div that CONTAINS this component's render target
-
+      setRotation = _useState4[1];
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("fieldset", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("legend", null, "Caesar Solver"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "Input text"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("textarea", {
     className: "scriptbox",
@@ -50850,8 +50806,7 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   var rootEl = document.getElementById('caesar-solver');
-  var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootEl); // TODO|kevin StrictMode component is only for debugging, remove later!
-
+  var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootEl);
   root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_CaesarSolver__WEBPACK_IMPORTED_MODULE_2__["default"], {
     initialText: "Jul abg tvir vg n fcva?",
     initialRotation: 13

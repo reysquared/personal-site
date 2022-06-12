@@ -2,18 +2,15 @@
 <html lang="en">
 <head>
   ${require('shared/_headcontent.html') title="Caesar Solver"}
-  <link rel="stylesheet" type="text/css" href="css/caesar.css">
-  <script src="webpacks/caesar.bundle.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/caesar.css">
+  <script src="/webpacks/caesar.bundle.js" defer></script>
 </head>
 <body>
   <div id="wrapper">
     <header class="main-header">
-      <!-- TODO|kevin maybe I should organize more of this shit into directories
-      and rename files like this to index.html in said directories. I'm GUESSING
-      Pages handles that in the way I would want it to...? -->
-      <!-- TODO|kevin this needs a back button, and this is quite possibly the right place to put it -->
-      <h1>Automatic Caesar Decipher</h1>
+      <h1>Caesar Decipher</h1>
       <p class="subhead">Caesar the day.</p>
+      <a href="/" class="button home-button">Go Home</a>
     </header>
     <div id="main-content">
       <section class="content">
@@ -45,3 +42,12 @@
     </footer>
   </div>
 </body>
+<!--
+  Congrats, you curious monkey, you checked the source. There's a comment like
+  this one on all the major pages, so now you can read my discreet list of...
+
+  *** POSSIBLE FUTURE TODOS FOR THIS PAGE ***
+
+  - Possibly turn this into a separate little git submodule
+-->
+</html>

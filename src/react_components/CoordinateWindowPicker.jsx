@@ -1,45 +1,65 @@
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+import { rangeToBounds } from 'helpers/mandel';
+
 
 /*
-  coordsOptions takes the form of a dictionary, where the keys are the coords you want
+  Supports an arbitrary number of dimensions, by god!!!
+  coordsOptions takes the form of a object, where the keys are the coords you want
   {
     min: optional number, lower limit of where the coordinate center can be placed
     max: optional number, upper limit of where the coordinate center can be placed
-    rangeMax: number, maximum size of the window centered at this coord
-    value: optional number, starting value of the window center
-      defaults to avg(min, max) if both are defined, min || max if only one is
-      defined, and 0 if neither is defined
-    range: optional number, starting size of the window along this dimension
-      defaults to rangeMax if defined, falls back to (max - min) if not, and
-      falls back again to 1 if either of those is undefined
+    rangeMax: optional number, maximum size of the window centered at this coord
   }
+  coords is also a (NON-optional) object keyed by coord dimensions
+  {
+    center: center point for a given axis of the viewing window
+    range: absolute magnitude of the viewing window along this axis
+  }
+  aspectRatios is a similarly keyed object where the values are integers defining
+  each dimension's, well, aspect. The ratios come from dividing them by each other
 */
-// TODO|kevin god damn man, I gotta say of ALL the React inputs I've implemented
-// this one feels like it needs tests the most >_>;
-export default function CoordinateWindowPicker({ coordsOptions, aspectRatios, onCoordsChange, legend }) {
-  // Create two state objects with the same keys as coordsOptions, one to hold
-  // the current value for each coordinate dimension and the other to hold the
-  // ranges for each coordinate's viewing window
-  const [values, setValues] = useState(_.mapValues(coordsOptions, (coord) => getCoordStartingValue(coord)));
-  const [ranges, setRanges] = useState(_.mapValues(coordsOptions, (coord) => getCoordStartingRange(coord)));
-  const rangeMaxes = _.mapValues(coordsOptions, (coord) => coord.rangeMax);
-  useEffect(() => {
-    // Merge the ranges and values state objects into single objects under their
-    // corresponding coordKeys with `value` and `range` properties, BEFORE we
-    // pass the state back to onCoordsChange. The fact that values and ranges
-    // are handled with separate useState calls is an implementation detail.
-    // TODO|kevin should I be passing [values, ranges] to useEffect here or nah?
-    onCoordsChange && onCoordsChange(_.reduce(values, (accum, value, coordKey) => {
-      accum[coordKey] = { value: value, range: ranges[coordKey] }
-      return accum;
-    }, {}));
+export default function CoordinateWindowPicker({ coords, coordsOptions, aspectRatios, onCoordsChange, legend }) {
+  // Break coords out into two separate objects, it's easier to update the ranges
+  const rangeMaxes = _.mapValues(coordsOptions, 'rangeMax');
+  let centers = _.mapValues(coords, 'center');
+  let ranges = _.mapValues(coords, 'range');
+  // Apply aspect ratios to the passed-in ranges BEFORE RENDERING INPUTS
+  ranges = applyRangeAspectRatios(ranges, rangeMaxes, aspectRatios);
+  // Similarly, ensure all centers are clamped to limits defined in coordsOptions
+  // Unlike Math.max, lodash max/min ignore undefined values entirely, so we
+  // don't need extra logic to check for that. (Just take a LITTLE caution in
+  // case no options were passed for this dimension :p) Ironically _.clamp()
+  // itself is less helpful for this, if one bound is undefined then the other
+  // is always treated as the upper bound regardless of their positionality.
+  centers = _.mapValues(centers, (center, coordKey) => {
+    const opts = coordsOptions[coordKey] || {};
+    return _.min([_.max([center, opts.min]), opts.max])
   });
+  // Now that we've calculated AR-normalized ranges, zhoop these objects back
+  // together so they can be more easily passed up the callback(s)!
+  const coordsNormalized = _.mapValues(centers, (center, coordKey) => ({
+    center: center,
+    range: ranges[coordKey],
+  }));
+  // turn the coord components into flat arrays of primitives that can be passed
+  // to useEffect without getting tripped up by identity comparison
+  const flatDepsForCenters = _.toPairs(centers).sort().flat();
+  const flatDepsForRanges = _.toPairs(ranges).sort().flat();
+
+  // Since we may end up normalizing the input values based on aspectRatios
+  // before any user input at all, we have a useEffect that takes the above
+  // flattened dependency arrays and ensures onCoordsChange is called with the
+  // corrected values even if the user doesn't interact with the control.
   useEffect(() => {
-    // TODO|kevin I'm PRETTY SURE I also really want to have a useEffect that
-    // just performs maintainRangeAspectRatios if aspectRatios changes...
-  });
-  // Order coordinate keys alphabetically
+    onCoordsChange && onCoordsChange(coordsNormalized);
+    // If I had it installed, the react eslint exhaustive-deps plugin would warn
+    // me about these spread values, but the NUMBER of coordinates should never
+    // change between renders so the number of dependencies will remain constant
+  }, [...flatDepsForCenters, ...flatDepsForRanges]);
+
+  // Order coordinate keys alphabetically ascending
   const orderedCoordKeys = _.orderBy(_.keys(coordsOptions));
   return (
     <fieldset className="coordinate-range-picker">
@@ -50,11 +70,11 @@ export default function CoordinateWindowPicker({ coordsOptions, aspectRatios, on
           <IndividualPicker
             key={key}
             keyName={key}
-            value={values[key]}
+            center={centers[key]}
             range={ranges[key]}
             opts={opts}
-            onValueUpdate={updateCoordValue(key, setValues)}
-            onRangeUpdate={updateCoordRange(key, setRanges, rangeMaxes, aspectRatios)}
+            onCenterUpdate={updateCoordCenter(key, coordsNormalized, onCoordsChange)}
+            onRangeUpdate={updateCoordRange(key, coordsNormalized, ranges, rangeMaxes, aspectRatios, onCoordsChange)}
           />
         );
       })}
@@ -67,143 +87,142 @@ export function MandelXYWindowPicker({...props}) {
   return (
     <CoordinateWindowPicker
       coordsOptions={{
-        x: { min: -2, max: 2, value: 0, range: 2, rangeMax: 4, label: 'X (real)' },
-        y: { min: -2, max: 2, value: 0, range: 2, rangeMax: 4, label: 'Y (imaginary)' },
+        x: { min: -2, max: 2, rangeMax: 4, label: 'X (real)' },
+        y: { min: -2, max: 2, rangeMax: 4, label: 'Y (imaginary)' },
       }}
       {...props}
     />
   );
 }
 
-// A value-and-range picker for an individual coordinate dimension!
-function IndividualPicker({ keyName, value, range, opts, onValueUpdate, onRangeUpdate }) {
+// A value-and-range picker for an individual coordinate dimension! Kind of a
+// dumb name but, hey, I'm not exporting it and it makes sense in context
+function IndividualPicker({ keyName, center, range, opts, onCenterUpdate, onRangeUpdate }) {
+  const [rangeStart, rangeEnd] = rangeToBounds(center, range);
   return (
     <fieldset className="coordinate-range">
       <legend>{opts.label || keyName}</legend>
       <label>
         <span>Center</span>
         <input type="number" className="long-number"
-        // TODO|kevin fuckin a. do I still need this || 0? should i be using defaultValue or value? fma
-          min={opts.min} max={opts.max} defaultValue={value || 0}
-          onChange={onValueUpdate}
+          min={opts.min} max={opts.max} value={center} step="any"
+          onChange={onCenterUpdate}
         />
       </label>
       <label>
         <span>Range</span>
         <input type="number" className="medium-number"
-          min={0} max={opts.rangeMax} defaultValue={range}
+          min={0} max={opts.rangeMax} value={range} step="any"
           onChange={onRangeUpdate}
         />
       </label>
-      <span className="range-bounds">Min: beep - Max: boop{/* TODO|kevin possibly want to output calculated min and max here? */}</span>
+      <span className="range-bounds">
+        Min: {rangeStart}
+        <br />
+        Max: {rangeEnd}
+      </span>
     </fieldset>
   );
 }
 
-function getCoordStartingValue(coord) {
-  // non-equality comparisons against undefined values are always false, so
-  // this will only throw if both a min and a max are defined
-  if (coord.max < coord.min) throw `Coordinate max ${coord.max} and min ${coord.min} are reversed`;
-
-  let startValue;
-  if (_.isNumber(coord.value)) {
-    startValue = coord.value;
-  } else if (_.isNumber(coord.min) && _.isNumber(coord.max)) {
-    startValue = (coord.min + coord.max) / 2;
-  } else {  // i.e. none of min, max, or value was defined on the coord
-    startValue = 0;
-  }
-  // unlike Math.max, lodash max/min ignore undefined values entirely, so we can
-  // safely separate the value clamp from the conditionals. Ironically _.clamp()
-  // itself is less consistent in this, if one bound is undefined then the other
-  // is always treated as the upper bound regardless of their positionality.
-  return _.min([_.max([startValue, coord.min]), coord.max]);
-};
-
-function getCoordStartingRange(coord) {
-  let startRange = _.min([coord.range, coord.rangeMax]);
-  if (startRange === undefined) { // i.e. neither range nor rangeMax was defined
-    startRange = 1;
-  }
-  return startRange;
-};
-
-// Helper functions that take a coordKey and a reference to a state setter
+// Helper functions that take a coordKey and a callback function, and return an
+// event handler which calls the function with a coords state mutator function
 // function, and return an event handler which updates the corresponding state
 // for the corresponding coordKey, along with other necessary side-effects...
-function updateCoordValue(coordKey, setValues) {
+function updateCoordCenter(coordKey, coordsNormalized, onCoordsChange) {
   return (e) => {
-    setValues((coordValues) => ({
-      ...coordValues,
-      [coordKey]: _.toNumber(e.target.value),
-    }));
+    coordsNormalized = {
+      ...coordsNormalized,
+      [coordKey]: {...coordsNormalized[coordKey], center: _.toNumber(e.target.value)}
+    };
+    onCoordsChange && onCoordsChange(coordsNormalized);
   };
 }
+
 // ...for example, updateCoordRange also makes sure the event handler maintains
-// aspect ratios and rangeMax limits, BEFORE it calls setRanges
-function updateCoordRange(coordKey, setRanges, rangeMaxes, aspectRatios) {
+// correct aspect ratios and rangeMax limits, BEFORE it calls onCoordsChange
+// TBF it's a little bit silly to pass ranges AND coords, but... it's easier!
+function updateCoordRange(coordKey, coordsNormalized, ranges, rangeMaxes, aspectRatios, onCoordsChange) {
   return (e) => {
-    setRanges((coordRanges) => {
-      // The mutator that our event handler passes to setRanges is responsible for
-      // ensuring that the coordRanges are normalized to respect aspect ratios and
-      // rangeMax limits, so our state always fulfills constraints before setting.
-      const rangesNonNormalized = {
-        ...coordRanges,
-        [coordKey]: _.toNumber(e.target.value),
-      };
-      return maintainRangeAspectRatios(coordKey, rangesNonNormalized, rangeMaxes, aspectRatios);
-    });
-    // TODO|kevin do onCoordsUpdate here instead??
+    ranges[coordKey] = _.toNumber(e.target.value);
+    const correctedRanges = maintainRangeAspectRatios(coordKey, ranges, rangeMaxes, aspectRatios);
+    coordsNormalized = _.mapValues(coordsNormalized, (coord, key) => ({...coord, range: correctedRanges[key]}));
+    onCoordsChange && onCoordsChange(coordsNormalized);
   };
+}
+
+// I struggled for a while with the most principled way of choosing what axis
+// to initiate from, but ultimately decided that if maintainRangeAspectRatios
+// handles rangeMax clamping, I can just pick one and let it do so. Since for
+// my purposes aspect ratios will USUALLY be starting out square, I just grab
+// whichever axis is slated to be the widest after applying the ARs, under the
+// assumption that it would be the most likely to need to shrink its current
+// range in order to stay within its rangeMax otherwise.
+function applyRangeAspectRatios(ranges, rangeMaxes, aspectRatios) {
+  // Convert all DEFINED aspectRatios to [key, value] pairs
+  const aspectRatioPairs = _.toPairs(_.pickBy(aspectRatios, _.isNumber));
+  // Sort pairs by index 1 to find the largest value, then grab its key.
+  // ... of course, we MIGHT not have actually defined any aspectRatios--in that
+  // case just choose any key and let maintainRangeARs() handle max clamping.
+  const initiator = _.last(_.sortBy(aspectRatioPairs, 1))[0] || _.keys(ranges)[0];
+  return maintainRangeAspectRatios(initiator, ranges, rangeMaxes, aspectRatios);
 }
 
 function maintainRangeAspectRatios(initiator, ranges, rangeMaxes, aspectRatios) {
-  console.error('TODO|kevin calling maintainRangeAspectRatios with the following ranges');
-  console.error(JSON.stringify(ranges));
-  console.error('Aspect ratios:');
-  console.error(JSON.stringify(aspectRatios));
-  // You can choose to lock only some of the dimensions, if this dimension isn't
-  // specified in the aspectRatio object then there's nothing to do
-  if (!aspectRatios[initiator]) return ranges;
-
   // Calculate new ranges for every coordinate dimension using the aspectRatios
   // keys and the new range for the initiator dimension
   let outputRanges = {};
-  _.keys(aspectRatios).forEach((key) => {
-    // a_0 / b_0 == a_1 / b_1
-    // here, b is the initiator range and a is the range to update. we hold b_1
-    // constant, so to calculate the new range we take targetRatio * fixedRange
-    const targetRatio = aspectRatios[key] / aspectRatios[initiator];
-    const fixedRange = ranges[initiator];
-    const newRange = targetRatio * fixedRange;
-    outputRanges[key] = newRange;
-  });
+  if (aspectRatios[initiator]) {
+    _.keys(aspectRatios).forEach((key) => {
+      // Maintaining a constant aspect ratio:   a_0 / b_0 == a_1 / b_1
+      // Here, b is the initiator dimension and a is the dimension to update.
+      // We hold b_1 constant, so with aspect ratios a_0 and b_0 we calculate
+      // a_1, the new range value for the a axis, as targetRatio * fixedRange
+      const targetRatio = aspectRatios[key] / aspectRatios[initiator];
+      const fixedRange = ranges[initiator];
+      const newRange = targetRatio * fixedRange;
+      outputRanges[key] = newRange;
+    });
+  } else {
+    // You can choose to lock only some of the dimensions; if this dimension
+    // isn't specified in the aspectRatios there's nothing to do. However, we
+    // still want to apply rangeMax ceilings, so clone into output and continue
+    outputRanges = _.clone(ranges);
+  }
 
-  // Ensure ranges stay clamped by corresponding rangeMax values
-  // Iterate through the calculated output ranges, determining if any of them
-  // exceed their dimension's rangeMax and which dimension has the highest ratio
-  // of range/rangeMax
-  let largestMaxRatio = null;
-  let largestRange = null;
-  _.keys(outputRanges).forEach((key) => {
-    // Skip any dimensions that are constrained by ratio but not by upper limit
-    if (!rangeMaxes[key]) return;
+  // Ensure ranges stay clamped by their corresponding rangeMax values. First
+  // we determine which dimension has the largest ratio of range/rangeMax
+  const [largestRange, maxRatio] = largestRangeMaxRatio(outputRanges, rangeMaxes);
 
-    const maxRatio = outputRanges[key] / rangeMaxes[key];
-    if (maxRatio > largestMaxRatio) {
-      largestMaxRatio = maxRatio;
-      largestRange = key;
-    }
-  });
-
-  // If so, we take the dimension with the LARGEST ratio and re-run the function
-  // with that dimension as the initiator, set to its own rangeMax. This should
-  // result in every other range being recalculated within their corresponding
-  // rangeMax, and with a maximum necessary recursion depth of just 1.
-  if (largestMaxRatio > 1) {
+  // If that ratio is more than 1, re-run the function with this dimension as
+  // the initiator, set to its own rangeMax. Since this dimension exceeds its
+  // rangeMax limit by more than any other, this ensures every other range WITH
+  // A DEFINED ASPECT RATIO gets recalculated within its own rangeMax after only
+  // one additional call. However, if there are many other dimensions that have
+  // a rangeMax but NO aspect ratio, this will only ceil the largest non-ratio'd
+  // dimension per recursion.
+  if (maxRatio > 1) {
     outputRanges[largestRange] = rangeMaxes[largestRange];
     return maintainRangeAspectRatios(largestRange, outputRanges, rangeMaxes, aspectRatios);
   }
   // Otherwise, our calculated outputRanges already satisfy all constraints!
   return outputRanges;
+}
+
+// Iterate over ranges and determine which has the highest range/rangeMax ratio
+// returns: [rangeKey, rangeMaxRatio]
+function largestRangeMaxRatio(ranges, rangeMaxes) {
+  let largestMaxRatio = null;
+  let largestRange = null;
+  _.keys(ranges).forEach((key) => {
+    // Skip any dimensions that don't have an upper limit to conform to
+    if (!rangeMaxes[key]) return;
+
+    const maxRatio = ranges[key] / rangeMaxes[key];
+    if (maxRatio > largestMaxRatio) {
+      largestMaxRatio = maxRatio;
+      largestRange = key;
+    }
+  });
+  return [largestRange, largestMaxRatio];
 }

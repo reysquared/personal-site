@@ -1,15 +1,22 @@
 {
   "name": "personal-site",
   "version": "1.0.0",
-  "description": "TODO|kevin",
+  "description": "Kevin McSwiggen's personal website, for GitHub Pages!",
   "browser": "index.html",
   "scripts": {
-    "prepare": "npm run scss && npm run template && npm run webpack",
-    "scss": "node-sass src/scss -o dist/css",
+    "build:prod": "npm run clean-static && npm run scss:min & npm run template:min & npm run webpack:prod",
+    "build:dev": "npm run scss & npm run template & npm run webpack:dev",
+    "clean-static": "rm -rf ./dist && mkdir dist && cp -a ./static/ ./dist",
+    "prepare": "npm run clean-static && npm run build:dev",
+    "scss": "node-sass ./src/scss -o ./dist/css",
+    "scss:min": "npm run scss -- --output-style=compressed",
+    "serve": "webpack serve",
     "template": "html-includes --src src/html --dest dist",
+    "template:min": "npm run template -- --minify collapseWhitespace=true conservativeCollapse=true",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --mode=development --progress=profile",
-    "watch-scss": "node-sass --watch src/scss -o dist/css",
+    "webpack:dev": "webpack --mode=development --progress=profile",
+    "webpack:prod": "webpack --mode=production --progress=profile",
+    "watch-scss": "npm run scss -- --watch --recursive",
     "watch-webpack": "webpack --mode=development --progress --watch"
   },
   "repository": {
@@ -35,10 +42,10 @@
     "imports-loader": "^0.8.0",
     "node-sass": "^7.0.1",
     "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.2"
   },
   "dependencies": {
-    "bignumber.js": "^9.0.2",
     "complex.js": "^2.1.1",
     "html-react-parser": "^1.4.12",
     "lodash": "^4.17.21",

@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-
 // Table of English letter monogram probabilities (case-insensitive)
 // Adapted from http://www.cs.chalmers.se/Cs/Grundutb/Kurser/krypto/en_stat.html
 export const LETTER_PROBABILITIES = {
@@ -32,7 +31,7 @@ export const LETTER_PROBABILITIES = {
   'z': 0.0005,
 }
 
-// TODO|kevin give some basic docstrings on these fuckers lmao
+// Take a single ASCII character and rotate it by n
 export const rotateChar = (ch, n) => {
   let offset;  // Difference between a letter's alphabet position and ASCII code
   const charCode = ch.charCodeAt(0);
@@ -54,18 +53,6 @@ export const rotateChar = (ch, n) => {
   return String.fromCharCode(letterCode + offset);
 };
 
-/**
- * // TODO|kevin lol VSCode auto-filled this param for me, that's cool.
- * TODO|kevin I should really probably turn this into its own little git submodule
- * see: https://git-scm.com/book/en/v2/Git-Tools-Submodules
- * @param {*} ch 
- * 
- * if c is the space character or an alphabetic character,
-        we return its monogram probability (for english),
-        otherwise we return 1.0 We ignore capitalization.
-        Adapted from
-        http://www.cs.chalmers.se/Cs/Grundutb/Kurser/krypto/en_stat.html
- */
 export const letterProbability = (ch) => {
   const normalizedCh = ch.toLowerCase();
   return LETTER_PROBABILITIES[normalizedCh] || 1.0;
@@ -83,16 +70,16 @@ export const encipher = (plainText, n) => {
   return cipherText;
 };
 
-// TODO|kevin NOTE this is not guaranteed to play nicely with Unicode strings, more testing is needed...
+// NOTE not guaranteed to play nicely with Unicode chars, more testing needed...
 export const scoreString = (text) => {
   return _.reduce(text, (acc, val) => (acc * letterProbability(val)), 1.0);
 };
 
+// Given a ciphertext, attempts to guess the rotation value whose output seems
+// most like an English string based on letter monogram probabilities
 export const autoDecipher = (cipherText) => {
   const candidates = _.range(26).map((n) => encipher(cipherText, n));
   const scores = candidates.map((candidate) => scoreString(candidate));
   const mostLikelyOffset = scores.indexOf(_.max(scores));
-  // TODO|kevin also return the offset used? or JUST return the offset?
-  // return candidates[mostLikelyOffset];
   return mostLikelyOffset;
 };

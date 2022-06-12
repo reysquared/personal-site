@@ -62,12 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <TabsView tabs={TABS_LIST} hasDefaultTab={true} containerClass="content" />
     </StrictMode>
   );
-  // TODO|kevin also set up dark mode toggle below this
-
-  // TODO|kevin include the silly subheader script here? not sure how React deals
-  // with the component content changing in that way tbh, but... we'll see lol
-  // In the ABSOLUTE worst case scenario, I can create a new component to wrap
-  // the TabsView and put my scripts in useEffect
 
   // TODO|kevin instead of replacing @ with (at) maybe I can make an email-address-revealer button lol
 });

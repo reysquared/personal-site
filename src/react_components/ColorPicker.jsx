@@ -7,7 +7,9 @@ import { ensureHsl, ensureRgb } from 'helpers/mandel';
  * This component isn't really intended to be used directly, but it's easy to
  * compose as you can see below. It allows you to set up a color picker control
  * with an arbitrary number (but usually 3-4) of integer color channels, and a
- * pane that displays a preview of the currently selected color.
+ * pane that displays a preview of the currently selected color. A goal I had
+ * for this component is that the parent shouldn't need to think about colors on
+ * the actual channel level if it doesn't want.
  * 
  * Props:
  *   colorChannels: [{id, label, max}] list of integer channel inputs to create
@@ -20,17 +22,7 @@ import { ensureHsl, ensureRgb } from 'helpers/mandel';
  *     you really want, it's honestly a little weirdly defensively programmed :V
  */
 export function ColorPicker({ colorChannels, toCssColor, onColorUpdate, initialColor, legend }) {
-  // Generate a color state object with a key for every channel. If you specify
-  // an initialColor object it looks for channel values there, falling back to 0
-  const [color, setColor] = useState(_.reduce(colorChannels, (clr, chan) => {
-    clr[chan.id] = _.toNumber(_.isObject(initialColor) && initialColor[chan.id]) || 0;
-    return clr;
-  }, {}));
-
-  useEffect(() => {
-    // TODO|kevin bluhhhh I shouldn't be doing this in here, huh?
-    onColorUpdate && onColorUpdate(color, toCssColor(color));
-  });
+  const color = initialColor || _.mapValues(colorChannels, () => 0);
 
   return (
     <fieldset className="color-picker">
@@ -40,7 +32,7 @@ export function ColorPicker({ colorChannels, toCssColor, onColorUpdate, initialC
           <span>{chan.label || chan.id}</span>
           <input type="number" className="small-number" name={chan.id}
             value={color[chan.id]} min={0} max={chan.max} step={1}
-            onChange={updateColorChannel(chan.id, setColor)}
+            onChange={updateColorChannel(chan.id, color, toCssColor, onColorUpdate)}
           />
         </label>
       )}
@@ -51,14 +43,13 @@ export function ColorPicker({ colorChannels, toCssColor, onColorUpdate, initialC
   );
 };
 
-// Each color input recieves an onChange handler that passes a state mutator
-// function updating the corresponding color channel in the state. Because
-// we're using useState and not setState, object updates aren't merged, hence
-// unrolling the rest of ...clr. Still, keeping state in an object is worth
-// the inconveniences to allow passing arbitrary channels in a single object.
-function updateColorChannel(channelId, setColor) {
+// This COULD, IN THEORY result in throttled color changes if your inputs were
+// blazingly fast, since it doesn't pass a state mutator, but if you manage to
+// do some junk like that to a color picker component, what are you even doing?
+function updateColorChannel(channelId, color, toCssColor, onColorUpdate) {
   return (e) => {
-    setColor((clr) => ({ ...clr, [channelId]: parseInt(e.target.value) }));
+    const updatedColor = {...color, [channelId]: parseInt(e.target.value)};
+    onColorUpdate && onColorUpdate(updatedColor, toCssColor(updatedColor));
   };
 }
 

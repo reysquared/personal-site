@@ -1,14 +1,16 @@
 @import '_util';
 @import '_themetoggle';
 
+
+$home-button-wrap-breakpoint: 30em;
+
 /********** General Page Style **********/
 
 * {
   // Make themes swap smoothly. Matches transition for tab activation so they stay in sync.
-  // TODO|kevin transition box-shadow???? maybe not here tho
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
-// TODO|kevin make almost all dimensions in this document relative to ems instead of px!
+
 html,
 body {
   height: 100%;
@@ -36,6 +38,43 @@ section {
   display: block;
 }
 
+h1,
+h2 {
+  font-variant: small-caps;
+}
+
+fieldset {
+  @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+
+  // Since I universally prefer to have labels that contain their form elements,
+  // I also end up using them for content grouping sometimes
+  >label {
+    margin: 0.5em 0;
+
+    span {
+      display: block;
+      margin-bottom: 0.5em;
+    }
+  }
+}
+
+input {
+  &.small-number {
+    width: 3.5em;
+  }
+
+  &.medium-number {
+    width: 5em;
+  }
+
+  &.long-number {
+    width: 10em;
+  }
+}
+
 // Content wrapper for the whole page
 #wrapper {
   min-height: 100%;
@@ -44,12 +83,15 @@ section {
 }
 
 .main-header {
-  margin: 0 2em;
-}
-
-h1,
-h2 {
-  font-variant: small-caps;
+  margin: 0 auto;
+  max-width: 50em;
+  padding: 0 2em;
+  position: relative;
+  text-align: left;
+  
+  @media (max-width: $home-button-wrap-breakpoint) {
+    text-align: center;
+  }
 }
 
 .subhead {
@@ -57,21 +99,20 @@ h2 {
   font-style: italic;
 
   &::before {
-    content: '\00a0\00a0\00a0\00a0\2767\00a0';
+    content: '\2767\00a0';
     font-weight: bold;
   }
 }
 
 // Container for primary page content
 #main-content {
-  margin-bottom: 2em;  // TODO|kevin does this fuck things up on the main page?
+  margin-bottom: 2em;
   padding-bottom: 4.25em;  // Same height as footer minus section.content bottom margin
 
+  // Yeah, this is kind of egregious. It DOES look cool though. Should really be
+  // applied to a class instead of this nightmare selector, but it IS also FUN.
   p:first-of-type:not(.subhead)::first-letter,
   hr+p::first-letter {
-    // Yeeaaah, this is kind of egregious. It DOES look cool, though.
-    // TODO|kevin Honestly this is just foolishness and should really be applied
-    // to a class instead of this nightmare selector, but... it IS also FUN.
     @include var-with-fallback(color, --initial-caps-color, $capscolor);
     float: left;
     font-size: 2em;
@@ -85,11 +126,21 @@ h2 {
 }
 
 .inner-content {
-  /*Fix for horizontal scroll bar jump thanks to Ayke van Laetham: https://aykevl.nl/2014/09/fix-jumping-scrollbar*/
+  // Fix for horizontal scroll bar jump thanks to Ayke van Laetham:
+  // https://aykevl.nl/2014/09/fix-jumping-scrollbar
   margin-left: calc(100vw - 100% + 1.25em);
   margin-right: 1.25em;
   margin-top: 1.25em;
   overflow: auto;
+}
+
+/** Container styles for main content section(s) **/
+section.content {
+  @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
+  margin: 0 auto 1.5em;
+  max-width: 37.5em;
+  overflow: hidden;
+  padding: 1.25em;
 }
 
 /** Footer anchored to page bottom **/
@@ -107,15 +158,11 @@ h2 {
 
   a {
     text-decoration: none;
+
     img {
-      height: 24px;
+      height: 1.5em;
     }
   }
-}
-
-a {
-  // TODO|kevin ....... is this really necessary
-  cursor: pointer;
 }
 
 /** Custom horizontal rule **/
@@ -163,7 +210,6 @@ hr {
 }
 
 /** Run and Go Back button formatting **/
-// TODO|kevin honestly this feels kinda ugly now. I can do better than this.
 .button {
   @include var-with-fallback(background, --main-bg-color, $bgcolor);
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
@@ -177,6 +223,23 @@ hr {
 
   &.go-back {
     margin: 0.5em 0;
+  }
+
+  &.home-button {
+    position: absolute;
+      right: 2em;
+      top: 2em;
+      
+    @media (max-width: $home-button-wrap-breakpoint) {
+      margin: 0 auto 1em;
+      position: static;
+    }
+  }
+
+  &.small {
+    border-radius: 0.25em;
+    font-weight: normal;
+    padding: 0.2em 0.5em;
   }
 
   &:hover {
@@ -195,124 +258,4 @@ hr {
     // It's nice to animate colors in general, but :active response should be IMMEDIATE
     transition: 0s;
   }
-}
-
-/** Container styles for main content section(s) **/
-section.content {
-  @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
-  margin: 0 auto 1.5em;
-  max-width: 37.5em;
-  overflow: hidden;
-  padding: 1.25em;
-}
-
-// TODO|kevin I feel like I should be able to clean this up more. Plus maybe
-// make custom properties for the caps-color-based border styles and add fallback?
-// TODO|kevin also it doesn't REALLY need to be shared, does it? This is index-specific.
-#pixelface {
-  background-image: url('../../images/pixelface-light-border@2x.png');
-  background-size: 160px 160px;
-  border: 1px solid;
-  border-color: $capscolor;
-  float: right;
-  height: 160px;
-  margin: 1em 0.5em 0 0.5em;
-  width: 160px;
-
-  [data-theme="dark"] & {
-    background-image: url('../../images/pixelface-dark-border@2x.png');
-    border-color: #46e;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-image: url('../../images/pixelface-dark-border@2x.png');
-    border-color: #46e;
-
-    [data-theme="light"] & {
-      background-image: url('../../images/pixelface-light-border@2x.png');
-      border-color: $capscolor;
-    }
-  }
-
-  @media (max-width: 440px) {
-    float: unset;
-    margin: 0 auto;
-  }
-}
-
-/********** JavaScript-Python Interface **********/
-// TODO|kevin some of this stuff MIGHT become irrelevant lol
-
-fieldset {
-  @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
-  // TODO|kevin hmmm... should some of this really be in caesar.scss?
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-
-  // Since I universally prefer to have labels that contain their form elements,
-  // I also end up using them for content grouping sometimes
-  > label {
-    margin: 0.5em 0;
-
-    span {
-      display: block;
-      margin-bottom: 0.5em;
-    }
-  }
-
-  /** Input + output textbox formatting **/
-  .scriptbox {
-    @include var-with-fallback(border, --text-input-border, 1px solid $inputborder);
-    box-sizing: border-box;
-    font-family: 'DejaVu Sans Mono', 'Courier New', monospace;
-    min-height: 5em;
-    resize: none;
-    width: 100%;
-
-    &:focus {
-      @include var-with-fallback(border, --text-input-border-focus, 2px solid $inputfocus);
-    }
-  }
-
-  .small-number {
-    width: 3.5em;
-  }
-
-  // TODO|kevin just tryin' stuff on for size
-  .medium-number {
-    width: 5em;
-  }
-
-  .long-number {
-    width: 10em;
-  }
-}
-
-
-// TODO|kevin idk if I'll actually use any of these .ajax-status styles...
-.ajax-status {
-  text-align: center;
-}
-
-/** Status icons for AJAX submission buttons! **/
-.ajax-status.success::before,
-/*Add empty pseudo-element on left side as well,*/
-.ajax-status.failure::before,
-/*to keep the Run button centered.*/
-.ajax-status.success::after,
-.ajax-status.failure::after {
-  content: '';
-  margin: 0;
-  padding: 0px 8px;  // Necessary for the element to display
-  position: relative;
-    left: 10px;
-}
-
-.ajax-status.success::after {
-  background: transparent url('images/success.png') no-repeat;
-}
-
-.ajax-status.failure::after {
-  background: transparent url('images/failure.gif') no-repeat;
 }

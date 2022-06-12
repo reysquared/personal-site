@@ -1,4 +1,4 @@
-// TODO|kevin NOTE that fragId should already have the leading # removed
+// NOTE fragId should already have the leading # removed
 export const getTabFromFragmentId = (fragId) => {
   if (fragId && fragId !== 'top') { // top is a special fragid for the top of the document.
     // Figure out what tab (if any) is the parent of the targeted anchor

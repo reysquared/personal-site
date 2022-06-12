@@ -1,0 +1,31 @@
+@import '_themes';
+
+$pixelface-wrap-breakpoint: 27.5em;
+
+#pixelface {
+  background-image: url('../../images/pixelface-light-border@2x.png');
+  background-size: 10rem 10rem;
+  border: 1px solid;
+  @include var-with-fallback(border-color, --initial-caps-color, $capscolor);
+  float: right;
+  height: 10rem;
+  margin: 1em 0.5em 0 0.5em;
+  width: 10rem;
+
+  [data-theme="dark"] & {
+    background-image: url('../../images/pixelface-dark-border@2x.png');
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-image: url('../../images/pixelface-dark-border@2x.png');
+
+    [data-theme="light"] & {
+      background-image: url('../../images/pixelface-light-border@2x.png');
+    }
+  }
+
+  @media (max-width: $pixelface-wrap-breakpoint) {
+    float: unset;
+    margin: 0 auto;
+  }
+}

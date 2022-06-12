@@ -1,17 +1,26 @@
+@import '_themes';
+@import '_util';
+
+
+$julia-wrap-breakpoint: 42.5em;
+$margin-shrink-breakpoint: 25em;
+$other-inputs-max-width: 25em;
+
 .fractal-viewer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   position: relative;
 
   &.loading {
     pointer-events: none;
 
     &::after {
-      // TODO|kevin I think SOMETHING like this should work...
-      // gettin a little crazy though lmao
       background-color: rgba(0, 0, 0, 0.25);
-      color: white;  // TODO|kevin use themes, prove it can be done!!! lmao
+      color: white;
       content: 'Loading...';
       font-size: 1.5em;
-      margin: -1.25em;  // TODO|kevin account for section.content padding
+      margin: -1.25em;
       padding-top: 10em;
       position: absolute;
         bottom: 0;
@@ -24,71 +33,188 @@
 
   .julia-canvas-wrapper,
   .mandelbrot-canvas-wrapper {
-    background-color: white;  // TODO|kevin ehhhh I dunno, seems fine?
-    border: 1px solid black;
+    @include var-with-fallback(background-color, --customrule-flair-color, $flaircolor);
+    border: 1px solid;
+    @include var-with-fallback(border-color, --main-text-color, $textcolor);
     display: inline-block;
+    margin: 0 auto 1.5em;
+  }
+
+  .mandelbrot-canvas-wrapper {
+    cursor: crosshair;
+    max-width: 37.5em;
+    position: relative;
+
+    .drag-rect {
+      border: 2px dashed rgba(255, 255, 255, 0.5);
+      background:rgba(0, 0, 0, 0.25);
+      position: absolute;
+      // inline styles defining the border positions relative to parent canvas
+      // container get set on .drag-rect div by FractalZoomCanvas's useEffect
+    }
+  }
+
+  .julia-container {
+    max-width: 18.75em;
+
+    @media (max-width: $julia-wrap-breakpoint) {
+      margin: 0 auto;
+    }
+
+    .julia-label {
+      display: block;
+      height: 3.5em;
+      margin-bottom: 0.5em;
+      text-align: center;
+      width: 100%;
+
+      .julia-coords {
+        display: block;
+        line-height: 1;
+      }
+    }
   }
 
   #julia-canvas,
   #mandelbrot-canvas {
+    pointer-events: none;
     // Which vertical align doesn't hugely matter as long as it isn't a text-based one
     vertical-align: middle;
+    width: 100%;  // Constrained by container size and max-width on parent
   }
 
-  // TODO|kevin cursor pointer for mandelcanvas? does that work? but ONLY for :hover
-  // so that it goes back to reg pointer when pointer events are disabled?
-  // (... is that actually necessary or does it just work lol)
-  .mandelbrot-canvas-wrapper {
-    margin: 0 auto;
-  }
-
-  .main-inputs {
-    float: left;
-    width: 50%;  // TODO|kevin ehhh iunno, just to start
-  }
-
-  .more-inputs {
-    display: block;
-    // TODO|kevin this should have stuff for the collapsible controls eventually
-    // but right now nothing actually has this class lol i just wanna stop seeing the warning squiggles
-  }
-
+  // General styles for inputs on this page
   fieldset {
-    > label {
-      margin-top: 0;  // override shared.scss for more compact panels
-      // TODO|kevin I may end up regretting this and/or having to bring it back
-      // when I eventually attempt to mobile-friendly this stylesheet
+    >label {
+      margin-top: 0; // override shared.scss for more compact panels
     }
-  
+
     &.color-picker {
       align-items: center;
       flex-direction: row;
-      flex-wrap: wrap;  // TODO|kevin can't decide between square to the right or bar below for the preview
+      flex-wrap: wrap;
+      max-width: $other-inputs-max-width;
       padding: 0 1em 0.5em;
 
-      input {
+      label {
         margin-right: 1.5em;
+
+        @media (max-width: $margin-shrink-breakpoint) {
+          margin-right: 1em;
+        }
       }
 
       .color-preview {
+        border: 1px solid;
+        @include var-with-fallback(border-color, --main-text-color, $textcolor);
         height: 2.5em;
+        margin-left: auto;
         width: 2.5em;
       }
     }
-  
+
     &.coordinate-range-picker {
       .coordinate-range {
+        align-items: center;
         flex-direction: row;
         flex-wrap: wrap;
+        margin-bottom: 0.25em;
+
+        &:not(:last-of-type) {
+          margin-bottom: 0.5em;
+        }
 
         .long-number {
           margin-right: 1em;
+        }
+
+        .range-bounds {
+          width: 100%;
         }
       }
     }
 
     &.dimensions-picker {
-      // TODO|kevin
+      align-items: center;
+      flex-direction: row;
+      max-width: $other-inputs-max-width;
+
+      label {
+        margin-right: 1em;
+      }
     }
+  }
+
+  // Further styles on #main-inputs and .collapsible-container instances are
+  // separated from the above fieldset styles because they focus more on how
+  // different fieldsets/inputs relate to EACH OTHER in the container context
+  #main-inputs {
+    width: 47%;  // Small enough to give some padding to the Julia canvas which
+    // is 50% width, but still big enough to fit everything without wrapping.
+
+    @media (max-width: $julia-wrap-breakpoint) {
+      width: 100%;
+    }
+
+    .render-button {
+      display: block;
+      margin: 1px auto 1.5em;
+    }
+  }
+
+  // Many of the inputs 
+  .collapsible-container {
+    margin: 1em 0 0.5em;
+    width: 100%;
+
+    #color-controls {
+      .color-picker {
+        margin-top: 0.5em;
+      }
+
+      .hsl-toggle {
+        display: block;
+        margin-bottom: 0.25em;
+      }
+    }
+  
+    #image-controls {
+      .dimensions-picker {
+        margin-bottom: 1em;
+      }
+
+      .save-canvas {
+        margin: 1em auto 0;
+      }
+    }
+  
+    #region-buttons {
+      ul {
+        list-style: none;
+        padding-left: 1.5em;
+
+        li {
+          display: inline-block;
+          line-height: 2;
+          // Fits the whole line, but small enough to wrap to 2 cols at full res
+          width: 16em;
+          
+          span {
+            margin-left: 0.25em;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $margin-shrink-breakpoint) {
+  .inner-content {
+    margin: 0;
+  }
+
+  section.content {
+    padding: 1em;
   }
 }

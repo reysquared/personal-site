@@ -2,16 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-<!-- TODO|kevin how do you specify a favicon again, and what should I use for one? -->
 <title>Kevin McSwiggen - Homepage</title>
 <meta name="author" content="Kevin McSwiggen">
 <meta name="color-scheme" content="light dark">
-<link rel="stylesheet" type="text/css" href="css/shared.css">
-<!-- TODO|kevin clean up the head in general lmao. also what order should these be in and which should be defered or not? bleh -->
-<script src="webpacks/_themes.bundle.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/tabs.css">
-  <!-- TODO|kevin ... I dont think any of my head scripts REALLY need `defer` right...? -->
-  <script src="webpacks/index.bundle.js"></script>
+<!-- Favicon config conveniently generated with https://realfavicongenerator.net/ -->
+<!-- TODO|kevin TEST FAVICON CONFIGURATION ONCE DEPLOYED -->
+<link rel="apple-touch-icon" sizes="144x144" href="/images/apple-touch-icon.png">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#000000">
+<meta name="msapplication-config" content="/browserconfig.xml" />
+<meta name="theme-color" content="#6699ff">
+<link rel="stylesheet" type="text/css" href="/css/shared.css">
+<script src="webpacks/_themes.bundle.js" defer></script>
+  <link rel="stylesheet" type="text/css" href="/css/tabs.css">
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <script src="/webpacks/index.bundle.js" defer></script>
 </head>
 <body>
   <div id="wrapper">
@@ -76,11 +84,11 @@
 <div class="customrule"></div>
 <div id="pixelface" role="img" aria-label="Pixel-art rendition of Kevin's face"></div>
 <p>
-  Hello, the name's Kevin McSwiggen! My pronouns are they/them (or occasionally
-  he/him around older relatives.) I'm a computer scientist, software engineer,
-  and web developer--three closely-related but distinct hats. I graduated from
-  Harvey Mudd College in Spring 2016 and since then have been living in the Bay
-  Area with my partner (now spouse!)
+  Hello, the name's Kevin McSwiggen! My pronouns are they/them. <!-- (or occasionally
+  he/him around older relatives.) --> I'm a computer scientist, software engineer,
+  and web developer&mdash;three closely-related but distinct hats. I graduated
+  from Harvey Mudd College in Spring 2016 and since then have been living in the
+  Bay Area with my partner (now spouse!)
 </p>
 <p>
   I like doing code-y stuff of pretty much any kind. (No really, almost anything.)
@@ -95,6 +103,10 @@
 </p>
 <p>
   My hobbies include headphones, comics, food, fiction (SFF), and internet.
+  <!-- TODO|kevin hey, I should mention Philosophy of Mind somewhere on here! -->
+  <!-- Other things that might be cool to mention (along with perhaps slightly)
+  shrinking what I already have here lol) -- art? puzzles? Project Euler? (do I
+  still have an account on that?) -->
   <ul>
     <li>
       The headphone collection is now more than a dozen items (I ended up with a
@@ -109,9 +121,9 @@
     <li>
       Some favorite authors: Margaret Atwood, Jorge Luis Borges, William Gibson,
       Charles Stross. I finally read Jeff VanderMeer's <i>Annihilation</i> after
-      several years (and after watching the movie--if you're gonna do both, do
-      it in that order, simply because the book is better. :P) The rest of the
-      trilogy is next when I get some time, unless my friends convince me to
+      several years (and after watching the movie&mdash;if you're gonna do both,
+      do it in that order, simply because the book is better. :P) The rest of
+      the trilogy is next when I get some time, unless my friends convince me to
       pick up <i>The Long Way to a Small Angry Planet</i> first.
     </li>
     <li>
@@ -231,6 +243,7 @@ Then the resume tab can link to them on this tab or whatever. -->
 <p>Former Python CGI scripts ported to JavaScript:</p>
 <ul>
   <li><a href="caesarsolver.html">Caesar Cipher Solver</a></li>
+  <li><a href="mandelbrot.html">Mandelbrot Fractal Visualizer</a></li>
 </ul>
             <a class="button go-back" href="#top">Main</a>
           </section>
@@ -247,8 +260,8 @@ Then the resume tab can link to them on this tab or whatever. -->
 </p>
 <p>
   Initially it was hosted for a brief time on Amazon Web Services, and then for
-  several years after that on the HMC Computer Science department server, under
-  my <a href="https://www.cs.hmc.edu/~kmcswiggen/">student webspace</a>. I'll
+  several years after that on the Harvey Mudd CS department server, under my
+  <a href="https://www.cs.hmc.edu/~kmcswiggen/">student webspace</a>. I'll
   probably just make that redirect to this page at some point, I dunno... but
   for now you can see a version of this site that's more than a half decade old!
   Don't judge it too harshly, my standards have improved since I was in college.
@@ -260,9 +273,10 @@ Then the resume tab can link to them on this tab or whatever. -->
   The couple of Python CGI scripts it had, which were originally placeholders
   to be replaced by CS5 students' own work, are in the process of being ported
   into JavaScript (since it's a bit easier to host and zero effort to configure)
-  and will appear on the Projects tab as they're completed, probably as separate
-  git submodules.
+  and will appear on the Projects tab as they're completed&mdash;probably as
+  separate git submodules... eventually.
 </p>
+<!-- TODO|kevin ADD A CONTACT FORM HERE???? -->
 
             <a class="button go-back" href="#top">Main</a>
           </section>
@@ -270,9 +284,7 @@ Then the resume tab can link to them on this tab or whatever. -->
       </noscript>
     </div>
     <footer id="sticky-footer">
-      <!-- TODO|kevin maybe I should make this into a partial too tbh
-        TODO|kevin ALSO, maybe remove/shrink these in general lmao
-        or at the VERY LEAST I better re-run the fuckin validators !! -->
+      <!-- TODO|kevin at the VERY LEAST I better re-run these fuckin validators !! -->
 <div>
   &copy; 2022 Kevin McSwiggen<br><br>
   <a href="http://jigsaw.w3.org/css-validator/check/referer">
@@ -288,4 +300,17 @@ Then the resume tab can link to them on this tab or whatever. -->
     </footer>
   </div>
 </body>
+<!--
+  Congrats, you curious monkey, you checked the source. There's a comment like
+  this one on all the major pages, so now you can read my discreet list of...
+
+  *** POSSIBLE FUTURE TODOS FOR THIS PAGE ***
+
+  - organize subpages into directories and rename other html src files to index.html
+  - add actual automated tests for my React components lmfao (especially CoordinateWindowPicker)
+  - convert more class components into functions, I was reading older tutorials
+    when I started this project :P learning by doing!
+  - get a more fully-featured templating engine?  ...ehhh, maybe when I can
+    actually do server-side rendering, probably not for GitHub Pages tbh
+-->
 </html>

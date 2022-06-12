@@ -1,7 +1,3 @@
-.main-header {
-  text-align: center;
-}
-
 .rotation-inputs {
   display: flex;
 
@@ -24,5 +20,19 @@
       margin-left: 0;
       margin-top: 0.5em;
     }
+  }
+}
+
+/** Input + output textbox formatting **/
+.scriptbox {
+  @include var-with-fallback(border, --text-input-border, 1px solid $inputborder);
+  box-sizing: border-box;
+  font-family: 'DejaVu Sans Mono', 'Courier New', monospace;
+  min-height: 5em;
+  resize: none;
+  width: 100%;
+
+  &:focus {
+    @include var-with-fallback(border, --text-input-border-focus, 2px solid $inputfocus);
   }
 }

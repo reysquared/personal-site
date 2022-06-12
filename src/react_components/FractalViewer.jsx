@@ -1,169 +1,221 @@
 import Complex from 'complex.js';
 import React, { useEffect, useState } from 'react';
 
-import { makeColorMap } from 'helpers/mandel';
+import { DEFAULT_MANDELBROT_CANVAS_SIZE } from 'react_components/constants';
+import { boundsToRange, ColorModes, makeColorMap, rangeToBounds } from 'helpers/mandel';
 import { getMouseCoordsWithinEventTarget } from 'helpers/misc';
 import Collapsible from 'react_components/Collapsible';
 import { ColorPickerSwitchable } from 'react_components/ColorPicker';
 import { MandelXYWindowPicker } from 'react_components/CoordinateWindowPicker';
 import DimensionsPicker from 'react_components/DimensionsPicker';
 import DurableCanvas, { durableCanvasRegistry } from 'react_components/DurableCanvas';
+import FractalColorModeSelect from 'react_components/FractalColorModeSelect';
+import FractalZoomCanvas from 'react_components/FractalZoomCanvas';
+import JumpToViewButton from 'react_components/JumpToViewButton';
+import SaveCanvasButton from 'react_components/SaveCanvasButton';
+
 
 const JULIA_CANVAS_ID = 'julia-canvas';
 const MANDEL_CANVAS_ID = 'mandelbrot-canvas';
 
-const MIN_CANVAS_DIMENSION = 200;  // TODO|kevin might need tweaking
-const MAX_CANVAS_DIMENSION = 2000;  // TODO|kevin REALLY might need tweaking lmao
-const MAX_FRACTAL_ITERATIONS = 50;  // TODO|kevin planning to have an input for this ultimately
+const MIN_CANVAS_DIMENSION = 300;
+const MAX_CANVAS_DIMENSION = 2000;
+const MAX_FRACTAL_ITERATIONS = 200;
 
-// TODO|kevin WELL. obviously this needs a lot of stuff here.
+const COOL_REGIONS = [
+  { x: [ 0.360, 0.430], y: [ 0.120, 0.170], label: 'Seahorses?' },
+  { x: [-0.325,-0.275], y: [ 0.625, 0.675], label: 'Frumpy alien?' },
+  { x: [ 0.345, 0.375], y: [ 0.630, 0.660], label: 'Lightning Mandel?' },
+  { x: [-0.005, 0.000], y: [ 0.825, 0.830], label: 'Disco neuron?' },
+  { x: [-1.075,-1.050], y: [ 0.250, 0.275], label: 'Mole nose?' },
+  { x: [-1.500,-1.325], y: [-0.050, 0.050], label: 'Frost branches?' },
+  { x: [-1.410,-1.400], y: [-0.005, 0.005], label: 'Thick spikes?' },
+];
 
-/**
-  what does it need?
-  INPUTS
-    color inputs
-    dimensions inputs
-  RENDER BUTTON
-  OUTPUT CANVAS
-  also, ideally we don't want output canvas to change UNLESS we have hit the
-  render button! re-rending it every time seems stupid as all hell!
-
-  advanced:
-  JULIA COORDS
-  JULIA OUTPUT
-  requires also being able to use the FIRST output canvas as a click input
-  I mean, we COULD have Julia Coords as its own input (pair), but I'd rather
-  be able to click-and-drag and have the coords readout update along with the
-  render!
-
-  TODO|kevin ahhh this could also probably do with a numSteps input huh
- */
-
-// TODO|kevin need a RESET ALL INPUTS button, both for user convenience and to
-// verify that I'm ACTUALLY handling all this state/rendering correctly lol
 
 export default function FractalViewer({ ...props }) {
-  // TODO|kevin not POSITIVE about using this loading pattern, but we'll see!
-  // if yes, this should really be reflected in the wrapping div className!
   const [renderInProgress, setRenderInProgress] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
   const [usingHsl, setUsingHsl] = useState(true);
   const [startColor, setStartColor] = useState({ h: 0, s: 100, l: 50 });
   const [endColor, setEndColor] = useState({ h: 360, s: 100, l: 50 });
   const [bgColor, setBgColor] = useState({ h: 0, s: 0, l: 0 });
+  const [colorMode, setColorMode] = useState(ColorModes.LINEAR);
   const [canvasDims, setCanvasDims] = useState({
-    height: 500,
-    width: 500,
+    height: DEFAULT_MANDELBROT_CANVAS_SIZE,
+    width: DEFAULT_MANDELBROT_CANVAS_SIZE,
   });
-  const [viewWindowX, setViewWindowX] = useState({
-    value: 0,
-    range: 2,
-  });
-  const [viewWindowY, setViewWindowY] = useState({
-    value: 0,
-    range: 2,
-  });
+  const [viewWindowX, setViewWindowX] = useState({ center: 0, range: 4 });
+  const [viewWindowY, setViewWindowY] = useState({ center: 0, range: 4 });
+  const [numIters, setNumIters] = useState(50);
   const [juliaCoords, setJuliaCoords] = useState({ x: 0, y: 0 });
-  // TODO|kevin finish this component, duh, lmao
-  // TODO|kevin add a `loading` class if renderInProgress
 
-  // useEffect(() => {
-  //   // TODO|kevin render a julia set to the JULIA_CANVAS_ID
-  // }, [juliaCoords]);
+  // Shorthand for a looong function call. Applies current state to the canvas.
+  const updateMandel = () => {
+    renderMandelbrot(numIters, startColor, endColor, bgColor, viewWindowX, viewWindowY, colorMode, setRenderInProgress);
+  }
+
   useEffect(() => {
-    renderMandelbrot(MAX_FRACTAL_ITERATIONS, startColor, endColor, bgColor, viewWindowX, viewWindowY, usingHsl, setRenderInProgress);
+    // Render a fractal on load so things don't start out looking boring :B
+    updateMandel();
   }, []);
+
+  // This is a somewhat silly way for different inputs to OPT-IN to automatically
+  // re-rendering the fractal when changed, as certain input changes can have
+  // cascading effects that won't take effect until the next render cycle. Still
+  // thinking about how to make this work better cus it still doesn't do what I
+  // want for right-click-zoom updates, but it's otherwise convenient lol
+  if (shouldRender) {
+    setShouldRender(false);
+    updateMandel();
+  }
+
+  useEffect(() => {
+    renderJulia(juliaCoords, numIters, startColor, endColor, bgColor, colorMode)
+  }, [juliaCoords.x, juliaCoords.y]);
 
   const wrapperClass = 'fractal-viewer' + (renderInProgress ? ' loading' : '');
   return (
     <div className={wrapperClass} {...props}>
-      <DurableCanvas canvasId={MANDEL_CANVAS_ID}
+      <FractalZoomCanvas canvasId={MANDEL_CANVAS_ID}
         className="mandelbrot-canvas-wrapper"
         height={canvasDims.height}
         width={canvasDims.width}
-        // TODO|kevin whoops, wait, these coords are NOT normalized to the view,
-        // they are in fact just the pixel location in the canvas lmfao
-        onMouseDown={(e) => setJuliaCoords(getMouseCoordsWithinEventTarget(e))}
+        onClick={(normalizedCoords) => {
+          setJuliaCoords(scaleToEuclideanCoords(normalizedCoords, viewWindowX, viewWindowY));
+        }}
+        onDragEnd={(dragStart, dragStop) => {
+          setViewWindowFromDrag(dragStart, dragStop, viewWindowX, viewWindowY, setViewWindowX, setViewWindowY);
+          // TODO|kevin uuuugh well obviously these coords haven't had a chance to
+          // be aspect-ratio-normalized yet, which is annoying because I really
+          // wanted to handle all the aspect ratio junk at the XYWindowPicker level.
+          // I guess I shoulda seen this coming. At least it triggers AN update lmao
+          setShouldRender(true);
+        }}
+        onDoubleClick={(e) => {
+          const normalizedCoords = getMouseCoordsWithinEventTarget(e);
+          const { x, y } = scaleToEuclideanCoords(normalizedCoords, viewWindowX, viewWindowY);
+          // Set the new viewing window to be zoomed in 2x and centered on the double click coords
+          setViewWindowX((viewX) => ({ center: x, range: viewX.range / 2 }));
+          setViewWindowY((viewY) => ({ center: y, range: viewY.range / 2 }));
+          setShouldRender(true);
+        }}
       />
-      <div className="main-inputs">
-        <label>
-          <input
-            type="checkbox"
-            checked={usingHsl}
-            // TODO|kevin I could potentially have a [usingHsl]-only useEffect that re-normalizes state colors...
-            onChange={() => setUsingHsl(_.negate(_.identity))}
-          />
-          Use HSL?
-        </label>
-        {/* I dunno bud, this is element hierarchy is gettin a bit weird lol.
-          do I want ALL the inputs inside a Collapsible or only SOME?
-          TODO|kevin also I have a sneaking suspicion I have to wrap these
-          setColors better than this lol, idk if it chokes on the second arg? */}
-        <ColorPickerSwitchable legend="Start Color"
-          initialColor={startColor}
-          onColorUpdate={setStartColor}
-          usingHsl={usingHsl}
+      <div className="julia-container">
+        <span className="julia-label">
+          Julia Set for <var>z<sup>2</sup></var> + <var>c</var>, where <var>c</var> =
+          <br />
+          <span className="julia-coords">
+            {Complex(juliaCoords.x, juliaCoords.y).toString()}
+          </span>
+        </span>
+        <DurableCanvas canvasId={JULIA_CANVAS_ID}
+          className="julia-canvas-wrapper"
+          width={MIN_CANVAS_DIMENSION}
+          height={MIN_CANVAS_DIMENSION}
         />
-        <ColorPickerSwitchable legend="End Color"
-          initialColor={endColor}
-          onColorUpdate={setEndColor}
-          usingHsl={usingHsl}
-        />
-        {/* TODO|kevin does this component need to be passed values/ranges from state? */}
-        <MandelXYWindowPicker legend="Viewing Window Coordinates"
+      </div>
+      <div id="main-inputs">
+        <button className="button render-button"
+          onClick={updateMandel}
+        >
+          Render Fractal
+        </button>
+        <MandelXYWindowPicker legend="Viewing window coordinates"
+          coords={{
+            x: viewWindowX,
+            y: viewWindowY,
+          }}
           onCoordsChange={(coords) => {
             setViewWindowX(coords.x);
             setViewWindowY(coords.y);
           }}
           aspectRatios={{
-            // x: canvasDims.width,
-            // y: canvasDims.height,
-            x: 1,
-            y: 1,
+            x: canvasDims.width,
+            y: canvasDims.height,
           }}
         />
-        <button className="button"
-          onClick={() => renderMandelbrot(MAX_FRACTAL_ITERATIONS, startColor, endColor, bgColor, viewWindowX, viewWindowY, usingHsl, setRenderInProgress)}
-        >
-          Render Fractal
-        </button>
       </div>
-      <span className="julia-coords">{`JULIA COORDS X: ${juliaCoords.x} Y: ${juliaCoords.y}`}</span>
-      <DurableCanvas canvasId={JULIA_CANVAS_ID}
-        className="julia-canvas-wrapper"
-        width={MIN_CANVAS_DIMENSION}
-        height={MIN_CANVAS_DIMENSION}
-      />
-      {/* TODO|kevin pass a .more-inputs here somewhere */}
-      <Collapsible>
-        {/* <DimensionsPicker legend="Canvas Dimensions"
-          startHeight={canvasDims.height}
-          minHeight={MIN_CANVAS_DIMENSION}
-          maxHeight={MAX_CANVAS_DIMENSION}
-          startWidth={canvasDims.width}
-          minWidth={MIN_CANVAS_DIMENSION}
-          maxWidth={MAX_CANVAS_DIMENSION}
-          onWidthChange={(w) => setCanvasDims((dims) => ({ width: w, height: dims.height }))}
-          onHeightChange={(h) => setCanvasDims((dims) => ({ height: h, width: dims.width }))}
-        /> */}
+      <Collapsible regionId="color-controls" label="Color options">
+        <label className="hsl-toggle">
+          <input
+            type="checkbox"
+            checked={usingHsl}
+            onChange={() => setUsingHsl(_.negate(_.identity))}
+          />
+          Use HSL?
+        </label>
+        <FractalColorModeSelect
+          colorMode={colorMode}
+          onChange={setColorMode}
+        />
+        <ColorPickerSwitchable legend="Fast Escape"
+          initialColor={startColor}
+          onColorUpdate={setStartColor}
+          usingHsl={usingHsl}
+        />
+        <ColorPickerSwitchable legend="Slow Escape"
+          initialColor={endColor}
+          onColorUpdate={setEndColor}
+          usingHsl={usingHsl}
+        />
         <ColorPickerSwitchable legend="Background Color"
           initialColor={bgColor}
           onColorUpdate={setBgColor}
           usingHsl={usingHsl}
         />
       </Collapsible>
+      <Collapsible regionId="image-controls" label="Image controls">
+        <DimensionsPicker legend="Canvas Dimensions"
+          height={canvasDims.height}
+          minHeight={MIN_CANVAS_DIMENSION}
+          maxHeight={MAX_CANVAS_DIMENSION}
+          width={canvasDims.width}
+          minWidth={MIN_CANVAS_DIMENSION}
+          maxWidth={MAX_CANVAS_DIMENSION}
+          onWidthChange={(w) => setCanvasDims((dims) => ({ width: w, height: dims.height }))}
+          onHeightChange={(h) => setCanvasDims((dims) => ({ height: h, width: dims.width }))}
+        />
+        <label className="num-iterations">
+          <span>
+            Number of iterations:
+          </span>
+          {' '}
+          <input type="number" className="small-number"
+            value={numIters}
+            min={1}
+            max={MAX_FRACTAL_ITERATIONS}
+            step={1}
+            onChange={(e) => setNumIters(parseInt(e.target.value))}
+          />
+        </label>
+        <SaveCanvasButton canvasId={MANDEL_CANVAS_ID} />
+      </Collapsible>
+      <Collapsible regionId="region-buttons" label="Some cool-lookin' regions">
+        <ul>
+          {COOL_REGIONS.map((regionData, i) => 
+            <li key={i}>
+              <JumpToViewButton
+                {...regionData}
+                {...{
+                  setViewWindowX,
+                  setViewWindowY,
+                  setShouldRender,
+                  setCanvasDims,
+                }}
+              />
+            </li>
+          )}
+        </ul>
+      </Collapsible>
     </div>
   );
 }
 
-// TODO|kevin ehhhh... this is so many args, can it be reduced at ALL?
-function renderJulia(juliaCoords, numSteps, startColor, endColor, bgColor, usingHsl, setRenderInProgress) {
-  setRenderInProgress(true);
+
+function renderJulia(juliaCoords, numSteps, startColor, endColor, bgColor, colorMode) {
   const canvas = durableCanvasRegistry[JULIA_CANVAS_ID];
-  const colorMap = makeColorMap(
-    startColor,
-    endColor,
-    numSteps,
-  );
+  const colorMap = makeColorMap(startColor, endColor, numSteps, colorMode);
   const mandelRange = {
     xmin: -2,
     xmax: 2,
@@ -172,87 +224,56 @@ function renderJulia(juliaCoords, numSteps, startColor, endColor, bgColor, using
   }
   const juliaComplex = new Complex(juliaCoords.x, juliaCoords.y);
   Caman(canvas, function() {
-    this.juliaset(mandelRange, juliaComplex, colorMap, bgColor, () => {
-      console.error('TODO|kevin omg the callback worked even for custom function!');
-      Caman(canvas, function() {
-        this.reloadCanvasData();
-      })
-    });
-    this.render(() => {
-      setRenderInProgress(false);
-    });
+    // Filters won't apply unless we fill the canvas with SOME kind of data first
+    // You'd think the documentation would be a bit more explicit about that, but
+    // I guess people use Caman for actual image filtering and not to render
+    // fractals most of the time :V
+    this.fillColor('#ffffff');
+    this.juliaset(mandelRange, juliaComplex, colorMap, bgColor);
+    this.render();
   });
 }
 
-function renderMandelbrot(numSteps, startColor, endColor, bgColor, viewX, viewY, usingHsl, setRenderInProgress) {
-  console.error('TODO|kevin WOOOHOOOOOOO RENDERING A MANDELBROT');
-  console.error(JSON.stringify(arguments));
+function renderMandelbrot(numSteps, startColor, endColor, bgColor, viewX, viewY, colorMode, setRenderInProgress) {
   setRenderInProgress(true);
   const canvas = durableCanvasRegistry[MANDEL_CANVAS_ID];
-  const canvas2 = document.getElementById(MANDEL_CANVAS_ID);
-  console.error('TODO|kevin is our durable registry actually whats in the document?');
-  console.error(canvas === canvas2);
-  console.error(document.body.contains(canvas));
-  console.error(document.body.contains(canvas2));
-  /////// TODO|kevin lets just retry some of that bullshit nonsense I was doing in the entry point file
-  // const clone = canvas.cloneNode(true);
-  // console.error('OKAY THIS ONE better be false');
-  // console.error(document.body.contains(clone));
-  // // clone.height=160;
-  // // clone.width = 160;
-  // // // // Clone the image stored in the canvas as well
-  // // // clone.getContext('2d').drawImage(canvas, 0, 0, 160, 160);
-  // const theParent = canvas.parent;
-  // theParent.removeChild(canvas);
-  // theParent.appendChild(clone);
-  ////////// TODO|kevin end bullshit nonsense! ,,,,,, sort of.
-  const colorMap = makeColorMap(
-    startColor,
-    endColor,
-    numSteps,
-  );
-  const mandelRange = {
-    xmin: viewX.value - (viewX.range / 2),
-    xmax: viewX.value + (viewX.range / 2),
-    ymin: viewY.value - (viewY.range / 2),
-    ymax: viewY.value + (viewY.range / 2),
-  }
-  // TODO|kevin having issues with actually passing the canvas element, so,
-  // let's try just selecting it from the DOM again...??????
+  const colorMap = makeColorMap(startColor, endColor, numSteps, colorMode);
+  const [xmin, xmax] = rangeToBounds(viewX.center, viewX.range);
+  const [ymin, ymax] = rangeToBounds(viewY.center, viewY.range);
+  const mandelRange = { xmin, xmax, ymin, ymax };
+
   Caman(canvas, function () {
-    this.fillColor('#ffffff');  // TODO|kevin Caman DOES NOT WORK unless I fill
-    // the canvas with SOME kind of data beforehand. that took way too fucking long to figure out.
-    console.error('TODO|kevin inside actual Caman call... lessee what context we can see');
-    console.error(this.context);
-    console.error(this.context.canvas === canvas2);
+    // Filters won't apply unless we fill the canvas with SOME kind of data first
+    this.fillColor('#ffffff');
     const dims = this.dimensions;
-    // if (dims.height !== canvasDims.height || dims.width !== canvasDims.width) {
-    //   this.resize(canvasDims).render();
-    // }
-    console.error('canvas dims according to this.dimensions:')
-    console.error(JSON.stringify(dims));
-    console.error('canvas dims according to the `canvas` var we passed in:');
-    console.error(`height: ${canvas.height} width: ${canvas.width}`);
-    const imageData = this.context.getImageData(0, 0, canvas.width, canvas.height);
-    console.error('Pre-render pixel data');
-    console.error(imageData.data);
-    this.camandel(mandelRange, colorMap, bgColor, () => {
-      console.error('TODO|kevin omg the callback worked even for custom function!');
-      Caman(canvas, function () {
-        this.reloadCanvasData();
-      })
-    });
-    this.render(() => {
-      console.error('TODO|kevin FRACTAL RENDERING FINISHED!!!!!! nominally');
-      console.error('post-render pixel data');
-      const theEl = document.getElementById('mandelbrot-canvas');
-      const ctx = theEl.getContext('2d');
-      console.error(ctx);
-      console.error(ctx.getImageData(0, 0, theEl.width, theEl.height).data);
-      setRenderInProgress(false);
-    });
+    this.camandel(mandelRange, colorMap, bgColor);
+    this.render(() => setRenderInProgress(false));
   });
 }
 
-// function setNormalizedColor()
+function scaleToEuclideanCoords(normalizedCoords, viewWindowX, viewWindowY) {
+  const xmin = viewWindowX.center - (viewWindowX.range / 2);
+  const ymin = viewWindowY.center - (viewWindowY.range / 2);
+  const x = xmin + (normalizedCoords.x * viewWindowX.range);
+  const y = ymin + (normalizedCoords.y * viewWindowY.range);
+  return { x, y };
+}
 
+function setViewWindowFromDrag(dragStart, dragStop, viewWindowX, viewWindowY, setViewWindowX, setViewWindowY) {
+  const [xminNorm, xmaxNorm] = [dragStart.x, dragStop.x].sort();
+  const [yminNorm, ymaxNorm] = [dragStart.y, dragStop.y].sort();
+
+  const [xStart, ] = rangeToBounds(viewWindowX.center, viewWindowX.range);
+  const [yStart, ] = rangeToBounds(viewWindowY.center, viewWindowY.range);
+  const xmin = xStart + (xminNorm * viewWindowX.range);
+  const xmax = xStart + (xmaxNorm * viewWindowX.range);
+  const ymin = yStart + (yminNorm * viewWindowY.range);
+  const ymax = yStart + (ymaxNorm * viewWindowY.range);
+  const viewX = {};
+  const viewY = {};
+  [viewX.center, viewX.range] = boundsToRange(xmin, xmax);
+  [viewY.center, viewY.range] = boundsToRange(ymin, ymax);
+  setViewWindowX(viewX);
+  setViewWindowY(viewY);
+  return {x: viewX, y: viewY};
+}

@@ -1,0 +1,23 @@
+#pixelface {
+  background-image: url("../../images/pixelface-light-border@2x.png");
+  background-size: 10rem 10rem;
+  border: 1px solid;
+  border-color: #6af;
+  float: right;
+  height: 10rem;
+  margin: 1em 0.5em 0 0.5em;
+  width: 10rem; }
+  [data-theme="dark"] #pixelface {
+    background-image: url("../../images/pixelface-dark-border@2x.png");
+    border-color: #46e; }
+  @media (prefers-color-scheme: dark) {
+    #pixelface {
+      background-image: url("../../images/pixelface-dark-border@2x.png");
+      border-color: #46e; }
+      [data-theme="light"] #pixelface {
+        background-image: url("../../images/pixelface-light-border@2x.png");
+        border-color: #6af; } }
+  @media (max-width: 27.5em) {
+    #pixelface {
+      float: unset;
+      margin: 0 auto; } }

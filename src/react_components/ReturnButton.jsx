@@ -1,14 +1,14 @@
 import React from 'react';
 import { DEFAULT_TAB } from 'react_components/constants';
 
-// TODO|kevin I should probably install lodash as a dependency
+
 export default function ReturnButton({ setActiveTab }) {
-  // TODO|kevin make sure these aria roles aren't totally busted lolol
   const clickHandler = (event) => {
     event.preventDefault();
     setActiveTab(DEFAULT_TAB);
+    // simple lil' hook for the url hash-routing, cus I'm too lazy to install
+    // react-router on a serverless host when HashRouter is deprecated anyway
     window.history.pushState(null, null, '#');
-    // TODO|kevin do some URL rewriting here yeah? clear out URL hash
   };
   return (
     <a

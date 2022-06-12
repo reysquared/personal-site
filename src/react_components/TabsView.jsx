@@ -16,15 +16,9 @@ export default class TabsView extends React.Component {
 
     // Ideally if you want a "default" tab it should be first in the list, but
     // if it isn't the ReturnButtons will still work correctly, so this just
-    // has the first tab in the list start activated. Shrugs. TODO|kevin update comments lol
-    // TODO|kevin perhaps should throw an error if hasDefaultTab but there's no tab with the "default" id
+    // has the first tab in the list start activated. Shrugs.
     const startingTab = props.hasDefaultTab ? DEFAULT_TAB : props.tabs[0].tabId;
     const activeTab = props.startingTab || startingTab;
-    // TODO|kevin also, yknow, if I grab the URL hash here in the constructor
-    // then I might not actually NEED a fully-fledged routing library...?
-    // I would probably just need to add like, a history.pushState() in my tab button onClick handler
-    // TODO|kevin oh, right, and uh, a hashchange event listener, probably defined HERE,
-    // which does a setState / generally models the old activateFragment
 
     this.state = {
       activeTab,
@@ -32,15 +26,24 @@ export default class TabsView extends React.Component {
   }
 
   componentDidMount() {
+    // tiny homebrewed URL routing hook so the tabs can be easily linked to!
     const handleHashChange = (event) => {
       const hash = (window.location.hash || '#').substring(1);
+      // If hash isn't a tab ID, it might be a real anchor WITHIN a tab. Find
+      // out! If it's not a real anchor, or not within a tab, returns undefined.
       const targetTab = getTabFromFragmentId(hash);
-      // TODO|kevin comments here lol
       if (!hash && this.props.hasDefaultTab) {
+        // If the hash was empty, reset to the default, if any.
         this.setActiveTab(DEFAULT_TAB);
       } else if (targetTab) {
+        // If we found a different target tab, acrivate it.
         this.setActiveTab(targetTab);
       }
+      // Otherwise it's one of three things: 1) an invalid hash (DNE in document)
+      // 2) a valid hash that just isn't within a tab, or 2.5) an empty hash and
+      // we have no default tab, in which case it's treated as the valid hash for
+      // returning to the top of the document. Regardless, there's no need to do
+      // anything else because the UA's default hashchange behavior is just fine!
     }
 
     window.addEventListener('hashchange', handleHashChange);
@@ -52,7 +55,10 @@ export default class TabsView extends React.Component {
   }
 
   setActiveTab(tabId) {
-    if (!this.tabIsValid(tabId)) return;  // TODO|kevin log a warning or something? idk man...
+    if (!this.tabIsValid(tabId)) {
+      console.error(`tried to set invalid tab as active: ${tabId}`);
+      return;
+    }
     this.setState({ activeTab: tabId });
   }
 
@@ -64,7 +70,6 @@ export default class TabsView extends React.Component {
             {this.props.tabs.map((tab) => {
               // The default tab panel doesn't have a corresponding tab button
               if (this.props.hasDefaultTab && tab.id === DEFAULT_TAB) return;
-              // TODO|kevin yknow... I should condense MOST of this stuff into just passing the tab object huh?
               return (
                 <TabButton
                   key={tab.id}

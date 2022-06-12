@@ -1,0 +1,16 @@
+.collapsible-container {
+  display: flex;
+  flex-direction: column; }
+  .collapsible-container .collapsible-header {
+    align-items: end;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.15em; }
+  .collapsible-container .collapsible-content {
+    border-top: 1px solid;
+    overflow: hidden;
+    padding-top: 0.5em;
+    transition: height 0.5s ease; }
+    .collapsible-container .collapsible-content.collapsed {
+      height: 0;
+      padding-top: 0; }

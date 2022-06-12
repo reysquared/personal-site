@@ -5,14 +5,8 @@ import ReturnButton from 'react_components/ReturnButton';
 
 
 export default function TabContent({ tab, containerClass, activeTab, hasDefaultTab, setActiveTab }) {
-  // TODO|kevin bluh.... does this ALSO need setActiveTab to set a handler on the button?
-  // does it make sense to have a ReturnButton as its own thing if we're setting
-  // a handler in THIS render?  I guess maybe to separate the HTML for the button...
-  // TODO|kevin bluh this maybe also needs aria-labelledby?
-  // TODO|kevin I don't THINK it needs aria-hidden as long as it's actually
-  // visually "display: none" but maybe double-check on that.
-
-  // TODO|kevin comment for this snippet probably
+  // A lazy lil way to attach some basic dynamic content while still having the
+  // tab content specified programmatically. Runs EVERY render though, be aware!
   if (tab.effect) {
     React.useEffect(tab.effect);
   }

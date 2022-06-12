@@ -1,6 +1,6 @@
 @import '_themes';
 
-// TODO|kevin NOTE these styles are separated from _themes.scss so other files
+// NOTE these styles are intentionally separate from _themes.scss so other files
 // can import _themes WITHOUT side-effects, under the assumption that the color
 // schemes will already be included as part of shared.css further up the page.
 :root {

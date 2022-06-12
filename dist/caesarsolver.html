@@ -2,25 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-<!-- TODO|kevin how do you specify a favicon again, and what should I use for one? -->
 <title>Kevin McSwiggen - Caesar Solver</title>
 <meta name="author" content="Kevin McSwiggen">
 <meta name="color-scheme" content="light dark">
-<link rel="stylesheet" type="text/css" href="css/shared.css">
-<!-- TODO|kevin clean up the head in general lmao. also what order should these be in and which should be defered or not? bleh -->
-<script src="webpacks/_themes.bundle.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/caesar.css">
-  <script src="webpacks/caesar.bundle.js"></script>
+<!-- Favicon config conveniently generated with https://realfavicongenerator.net/ -->
+<!-- TODO|kevin TEST FAVICON CONFIGURATION ONCE DEPLOYED -->
+<link rel="apple-touch-icon" sizes="144x144" href="/images/apple-touch-icon.png">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#000000">
+<meta name="msapplication-config" content="/browserconfig.xml" />
+<meta name="theme-color" content="#6699ff">
+<link rel="stylesheet" type="text/css" href="/css/shared.css">
+<script src="webpacks/_themes.bundle.js" defer></script>
+  <link rel="stylesheet" type="text/css" href="/css/caesar.css">
+  <script src="/webpacks/caesar.bundle.js" defer></script>
 </head>
 <body>
   <div id="wrapper">
     <header class="main-header">
-      <!-- TODO|kevin maybe I should organize more of this shit into directories
-      and rename files like this to index.html in said directories. I'm GUESSING
-      Pages handles that in the way I would want it to...? -->
-      <!-- TODO|kevin this needs a back button, and this is quite possibly the right place to put it -->
-      <h1>Automatic Caesar Decipher</h1>
+      <h1>Caesar Decipher</h1>
       <p class="subhead">Caesar the day.</p>
+      <a href="/" class="button home-button">Go Home</a>
     </header>
     <div id="main-content">
       <section class="content">
@@ -48,9 +53,7 @@
       </section>
     </div>
     <footer id="sticky-footer">
-      <!-- TODO|kevin maybe I should make this into a partial too tbh
-        TODO|kevin ALSO, maybe remove/shrink these in general lmao
-        or at the VERY LEAST I better re-run the fuckin validators !! -->
+      <!-- TODO|kevin at the VERY LEAST I better re-run these fuckin validators !! -->
 <div>
   &copy; 2022 Kevin McSwiggen<br><br>
   <a href="http://jigsaw.w3.org/css-validator/check/referer">
@@ -66,3 +69,12 @@
     </footer>
   </div>
 </body>
+<!--
+  Congrats, you curious monkey, you checked the source. There's a comment like
+  this one on all the major pages, so now you can read my discreet list of...
+
+  *** POSSIBLE FUTURE TODOS FOR THIS PAGE ***
+
+  - Possibly turn this into a separate little git submodule
+-->
+</html>

@@ -9,7 +9,6 @@
  * itself, which is ONLY useful in browsers that support the feature.
 */
 @mixin var-with-fallback($property, $varname, $fallback) {
-  // TODO|kevin test this error-checking too lol
   @if type-of($property) != string {
     @error "var-with-fallback $property must be a string (and SHOULD be a valid css property): #{$property}";
   }
@@ -20,8 +19,6 @@
     @error "var-with-fallback $fallback value must not be null";
   }
 
-  // TODO|kevin I should validate that $varname is preceded with -- and that
-  // $fallback is defined (and possibly actually a color? that might be hard though)
   #{$property}: $fallback;
   #{$property}: var($varname, $fallback);
 }
