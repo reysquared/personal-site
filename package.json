@@ -10,7 +10,7 @@
     "prepare": "npm run clean-static && npm run build:dev",
     "scss": "node-sass ./src/scss -o ./dist/css",
     "scss:min": "npm run scss -- --output-style=compressed",
-    "serve": "webpack serve",
+    "serve": "webpack serve --mode=development",
     "template": "html-includes --src src/html --dest dist",
     "template:min": "npm run template -- --minify collapseWhitespace=true conservativeCollapse=true",
     "test": "echo \"Error: no test specified\" && exit 1",
