@@ -4,10 +4,11 @@
   "description": "Kevin McSwiggen's personal website, now hosted on Vercel!",
   "browser": "index.html",
   "scripts": {
-    "build:verceltest": "npm run build:prod && cp -a ./dist/ .vercel/output/static",
+    "build:vercel": "npm run clean:vercel && npm run build:prod && cp -a ./dist/ .vercel/output/static && rm -rf ./dist",
+    "clean:vercel": "rm -rf .vercel/output/static && mkdir .vercel/output/static",
     "build:prod": "npm run clean-static && npm run scss:min & npm run template:min & npm run webpack:prod",
     "build:dev": "npm run scss & npm run template & npm run webpack:dev",
-    "clean-static": "rm -rf .vercel/output/static && mkdir -p .vercel/output/static && cp -a ./static/ .vercel/output/static",
+    "clean-static": "rm -rf ./dist/ && mkdir ./dist && cp -a ./static/ ./dist",
     "prepare": "npm run clean-static && npm run build:dev",
     "scss": "node-sass ./src/scss -o ./dist/css",
     "scss:min": "npm run scss -- --output-style=compressed",
