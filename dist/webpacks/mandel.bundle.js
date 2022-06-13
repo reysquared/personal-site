@@ -473,8 +473,7 @@ function supportsLocalStorage() {
 // Doesn't play too well with non-QWERTY keyboard layouts, seems like browser
 // support is maybe still in progress on that front (Keyboard.getLayoutMap()?)
 
-var KONAMI_KEYS = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA']; // TODO|kevin think of SOME kind of easter egg that this can control lmao!
-
+var KONAMI_KEYS = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
 function catchKonamiCode(callback, once) {
   // Keep track of which keys the user has pressed
   var keypressQueue = []; // Function to catch the key events
@@ -1564,7 +1563,7 @@ function FractalViewer(_ref) {
     },
     onDragEnd: function onDragEnd(dragStart, dragStop) {
       setViewWindowFromDrag(dragStart, dragStop, viewWindowX, viewWindowY, setViewWindowX, setViewWindowY); // TODO|kevin uuuugh well obviously these coords haven't had a chance to
-      // be aspect-ratio-normalized yet, which is annoying because I really
+      // be aspect-ratio-normalized yet, which is annoying because I REALLY
       // wanted to handle all the aspect ratio junk at the XYWindowPicker level.
       // I guess I shoulda seen this coming. At least it triggers AN update lmao
 
@@ -1592,9 +1591,9 @@ function FractalViewer(_ref) {
       });
       setShouldRender(true);
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("figure", {
     className: "julia-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("span", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("figcaption", {
     className: "julia-label"
   }, "Julia Set for ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("var", null, "z", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("sup", null, "2")), " + ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("var", null, "c"), ", where ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("var", null, "c"), " =", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("span", {
     className: "julia-coords"

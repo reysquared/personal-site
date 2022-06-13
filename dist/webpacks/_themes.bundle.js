@@ -93,8 +93,7 @@ function supportsLocalStorage() {
 // Doesn't play too well with non-QWERTY keyboard layouts, seems like browser
 // support is maybe still in progress on that front (Keyboard.getLayoutMap()?)
 
-var KONAMI_KEYS = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA']; // TODO|kevin think of SOME kind of easter egg that this can control lmao!
-
+var KONAMI_KEYS = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
 function catchKonamiCode(callback, once) {
   // Keep track of which keys the user has pressed
   var keypressQueue = []; // Function to catch the key events

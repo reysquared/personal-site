@@ -87,7 +87,7 @@ export default function FractalViewer({ ...props }) {
         onDragEnd={(dragStart, dragStop) => {
           setViewWindowFromDrag(dragStart, dragStop, viewWindowX, viewWindowY, setViewWindowX, setViewWindowY);
           // TODO|kevin uuuugh well obviously these coords haven't had a chance to
-          // be aspect-ratio-normalized yet, which is annoying because I really
+          // be aspect-ratio-normalized yet, which is annoying because I REALLY
           // wanted to handle all the aspect ratio junk at the XYWindowPicker level.
           // I guess I shoulda seen this coming. At least it triggers AN update lmao
           setShouldRender(true);
@@ -101,20 +101,20 @@ export default function FractalViewer({ ...props }) {
           setShouldRender(true);
         }}
       />
-      <div className="julia-container">
-        <span className="julia-label">
+      <figure className="julia-container">
+        <figcaption className="julia-label">
           Julia Set for <var>z<sup>2</sup></var> + <var>c</var>, where <var>c</var> =
           <br />
           <span className="julia-coords">
             {Complex(juliaCoords.x, juliaCoords.y).toString()}
           </span>
-        </span>
+        </figcaption>
         <DurableCanvas canvasId={JULIA_CANVAS_ID}
           className="julia-canvas-wrapper"
           width={MIN_CANVAS_DIMENSION}
           height={MIN_CANVAS_DIMENSION}
         />
-      </div>
+      </figure>
       <div id="main-inputs">
         <button className="button render-button"
           onClick={updateMandel}

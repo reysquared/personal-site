@@ -209,6 +209,10 @@ $other-inputs-max-width: 25em;
   }
 }
 
+h3:first-child {
+  margin-top: 0;
+}
+
 @media (max-width: $margin-shrink-breakpoint) {
   .inner-content {
     margin: 0;

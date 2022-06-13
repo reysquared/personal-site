@@ -1,6 +1,132 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/helpers/misc.js":
+/*!*****************************!*\
+  !*** ./src/helpers/misc.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "catchKonamiCode": () => (/* binding */ catchKonamiCode),
+/* harmony export */   "gcd": () => (/* binding */ gcd),
+/* harmony export */   "getMouseCoordsWithinEventTarget": () => (/* binding */ getMouseCoordsWithinEventTarget),
+/* harmony export */   "supportsLocalStorage": () => (/* binding */ supportsLocalStorage)
+/* harmony export */ });
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+ // *NOTE* RETURNED COORDINATES USE A *CARTESIAN* ORIGIN, NOT IMAGEDATA ORIGIN!
+// y = 0 is at the BOTTOM of the target element's box, NOT the top!
+// I am also 99% sure this WILL NOT WORK CORRECTLY on scaled elements.
+
+function getMouseCoordsWithinEventTarget(e) {
+  var targetStyles = getComputedStyle(e.target);
+  var boxSizing = targetStyles.getPropertyValue('box-sizing');
+  var contentBox = boxSizing === 'content-box';
+  var borderOffsetX = 0,
+      borderOffsetY = 0;
+
+  if (contentBox) {
+    // These return as "_px" string values but seem to ALWAYS be computed in px,
+    // so just passing the strings to parseInt gives us exactly what we want
+    borderOffsetX = parseInt(targetStyles.getPropertyValue('border-left-width'));
+    borderOffsetY = parseInt(targetStyles.getPropertyValue('border-bottom-width'));
+  }
+
+  var targetRect = e.target.getBoundingClientRect();
+  var relativeX = e.clientX - lodash__WEBPACK_IMPORTED_MODULE_0___default().round(targetRect.left) - borderOffsetX;
+  var relativeY = lodash__WEBPACK_IMPORTED_MODULE_0___default().round(targetRect.bottom) - e.clientY - borderOffsetY; // Ensure values are clamped to the acceptable range, in case of minor offset
+  // calculation errors
+
+  var clampedX = lodash__WEBPACK_IMPORTED_MODULE_0___default().clamp(relativeX, 0, e.target.clientWidth);
+
+  var clampedY = lodash__WEBPACK_IMPORTED_MODULE_0___default().clamp(relativeY, 0, e.target.clientHeight);
+
+  return {
+    x: clampedX / e.target.clientWidth,
+    y: clampedY / e.target.clientHeight
+  }; // OKAY, so in box-sizing content-box, this SEEMS to be basically
+  // treating the bottom corner of the BORDER as the origin, so we need to offset
+  // from that basically. x values should subtract the width of the LEFT border
+  // (and then clamp to the known dimensions)
+  // and y values should subtract the width of...... hmm. should subtract the
+  // width of the bottom border, but MAYBE more than that?
+  // We should clamp values to [0, e.target.clientWidth/Height] which is the
+  // size of the content incl PADDING but NOT border, then normalize to [0, 1]
+}
+function gcd(a, b) {
+  a = Math.abs(a);
+  b = Math.abs(b);
+
+  while (b) {
+    var t = b;
+    b = a % b;
+    a = t;
+  }
+
+  return a;
+} // This is not necessary for performance by any means, I just don't like the
+// idea of repeatedly messing with the actual storage values unnecessarily.
+
+var __storageSupported = null;
+function supportsLocalStorage() {
+  if (__storageSupported === null) {
+    var teststr = '__localstorage_test__';
+
+    try {
+      localStorage.setItem(teststr, teststr);
+      localStorage.removeItem(teststr);
+      __storageSupported = true;
+    } catch (e) {
+      __storageSupported = false;
+    }
+  }
+
+  return __storageSupported;
+} // I'm sure this has been done plenty of times before, but... I wanted to make
+// a silly function that creates a konami code listener on the document, firing
+// some callback if the user hits [UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT B A]
+// If `once` is true, this will remove the listener after the callback is fired.
+// Otherwise the key sequence resets and the user can enter it again.
+// Doesn't play too well with non-QWERTY keyboard layouts, seems like browser
+// support is maybe still in progress on that front (Keyboard.getLayoutMap()?)
+
+var KONAMI_KEYS = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+function catchKonamiCode(callback, once) {
+  // Keep track of which keys the user has pressed
+  var keypressQueue = []; // Function to catch the key events
+
+  function konamiCatcher(e) {
+    var evCode = e.code;
+    keypressQueue.push(evCode);
+
+    if (keypressQueue.length >= KONAMI_KEYS.length) {
+      if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(keypressQueue, KONAMI_KEYS)) {
+        callback(); // User succeeded! Run the callback
+
+        if (once) {
+          // Remove ourselves if we're only supposed to run once
+          document.removeEventListener('keydown', konamiCatcher);
+        }
+      } // Doesn't really matter if it was right, need to empty the queue if full
+      // This removes all elements from keypressQueue by reference
+
+
+      keypressQueue.length = 0;
+    } else if (!lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(keypressQueue, KONAMI_KEYS.slice(0, keypressQueue.length))) {
+      // Also clear the queue If they messed up the sequence before the end
+      keypressQueue.length = 0;
+    }
+  } // 
+
+
+  document.addEventListener('keydown', konamiCatcher);
+}
+
+/***/ }),
+
 /***/ "./src/helpers/tabs.js":
 /*!*****************************!*\
   !*** ./src/helpers/tabs.js ***!
@@ -66,9 +192,8 @@ function ReturnButton(_ref) {
     className: "button go-back",
     href: "#top",
     onClick: clickHandler,
-    role: "tab",
-    "aria-controls": "default",
-    "aria-selected": "false"
+    role: "button",
+    "aria-controls": "default"
   }, "Main");
 }
 
@@ -131,6 +256,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var html_react_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! html-react-parser */ "./node_modules/html-react-parser/index.mjs");
 /* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
 /* harmony import */ var react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/ReturnButton */ "./src/react_components/ReturnButton.jsx");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -155,14 +282,19 @@ function TabContent(_ref) {
 
   if (containerClass) {
     className += ' ' + containerClass;
-  }
+  } // Only include the labelledby attribute if the tab IS labeled by something.
+  // Since default tab panel doesn't have a corresponding tab control, skip it.
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
+
+  var isDefault = hasDefaultTab && tab.id === react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB;
+  var labelAttr = !isDefault ? {
+    'aria-labelledby': "tab-".concat(tab.id)
+  } : {};
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", _extends({
     id: tab.id,
     className: className,
-    role: "tabpanel",
-    "aria-labelledby": "tab-".concat(tab.id)
-  }, (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tab.content), hasDefaultTab && tab.id !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    role: "tabpanel"
+  }, labelAttr), (0,html_react_parser__WEBPACK_IMPORTED_MODULE_1__["default"])(tab.content), hasDefaultTab && tab.id !== react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
     setActiveTab: setActiveTab
   }));
 }
@@ -1303,7 +1435,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<header>\n  <h2>Welcome Friend</h2>\n</header>\n<div class=\"customrule\"></div>\n<p>\n  You're telling me I can write whatever I want here? Like, <em>anything?</em> Wow. All this\n  power is kind of humbling. Maybe I should put down the keyboard.\n</p>\n<br>\n<p>\n  Hey there, I'm Kevin, a software engineer from Oakland. This page contains\n  information about stuff that I'm doing currently and/or have done in the past.\n</p>\n<hr>\n<p><b>News:</b></p>\n<ul>\n  <li>Got married, got a house, aaand... got laid off? All in the same six months. That's an eventful half-year!</li>\n  <li>Wow, this pandemic is still going, huh.</li>\n  <li><em>Finally</em> updating my website for the first time in ages, check it out:\n    <ul>\n      <li>Migrated from the Harvey Mudd CS department server to Github Pages</li>\n      <li>Re-implemented the entire interface in React (the main webpage still supports noscript though!)</li>\n      <li>Added a dark theme option</li>\n      <li>Have begun porting some of my ancient, broken Python 2 CGI scripts into JavaScript so they can also work on Pages</li>\n      <li>Updated the info on here too, obviously</li>\n      <li>Did my best to make the interactive elements WAI-ARIA compliant. If you notice any defficiencies, please let me know!</li>\n    </ul>\n  </li>\n  <!-- maybe switch up the music rec!!! -->\n  <li>Making plans to go camping with some friends this July. It'll be the first time in a while!</li>\n  <li>I'm a little past 70% in Breath of the Wild now, and second-guessing my choice to go to 100%.</li>\n  <li>\n    I don't have music recs from this year yet, but listen to Daisuke Tanabe's\n    <a href=\"https://daisuketanabe.bandcamp.com/album/cat-steps\">Cat Steps</a>.\n  </li>\n</ul>";
+var code = "<header>\n  <h2>Welcome Friend</h2>\n</header>\n<div class=\"customrule\"></div>\n<p>\n  You're telling me I can write whatever I want here? Like, <em>anything?</em> Wow.\n  All this power is kind of humbling. Maybe I should step away from the keyboard.\n</p>\n<br>\n<p>\n  Hey there, I'm Kevin, a software engineer from Oakland. This page contains\n  information about stuff that I'm doing currently and/or have done in the past.\n</p>\n<hr>\n<p><b>News:</b></p>\n<ul>\n  <li>Got married, got a house, aaand... got laid off? All in the same six months. That's an eventful half-year!</li>\n  <li>Wow, this pandemic is still going, huh.</li>\n  <li><em>Finally</em> updating my website for the first time in ages, check it out:\n    <ul>\n      <li>Migrated from the Harvey Mudd CS department server to Github Pages</li>\n      <li>Re-implemented the entire interface in React (the main webpage still supports noscript though!) over the course of ~2 days</li>\n      <li>Added a dark theme option</li>\n      <li>Ported some of my ancient, broken Python 2 CGI scripts into new, functioning JavaScript so they can also work on Pages</li>\n      <li>Updated the info on here too, obviously</li>\n      <li>Did my best to make the interactive elements WAI-ARIA compliant. If you notice any defficiencies, please let me know!</li>\n    </ul>\n  </li>\n  <!-- maybe switch up the music rec!!! -->\n  <li>Making plans to go camping with some friends this July. It'll be the first time in a while!</li>\n  <li>I'm a little past 70% in Breath of the Wild now, and second-guessing my choice to go to 100%.</li>\n  <li>\n    I don't have music recs from this year yet, but listen to Daisuke Tanabe's\n    <a href=\"https://daisuketanabe.bandcamp.com/album/cat-steps\">Cat Steps</a>.\n  </li>\n</ul>";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
@@ -1321,7 +1453,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<header>\n  <h2>Kevin McSwiggen</h2>\n  <p class=\"subhead\" id=\"sillysub\">...respects your wise choice to eschew JavaScript</p>\n</header>\n<div class=\"customrule\"></div>\n<div id=\"pixelface\" role=\"img\" aria-label=\"Pixel-art rendition of Kevin's face\"></div>\n<p>\n  Hello, the name's Kevin McSwiggen! My pronouns are they/them. <!-- (or occasionally\n  he/him around older relatives.) --> I'm a computer scientist, software engineer,\n  and web developer&mdash;three closely-related but distinct hats. I graduated\n  from Harvey Mudd College in Spring 2016 and since then have been living in the\n  Bay Area with my partner (now spouse!)\n</p>\n<p>\n  I like doing code-y stuff of pretty much any kind. (No really, almost anything.)\n  It's way more satisfying when I can do it with like-minded cool people, though.\n  If that might be you, hit me up!\n</p>\n<p>\n  I'm conversant in Spanish, and speak a <em>little</em> bit of German, but I\n  don't get many chances to practice and I've never managed to stick it through\n  with Duolingo, so if you know of a more immersive (or less naggy) way to keep\n  the rust off, I'd also love to hear about it.\n</p>\n<p>\n  My hobbies include headphones, comics, food, fiction (SFF), and internet.\n  <!-- TODO|kevin hey, I should mention Philosophy of Mind somewhere on here! -->\n  <!-- Other things that might be cool to mention (along with perhaps slightly)\n  shrinking what I already have here lol) -- art? puzzles? Project Euler? (do I\n  still have an account on that?) -->\n  <ul>\n    <li>\n      The headphone collection is now more than a dozen items (I ended up with a\n      duplicate or two, for what it's worth.) I really gotta put some of these\n      suckers on Audiogon/craigslist/eBay, or SOMETHING.\n    </li>\n    <li>\n      Toward the start of the pandemic I got in on the Kickstarter for the comic\n      <a href=\"https://ohumanstar.com/\">O Human Star</a> so now I've got a sweet\n      three-volume physical copy!\n    </li>\n    <li>\n      Some favorite authors: Margaret Atwood, Jorge Luis Borges, William Gibson,\n      Charles Stross. I finally read Jeff VanderMeer's <i>Annihilation</i> after\n      several years (and after watching the movie&mdash;if you're gonna do both,\n      do it in that order, simply because the book is better. :P) The rest of\n      the trilogy is next when I get some time, unless my friends convince me to\n      pick up <i>The Long Way to a Small Angry Planet</i> first.\n    </li>\n    <li>\n      Although, before getting to that, I've also picked up some NON-fiction: I\n      started reading David Graeber's <i>Debt: The First 5000 Years</i>. Already\n      I can't recommend it enough, it <em>will</em> change your perspective.\n    </li>\n  </ul>\n</p>\n<p>\n  You can contact me at <b><code>reysquared(at)gmail(dot)com</code></b> if you\n  aren't a robot. (If you are a robot, I probably can't stop you from contacting\n  me, but my replies will not be as prompt. Sorry.)\n</p>\n<p hidden>\n  Courses from my last semester:\n</p>\n<pre hidden>\nCourse #   Title             Times          Notes\nCSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)\nCSCI184    Clinic            T  11:00       (and all my other time besides)\nCSCI189    Practicum         3-5 hr/wk      (Makin' APPS!)\nCSCI195    Colloquium        R  4:15        (Presentations are mostly cool)\nECON045    Microeconomics    TR 1:15        (Pretending we're rational!)\nLGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)\nEAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)\n</pre>\n";
+var code = "<header>\n  <h2>Kevin McSwiggen</h2>\n  <p class=\"subhead\" id=\"sillysub\">...respects your wise choice to eschew JavaScript</p>\n</header>\n<div class=\"customrule\"></div>\n<div id=\"pixelface\" role=\"img\" aria-label=\"Pixel-art rendition of Kevin's face\"></div>\n<p>\n  Hello, the name's Kevin McSwiggen! My pronouns are they/them. <!-- (or occasionally\n  he/him around older relatives.) --> I'm a computer scientist, software engineer,\n  and web developer&mdash;three closely-related but distinct hats. I graduated\n  from Harvey Mudd College in Spring 2016 and since then have been living in the\n  Bay Area with my partner (now spouse!)\n</p>\n<p>\n  I like doing code-y stuff of pretty much any kind. (No really, almost anything.)\n  It's way more satisfying when I can do it with like-minded cool people, though.\n  If that might be you, hit me up!\n</p>\n<p>\n  I'm conversant in Spanish, and speak a <em>little</em> bit of German, but I\n  don't get many chances to practice and I've never managed to stick it through\n  with Duolingo, so if you know of a more immersive (or less naggy) way to keep\n  the rust off, I'd also love to hear about it.\n</p>\n<p>\n  My hobbies include headphones, comics, food, fiction (SFF), and philosophy.\n</p>\n<ul>\n  <li>\n    The headphone collection is now more than a dozen items (I ended up with a\n    duplicate or two, for what it's worth.) I should really put some of these\n    suckers on Audiogon/craigslist/eBay or SOMETHING, but if you want a demo...\n  </li>\n  <li>\n    Toward the start of the pandemic I got in on the Kickstarter for the comic\n    <a href=\"https://ohumanstar.com/\">O Human Star</a> so now I've got a sweet\n    three-volume physical copy!\n  </li>\n  <li>\n    Some favorite authors: Margaret Atwood, Jorge Luis Borges, William Gibson,\n    Charles Stross. I finally read Jeff VanderMeer's <i>Annihilation</i> after\n    several years (and after watching the movie&mdash;if you're gonna do both,\n    do it in that order, simply because the book is better and I doubt they'll\n    make films for the rest of the trilogy. :P) I might pick up <i>The Long Way\n    to a Small Angry Planet</i> next, cus my friends keep mentioning it.\n  </li>\n  <li>\n    Although, before getting to that, I've also picked up some NON-fiction:\n    David Graeber's <i>Debt: The First 5000 Years</i>. I really can't recommend\n    it highly enough, it's a perspective-shifter. Accepting recommendations for\n    other political anthropology/philosophy or philosophy of mind, or anything\n    that goes as hard as GEB.\n  </li>\n  <li>\n    I make art sometimes! Not very much of it is online (and if you do manage to\n    find some online, it won't be from this decade) but I might be changing that\n    at some point soonish. A little bit of it is featured on this tab, anyway.\n  </li>\n</ul>\n<p>\n  You can contact me at <b><code>reysquared(at)gmail(dot)com</code></b> if you\n  aren't a robot. (If you are a robot, I probably can't stop you from contacting\n  me, but my replies will not be as prompt. Sorry.)\n</p>\n<!-- double-secret ;^) I updated this each semester for a bit as a student, but no longer\n<p hidden>\n  Courses from my last semester:\n</p>\n<pre hidden>\nCourse #   Title             Times          Notes\nCSCI125    Computer Networks TR 9:35 W 4:15 (TCP/IP is like... an onion!)\nCSCI184    Clinic            T  11:00       (and all my other time besides)\nCSCI189    Practicum         3-5 hr/wk      (Makin' APPS!)\nCSCI195    Colloquium        R  4:15        (Presentations are mostly cool)\nECON045    Microeconomics    TR 1:15        (Pretending we're rational!)\nLGCS011    Intro to CogSci   MW 11:00       (Brains are silly...)\nEAST127    Lounge Troll      UMTWRFS        (Living On Easty Street)\n</pre> -->\n";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
@@ -1357,7 +1489,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<h2>Personal and Academic Projects</h2>\n<div class=\"customrule\"></div>\n<p>More things will become visible here overtime.</p>\n<!-- TODO|kevin I should make this tab specifically for projects that are ON THIS SITE. or at least have a link?\nThen the resume tab can link to them on this tab or whatever. -->\n<p>\n  You can check out <a href=\"https://github.com/reysquared\">my GitHub page</a>, but it's\n  kind of empty right now. (Most of my repos happen to be private...) I'm working on it.\n</p>\n<br>\n<p><b>Past Projects</b>:</p>\n<ul>\n  <li>\n    <a href=\"https://github.com/zsweedyk/CS121F14S3_Team2\">Fraction Blaster</a> &ndash; an iPad\n    game for elementary school students <i>in spaaace!</i> Developed by Louis Brann, Kevin Choi,\n    Alejandro Mendoza, and of course myself. Now available for free on the app store!\n  </li>\n  <li>\n    The C proxy that will never let you down &ndash; a project for CS105 that injects Rick\n    Astley's &ldquo;Never Gonna Give You Up&rdquo; into every page you load, because we're bad people.\n    Developed by me and Chris Brown. (Link forthcoming)\n  </li>\n  <li>More/older things that I'll add here eventually</li>\n</ul>\n<p><b>Scraps</b> which I already have online:</p>\n<ul>\n  <li><a href=\"asciiseal.txt\">asciiseal.txt</a> &ndash; Text Mode Improper Use</li>\n  <li><a href=\"topoapp/topoapp.html\">topoapp.html</a> &ndash; A brief foray into geographic visualization with d3 and\n    TopoJSON</li>\n</ul>\n<p><b>Coming Soon</b> to <s>a webpage near you</s> right here:\n<ul>\n  <li>An HTML5 app for making and saving ink annotations on videos! (Under development)</li>\n  <li>Implementation and analysis of a segmented prime sieve (Needs to be made web-friendly)</li>\n  <li>\n    At some point I'm gonna look into fixing the brief display issues when this page first\n    loads. It's intended to be accessible even if you have JavaScript disabled, but this makes\n    it look less good for people who DON'T have it disabled, if only for a brief moment.\n  </li>\n  <li>\n    Numerous small JavaScript utilities (useful stuff) and dealies (fun stuff; technical term).\n    <ul>\n      <li>Markov-generated sin</li>\n      <li>Ken-ken helper</li>\n      <li>JSON visualizer, because sometimes it's cathartic to reinvent the wheel</li>\n    </ul>\n  </li>\n  <li>Probably more?</li>\n</ul>\n<!-- TODO|kevin dumping some links to the \"old\" projects here lol -->\n<p>Former Python CGI scripts ported to JavaScript:</p>\n<ul>\n  <li><a href=\"caesarsolver.html\">Caesar Cipher Solver</a></li>\n  <li><a href=\"mandelbrot.html\">Mandelbrot Fractal Visualizer</a></li>\n</ul>";
+var code = "<h2>Personal and Academic Projects</h2>\n<div class=\"customrule\"></div>\n<p>\n  The purpose of this tab is to highlight projects that are either currently\n  available online, OR that I have plans to make available... \"eventually.\"\n  So, more things will become visible here overtime. You can take a look at my\n  <a href=\"https://github.com/reysquared\">GitHub page</a>, but it's a little\n  more sparse than I'd like&mdash;a lot of the repos I've worked on happen to\n  be private. I'm working on it, though. Until then, you can check out...\n</p>\n<h3>Personal Projects:</h3>\n<ul>\n  <li><a href=\"/caesarsolver.html\">Caesar Cipher Solver</a></li>\n  <li><a href=\"/mandelbrot.html\">Mandelbrot Fractal Visualizer</a></li>\n</ul>\n\n<h3>Student Projects:</h3>\n<ul>\n  <li>\n    <a href=\"https://github.com/zsweedyk/CS121F14S3_Team2\">Fraction Blaster</a> &mdash; an iPad\n    game for elementary school students <i>in spaaace!</i> Developed by Louis Brann, Kevin Choi,\n    Alejandro Mendoza, and of course myself. <del>Now available for free on the App Store!</del>\n    <em>Formerly</em> available on the App Store, I think it got taken down whenever the Apple\n    Developer Program account expired. (HMC paid the original $99/year for it, I'm not interested!)\n  </li>\n  <li>\n    <a href=\"https://github.com/reysquared/CS121-sudoku\">A sudoku app</a> &mdash;\n    for the Harvey Mudd CSCI121 Software Development course. Includes an auto-solve\n    function and a decent number of pre-generated puzzles at two difficulty levels\n    for increased replayability. NOT available on the App Store though ;-)\n  </li>\n  <li>\n    The C proxy that will never let you down &mdash; a project for CS105 that injects Rick\n    Astley's &ldquo;Never Gonna Give You Up&rdquo; into every page you load... because we're bad people.\n    Developed by me and Chris Brown. (Link forthcoming)\n  </li>\n  <li>\n    Implementation of a segmented prime sieve and analysis of its memory performance\n    (Needs to be made web-friendly, but I'm like 95% sure I still have both all the\n    source code and the LaTeX writeup kicking around somewhere in my backups)\n  </li>\n  <li class=\"top-gap\">...More and even older things that I'll add here eventually</li>\n</ul>\n\n<h3>Scraps:</h3>\n<p>...that are <b>already online</b>:</p>\n<ul>\n  <li>\n    <a href=\"https://github.com/reysquared/video-note\">video-note</a> &mdash; An\n    HTML5 canvas app for making and saving ink annotations on videos! Was under\n    development as a student, but stalled when I realized there were some bugs\n    with the interval-tree library I was using. I'll get back to it sometime if\n    I ever have a chance to figure out what's causing them and write a PR... or\n    if I just end up making my own itree implementation.\n  </li>\n  <li>\n    <a href=\"/scraps/topoapp/topoapp.html\">topoapp.html</a> &mdash; A brief foray into\n    geographic visualization with d3 and TopoJSON. Fair warning: REALLY ugly and\n    janky. Still, the research/data processing parts of it were kinda fun.\n  </li>\n  <li><a href=\"/scraps/asciiseal.txt\">asciiseal.txt</a> &mdash; Text Mode Improper Use</li>\n  </ul>\n<p>... that are <b>coming soon</b> to a screen near you:</p>\n<p>Numerous small JavaScript utilities (useful stuff) and dealies (fun stuff; technical term).</p>\n<ul>\n  <li>Markov (de)generator nonsense</li>\n  <li>Puzzle-solving helpers</li>\n  <li>JSON visualizer, because sometimes it's cathartic to reinvent the wheel</li>\n  <li>Probably other stuff?</li>\n</ul>\n";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
@@ -1375,7 +1507,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Module
-var code = "<h2>About This Webpage</h2>\n<div class=\"customrule\"></div>\n<p>\n  This website started out as a demo project page for Harvey Mudd's intro CS class.\n  They are (were?) starting to integrate web technologies into the course as an\n  extra credit project, and Prof. Dodds thought it would be really cool if students\n  had individual portals they could update as they go along to show off the things\n  they made throughout the course while learning about a web stack at the same time.\n  So one summer while I was on Student CS Staff, I took a crack at a prototype!\n</p>\n<p>\n  Initially it was hosted for a brief time on Amazon Web Services, and then for\n  several years after that on the Harvey Mudd CS department server, under my\n  <a href=\"https://www.cs.hmc.edu/~kmcswiggen/\">student webspace</a>. I'll\n  probably just make that redirect to this page at some point, I dunno... but\n  for now you can see a version of this site that's more than a half decade old!\n  Don't judge it too harshly, my standards have improved since I was in college.\n</p>\n<p>\n  Originally done entirely in vanilla JavaScript, and with the frontend code\n  contained almost entirely inside a single IIFE, it's now implemented chiefly\n  in React and built using webpack, and the full source is available on GitHub.\n  The couple of Python CGI scripts it had, which were originally placeholders\n  to be replaced by CS5 students' own work, are in the process of being ported\n  into JavaScript (since it's a bit easier to host and zero effort to configure)\n  and will appear on the Projects tab as they're completed&mdash;probably as\n  separate git submodules... eventually.\n</p>\n<!-- TODO|kevin ADD A CONTACT FORM HERE???? -->\n";
+var code = "<h2>About This Webpage</h2>\n<div class=\"customrule\"></div>\n<p>\n  This website started out as a demo project page for Harvey Mudd's intro CS class.\n  They are (were?) starting to integrate web technologies into the course as an\n  extra credit project, and Prof. Dodds thought it would be really cool if students\n  had individual portals they could update as they go along to show off the things\n  they made throughout the course while learning about a web stack at the same time.\n  So one summer while I was on Student CS Staff, I took a couple weeks to take a\n  crack at a prototype (after brushing up on my semantic HTML)!\n</p>\n<p>\n  Initially it was hosted for a brief time on Amazon Web Services, and then for\n  several years after that on the Harvey Mudd CS department server, under my\n  <a href=\"https://www.cs.hmc.edu/~kmcswiggen/\">student webspace</a>. I'll\n  probably just make that redirect to this page at some point, I dunno... but\n  for now you can see a version of this site that's more than a half decade old!\n  Don't judge it too harshly, my standards have improved since I was a student.\n</p>\n<p>\n  Originally done entirely in vanilla JavaScript, and with the frontend code\n  almost entirely inside a single gigantic IIFE, it's now <strong>implemented chiefly\n  in React and built using webpack</strong>, and the full source is available on GitHub.\n  The couple of Python CGI scripts it had, which were originally placeholders\n  to be replaced by CS5 students' own work, have mostly already been ported into\n  JavaScript (since it's a bit easier to host and zero effort to configure) and\n  expanded on, and will continue to appear on the Projects tab as they're\n  completed&mdash;probably even as separate git submodules! ... Eventually.\n</p>\n";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
@@ -53665,16 +53797,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var react_components_TabsView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react_components/TabsView */ "./src/react_components/TabsView.jsx");
-/* harmony import */ var html_tabs_00_default_html__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! html/tabs/_00_default.html */ "./src/html/tabs/_00_default.html");
-/* harmony import */ var html_tabs_01_bio_html__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! html/tabs/_01_bio.html */ "./src/html/tabs/_01_bio.html");
-/* harmony import */ var html_tabs_02_resume_html__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! html/tabs/_02_resume.html */ "./src/html/tabs/_02_resume.html");
-/* harmony import */ var html_tabs_03_projects_html__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! html/tabs/_03_projects.html */ "./src/html/tabs/_03_projects.html");
-/* harmony import */ var html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! html/tabs/_04_about.html */ "./src/html/tabs/_04_about.html");
+/* harmony import */ var helpers_misc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! helpers/misc */ "./src/helpers/misc.js");
+/* harmony import */ var react_components_TabsView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/TabsView */ "./src/react_components/TabsView.jsx");
+/* harmony import */ var html_tabs_00_default_html__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! html/tabs/_00_default.html */ "./src/html/tabs/_00_default.html");
+/* harmony import */ var html_tabs_01_bio_html__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! html/tabs/_01_bio.html */ "./src/html/tabs/_01_bio.html");
+/* harmony import */ var html_tabs_02_resume_html__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! html/tabs/_02_resume.html */ "./src/html/tabs/_02_resume.html");
+/* harmony import */ var html_tabs_03_projects_html__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! html/tabs/_03_projects.html */ "./src/html/tabs/_03_projects.html");
+/* harmony import */ var html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! html/tabs/_04_about.html */ "./src/html/tabs/_04_about.html");
 
- // TODO|kevin regardless of how I actually handle the tabsview invocation, I'll
-// need to import the tab contents in THIS file. ...buuuut I also might not be
-// importing them correctly/might need to change my webpack config targets lmao
+
 
 
 
@@ -53684,12 +53815,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var TABS_LIST = [{
   id: 'default',
-  label: 'TODO|kevin this isnt actually needed lololol',
-  content: html_tabs_00_default_html__WEBPACK_IMPORTED_MODULE_3__["default"]
+  label: 'Not actually used lol',
+  content: html_tabs_00_default_html__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
   id: 'bio',
   label: 'Bio',
-  content: html_tabs_01_bio_html__WEBPACK_IMPORTED_MODULE_4__["default"],
+  content: html_tabs_01_bio_html__WEBPACK_IMPORTED_MODULE_5__["default"],
   // Specifying an `effect` function for any tab will get passed to useEffect
   // for the corresponding TabContent component. A lil janky, but it works!
   effect: function effect() {
@@ -53701,184 +53832,36 @@ var TABS_LIST = [{
 }, {
   id: 'resume',
   label: 'Résumé',
-  content: html_tabs_02_resume_html__WEBPACK_IMPORTED_MODULE_5__["default"]
+  content: html_tabs_02_resume_html__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
   id: 'projects',
   label: 'Projects',
-  content: html_tabs_03_projects_html__WEBPACK_IMPORTED_MODULE_6__["default"]
+  content: html_tabs_03_projects_html__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, {
   id: 'siteinfo',
   label: 'About',
-  content: html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_7__["default"]
+  content: html_tabs_04_about_html__WEBPACK_IMPORTED_MODULE_8__["default"]
 }];
 document.addEventListener('DOMContentLoaded', function () {
   var rootEl = document.getElementById('main-content');
-  var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootEl); // TODO|kevin StrictMode component is only for debugging, remove later!
-
-  root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabsView__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootEl);
+  root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabsView__WEBPACK_IMPORTED_MODULE_3__["default"], {
     tabs: TABS_LIST,
     hasDefaultTab: true,
     containerClass: "content"
-  }))); // TODO|kevin instead of replacing @ with (at) maybe I can make an email-address-revealer button lol
-}); // // TODO|kevin everything below is straight from the original tabs.js, just pulled out of the IIFE
-// // Simple shorthand function for pushing to the history
-// function pushHash(anchorName) {
-//   history.pushState(null, null, '#' + anchorName);
-// }
-// // Function to display the selected tab and hide other content
-// // There may be "cleaner", JavaScript-free ways to accomplish tab functionality
-// // similar to this, but they generally seem harder to follow under the hood and
-// // don't go as far.
-// function activateTab(tabId) {
-//   // Determine which panel is currently visible and hide it
-//   // NOTE: Element.classList is unsupported in IE9 and older.
-//   var defaultPanel = document.getElementsByClassName('tab-default')[0];
-//   if (defaultPanel.classList.contains('active')) {
-//     // If currently viewing default panel, make it inactive
-//     defaultPanel.classList.remove('active');
-//     defaultPanel.classList.add('inactive');
-//   } else {
-//     // If not, make the previously-active tab panel and button inactive
-//     var oldTab = document.getElementsByClassName('tab-title active')[0];
-//     var oldPanel = document.getElementsByClassName('tab-panel active')[0];
-//     oldTab.classList.remove('active');
-//     oldPanel.classList.remove('active');
-//     oldPanel.classList.add('inactive');
-//   }
-//   // Mark the newly selected tab as active
-//   var newTab = document.getElementsByClassName('tab-title')[tabId];
-//   var newPanel = document.getElementsByClassName('tab-panel')[tabId];
-//   newTab.classList.add('active');
-//   newPanel.classList.remove('inactive');
-//   newPanel.classList.add('active');
-//   // Finally, return the ID of the new panel so it can be passed to our pushHash fxn.
-//   // TBH this is a little bit hackish, but it works dangit!
-//   return newPanel.id;
-// }
-// // Function to hide the previously-active tab and reset the default div as active
-// function resetTabs() {
-//   var oldTab = document.getElementsByClassName('tab-title active')[0];
-//   var oldPanel = document.getElementsByClassName('tab-panel active')[0];
-//   var defaultPanel = document.getElementsByClassName('tab-default')[0];
-//   oldTab.classList.remove('active'); // Reset tab button style by removing active class
-//   // Hide the previous panel
-//   oldPanel.classList.remove('active');
-//   oldPanel.classList.add('inactive');
-//   // Display the default panel
-//   defaultPanel.classList.remove('inactive');
-//   defaultPanel.classList.add('active');
-// }
-// /** Binding events and setting classes **/
-// // For some info about JS events: http://www.quirksmode.org/js/events_tradmod.html
-// // Since I'm not worrying much about supporting older browsers, I register events using
-// // target.addEventListener() since it's an easy way to avoid throttling older listeners
-// // SEE: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
-// function tabInit() {
-//   // Hide non-default panels
-//   var tabPanels = document.getElementsByClassName('tab-panel');
-//   for (var i = 0; i < tabPanels.length; i++) {
-//     // Explicitly mark inactive tabs using a class. This way users with JS disabled can
-//     // still see all the tab content on the page instead of having it hidden by default
-//     tabPanels[i].classList.add('inactive');
-//   }
-//   // And just to be explicit, we add the 'active' class to the default panel as well.
-//   document.getElementsByClassName('tab-default')[0].classList.add('active');
-//   // Add click event actions to the tab buttons. Because we detect the number of tabs
-//   // programmatically, it's easy to add more by modifying only the HTML, not the script.
-//   var tabButtons = document.getElementsByClassName('tab-title');
-//   for (var i = 0; i < tabButtons.length; i++) {
-//     // Bind click event for the child anchor element
-//     // This awkward construction is necessary because of the way JavaScript scopes work.
-//     // More info: http://stackoverflow.com/questions/500431/
-//     // If you find yourself thinking this all looks rather complicated, that's why you
-//     // would ordinarily use frameworks like jQuery with powerful tools for taking care
-//     // of the tedious bits. I haven't used it because a) it's educational and b) jQuery
-//     // does more than I need, so the extra dozens of kB are kind of wasteful.
-//     tabButtons[i].getElementsByTagName('a')[0].addEventListener('click',
-//       function (tab) {
-//         return function (e) {
-//           e.preventDefault(); // This stops the browser's default action for the event.
-//           // In this case, the default is to follow the link's HREF attribute. When JS is
-//           // disabled the default will still occur, which allows us to set up a fallback
-//           // HREF that jumps back up to the top of the page if the script hasn't run.
-//           var panelId = activateTab(tab);
-//           pushHash(panelId);
-//         };
-//       }(i), // Passing i to outermost function (as value for tab)
-//       false);
-//   }
-//   // Add the tab-resetting action for the back buttons.
-//   var backButtons = document.getElementsByClassName('go-back');
-//   for (var i = 0; i < backButtons.length; i++) {
-//     backButtons[i].addEventListener('click',
-//       function (e) {
-//         e.preventDefault();
-//         resetTabs();
-//         pushHash('');
-//       },
-//       false);
-//   }
-// };
-// // This ensures that the tab initialization tasks won't be run until the window has
-// // finished loading, to make sure all the necessary page elements are present.
-// window.addEventListener('load', tabInit, false);
-// /* Code below this point relies upon the basic tab navigation script above but isn't
-// essential for navigation to work. If you no longer feel like supporting fragmint links,
-// you can easily delete or comment out everything up to (but not including) the line that
-// closes the IIFE and the navigation will still be functional.*/
-// // Correctly activates tabs when linking to fragment identifiers within page
-// function fragmentInit() {
-//   // First construct an index of tab button numbers with their corresponding panel IDs.
-//   // There may be a better way to do this but none immediately occurs to me. For the sake
-//   // of minimizing redundant indexing work, we construct the index in this initialization
-//   // function which is called only once on load. The only downside to this is it doesn't
-//   // correctly consider any elements that are added to the document tree using JavaScript
-//   // after the initial load. Perhaps an even better strategy would be to create an index
-//   // of anchors that link to places in the current document and their corresponding tab
-//   // panels, but this frontloaded setup would have its own overhead and might be messier.
-//   var tabIndex = {};
-//   var tabButtons = document.getElementsByClassName('tab-title');
-//   for (var i = 0; i < tabButtons.length; i++) {
-//     var tabLink = tabButtons[i].getElementsByTagName('a')[0];
-//     tabIndex[tabLink.href.split('#')[1]] = i; // e.g. (in our case) tabIndex['week1'] === 0
-//     // Mind that this requires you to specify an href/id for every tab button/panel pair,
-//     // otherwise things will certainly break.
-//   }
-//   function activateFragment() {
-//     // Grab URL parameters and activate tab as necessary
-//     // If the URL has no fragment identifier, use the "default" of '#' followed by nothing.
-//     var hash = window.location.hash || '#';
-//     hash = hash.substring(1); // Drop the leading '#'
-//     if (hash && hash !== 'top') { // top is a special fragid for the top of the document.
-//       // If what's left is the empty string, we don't need to do anything special. If it's not
-//       // empty, we run this code.
-//       // Figure out what tab (if any) is the parent of the targeted anchor
-//       var currElement = document.getElementById(hash);
-//       if (!currElement) { return; } // No element with that ID found, get outta here!
-//       while (currElement.parentNode && !currElement.classList.contains('tab-panel')) {
-//         // Bubble upward through the element's parents until either we find an element of class
-//         // tab-panel or we can't go up any further.
-//         currElement = currElement.parentNode;
-//       }
-//       if (currElement.classList.contains('tab-panel')) {
-//         // If the element is a tab-panel then it should be in our index, so we activate it!
-//         activateTab(tabIndex[currElement.id]);
-//       }
-//       // Finally, now that the correct tab (if any) is visible, we check whether the hash was
-//       // for the tab itself, and if not we jump to the actual anchor. If the hash was for an
-//       // actual tab in our index, we only want to activate the tab instead of jumping down the
-//       // page, so we skip this step.
-//       if (tabIndex[hash] === undefined || tabIndex[hash] === null) {
-//         window.location.href = '#' + hash;
-//       }
-//     }
-//   }
-//   activateFragment(); // Once for the initial page load
-//   // Trigger the tab activation function when the URL's hash is changed
-//   window.addEventListener('hashchange', activateFragment, false);
-// }
-// // Run the initialization code once on page load
-// window.addEventListener('load', fragmentInit, false);
+  }))); // I made this function on a whim and couldn't decide what to do with it, so
+  // here's a dumb, hard-to-notice easter egg just for the Bio tab until I come
+  // up with a better idea! Replaces #pixelface with a neat gif of my initials.
+
+  (0,helpers_misc__WEBPACK_IMPORTED_MODULE_2__.catchKonamiCode)(function () {
+    var myFace = document.getElementById('pixelface'); // The GIF doesn't loop, so the URL param resets the animation if triggered again
+
+    myFace.style.backgroundImage = "url('/images/initials.gif?cachebust=".concat(Math.random(), "')");
+    window.setTimeout(function () {
+      myFace.removeAttribute('style');
+    }, 4000);
+  });
+});
 })();
 
 /******/ })()

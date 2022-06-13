@@ -1,3 +1,16 @@
+/*
+ * Not all browsers support CSS custom properties still, hence this mixin. It
+ * actually provides a fallback in two different ways. The first is the initial
+ * declaration, to handle browsers that don't support var() in which case the
+ * latter will be ignored entirely. However, for browsers that DO support it,
+ * the custom property value is determined at runtime, so if it is invalid or
+ * unset in that context, the first declaration will already have been discarded
+ * and the value will become unset. Hence the second fallback, within the var()
+ * itself, which is ONLY useful in browsers that support the feature.
+*/
+h3:first-child {
+  margin-top: 0; }
+
 .rotation-inputs {
   display: flex; }
   .rotation-inputs input.small-number {
@@ -12,3 +25,16 @@
       .rotation-inputs .button {
         margin-left: 0;
         margin-top: 0.5em; } }
+
+/** Input + output textbox formatting **/
+.scriptbox {
+  border: 1px solid #888;
+  border: var(--text-input-border, 1px solid #888);
+  box-sizing: border-box;
+  font-family: 'DejaVu Sans Mono', 'Courier New', monospace;
+  min-height: 5em;
+  resize: none;
+  width: 100%; }
+  .scriptbox:focus {
+    border: 2px solid #333;
+    border: var(--text-input-border-focus, 2px solid #333); }

@@ -13,16 +13,63 @@
   <div id="wrapper">
     <header class="main-header">
       <h1>Camandel</h1>
-      <p class="subhead">Mandelbrot viewer using CamanJS</p>
+      <p class="subhead">Mandelbrot rendering with CamanJS</p>
       <a href="/" class="button home-button">Go Home</a>
     </header>
     <div id="main-content">
       <div class="inner-content">
-        <section class="content">
-          <p>TODO|kevin Haha, yeah, I should put something here</p>
-        </section>
-        <section class="content">
+        <div class="content">
           <div id="fractal-viewer-root"></div>
+        </div>
+        <section class="content">
+          <h3>About</h3>
+          <p>
+            Camandel started as a roughly cribbed-together Python CGI script for
+            rendering Mandelbrot fractals, that just returned the image data as
+            a blob which it threw into a data URL. Many years and a degree hence,
+            I've reworked it to use Caman (mostly because of the portmanteau,
+            let's be real) to manipulate a canvas element directly, so it can run
+            entirely on the client-side. In addition to a Mandelbrot visualizer,
+            it now also has a second canvas that lets you explore the Julia sets
+            for <var>z<sup>2</sup></var>.
+          </p>
+          <h3>Controls</h3>
+          <p>
+            Along with the visible and expandable form inputs, you can interact
+            with the main canvas rendering the Mandelbrot set, by:
+          </p>
+          <ul>
+            <li>
+              <strong>clicking,</strong> to render the Julia set for
+              <var>z<sup>2</sup></var> + <var>c</var>, where c is the point
+              you clicked on in the currently selected viewing window;
+            </li>
+            <li>
+              <em>double-clicking,</em> to zoom in 2x on the selected point;
+            </li>
+            <li>
+              right-click dragging, to zoom the viewing window in to the
+              specific selected area. 
+            </li>
+          </ul>
+          <p>
+            NOTE that when drag-zooming the fractal WILL render to the specific
+            newly-selected area, but the canvas will NOT be resized, to avoid
+            moving the page content and possibly creating absurd aspect ratios.
+            For the moment this means the region will get squished to fit the
+            current canvas aspect ratio. If you'd prefer a <em>well-scaled</em>
+            Mandelbrot at the same zoom level, the viewing window input does
+            update to respect the canvas aspect ratio, so you can just hit the
+            "Render Fractal" button again. I'm still waffling on how I want to
+            approach fixing this, but I also kinda like the goofy behavior :)
+          </p>
+          <h3>The Math</h3>
+          <p>
+            Coming soon...! But if you're in a hurry and don't mind reading math
+            you can also check out the Wikipedia article about the Julia set
+            <a href="https://en.wikipedia.org/wiki/Julia_set#Quadratic_polynomials">here</a>,
+            particularly the section "Quadratic polynomials".
+          </p>
         </section>
       </div>
     </div>

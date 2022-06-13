@@ -75,6 +75,18 @@ input {
   }
 }
 
+ul {
+  padding-left: 2em;
+
+  @media (max-width: $home-button-wrap-breakpoint) {
+    padding-left: 1em;
+  }
+
+  li.top-gap {
+    margin-top: 1em;
+  }
+}
+
 // Content wrapper for the whole page
 #wrapper {
   min-height: 100%;
@@ -118,7 +130,7 @@ input {
     font-size: 2em;
     font-weight: bold;
     line-height: 1em;
-    margin-top: -0.25rem;
+    margin-top: -0.35rem;  // Attempt to only indent the first line of the paragraph
     padding-right: 0.25rem;
     @include var-with-fallback(text-shadow, --initial-caps-stroke, $defaultcapsstroke);
   }
@@ -135,7 +147,7 @@ input {
 }
 
 /** Container styles for main content section(s) **/
-section.content {
+.content {
   @include var-with-fallback(border, --main-content-border, 1px solid $bordercolor);
   margin: 0 auto 1.5em;
   max-width: 37.5em;
@@ -246,7 +258,7 @@ hr {
     @include var-with-fallback(background, --tab-hover-fill, $bordercolor);
     @include var-with-fallback(border, --tab-hover-border, 1px solid $tabglowcolor);
     @include var-with-fallback(color, --main-bg-color, $bgcolor);
-    // TODO|kevin how might I update var-with-fallback to support this pattern more flexibly?
+    // TODO|kevin hmmm, how can var-with-fallback support this pattern more flexibly?
     box-shadow: 0 0 3px 0 $tabglowcolor;
     box-shadow: 0 0 3px 0 var(--tab-glow-color);
   }

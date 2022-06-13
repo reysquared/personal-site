@@ -75,7 +75,6 @@ export function supportsLocalStorage() {
 const KONAMI_KEYS = [ 'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
   'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA' ];
 
-// TODO|kevin think of SOME kind of easter egg that this can control lmao!
 export function catchKonamiCode(callback, once) {
   // Keep track of which keys the user has pressed
   const keypressQueue = [];

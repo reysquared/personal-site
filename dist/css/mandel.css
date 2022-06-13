@@ -101,6 +101,8 @@
     max-width: 25em; }
     .fractal-viewer fieldset.dimensions-picker label {
       margin-right: 1em; }
+  .fractal-viewer h3:first-child {
+    margin-top: 0; }
   .fractal-viewer #main-inputs {
     width: 47%; }
     @media (max-width: 42.5em) {

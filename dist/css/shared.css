@@ -193,6 +193,14 @@ input.medium-number {
 input.long-number {
   width: 10em; }
 
+ul {
+  padding-left: 2em; }
+  @media (max-width: 30em) {
+    ul {
+      padding-left: 1em; } }
+  ul li.top-gap {
+    margin-top: 1em; }
+
 #wrapper {
   min-height: 100%;
   overflow-x: hidden;
@@ -238,7 +246,7 @@ input.long-number {
   overflow: auto; }
 
 /** Container styles for main content section(s) **/
-section.content {
+.content {
   border: 1px solid #69f;
   border: var(--main-content-border, 1px solid #69f);
   margin: 0 auto 1.5em;

@@ -18,12 +18,16 @@ export default function TabContent({ tab, containerClass, activeTab, hasDefaultT
   if (containerClass) {
     className += ' ' + containerClass;
   }
+  // Only include the labelledby attribute if the tab IS labeled by something.
+  // Since default tab panel doesn't have a corresponding tab control, skip it.
+  const isDefault = hasDefaultTab && tab.id === DEFAULT_TAB;
+  const labelAttr = !isDefault ? { 'aria-labelledby': `tab-${tab.id}` } : {}
   return (
     <section
       id={tab.id}
       className={className}
       role="tabpanel"
-      aria-labelledby={`tab-${tab.id}`}
+      {...labelAttr}
     >
       {HTMLReactParser(tab.content)}
       {hasDefaultTab && tab.id !== DEFAULT_TAB &&

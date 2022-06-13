@@ -1,9 +1,10 @@
 @import '_themes';
+@import '_util';
 
 $pixelface-wrap-breakpoint: 27.5em;
 
 #pixelface {
-  background-image: url('../../images/pixelface-light-border@2x.png');
+  background-image: url('/images/pixelface-light-border@2x.png');
   background-size: 10rem 10rem;
   border: 1px solid;
   @include var-with-fallback(border-color, --initial-caps-color, $capscolor);
@@ -13,14 +14,14 @@ $pixelface-wrap-breakpoint: 27.5em;
   width: 10rem;
 
   [data-theme="dark"] & {
-    background-image: url('../../images/pixelface-dark-border@2x.png');
+    background-image: url('/images/pixelface-dark-border@2x.png');
   }
 
   @media (prefers-color-scheme: dark) {
-    background-image: url('../../images/pixelface-dark-border@2x.png');
+    background-image: url('/images/pixelface-dark-border@2x.png');
 
     [data-theme="light"] & {
-      background-image: url('../../images/pixelface-light-border@2x.png');
+      background-image: url('/images/pixelface-light-border@2x.png');
     }
   }
 

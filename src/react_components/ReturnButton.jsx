@@ -15,9 +15,8 @@ export default function ReturnButton({ setActiveTab }) {
       className="button go-back"
       href="#top"
       onClick={clickHandler}
-      role="tab"
+      role="button"
       aria-controls="default"
-      aria-selected="false"
     >
       Main
     </a>
