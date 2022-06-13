@@ -6,7 +6,7 @@
   "scripts": {
     "build:prod": "npm run clean-static && npm run scss:min & npm run template:min & npm run webpack:prod",
     "build:dev": "npm run scss & npm run template & npm run webpack:dev",
-    "clean-static": "rm -rf ./dist && mkdir dist && cp -a ./static/ ./dist",
+    "clean-static": "rm -rf .vercel && mkdir -p .vercel/output/static && cp -a ./static/ .vercel/output/static",
     "prepare": "npm run clean-static && npm run build:dev",
     "scss": "node-sass ./src/scss -o ./dist/css",
     "scss:min": "npm run scss -- --output-style=compressed",
