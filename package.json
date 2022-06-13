@@ -1,7 +1,7 @@
 {
   "name": "personal-site",
   "version": "1.0.0",
-  "description": "Kevin McSwiggen's personal website, for GitHub Pages!",
+  "description": "Kevin McSwiggen's personal website, now hosted on Vercel!",
   "browser": "index.html",
   "scripts": {
     "build:prod": "npm run clean-static && npm run scss:min & npm run template:min & npm run webpack:prod",

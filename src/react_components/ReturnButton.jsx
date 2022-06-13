@@ -8,6 +8,7 @@ export default function ReturnButton({ setActiveTab }) {
     setActiveTab(DEFAULT_TAB);
     // simple lil' hook for the url hash-routing, cus I'm too lazy to install
     // react-router on a serverless host when HashRouter is deprecated anyway
+    // Maybe I'll get rid of this if/when I actually set up more stuff in Vercel
     window.history.pushState(null, null, '#');
   };
   return (
