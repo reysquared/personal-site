@@ -16,8 +16,6 @@ const moduleConfig = {
   devServer: {
     compress: true,
     headers: [
-      // Some day I'll be using a hosting service that can do this for real...
-      // TODO|kevin I'm hosting on Vercel now, I'm pretty sure I CAN now! TBD!
       {
         key: 'X-Clacks-Overhead',
         value: 'GNU Terry Pratchett',
