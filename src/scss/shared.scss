@@ -49,7 +49,7 @@ h2:first-child {
   margin-top: 0;
 }
 
-a {
+a:not(.button) {
   @include var-with-fallback(color, --link-color, $capscolor);
 
   &:visited {
