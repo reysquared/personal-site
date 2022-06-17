@@ -10,8 +10,8 @@ $strokecolor: #000;
 $inputborder: #888;
 $inputfocus: #333;
 $tabglowcolor: #aab;
-$linkcolor: #39f;
-$linkvisitedcolor: #73f;
+$linkcolor: #24f;
+$linkvisitedcolor: #81f;
 // Also make variables for these default (light mode) text-shadow values, cus they're real long
 // including 8 values feels a BIT overkill, but w/o the last 4 there are obvious gaps at the serifs
 $defaultcapsstroke: -1px -1px 0 $strokecolor,
@@ -51,8 +51,8 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
   --main-bg-color: #223;
   --main-text-color: #eee;
   --initial-caps-color: #46e;
-  --link-color: #24e;
-  --link-visited-color: #81e;
+  --link-color: #39f;
+  --link-visited-color: #84f;
   --customrule-flair-color: #236;
   --initial-caps-stroke: -1px -1px 0 #fff,
                          1px -1px 0 #fff,
