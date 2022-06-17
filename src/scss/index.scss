@@ -37,8 +37,8 @@ $resume-wrap-breakpoint: 30em;
     // Indicate <strong> with heavier text shadow instead of font-weight to stay compact
     font-weight: normal;
     // TODO|kevin hmmm, how can var-with-fallback support this pattern more flexibly?
-    text-shadow: 0 0 3px $linkcolor;
-    text-shadow: 0 0 3px var(--link-color);
+    text-shadow: 0 0 3px $bordercolor;
+    text-shadow: 0 0 3px var(--border-color, $bordercolor);
   }
 
   h3 {
@@ -86,8 +86,9 @@ $resume-wrap-breakpoint: 30em;
           font-weight: normal;
           margin-left: 0.25em;
           text-decoration: none;
+          // TODO|kevin another instance of something var-with-fallback would ideally support
           text-shadow: 0 0 $textcolor;
-          text-shadow: 0 0 var(--main-text-color);
+          text-shadow: 0 0 var(--main-text-color, $textcolor);
         }
       }
     }

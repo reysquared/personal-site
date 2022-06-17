@@ -278,7 +278,7 @@ hr {
     @include var-with-fallback(color, --main-bg-color, $bgcolor);
     // TODO|kevin hmmm, how can var-with-fallback support this pattern more flexibly?
     box-shadow: 0 0 3px 0 $tabglowcolor;
-    box-shadow: 0 0 3px 0 var(--tab-glow-color);
+    box-shadow: 0 0 3px 0 var(--tab-glow-color, $tabglowcolor);
   }
 
   &:active {
