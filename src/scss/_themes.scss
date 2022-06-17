@@ -10,6 +10,8 @@ $strokecolor: #000;
 $inputborder: #888;
 $inputfocus: #333;
 $tabglowcolor: #aab;
+$linkcolor: #39f;
+$linkvisitedcolor: #73f;
 // Also make variables for these default (light mode) text-shadow values, cus they're real long
 // including 8 values feels a BIT overkill, but w/o the last 4 there are obvious gaps at the serifs
 $defaultcapsstroke: -1px -1px 0 $strokecolor,
@@ -30,21 +32,27 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
   --main-bg-color: #{$bgcolor};
   --main-text-color: #{$textcolor};
   --initial-caps-color: #{$capscolor};
+  --link-color: #{$linkcolor};
+  --link-visited-color: #{$linkvisitedcolor};
   --customrule-flair-color: #{$flaircolor};
   --initial-caps-stroke: #{$defaultcapsstroke};
-  --main-content-border: 1px solid #{$bordercolor};
   --text-input-border: 1px solid #{$inputborder};
   --text-input-border-focus: 2px solid #{$inputfocus};
-  --tab-hover-fill: #{$bordercolor};
   --tab-glow-color: #{$tabglowcolor};
   --tab-hover-border: 1px solid #{$tabglowcolor};
   --tab-hover-shadow: #{$defaulttabhover};
+  // Values that are the same in both themes for now, but might change later
+  --border-color: #{$bordercolor};
+  --main-content-border: 1px solid #{$bordercolor};
+  --tab-hover-fill: #{$bordercolor};
 }
 
 @mixin dark-theme {
   --main-bg-color: #223;
   --main-text-color: #eee;
   --initial-caps-color: #46e;
+  --link-color: #24e;
+  --link-visited-color: #81e;
   --customrule-flair-color: #236;
   --initial-caps-stroke: -1px -1px 0 #fff,
                          1px -1px 0 #fff,
@@ -54,7 +62,6 @@ $defaulttabhover: 0 1px 0 0 $bordercolor,
                          -1px 0 0 #fff,
                          0 1px 0 #fff,
                          0 -1px 0 #fff;
-  --main-content-border: 1px solid #{$bordercolor};
   --text-input-border: 1px solid #333;
   --text-input-border-focus: 2px solid #888;
   --tab-hover-fill: #{$bordercolor};

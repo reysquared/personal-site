@@ -2,6 +2,7 @@
 @import '_util';
 
 $pixelface-wrap-breakpoint: 27.5em;
+$resume-wrap-breakpoint: 30em;
 
 #pixelface {
   background-image: url('/images/pixelface-light-border@2x.png');
@@ -28,5 +29,120 @@ $pixelface-wrap-breakpoint: 27.5em;
   @media (max-width: $pixelface-wrap-breakpoint) {
     float: unset;
     margin: 0 auto;
+  }
+}
+
+#resume {
+  strong {
+    // Indicate <strong> with heavier text shadow instead of font-weight to stay compact
+    font-weight: normal;
+    // TODO|kevin hmmm, how can var-with-fallback support this pattern more flexibly?
+    text-shadow: 0 0 3px $tabglowcolor;
+    text-shadow: 0 0 3px var(--tab-glow-color);
+  }
+
+  h3 {
+    margin: 0.5em 0;
+
+    @media (max-width: $resume-wrap-breakpoint) {
+      margin: 0 0 -0.5em;
+    }
+  }
+
+  h5 {
+    font-size: 1em;
+    margin: 0 0 -0.5em;  // Only used in the Education section, lazily keeping it tight
+  }
+
+  hr {
+    margin-bottom: 1em;
+  }
+
+  .org-header {
+    margin: 1em 0 0.25em;
+
+    h4.org-name {
+      display: inline-block;
+      margin: 0;
+  
+      &::after {
+        content: ',';
+
+        @media (max-width: $resume-wrap-breakpoint) {
+          content: '';
+        }
+      }
+
+      a {
+        &:hover {
+          text-decoration: none;
+        }
+
+        &::after {
+          color: transparent;
+          content: '🔗';
+          display: inline-block;
+          font-size: 0.9em;
+          font-weight: normal;
+          margin-left: 0.25em;
+          text-decoration: none;
+          text-shadow: 0 0 $textcolor;
+          text-shadow: 0 0 var(--main-text-color);
+        }
+      }
+    }
+
+    .org-location {
+      margin: 0 0.5em;
+  
+      @media (max-width: $resume-wrap-breakpoint) {
+        // Wrap onto its own line and remove the margin on small screens
+        display: block;
+        margin: 0;
+      }
+    }
+  }
+
+  .org-description {
+    // Reuses the .subhead class too for convenience, so override some stuff
+    font-size: 0.9em;
+    font-weight: normal;
+    margin: 0 0 0.5em;
+  }
+
+  .experience-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 0.25em;
+  
+    @media (max-width: $resume-wrap-breakpoint) {
+      flex-direction: column;
+    }
+
+    .title-held {
+      font-weight: bold;
+    }
+  }
+
+  .experience-hilights {
+    list-style: none;
+    margin: 0 0 0.5em;
+    padding: 0 1em 0 0.5em;
+
+    @media (max-width: $resume-wrap-breakpoint) {
+      padding: 0;
+    }
+
+    >li {
+      // For TOP-LEVEL list items, add a little bottom spacing for legibility.
+      // List items below top level maintain default 0 margin for compactness.
+      margin-bottom: 0.5em;
+
+      ul {
+        margin: 0.25em 0;
+      }
+    }
   }
 }

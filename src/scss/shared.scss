@@ -29,6 +29,8 @@ body {
 // surfing the net from a fossil.) Doesn't help old versions of IE at all.
 // Heavily abridged to just the semantic elements I'm actually using.
 aside,
+figcaption,
+figure,
 footer,
 header,
 hgroup,
@@ -41,6 +43,22 @@ section {
 h1,
 h2 {
   font-variant: small-caps;
+}
+
+h2:first-child {
+  margin-top: 0;
+}
+
+a {
+  @include var-with-fallback(color, --link-color, $capscolor);
+
+  &:visited {
+    @include var-with-fallback(color, --link-visited-color, $linkvisitedcolor);
+  }
+}
+
+code {
+  font-size: 0.875em;
 }
 
 fieldset {
@@ -76,7 +94,7 @@ input {
 }
 
 ul {
-  padding-left: 2em;
+  padding-left: 1.5em;
 
   @media (max-width: $home-button-wrap-breakpoint) {
     padding-left: 1em;

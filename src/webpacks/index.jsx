@@ -15,13 +15,19 @@ const TABS_LIST = [
     id: 'default',
     label: 'Not actually used lol',
     content: DefaultTabRaw,
+    // Specifying an `effect` function for any tab will get passed to useEffect
+    // for the corresponding TabContent component. A lil janky, but it works!
+    effect: () => {
+      // Replace email placeholder with actual email string. Honestly, I don't
+      // think this is really a critical or particularly-effective spam prevention
+      // measure at this stage, but it's fun so I'm keeping it around lmao
+      document.getElementById('email').textContent = 'kevin@mcswiggen.dev';
+    }
   },
   {
     id: 'bio',
     label: 'Bio',
     content: TabBioRaw,
-    // Specifying an `effect` function for any tab will get passed to useEffect
-    // for the corresponding TabContent component. A lil janky, but it works!
     effect: () => {
       // This silly snippet replaces the Bio subheader with one of these lines
       const subOpts = [
@@ -68,7 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
   catchKonamiCode(() => {
     const myFace = document.getElementById('pixelface');
     // The GIF doesn't loop, so the URL param resets the animation if triggered again
-    myFace.style.backgroundImage = `url('/images/initials.gif?cachebust=${Math.random()}')`;
+    // EDIT: well... it works in SOME browsers. I changed my mind about this, I'd
+    // rather save the bandwidth :P
+    // myFace.style.backgroundImage = `url('/images/initials.gif?cachebust=${Math.random()}')`;
+    myFace.style.backgroundImage = `url('/images/initials.gif')`;
     window.setTimeout(() => {
       myFace.removeAttribute('style');
     }, 4000);

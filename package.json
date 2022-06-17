@@ -14,7 +14,7 @@
     "scss:min": "npm run scss -- --output-style=compressed",
     "serve": "webpack serve --mode=development",
     "template": "html-includes --src src/html --dest dist",
-    "template:min": "npm run template -- --minify collapseWhitespace=true conservativeCollapse=true",
+    "template:min": "npm run template -- --minify collapseWhitespace=true conservativeCollapse=true removeComments=false",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack:dev": "webpack --mode=development --progress=profile",
     "webpack:prod": "webpack --mode=production --progress=profile",
