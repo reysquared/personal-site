@@ -10,15 +10,15 @@
     "build:dev": "npm run scss & npm run template & npm run webpack:dev",
     "clean-static": "rm -rf ./dist/ && mkdir ./dist && cp -a ./static/ ./dist",
     "prepare": "npm run clean-static && npm run build:dev",
-    "scss": "node-sass ./src/scss -o ./dist/css",
-    "scss:min": "npm run scss -- --output-style=compressed",
+    "scss": "sass ./src/scss:./dist/css",
+    "scss:min": "npm run scss -- --style=compressed --no-source-map",
     "serve": "webpack serve --mode=development",
     "template": "html-includes --src src/html --dest dist",
     "template:min": "npm run template -- --minify collapseWhitespace=true conservativeCollapse=true removeComments=false",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack:dev": "webpack --mode=development --progress=profile",
     "webpack:prod": "webpack --mode=production --progress=profile",
-    "watch-scss": "npm run scss -- --watch --recursive",
+    "watch-scss": "npm run scss -- --watch",
     "watch-webpack": "webpack --mode=development --progress --watch"
   },
   "repository": {
@@ -42,7 +42,7 @@
     "html-includes": "^4.4.1",
     "html-loader": "^3.1.0",
     "imports-loader": "^0.8.0",
-    "node-sass": "^7.0.1",
+    "sass": "^1.52.3",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.2"

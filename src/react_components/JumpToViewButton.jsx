@@ -5,7 +5,7 @@ import { DEFAULT_MANDELBROT_CANVAS_SIZE } from 'react_components/constants';
 import { boundsToRange } from 'helpers/mandel';
 
 
-export default function JumpToViewButton({ x, y, label, setViewWindowX, setViewWindowY, setShouldRender, setCanvasDims }) {
+export default function JumpToViewButton({ x, y, label, setViewWindowX, setViewWindowY, setShouldRender, setCanvasDims, setExponent }) {
   // If x and y are arrays, assume they represent view bounds instead of a
   // center-and-range object, and replace them for convenience
   if (x.length && y.length) {
@@ -23,6 +23,7 @@ export default function JumpToViewButton({ x, y, label, setViewWindowX, setViewW
             height: DEFAULT_MANDELBROT_CANVAS_SIZE,
             width: DEFAULT_MANDELBROT_CANVAS_SIZE,
           });
+          setExponent(2);
           setViewWindowX(x);
           setViewWindowY(y);
           setShouldRender(true);

@@ -1,4 +1,5 @@
 import Complex from 'complex.js';
+import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 
 import { DEFAULT_MANDELBROT_CANVAS_SIZE } from 'react_components/constants';
@@ -21,6 +22,7 @@ const MANDEL_CANVAS_ID = 'mandelbrot-canvas';
 const MIN_CANVAS_DIMENSION = 300;
 const MAX_CANVAS_DIMENSION = 2000;
 const MAX_FRACTAL_ITERATIONS = 200;
+const EXPONENT_PRECISION_LIMIT = 8;  // just for display niceness mostly, not computational
 
 const COOL_REGIONS = [
   { x: [ 0.360, 0.430], y: [ 0.120, 0.170], label: 'Seahorses?' },
@@ -48,11 +50,12 @@ export default function FractalViewer({ ...props }) {
   const [viewWindowX, setViewWindowX] = useState({ center: 0, range: 4 });
   const [viewWindowY, setViewWindowY] = useState({ center: 0, range: 4 });
   const [numIters, setNumIters] = useState(50);
+  const [exponent, setExponent] = useState(2);
   const [juliaCoords, setJuliaCoords] = useState({ x: 0, y: 0 });
 
   // Shorthand for a looong function call. Applies current state to the canvas.
   const updateMandel = () => {
-    renderMandelbrot(numIters, startColor, endColor, bgColor, viewWindowX, viewWindowY, colorMode, setRenderInProgress);
+    renderMandelbrot(numIters, startColor, endColor, bgColor, viewWindowX, viewWindowY, colorMode, exponent, setRenderInProgress);
   }
 
   useEffect(() => {
@@ -71,7 +74,7 @@ export default function FractalViewer({ ...props }) {
   }
 
   useEffect(() => {
-    renderJulia(juliaCoords, numIters, startColor, endColor, bgColor, colorMode)
+    renderJulia(juliaCoords, numIters, startColor, endColor, bgColor, colorMode, exponent)
   }, [juliaCoords.x, juliaCoords.y]);
 
   const wrapperClass = 'fractal-viewer' + (renderInProgress ? ' loading' : '');
@@ -103,7 +106,7 @@ export default function FractalViewer({ ...props }) {
       />
       <figure className="julia-container">
         <figcaption className="julia-label">
-          Julia Set for <var>z<sup>2</sup></var> + <var>c</var>, where <var>c</var> =
+          Julia set for <var>z<sup>{exponent}</sup></var> + <var>c</var>, where <var>c</var> =
           <br />
           <span className="julia-coords">
             {Complex(juliaCoords.x, juliaCoords.y).toString()}
@@ -189,6 +192,17 @@ export default function FractalViewer({ ...props }) {
             onChange={(e) => setNumIters(parseInt(e.target.value))}
           />
         </label>
+        <label className="exponent-value">
+          Exponent (if you want to explore things other than <var>z<sup>2</sup></var>):
+          {' '}
+          <input type="number" className="small-number"
+            value={exponent}
+            min={1}
+            max={10}
+            step="any"
+            onChange={(e) => setExponent(_.round(Number(e.target.value), EXPONENT_PRECISION_LIMIT))}
+          />
+        </label>
         <SaveCanvasButton canvasId={MANDEL_CANVAS_ID} />
       </Collapsible>
       <Collapsible regionId="region-buttons" label="Some cool-lookin' regions">
@@ -202,6 +216,7 @@ export default function FractalViewer({ ...props }) {
                   setViewWindowY,
                   setShouldRender,
                   setCanvasDims,
+                  setExponent,
                 }}
               />
             </li>
@@ -213,7 +228,7 @@ export default function FractalViewer({ ...props }) {
 }
 
 
-function renderJulia(juliaCoords, numSteps, startColor, endColor, bgColor, colorMode) {
+function renderJulia(juliaCoords, numSteps, startColor, endColor, bgColor, colorMode, exponent) {
   const canvas = durableCanvasRegistry[JULIA_CANVAS_ID];
   const colorMap = makeColorMap(startColor, endColor, numSteps, colorMode);
   const mandelRange = {
@@ -229,12 +244,12 @@ function renderJulia(juliaCoords, numSteps, startColor, endColor, bgColor, color
     // I guess people use Caman for actual image filtering and not to render
     // fractals most of the time :V
     this.fillColor('#ffffff');
-    this.juliaset(mandelRange, juliaComplex, colorMap, bgColor);
+    this.juliaset(mandelRange, juliaComplex, colorMap, bgColor, exponent);
     this.render();
   });
 }
 
-function renderMandelbrot(numSteps, startColor, endColor, bgColor, viewX, viewY, colorMode, setRenderInProgress) {
+function renderMandelbrot(numSteps, startColor, endColor, bgColor, viewX, viewY, colorMode, exponent, setRenderInProgress) {
   setRenderInProgress(true);
   const canvas = durableCanvasRegistry[MANDEL_CANVAS_ID];
   const colorMap = makeColorMap(startColor, endColor, numSteps, colorMode);
@@ -246,7 +261,7 @@ function renderMandelbrot(numSteps, startColor, endColor, bgColor, viewX, viewY,
     // Filters won't apply unless we fill the canvas with SOME kind of data first
     this.fillColor('#ffffff');
     const dims = this.dimensions;
-    this.camandel(mandelRange, colorMap, bgColor);
+    this.camandel(mandelRange, colorMap, bgColor, exponent);
     this.render(() => setRenderInProgress(false));
   });
 }

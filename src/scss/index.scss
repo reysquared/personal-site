@@ -60,47 +60,47 @@ $resume-wrap-breakpoint: 30em;
 
   .org-header {
     margin: 1em 0 0.25em;
+  }
 
-    h4.org-name {
-      display: inline-block;
-      margin: 0;
-  
-      &::after {
-        content: ',';
+  .org-name {
+    display: inline-block;
+    margin: 0;
 
-        @media (max-width: $resume-wrap-breakpoint) {
-          content: '';
-        }
-      }
+    &::after {
+      content: ',';
 
-      a {
-        &:hover {
-          text-decoration: none;
-        }
-
-        &::after {
-          color: transparent;
-          content: '🔗';
-          display: inline-block;
-          font-size: 0.9em;
-          font-weight: normal;
-          margin-left: 0.25em;
-          text-decoration: none;
-          // TODO|kevin another instance of something var-with-fallback would ideally support
-          text-shadow: 0 0 $textcolor;
-          text-shadow: 0 0 var(--main-text-color, $textcolor);
-        }
+      @media (max-width: $resume-wrap-breakpoint) {
+        content: '';
       }
     }
 
-    .org-location {
-      margin: 0 0.5em;
-  
-      @media (max-width: $resume-wrap-breakpoint) {
-        // Wrap onto its own line and remove the margin on small screens
-        display: block;
-        margin: 0;
+    a {
+      &:hover {
+        text-decoration: none;
       }
+
+      &::after {
+        color: transparent;
+        content: '🔗';
+        display: inline-block;
+        font-size: 0.9em;
+        font-weight: normal;
+        margin-left: 0.25em;
+        text-decoration: none;
+        // TODO|kevin another instance of something var-with-fallback would ideally support
+        text-shadow: 0 0 $textcolor;
+        text-shadow: 0 0 var(--main-text-color, $textcolor);
+      }
+    }
+  }
+
+  .org-location {
+    margin: 0 0.5em;
+
+    @media (max-width: $resume-wrap-breakpoint) {
+      // Wrap onto its own line and remove the margin on small screens
+      display: block;
+      margin: 0;
     }
   }
 
@@ -121,10 +121,10 @@ $resume-wrap-breakpoint: 30em;
     @media (max-width: $resume-wrap-breakpoint) {
       flex-direction: column;
     }
+  }
 
-    .title-held {
-      font-weight: bold;
-    }
+  .title-held {
+    font-weight: bold;
   }
 
   .experience-hilights {

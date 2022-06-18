@@ -171,15 +171,15 @@ export function makeColorMap(startColor, endColor, steps, colorMode) {
 // Both functions take a complex point c and determine how many iterations it
 // takes to escape to infinity, treating it as within the Mandelbrot set if it
 // reaches the `steps` limit of iterations
-function mandelbrotVelocity(c, steps) {
-  return juliaSetVelocity(c, c, steps);
+function mandelbrotVelocity(c, steps, pow = 2) {
+  return juliaSetVelocity(c, c, steps, pow);
 }
 
 // The julia set is INITIALIZED with z = x+yi but then is iterated with a different,
 // *constant* c that is definitive of that julia set. For mandelbrot, we instead
 // initialize at zero (or at x+yi again, not meaningfully different tbh) but then
 // the c for any given pixel is ALSO x+yi.
-function juliaSetVelocity(initial, c, steps) {
+function juliaSetVelocity(initial, c, steps, pow = 2) {
   if (initial.abs() > ESCAPE_THRESHOLD) {
     // I've decided I want the "0th" step to be the one that goes from z = 0,
     // which for mandelbrot rendering is the same as every other step, but for
@@ -188,7 +188,7 @@ function juliaSetVelocity(initial, c, steps) {
   }
   let z = initial;
   for (const i of _.range(1, steps)) {
-    z = z.mul(z).add(c);
+    z = z.pow(pow).add(c);
     if (z.abs() > ESCAPE_THRESHOLD) {
       return [false, i];
     }
@@ -196,7 +196,7 @@ function juliaSetVelocity(initial, c, steps) {
   return [true, steps];
 }
 
-export function camandel(mandelRange, colorMap, bgColor) {
+export function camandel(mandelRange, colorMap, bgColor, pow = 2) {
   bgColor = ensureRgb(bgColor);
   // Get logical canvas dimensions
   const {width, height} = this.dimensions;
@@ -215,7 +215,7 @@ export function camandel(mandelRange, colorMap, bgColor) {
     // effectively changes from [0, 159] to [1, 160] -- and I don't enjoy that.
     // Hence subtracting 1 from the y value.
     const complexValue = new Complex(realValues[x], imagValues[y - 1]);
-    const [inSet, velocity] = mandelbrotVelocity(complexValue, maxIter);
+    const [inSet, velocity] = mandelbrotVelocity(complexValue, maxIter, pow);
 
     if (inSet) {
       return Object.assign(rgba, bgColor);
@@ -226,7 +226,7 @@ export function camandel(mandelRange, colorMap, bgColor) {
   });
 }
 
-export function juliaset(mandelRange, c, colorMap, bgColor) {
+export function juliaset(mandelRange, c, colorMap, bgColor, pow = 2) {
   bgColor = ensureRgb(bgColor);
   // Get logical canvas dimensions
   const { width, height } = this.dimensions;
@@ -245,7 +245,7 @@ export function juliaset(mandelRange, c, colorMap, bgColor) {
     // effectively changes from [0, 159] to [1, 160] and I don't enjoy that.
     // Hence subtracting 1 from the y value.
     const complexValue = new Complex(realValues[x], imagValues[y - 1]);
-    const [inSet, velocity] = juliaSetVelocity(complexValue, c, maxIter);
+    const [inSet, velocity] = juliaSetVelocity(complexValue, c, maxIter, pow);
 
     if (inSet) {
       return Object.assign(rgba, bgColor);

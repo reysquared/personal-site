@@ -30,181 +30,184 @@ $other-inputs-max-width: 25em;
       text-align: center;
     }
   }
+}
 
-  .julia-canvas-wrapper,
-  .mandelbrot-canvas-wrapper {
-    @include var-with-fallback(background-color, --customrule-flair-color, $flaircolor);
-    border: 1px solid;
-    @include var-with-fallback(border-color, --main-text-color, $textcolor);
-    display: inline-block;
-    margin: 0 auto 1.5em;
+.julia-canvas-wrapper,
+.mandelbrot-canvas-wrapper {
+  @include var-with-fallback(background-color, --customrule-flair-color, $flaircolor);
+  border: 1px solid;
+  @include var-with-fallback(border-color, --main-text-color, $textcolor);
+  display: inline-block;
+  margin: 0 auto 1.5em;
+}
+
+.mandelbrot-canvas-wrapper {
+  cursor: crosshair;
+  max-width: 37.5em;
+  position: relative;
+
+  .drag-rect {
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    background:rgba(0, 0, 0, 0.25);
+    position: absolute;
+    // inline styles defining the border positions relative to parent canvas
+    // container get set on .drag-rect div by FractalZoomCanvas's useEffect
+  }
+}
+
+.julia-container {
+  margin: 0;
+  max-width: 18.75em;
+
+  @media (max-width: $julia-wrap-breakpoint) {
+    margin: 0 auto;
+  }
+}
+
+.julia-label {
+  display: block;
+  height: 3.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+  width: 100%;
+}
+
+.julia-coords {
+  display: block;
+  line-height: 1;
+}
+
+#julia-canvas,
+#mandelbrot-canvas {
+  pointer-events: none;
+  // Which vertical align doesn't hugely matter as long as it isn't a text-based one
+  vertical-align: middle;
+  width: 100%;  // Constrained by container size and max-width on parent
+}
+
+// General styles for inputs on this page
+// TODO|kevin might should unnest this a little bit more, really
+fieldset {
+  >label {
+    margin-top: 0; // override shared.scss for more compact panels
   }
 
-  .mandelbrot-canvas-wrapper {
-    cursor: crosshair;
-    max-width: 37.5em;
-    position: relative;
+  &.color-picker {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: $other-inputs-max-width;
+    padding: 0 1em 0.5em;
 
-    .drag-rect {
-      border: 2px dashed rgba(255, 255, 255, 0.5);
-      background:rgba(0, 0, 0, 0.25);
-      position: absolute;
-      // inline styles defining the border positions relative to parent canvas
-      // container get set on .drag-rect div by FractalZoomCanvas's useEffect
-    }
-  }
+    label {
+      margin-right: 1.5em;
 
-  .julia-container {
-    margin: 0;
-    max-width: 18.75em;
-
-    @media (max-width: $julia-wrap-breakpoint) {
-      margin: 0 auto;
-    }
-
-    .julia-label {
-      display: block;
-      height: 3.5em;
-      margin-bottom: 0.5em;
-      text-align: center;
-      width: 100%;
-
-      .julia-coords {
-        display: block;
-        line-height: 1;
-      }
-    }
-  }
-
-  #julia-canvas,
-  #mandelbrot-canvas {
-    pointer-events: none;
-    // Which vertical align doesn't hugely matter as long as it isn't a text-based one
-    vertical-align: middle;
-    width: 100%;  // Constrained by container size and max-width on parent
-  }
-
-  // General styles for inputs on this page
-  fieldset {
-    >label {
-      margin-top: 0; // override shared.scss for more compact panels
-    }
-
-    &.color-picker {
-      align-items: center;
-      flex-direction: row;
-      flex-wrap: wrap;
-      max-width: $other-inputs-max-width;
-      padding: 0 1em 0.5em;
-
-      label {
-        margin-right: 1.5em;
-
-        @media (max-width: $margin-shrink-breakpoint) {
-          margin-right: 1em;
-        }
-      }
-
-      .color-preview {
-        border: 1px solid;
-        @include var-with-fallback(border-color, --main-text-color, $textcolor);
-        height: 2.5em;
-        margin-left: auto;
-        width: 2.5em;
-      }
-    }
-
-    &.coordinate-range-picker {
-      .coordinate-range {
-        align-items: center;
-        flex-direction: row;
-        flex-wrap: wrap;
-        margin-bottom: 0.25em;
-
-        &:not(:last-of-type) {
-          margin-bottom: 0.5em;
-        }
-
-        .long-number {
-          margin-right: 1em;
-        }
-
-        .range-bounds {
-          width: 100%;
-        }
-      }
-    }
-
-    &.dimensions-picker {
-      align-items: center;
-      flex-direction: row;
-      max-width: $other-inputs-max-width;
-
-      label {
+      @media (max-width: $margin-shrink-breakpoint) {
         margin-right: 1em;
       }
     }
-  }
 
-  // Further styles on #main-inputs and .collapsible-container instances are
-  // separated from the above fieldset styles because they focus more on how
-  // different fieldsets/inputs relate to EACH OTHER in the container context
-  #main-inputs {
-    width: 47%;  // Small enough to give some padding to the Julia canvas which
-    // is 50% width, but still big enough to fit everything without wrapping.
-
-    @media (max-width: $julia-wrap-breakpoint) {
-      width: 100%;
-    }
-
-    .render-button {
-      display: block;
-      margin: 1px auto 1.5em;
+    .color-preview {
+      border: 1px solid;
+      @include var-with-fallback(border-color, --main-text-color, $textcolor);
+      height: 2.5em;
+      margin-left: auto;
+      width: 2.5em;
     }
   }
 
-  // Many of the inputs 
-  .collapsible-container {
-    margin: 1em 0 0.5em;
+  &.coordinate-range-picker {
+    .coordinate-range {
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-bottom: 0.25em;
+
+      &:not(:last-of-type) {
+        margin-bottom: 0.5em;
+      }
+
+      .long-number {
+        margin-right: 1em;
+      }
+
+      .range-bounds {
+        width: 100%;
+      }
+    }
+  }
+
+  &.dimensions-picker {
+    align-items: center;
+    flex-direction: row;
+    max-width: $other-inputs-max-width;
+
+    label {
+      margin-right: 1em;
+    }
+  }
+}
+
+// Further styles on #main-inputs and .collapsible-container instances are
+// separated from the above fieldset styles because they focus more on how
+// different fieldsets/inputs relate to EACH OTHER in the container context
+#main-inputs {
+  width: 47%;  // Small enough to give some padding to the Julia canvas which
+  // is 50% width, but still big enough to fit everything without wrapping.
+
+  @media (max-width: $julia-wrap-breakpoint) {
     width: 100%;
+  }
+}
 
-    #color-controls {
-      .color-picker {
-        margin-top: 0.5em;
-      }
+.render-button {
+  display: block;
+  margin: 1px auto 1.5em;
+}
 
-      .hsl-toggle {
-        display: block;
-        margin-bottom: 0.25em;
-      }
-    }
+.collapsible-container {
+  margin: 1em 0 0.5em;
+  width: 100%;
+}
+
+#color-controls {
+  .color-picker {
+    margin-top: 0.5em;
+  }
+
+  .hsl-toggle {
+    display: block;
+    margin-bottom: 0.25em;
+  }
+}
+
+#image-controls {
+  display: flex;
+  flex-direction: column;
+
+  .dimensions-picker {
+    margin-bottom: 1em;
+  }
+
+  .save-canvas {
+    margin: 1em auto 0;
+  }
+}
   
-    #image-controls {
-      .dimensions-picker {
-        margin-bottom: 1em;
-      }
+#region-buttons {
+  ul {
+    list-style: none;
+    padding-left: 1.5em;
 
-      .save-canvas {
-        margin: 1em auto 0;
-      }
-    }
-  
-    #region-buttons {
-      ul {
-        list-style: none;
-        padding-left: 1.5em;
-
-        li {
-          display: inline-block;
-          line-height: 2;
-          // Fits the whole line, but small enough to wrap to 2 cols at full res
-          width: 16em;
-          
-          span {
-            margin-left: 0.25em;
-            vertical-align: middle;
-          }
-        }
+    li {
+      display: inline-block;
+      line-height: 2;
+      // Fits the whole line, but small enough to wrap to 2 cols at full res
+      width: 16em;
+      
+      span {
+        margin-left: 0.25em;
+        vertical-align: middle;
       }
     }
   }

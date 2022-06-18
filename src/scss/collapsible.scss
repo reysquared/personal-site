@@ -1,23 +1,23 @@
 .collapsible-container {
   display: flex;
   flex-direction: column;
+}
 
-  .collapsible-header {
-    align-items: end;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.15em;
-  }
+.collapsible-header {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.15em;
+}
 
-  .collapsible-content {
-    border-top: 1px solid;  // inherits border color from text color
-    overflow: hidden;
-    padding-top: 0.5em;
-    transition: height 0.5s ease;
-  
-    &.collapsed {
-      height: 0;
-      padding-top: 0;
-    }
+.collapsible-content {
+  border-top: 1px solid;  // inherits border color from text color
+  overflow: hidden;
+  padding-top: 0.5em;
+  transition: height 0.5s ease;
+
+  &.collapsed {
+    height: 0;
+    padding-top: 0;
   }
 }

@@ -145,11 +145,11 @@ ul {
   hr+p::first-letter {
     @include var-with-fallback(color, --initial-caps-color, $capscolor);
     float: left;
-    font-size: 2em;
+    font-size: 1.75em;
     font-weight: bold;
     line-height: 1em;
-    margin-top: -0.35rem;  // Attempt to only indent the first line of the paragraph
-    padding-right: 0.25rem;
+    margin-top: -0.1em;  // Attempt to only indent the first line of the paragraph
+    padding-right: 0.1em;
     @include var-with-fallback(text-shadow, --initial-caps-stroke, $defaultcapsstroke);
   }
 
@@ -171,6 +171,10 @@ ul {
   max-width: 37.5em;
   overflow: hidden;
   padding: 1.25em;
+
+  @media (max-width: $home-button-wrap-breakpoint) {
+    padding: 0.8em;
+  }
 }
 
 /** Footer anchored to page bottom **/
