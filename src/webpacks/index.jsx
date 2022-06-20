@@ -34,7 +34,7 @@ const TABS_LIST = [
         'Lives bodily inside a laptop',
         'Eats JavaScript for snax',
         '"It\'s more of a computer art than a computer science."',
-        'is climing a mountain (why are they climbing a mountain?)',
+        'is climbing a mountain (why are they climbing a mountain?)',
         'Need more sleep.',
       ];
       const choice = subOpts[Math.floor(Math.random() * subOpts.length)];

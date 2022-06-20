@@ -4,8 +4,11 @@ import React from 'react';
 export default function TabButton({ tab, activeTab, setActiveTab }) {
   const handleClick = (event) => {
     event.preventDefault();
-    setActiveTab(tab.id);
-    window.history.pushState(null, null, `#${tab.id}`);
+    if (activeTab != tab.id) {
+      // only modify history if this tab wasn't already active
+      setActiveTab(tab.id);
+      window.history.pushState(null, null, `#${tab.id}`);
+    }
   }
 
   return (
