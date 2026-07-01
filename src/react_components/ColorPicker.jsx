@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { ensureHsl, ensureRgb } from 'helpers/mandel';
 
