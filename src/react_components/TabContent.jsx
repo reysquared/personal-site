@@ -6,10 +6,13 @@ import ReturnButton from 'react_components/ReturnButton';
 
 export default function TabContent({ tab, containerClass, activeTab, hasDefaultTab, setActiveTab }) {
   // A lazy lil way to attach some basic dynamic content while still having the
-  // tab content specified programmatically. Runs EVERY render though, be aware!
-  if (tab.effect) {
-    React.useEffect(tab.effect);
-  }
+  // tab content specified programmatically. Runs whenever tab becomes active.
+  // NOTE|kevin 26-07-30 man I was really bad at React when I originally made this component lmao
+  React.useEffect(() => {
+    if (tab.effect && tab.id === activeTab) {
+      tab.effect()
+    }
+  }, [tab.effect, tab.id, activeTab]);
 
   // Only show a "go back" button if default tab is enabled and this is NOT the
   // default tab. if the default tab is active we're already "back", and if it

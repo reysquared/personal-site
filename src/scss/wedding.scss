@@ -1,0 +1,189 @@
+/******** OVERALL LAYOUT ********/
+
+:root {
+  --frame-border-style: 5px ridge lightgray;
+}
+
+body {
+  background-color: black;
+  color: white;
+  margin: 0;
+}
+img {
+  vertical-align: bottom;  // Fix baseline issue w/o making them block elements
+}
+h2, h3, h4 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+p {
+  line-height: 1.4;
+}
+.main-header {
+  // TODO|kevin
+  padding: 0.5em;
+}
+#main-content {
+  border-top: var(--frame-border-style);
+  display: flex;
+}
+#sticky-footer {
+  background-image: url("/images/wedding/bgs/techno-tile.jpg");
+  border-top: 4px ridge lightgray;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .3);
+  box-sizing: border-box;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  color: limegreen;
+  padding: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  #counter {
+    display: inline-block;
+  }
+  .netscape {
+    display: block;
+    filter: drop-shadow(0 0 6px white);
+    float: left;
+    margin-right: 5px;
+  }
+  a {
+    color: lightgreen;
+    &:visited {
+      color: green;
+    }
+  }
+}
+// Hide button for the under-construction tab, including the containing tab if
+// the browser supports it (good enough eh?)--can be triggered programmatically
+#tab-under-construction,
+.tab-title:has(#tab-under-construction) {
+  display: none;
+}
+
+/******** TABBED NAV MENU ********/
+
+.tabs-menu {
+  border-right: var(--frame-border-style);
+  resize: horizontal;  // TODO|kevin MAYBE???? could be kinda funny!!! not really customizable though
+  overflow: auto;
+  min-width: 170px;
+  flex-shrink: 0;
+  text-align: center;
+}
+.tabs-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+}
+.tab-title {
+  color: white;
+  margin: 0.5em;
+  a {
+    color: white;
+  }
+  &.active {
+    font-weight: bold;
+    text-decoration: none;
+    a {
+      color: lightyellow;
+    }
+    &::after {
+      content: "➧";
+      display: inline-block;
+      margin-left: 4px;
+      transform: rotate(180deg);
+    }
+    &::before {
+      content: "➧";
+      margin-right:4px;
+    }
+  }
+}
+
+/******** TAB PANEL CONTAINERS ********/
+
+.inner-content {
+  color: black;
+  display: flex;
+  flex-grow: 1;
+  section {
+    width: 100%;
+  }
+}
+.tab-panel {
+  padding: 1em;
+  &.inactive {
+    display: none;
+  }
+  &.active {
+    display: block;
+    background: white; // TODO|kevin
+  }
+}
+
+/******** SMALL SCREEN SUPPORT ********/
+
+@media (max-width: 650px) {
+  #main-content {
+    flex-direction: column;
+  }
+  .tabs-menu {
+    border-right: none;
+    border-bottom: var(--frame-border-style);
+    resize: none;
+  }
+  .tabs-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  #sticky-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/******** GOOFY UTILITIES ********/
+
+// prevent smooth interpolation. TODO|kevin might reconsider later? idk
+* {
+  image-rendering: pixelated;
+}
+
+.marquee {
+  // TODO|kevin it's obvious what this is supposed to do right?
+  &:hover {
+    animation-play-state: paused;  // I guess I'll add a *little* bit of modern spit-shine to it hehe
+  }
+}
+
+.moji {
+  // TODO|kevin custom emoji webfont?
+}
+
+body span.censored {
+  background: currentColor !important;
+  &:hover {
+    background: none !important;
+  }
+}
+
+// TODO|kevin this needs a LOTTA work but we'll get there!
+body.boring-mode * {
+  background-color: midnightblue !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  color: white !important;
+  filter: none !important;
+  img[src$=".gif"], img[src$=".webp"] {
+    display: none !important;
+  }
+}
+
+// TODO|kevin some kinda shared utility class so I can insert fixed-position
+// "sidebar items" underneath the nav buttons on each tab and then hide them
+// below desktop widths, heh.
+// (maybe just an img in a div, flex centering, consistent position, then define
+// the actual imgs in each tab and put the display logic under the breakpoint.)

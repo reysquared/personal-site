@@ -1,0 +1,164 @@
+<!-- TODO|kevin -->
+<h1>Weekend Itinerary</h1>
+<section class="oct2">
+  <h2>October 2</h2>
+  <h3>Welcome Drinks</h3>
+  <h4>3pm&ndash;6pm</h4>
+  <h4><b><a href="https://www.tallboy.bar/">Tallboy</a></b> &mdash; 4210 Telegraph Ave.</h4>
+  <details class="map-collapse" name="gmaps">
+    <summary>Google Maps (clickable):</summary>
+    <map name="tallboy-map">
+      <area
+        shape="circle"
+        coords="250,260,66"
+        title="Google Maps - Tallboy"
+        href="https://maps.app.goo.gl/ARHmnZfHxwjrBn9b7"
+        target="_blank"
+      >
+    </map>
+    <img class="map" usemap="#tallboy-map" src="../../../static/images/wedding/map/tallboy.png">
+  </details>
+  <p>
+    Come enjoy some cocktails with us at one of our favorite local haunts! Food
+    not included at this one, but if you're feeling peckish they've got vegan
+    hotdogs and <b>free</b> popcorn.
+  </p><p>
+    Event is child-friendly; however the venue <em>is</em> a bar, so <u>under-21s
+    will need to leave by 6pm</u> when it reopens to the general public.
+  </p>
+</section>
+
+<section class="oct3">
+  <h2>October 3</h2>
+  <h3>Ceremony + Reception &mdash; &ldquo;A MYSTERIOUS and PORTENTOUS RITUAL&rdquo;</h3>
+  <h4>Arrive by XX, Ceremony at XX</h4>
+  <h4><b><a href="https://www.hjkarts.org/">Henry J. Kaiser Center for the Arts</a></b> &mdash; 10 10th St.</h4>
+  <details class="map-collapse" name="gmaps">
+    <summary>Google Maps (clickable):</summary>
+    <map name="hjk-map">
+      <area
+        shape="circle"
+        coords="250,260,66"
+        title="Google Maps - Henry J. Kaiser Center"
+        href="https://maps.app.goo.gl/x8dE3ZmDhhTaBhvb6"
+        target="_blank"
+      >
+    </map>
+    <img class="map" usemap="#hjk-map" src="../../../static/images/wedding/map/hjk.png">
+  </details>
+  <p>
+    Join us for the main event at the HJK's Lakeview Terrace!  The venue is partly
+    indoors and partly outdoors, but the terrace is on the north side of the
+    building so at this time of year it should be in shade for almost the full
+    event. More details about venue access are on the <a href="#hotel">Hotel + Transit</a> tab.
+    <br><br>
+    TODO|kevin more details? There is parking, open seating, buffet style... Etc.
+    Write this better lmao
+  </p>
+  <h3>Afterparty at Mad Oak Bar 'N' Yard</h3>
+  <h4>10:30pm&ndash;midnight</h4>
+  <p>Just a couple blocks away at <a href="https://maps.app.goo.gl/WdENTPRWSARDxQSW9">135 12th St.</a></p>
+  <h4>After-afterparty..... IYKYK ;)</h4>
+</section>
+
+<section class="oct4">
+  <h2>October 4</h2>
+  <h3>Farewell Brunch</h3>
+  <h4>11am&ndash;2pm</h4>
+  <h4><b><a href="https://www.hellabees.co/">Hella Bees</a></b> &mdash; 2340 Harrison St.</h4>
+  <details class="map-collapse" name="gmaps">
+    <summary>Google Maps (clickable):</summary>
+    <map name="hellabees-map">
+      <area
+        shape="circle"
+        coords="255,250,66"
+        title="Google Maps - Hella Bees"
+        href="https://maps.app.goo.gl/qFW2QgkeoBonMfnQ6"
+        target="_blank"
+      >
+    </map>
+    <img class="map" usemap="#hellabees-map" src="../../../static/images/wedding/map/hellabees.png">
+  </details>
+  <p>
+    We'd love to see folks one last time before you scatter back to the four winds!
+    Eat some tasty food and nurse your hangover with us. Arrive whenever (but we
+    can't promise how much food will be left if you get there toward the end.)
+  </p>
+</section>
+<br>
+
+<style>
+  #schedule {
+    background-color: black;
+    color: white;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  #schedule > * {
+    /* move padding from the tab panel to its children so each section can have its own full-bleed bg image */
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  #schedule a {
+    color: lightskyblue;
+  }
+  #schedule section {
+    border-bottom: 1px solid white;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+  #schedule .map-collapse {
+    border: 1px solid white;
+    padding: 5px;
+    max-width: 500px;
+    width: 100%;
+  }
+  #schedule .map-collapse summary::marker {
+    color: red;
+  }
+  #schedule .map-collapse[open] summary {
+    margin-bottom: 0.5em;
+  }
+  #schedule .map {
+    max-width: 500px;
+    width: 100%;
+  }
+  #schedule .oct2 {
+    background-image: url('/images/wedding/bgs/tallboymenu.webp');
+    background-position: bottom;
+    background-size: 300px;
+    border-top: 1px solid white;
+    /* TODO|kevin this might either need the opacity bumped up a SMIDGE more still,
+    OR I might need to apply some kind of (variably-colored?) additional semi-opaque
+    background on #schedule section p... */
+    box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, .7);
+    color: black;
+  }
+  #schedule .oct2 a {
+    color: blue;
+  }
+  #schedule .oct2 .map-collapse {
+    border-color: black;
+  }
+  #schedule .oct3 {
+    background-image: url("/images/wedding/bgs/dark-marble-tile.jpg");
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .3);
+  }
+  #schedule .oct4 {
+    background-image: url("/images/wedding/bgs/flyingtoasters.gif");
+    background-size: cover;
+  }
+  #schedule .go-back {
+    color: transparent;
+    margin: 2em 0;
+  }
+  #schedule .go-back::after {
+    background-image: url('/images/wedding/home/home-sign.gif');
+    background-size: cover;
+    content: "";
+    display: block;
+    height: 74px;
+    width: 93px;
+  }
+</style>
