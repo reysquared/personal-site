@@ -1,3 +1,5 @@
+// @use "sass:list" as *;
+
 /******** OVERALL LAYOUT ********/
 
 :root {
@@ -10,37 +12,77 @@ body {
   margin: 0;
 }
 img {
-  vertical-align: bottom;  // Fix baseline issue w/o making them block elements
+  vertical-align: middle;  // Fix baseline issue w/o making them block elements
 }
 h2, h3, h4 {
   margin-top: 0;
   margin-bottom: 0.5em;
 }
 p {
-  line-height: 1.4;
+  line-height: 1.6;
 }
 .main-header {
-  // TODO|kevin
-  padding: 0.5em;
+  background-image: linear-gradient(180deg, #000033 0%, #4b0082 25%, #dd2476 50%, #ff8c00 75%, #fddb92 100%);
+  color: white;
+  padding: 1em 1em 0;
+  h1 {
+    margin: 0 0 0.5em;
+  }
+  .subhead {
+    align-items: center;
+    color: black;
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+  }
+  p.marquee {
+    width: 270px;
+  }
+}
+.themetoggle {
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 20px;
+  opacity: 0.8;  // TODO|kevin or just dim the color a touch?
+  input {
+    color-scheme: dark;
+  }
 }
 #main-content {
   border-top: var(--frame-border-style);
   display: flex;
 }
 #sticky-footer {
+  align-items: center;
   background-image: url("/images/wedding/bgs/techno-tile.jpg");
   border-top: 4px ridge lightgray;
-  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .3);
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, .3);
   box-sizing: border-box;
-  min-height: 50px;
-  display: flex;
-  align-items: center;
   color: limegreen;
-  padding: 10px;
-  justify-content: space-between;
+  cursor: url("/images/wedding/curs/circuit.png") 8 8, auto;
+  display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  min-height: 50px;
+  padding: 10px;
   #counter {
     display: inline-block;
+    a {
+      display: inline-block;
+      position: relative;
+      &:hover::after {
+        background-image: url("/images/wedding/counter-error.gif");
+        background-position: center;
+        background-size: cover;
+        content: "";
+        position: absolute;
+        left: -7px;
+        height: 38px;
+        width: 123px;
+        top: -7px;
+      }
+    }
   }
   .netscape {
     display: block;
@@ -50,6 +92,7 @@ p {
   }
   a {
     color: lightgreen;
+    cursor: url("/images/wedding/curs/circuit-ptr.png") 16 8, pointer;
     &:visited {
       color: green;
     }
@@ -88,7 +131,7 @@ p {
     font-weight: bold;
     text-decoration: none;
     a {
-      color: lightyellow;
+      color: lightgoldenrodyellow;
     }
     &::after {
       content: "➧";
@@ -152,10 +195,39 @@ p {
   image-rendering: pixelated;
 }
 
+// We all know what THIS is supposed to do, right?
+// How to use: apply .marquee class to a div, optionally with a data-duration="##"
+// attribute, and give that div two children with identical contents. For smooth
+// looping, make sure the .marquee el is no wider than either of its children.
 .marquee {
-  // TODO|kevin it's obvious what this is supposed to do right?
-  &:hover {
-    animation-play-state: paused;  // I guess I'll add a *little* bit of modern spit-shine to it hehe
+  --marquee-duration: 10s;
+  --marquee-duration: attr(data-duration s);
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  > * {
+    align-items: center;
+    animation-duration: 10s;
+    animation-duration: var(--marquee-duration, 10s);
+    animation-iteration-count: infinite;
+    animation-name: marquee-content;
+    animation-timing-function: linear;
+    display: flex;
+    flex-shrink: 0;
+    width: max-content;
+  }
+  &:hover > * {
+    // I guess I'll add a *little* bit of modern spit-shine to it hehe
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee-content {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
   }
 }
 
@@ -170,17 +242,54 @@ body span.censored {
   }
 }
 
-// TODO|kevin this needs a LOTTA work but we'll get there!
-body.boring-mode * {
-  background-color: midnightblue !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  color: white !important;
-  filter: none !important;
-  img[src$=".gif"], img[src$=".webp"] {
-    display: none !important;
+@mixin rainbowshadow($offset, $blur, $colorlist...) {
+  $shadows: ();
+  @for $i from 1 through length($colorlist) {
+    $shadowx: -1 * $i * $offset;
+    $shadowy: $i * $offset;
+    $color: nth($colorlist, $i);
+    $shadows: append($shadows, #{$shadowx} #{$shadowy} #{$blur} #{$color}, comma);
+  }
+  text-shadow: $shadows;
+}
+
+.rainbowtext {
+  color: white;
+  @include rainbowshadow(2px, var(--blur, 0px), red, orange, yellow, lime, aqua, blue, blueviolet, fuchsia);
+  --blur: 3px;
+  &:hover {
+    --blur: 0;
   }
 }
+
+// TODO|kevin CUSTOM CURSOR(S)???
+// TODO|kevin https://github.com/tholman/cursor-effects ????????
+
+body.boring-mode{
+  background-color: midnightblue !important;
+   * {
+    background-color: unset !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border-color: white !important;
+    color: white !important;
+    cursor: revert !important;
+    filter: none !important;
+    text-shadow: none !important;
+    img[src$=".gif"], img[src$=".webp"] {
+      display: none !important;
+    }
+    ::after, ::before {
+      background-image: none !important;
+    }
+  }
+}
+
+// * {
+//   // TODO|kevin ehhh, not sure if I'm totally happy with the cursor implementation
+//   // yet so here's the escape hatch if I decide it sucks too bad lol
+//   cursor: unset !important;
+// }
 
 // TODO|kevin some kinda shared utility class so I can insert fixed-position
 // "sidebar items" underneath the nav buttons on each tab and then hide them

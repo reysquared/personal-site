@@ -4,7 +4,7 @@
   reception have a dress code, the short version of which is, <strong>don't worry
   too much and get freaky wit it!</strong> The long version follows.
 </p>
-<hr>
+<hr class="chain">
 <h3>Choose ONE OR MORE of the following subclasses:</h3>
   <section class="subclass">
     <div class="graphic">
@@ -38,7 +38,7 @@
       2) the venue for the reception is largely outdoors.
     </p>
   </section>
-<hr>
+<hr class="barb">
 <p>
   <strong><u>We are earnest about this!!!</u></strong> If your idea of "whatever
   makes you most comfortable" is <em>honestly</em> just traditional wedding
@@ -58,13 +58,17 @@
     background-repeat: repeat-y, repeat-y, repeat, repeat;
     background-position: left, right, center, center;
     color: white;
+    cursor: url('/images/wedding/curs/wizard.png'), auto;
     padding: 1em 100px;
   }
   @media (max-width: 500px) {
     #dress-code {
-      box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .2);
+      box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, .2);
       padding: 1em 10%;
     }
+  }
+  #dress-code a {
+    cursor: url('/images/wedding/curs/wizard-ptr.png') 16 16, pointer;
   }
   #dress-code > * {
     filter: drop-shadow(2px 2px 0 black);
@@ -108,7 +112,6 @@
   }
   #dress-code .go-back {
     color: transparent;
-    margin: 2em 0;
   }
   #dress-code .go-back::after {
     background-image: url('/images/wedding/home/rubyslippers.gif');
@@ -122,5 +125,13 @@
       drop-shadow(1px -1px 0 white)
       drop-shadow(-1px 1px 0 white)
       drop-shadow(-1px -1px 0 white);
+  }
+  #dress-code hr {
+    border: none;
+    height: 22px;
+    /* TODO|kevin wait shiiit i should use border-kilroy in here tho */
+    background-image: url('/images/wedding/border-chain.gif');
+    background-position: center;
+    background-repeat: no-repeat;
   }
 </style>

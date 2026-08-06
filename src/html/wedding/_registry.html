@@ -2,9 +2,9 @@
 <h2>Registry</h2>
 <p>
   So, here's the thing... we have been legally married for five years now, and
-  living together for <em>twice</em> that! At this point <b>we really don't need
-  anything</b> that would traditionally be found on a wedding registry.  <b>So
-  instead, here's a list of organizations we like</b>, presented in random order:
+  living together for <em>twice</em> that! At this point we really don't need
+  anything that would traditionally be found on a wedding registry.  Instead,
+  <b>here's a list of organizations we like</b>, presented in random order:
   <ul id="charity-list">
     <li>
       <a href="https://www.bringdavehome.com/">Bring David McClary Home</a>
@@ -20,7 +20,6 @@
     </li>
     <li>
       <a href="https://archive.org/">Internet Archive</a>
-      (without which this webpage would never have come together, btw!)
     </li>
     <li>
       <a href="https://www.eff.org/">Electronic Frontier Foundation</a>
@@ -28,44 +27,89 @@
     <li>
       <a href="https://www.plannedparenthood.org/">Planned Parenthood</a>
       /
-      <a href="https://www.plannedparenthoodaction.org/">Planned Parenthood Action Fund</a>
+      <a href="https://www.plannedparenthoodaction.org/">PPAF</a>
     </li>
     <li>
       <a href="https://srlp.org/">Silvia Rivera Law Project</a>
     </li>
     <li>
-      National Immigrant Justice Center
+      <a href="https://www.chirla.org/">The Coalition for Humane Immigrant Rights</a>
     </li>
-    <li>The Coalition for Humane Immigrant Rights</li>
-    <!-- Clinica de la Raza? TODO|kevin need to think more abt immigrant rights options -->
     <li class="lastone">
       ... or any other organization you personally believe in that aligns with
-      the objectives of the ones listed above. Suggest one!
+      the objectives of those above.
     </li>
   </ul>
   If you end up donating to any of these organizations in honor of our wedding,
   we'd love for you to let us know! :)
 </p>
+<hr>
+<h3>Slush Fund</h3>
 <p>
+  If you really still want to give us a gift, <b>the best possible gift would be
+  for more of our friends to come join us for our wedding weekend.</b> You can
+  send a Venmo to <code>@Kevin-McSwiggen</code> mentioning "wedding" in the
+  description to contribute to a slush fund expressly for this purpose.
+</p><p>
+  If you are one of said friends and travel/hotel costs are a significant factor
+  in your planning, <b><u>PLEASE reach out to us!!!</u></b> To reiterate, you
+  being at our wedding is the <i>best possible gift</i> we could get, so we want
+  to remove as much stress from that as possible.
 </p>
+<hr>
 <p>
-  <b>If you really still want to give us a gift</b> though, you can send a Venmo
-  to <tt>@Kevin-McSwiggen</tt> mentioning the wedding in the description. These
-  will go into a slush fund to help subsidize our more-distant or lower-income
-  friends to be able to <b>come party with us for the wedding weekend</b> :)
-  <br>(If this may include you, PLEASE reach out to us!!! We want to see as many
-  of our friends as possible with as little financial stress as possible.)
-</p>
-<p>
-  <b>If neither of these options seems appealing,</b> and you still <em>really really</em>
+  If neither of these options seems appealing, and you still <em>really really</em>
   want to give something to us that's a gift <em>for us,</em> we appreciate it,
   and we certainly won't stop you!<br>...But we're also not gonna give you any hints. ;^)
 </p>
 
 <style>
   #registry {
-    /* TODO|kevin temp solution so it doesn't look blinding lol */
-    background: midnightblue;
+    background-image: url('/images/wedding/bgs/bg-stars.gif');
     color: white;
+    cursor: url('/images/wedding/curs/space.webp') 32 32, auto;
+  }
+  #registry a {
+    color: cyan;
+    /* TODO|kevin browsers no longer support animated images directly in the cursor property,
+    revisit this w/ some javascript when there's less of a time crunch lol */
+    cursor: url('/images/wedding/curs/space-ptr.png') 48 48, pointer;
+  }
+  #registry b {
+    color: orange;
+  }
+  #registry code {
+    color: yellow;
+  }
+  #registry ul {
+    line-height: 1.6;
+    max-width: 500px;
+    position: relative;
+  }
+  #registry ul::before {
+    background-image: url('/images/wedding/mutualaid.png');
+    background-position: center;
+    background-size: cover;
+    content: "";
+    inset: 0;
+    position: absolute;
+  }
+  #registry ul li {
+    position: relative;
+    z-index: 0;
+  }
+  #registry li.lastone {
+    margin-top: 1em;
+  }
+  #registry .go-back {
+    color: transparent;
+  }
+  #registry .go-back::after {
+    background-image: url('/images/wedding/home/scifi.gif');
+    background-size: cover;
+    content: "";
+    display: block;
+    height: 70px;
+    width: 90px;
   }
 </style>

@@ -19,9 +19,8 @@
     <img class="map" usemap="#tallboy-map" src="../../../static/images/wedding/map/tallboy.png">
   </details>
   <p>
-    Come enjoy some cocktails with us at one of our favorite local haunts! Food
-    not included at this one, but if you're feeling peckish they've got vegan
-    hotdogs and <b>free</b> popcorn.
+    Come enjoy some cocktails with us at one of our favorite local haunts! If you're
+    feeling peckish they also have vegan hotdogs and popcorn!
   </p><p>
     Event is child-friendly; however the venue <em>is</em> a bar, so <u>under-21s
     will need to leave by 6pm</u> when it reopens to the general public.
@@ -51,9 +50,6 @@
     indoors and partly outdoors, but the terrace is on the north side of the
     building so at this time of year it should be in shade for almost the full
     event. More details about venue access are on the <a href="#hotel">Hotel + Transit</a> tab.
-    <br><br>
-    TODO|kevin more details? There is parking, open seating, buffet style... Etc.
-    Write this better lmao
   </p>
   <h3>Afterparty at Mad Oak Bar 'N' Yard</h3>
   <h4>10:30pm&ndash;midnight</h4>
@@ -93,14 +89,16 @@
     color: white;
     padding-left: 0;
     padding-right: 0;
+    cursor: url('/images/wedding/curs/aoe.png') 8 8, auto;
   }
   #schedule > * {
     /* move padding from the tab panel to its children so each section can have its own full-bleed bg image */
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  #schedule a {
+  #schedule a, #schedule area {
     color: lightskyblue;
+    cursor: url('/images/wedding/curs/aoe-ptr.png') 8 8, pointer;
   }
   #schedule section {
     border-bottom: 1px solid white;
@@ -132,7 +130,7 @@
     /* TODO|kevin this might either need the opacity bumped up a SMIDGE more still,
     OR I might need to apply some kind of (variably-colored?) additional semi-opaque
     background on #schedule section p... */
-    box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, .7);
+    box-shadow: inset 0 0 0 2000px rgba(255, 255, 255, .7);
     color: black;
   }
   #schedule .oct2 a {
@@ -143,7 +141,7 @@
   }
   #schedule .oct3 {
     background-image: url("/images/wedding/bgs/dark-marble-tile.jpg");
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, .3);
   }
   #schedule .oct4 {
     background-image: url("/images/wedding/bgs/flyingtoasters.gif");

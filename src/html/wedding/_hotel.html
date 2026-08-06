@@ -1,9 +1,10 @@
 <!-- TODO|kevin -->
 <h2>Hotel and Transit Info</h2>
+<h3>Hotel Block</h3>
 <p>
-  <b>We are planning to reserve a room block</b> at a local hotel, but we haven't
-  been able to sort everything out just yet. We're very sorry for the delay!
-  Please check back here in a couple of days.
+  We have reserved a room block at the <a href="https://www.hyatt.com/en-US/hotel/california/kissel-uptown-oakland/oakub">Kissel Uptown Local</a>,
+  located at 2455 Broadway.  Mention the Astle-McSwiggen wedding when booking to
+  get the group rate of $179/night.
 </p>
 <h3>Transportation</h3>
 <p>
@@ -13,15 +14,31 @@
   $15. It's also just a couple blocks walk from the Lake Merritt bart station.
 </p>
 <p>
-  We're also planning to have an Uber voucher code for rideshares on the day of
-  the reception. We'll send this out by email, so keep an eye out for it!
+  We're planning to have an Uber voucher code for rideshares on the day of the
+  reception. We'll send this out by email the week before, so keep an eye out for it!
   <!-- TODO|kevin ... is there a better way to handle that tho? also should I just pre-declare a voucher amount idk lol -->
 </p>
 
 <style>
   #hotel {
     /* TODO|kevin temp so it doesn't look blinding */
-    background: midnightblue;
-    color: white;
+    background-image: url('/images/wedding/bgs/brushed-heavy.jpg');
+    box-shadow: inset 0 0 0 2000px rgba(255, 255, 255, .5);
+    color: black;
+    cursor: url('/images/wedding/curs/compass.png') 32 32, auto;
+  }
+  #hotel a {
+    cursor: url('/images/wedding/curs/compass-ptr.png') 24 24, pointer;
+  }
+  #hotel .go-back {
+    color: transparent;
+  }
+  #hotel .go-back::after {
+    background-image: url('/images/wedding/home/3dhouse.gif');
+    background-size: cover;
+    content: "";
+    display: block;
+    height: 80px;
+    width: 80px;
   }
 </style>

@@ -10,23 +10,15 @@
   &lt;&gt;&lt;&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;&nbsp;&lt;&gt;&lt;&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;&nbsp;&lt;&gt;&lt;
 </h2>
 
-<div
-class="fishhook"
-style="pointer-events:none;position:fixed;right:0;top:0;"
->
+<div class="fishhook">
 <!--
-  TODO|kevin WAY TOO HIGH-EFFORT: JANKY FISHING MINIGAME LMFAO
+  TODO|kevin WAY TOO HIGH-EFFORT... FOR NOW: JANKY FISHING MINIGAME LMFAO
   show some message if you make the fishhook intersect with some specific fish
   image in the page, and then hide the fish :p
 -->
-<div
-    class="line"
-    style="border-left:1px solid white;border-right:1px solid black;height:200px;width:0;margin-left:75px;"
-  ></div>
+<div class="line"></div>
   <img src="../../../static/images/wedding/ocean/fishhook.gif">
 </div>
-
-
 
 <style>
   #livestream {
@@ -52,6 +44,39 @@ style="pointer-events:none;position:fixed;right:0;top:0;"
       repeat,
       repeat;
     background-size: 250px, 300px, 100%, 600px, 290px, 128px;
+    cursor: url('/images/wedding/curs/sea.png') 32 32, auto;
     min-height: 1000px;
+  }
+  body:not(.boring-mode) #livestream {
+    padding-top: 70px;
+  }
+  #livestream a {
+    cursor: url('/images/wedding/curs/sea-ptr.webp') 32 32, pointer;
+  }
+  #livestream .fishhook {
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
+  #livestream .fishhook .line {
+    height: 200px;
+    margin-left: 75px;
+    width: 0;
+  }
+  body:not(.boring-mode) #livestream .fishhook .line {
+    border-left: 1px solid white;
+    border-right: 1px solid black;
+  }
+  #livestream .go-back {
+    color: transparent;
+  }
+  #livestream .go-back::after {
+    background-image: url('/images/wedding/home/fishin.gif');
+    background-size: cover;
+    content: "";
+    display: block;
+    height: 100px;
+    width: 77px;
   }
 </style>

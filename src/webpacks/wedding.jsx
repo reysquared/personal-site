@@ -1,6 +1,7 @@
 import React, { StrictMode } from 'react';
 import ReactDOMClient from 'react-dom/client';
 
+import DisableTheme from 'react_components/DisableTheme';
 import TabsView from 'react_components/TabsView';
 import DefaultTabRaw from 'html/wedding/__default.html';
 import TabScheduleRaw from 'html/wedding/_schedule.html';
@@ -34,6 +35,11 @@ const TABS_LIST = [
     },
   },
   {
+    id: 'rsvp',
+    label: 'RSVP',
+    content: TabRsvpRaw,
+  },
+  {
     id: 'dress-code',
     label: 'Dress Code',
     content: TabDressCodeRaw,
@@ -58,12 +64,6 @@ const TABS_LIST = [
       }
 
     }
-  },
-  {
-    id: 'rsvp',
-    label: 'RSVP',
-    content: TabRsvpRaw,
-    effect: () => window.dispatchEvent(new CustomEvent("InitRsvp")),
   },
   // TODO|kevin gotta reorder these mmmm
   {
@@ -100,4 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
       <TabsView tabs={TABS_LIST} hasDefaultTab={true} containerClass="content" />
     </StrictMode>
   );
+
+  const toggleEl = document.getElementById("theme-toggle-root");
+  const toggleRoot = ReactDOMClient.createRoot(toggleEl);
+  toggleRoot.render(
+    <StrictMode>
+      <DisableTheme id="themetoggle" />
+    </StrictMode>
+  )
 });
