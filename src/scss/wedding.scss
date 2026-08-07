@@ -1,5 +1,3 @@
-// @use "sass:list" as *;
-
 /******** OVERALL LAYOUT ********/
 
 :root {
@@ -36,7 +34,7 @@ p {
     justify-content: space-between;
   }
   p.marquee {
-    width: 270px;
+    width: 500px;
   }
 }
 .themetoggle {
@@ -53,6 +51,12 @@ p {
   border-top: var(--frame-border-style);
   display: flex;
 }
+a.go-back {
+  // there was some weird inconsistency b/w chrome and ff with the ::after
+  // pseudoelement being display:block, where chrome would treat the parent
+  // anchor as display ~block and firefox as ~inline. this makes em consistent.
+  display: inline-block;
+}
 #sticky-footer {
   align-items: center;
   background-image: url("/images/wedding/bgs/techno-tile.jpg");
@@ -67,6 +71,7 @@ p {
   min-height: 50px;
   padding: 10px;
   #counter {
+    cursor: url("/images/wedding/curs/circuit-ptr.png") 8 0, pointer;
     display: inline-block;
     position: relative;
     &:hover::after {
@@ -106,7 +111,6 @@ p {
 
 .tabs-menu {
   border-right: var(--frame-border-style);
-  resize: horizontal;  // TODO|kevin MAYBE???? could be kinda funny!!! not really customizable though
   overflow: auto;
   min-width: 170px;
   flex-shrink: 0;
@@ -160,7 +164,6 @@ p {
   }
   &.active {
     display: block;
-    background: white; // TODO|kevin
   }
 }
 
@@ -183,13 +186,15 @@ p {
     flex-direction: column;
     gap: 10px;
   }
+  .page-emblem, .hidesmall {
+    display: none;
+  }
 }
 
 /******** GOOFY UTILITIES ********/
 
-// prevent smooth interpolation. TODO|kevin might reconsider later? idk
 * {
-  image-rendering: pixelated;
+  image-rendering: pixelated;  // prevent smooth resize interpolation
 }
 
 // We all know what THIS is supposed to do, right?
@@ -197,8 +202,6 @@ p {
 // attribute, and give that div two children with identical contents. For smooth
 // looping, make sure the .marquee el is no wider than either of its children.
 .marquee {
-  --marquee-duration: 10s;
-  --marquee-duration: attr(data-duration s);
   display: flex;
   overflow: hidden;
   white-space: nowrap;
@@ -228,10 +231,6 @@ p {
   }
 }
 
-.moji {
-  // TODO|kevin custom emoji webfont?
-}
-
 body span.censored {
   background: currentColor !important;
   &:hover {
@@ -259,6 +258,10 @@ body span.censored {
   }
 }
 
+div.rel {  // Easy isolation for absolute positioning
+  position: relative;
+}
+
 // TODO|kevin CUSTOM CURSOR(S)???
 // TODO|kevin https://github.com/tholman/cursor-effects ????????
 
@@ -283,11 +286,22 @@ body.boring-mode{
 }
 
 // * {
-//   // TODO|kevin ehhh, not sure if I'm totally happy with the cursor implementation
+//   // TODO|kevin not sure if I'm totally happy with the cursor implementation
 //   // yet so here's the escape hatch if I decide it sucks too bad lol
 //   cursor: unset !important;
 // }
 
+.page-emblem {
+  position: absolute;
+  left: -140px;
+  top: 300px;
+}
+
+// Lazy way to shift text above various absolutely-positioned images when needed
+.z-pop {
+  position: relative;
+  z-index: 1;
+}
 // TODO|kevin some kinda shared utility class so I can insert fixed-position
 // "sidebar items" underneath the nav buttons on each tab and then hide them
 // below desktop widths, heh.

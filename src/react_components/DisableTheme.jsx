@@ -8,6 +8,7 @@ export default function DisableTheme({ ...props }) {
 
   React.useEffect(() => {
     document.body.classList.toggle("boring-mode", isBoring);
+    localStorage.setItem(BORINGMODE_LOCALSTORAGE, isBoring ? "enabled" : "disabled");
   }, [isBoring]);
 
   return (
@@ -16,6 +17,7 @@ export default function DisableTheme({ ...props }) {
       onChange={(e) => {
         setIsBoring(e.currentTarget.checked)
       }}
+      checked={isBoring}
       {...props}
     />
   );
