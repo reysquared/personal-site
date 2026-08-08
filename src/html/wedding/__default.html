@@ -6,7 +6,9 @@
   src="../../../static/images/wedding/rainbow/butterfly.gif"
   style="position:absolute;top:0;right:1em;pointer-events:none;"
 >
-<img src="../../../static/images/wedding/rainbow/_emblem.gif" class="page-emblem">
+<div class="page-emblem">
+  <img src="../../../static/images/wedding/rainbow/_emblem.gif">
+</div>
 <img src="../../../static/images/wedding/redalrt.gif">
 <br>
 <div class="rel">
@@ -32,16 +34,16 @@
     >
     &rarrhk; RSVP HERE! &larrhk;
     <img class="fireworks" src="../../../static/images/wedding/rainbow/fireworks-red.gif"
-      style="position:fixed;bottom:0;left:0;height:100%;"
+      style="position:fixed;bottom:0;left:0;height:400px;max-height:50%;"
     >
     <img class="fireworks" src="../../../static/images/wedding/rainbow/fireworks-rainbow.gif"
-      style="position:fixed;bottom:0;left:30px;height:200px;"
+      style="position:fixed;bottom:0;left:30px;height:300px;max-height:37.5%;"
     >
     <img class="fireworks" src="../../../static/images/wedding/rainbow/fireworks-rainbow.gif"
-      style="position:fixed;bottom:0;right:30px;transform:scaleX(-1);height:200px;"
+      style="position:fixed;bottom:0;right:30px;transform:scaleX(-1);height:300px;max-height:37.5%;"
     >
     <img class="fireworks" src="../../../static/images/wedding/rainbow/fireworks-red.gif"
-      style="position:fixed;bottom:0;right:0;transform:scaleX(-1);height:100%;"
+      style="position:fixed;bottom:0;right:0;transform:scaleX(-1);height:400px;max-height:50%;"
     >
   </a>
 </h1>
@@ -215,12 +217,8 @@
   #default {
     background-image: url('/images/wedding/bgs/cloud-tile.gif');
     box-sizing: border-box;
-    /* cursor: url('/images/wedding/curs/rainbow.png'), auto; TODO|kevin */
     position: relative;
     text-align: center;
-  }
-  #default a {
-    /* cursor: url('/images/wedding/curs/rainbow-ptr.webp'), pointer; TODO|kevin */
   }
   #default h1 a .fireworks {
     display: none;

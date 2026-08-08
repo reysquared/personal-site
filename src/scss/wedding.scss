@@ -24,7 +24,7 @@ p {
 .main-header {
   background-image: linear-gradient(180deg, #000033 0%, #4b0082 25%, #dd2476 50%, #ff8c00 75%, #fddb92 100%);
   color: white;
-  cursor: url("/images/wedding/curs/header.png"), auto;
+  cursor: url("/images/wedding/curs/header.png") 8 0, auto;
   padding: 1em 1em 0;
   h1 {
     margin: 0 0 0.5em;
@@ -42,12 +42,14 @@ p {
 }
 .themetoggle {
   color: darkblue;
+  cursor: inherit;
   flex-shrink: 0;
   font-size: 18px;
   font-weight: bold;
   margin: 0 20px;
   input {
     color-scheme: dark;
+    cursor: inherit;
   }
 }
 #main-content {
@@ -67,14 +69,12 @@ a.go-back {
   box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, .3);
   box-sizing: border-box;
   color: limegreen;
-  // cursor: url("/images/wedding/curs/circuit.png"), auto;  // TODO|kevin
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   min-height: 50px;
   padding: 10px;
   #counter {
-    // cursor: url("/images/wedding/curs/circuit-ptr.png") 8 0, pointer;  // TODO|kevin
     display: inline-block;
     position: relative;
     &:hover::after {
@@ -97,7 +97,6 @@ a.go-back {
   }
   a {
     color: lightgreen;
-    // cursor: url("/images/wedding/curs/circuit-ptr.png") 8 0, pointer;  // TODO|kevin
     &:visited {
       color: green;
     }
@@ -156,7 +155,8 @@ a.go-back {
   color: black;
   display: flex;
   flex-grow: 1;
-  section {
+  > section {
+    position: relative;
     width: 100%;
   }
 }
@@ -264,7 +264,6 @@ div.rel {  // Easy isolation for absolute positioning
   position: relative;
 }
 
-// TODO|kevin CUSTOM CURSOR(S)???
 // TODO|kevin https://github.com/tholman/cursor-effects ????????
 
 body.boring-mode{
@@ -291,16 +290,15 @@ body.boring-mode{
   }
 }
 
-// * {
-//   // TODO|kevin not sure if I'm totally happy with the cursor implementation
-//   // yet so here's the escape hatch if I decide it sucks too bad lol
-//   cursor: unset !important;
-// }
-
 .page-emblem {
+  display: flex;
+  justify-content: center;
+  margin: 0 !important;
+  padding: 0 !important;
   position: absolute;
-  left: -140px;
+  left: -175px;
   top: 300px;
+  width: 175px;
 }
 
 // Lazy way to shift text above various absolutely-positioned images when needed
@@ -308,8 +306,3 @@ body.boring-mode{
   position: relative;
   z-index: 1;
 }
-// TODO|kevin some kinda shared utility class so I can insert fixed-position
-// "sidebar items" underneath the nav buttons on each tab and then hide them
-// below desktop widths, heh.
-// (maybe just an img in a div, flex centering, consistent position, then define
-// the actual imgs in each tab and put the display logic under the breakpoint.)

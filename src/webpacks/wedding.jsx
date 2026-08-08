@@ -23,18 +23,13 @@ const TABS_LIST = [
     label: 'Not actually used lol',
     content: DefaultTabRaw,
     effect: () => {
-      // TODO|kevin do some silly fuckin visual effects here lol
-      // document.getElementById('email').textContent = 'kevin@mcswiggen.dev';
+      // TODO|kevin LMAO WAIT I COULD LIKE PLAY AN AUDIO CLIP OR SOMETHING WHEN ACTIVATING CERTAIN TABS
     },
   },
   {
     id: 'schedule',
     label: 'Schedule of Events',
     content: TabScheduleRaw,
-    effect: () => {
-      // TODO|kevin LMAO WAIT I COULD LIKE PLAY AN AUDIO CLIP OR SOMETHING WHEN ACTIVATING CERTAIN TABS
-      // TODO|kevin I could also append different images to the end of the .tabs-menu
-    },
   },
   {
     id: 'rsvp',
@@ -67,7 +62,6 @@ const TABS_LIST = [
 
     }
   },
-  // TODO|kevin gotta reorder these mmmm
   {
     id: 'ourstory',
     label: 'Our Story',
@@ -122,13 +116,13 @@ const CURSOR_SELECTORS = [
   ["#default a", "/images/wedding/curs/rainbow-ptr.ani"],
   ["#dress-code", "/images/wedding/curs/wizard.ani"],
   ["#dress-code a", "/images/wedding/curs/wizard-ptr.ani"],
-  // ["#gallery", '/images/wedding/curs/heart.ani'],
-  // ["#gallery a", '/images/wedding/curs/heart-ptr.ani'],
+  ["#gallery", '/images/wedding/curs/heart.ani'],
+  ["#gallery a", '/images/wedding/curs/heart-ptr.ani'],
   ["#hotel", "/images/wedding/curs/compass.ani"],
   ["#hotel a", "/images/wedding/curs/compass-ptr.ani"],
   ["#livestream a", "/images/wedding/curs/sea-ptr.ani"],
-  // ["#ourstory", "/images/wedding/curs/rose.ani"],
-  // ["#ourstory a", "/images/wedding/curs/rose-ptr.ani"],
+  ["#ourstory", "/images/wedding/curs/rose.ani"],
+  ["#ourstory a", "/images/wedding/curs/rose-ptr.ani"],
   ["#registry a", "/images/wedding/curs/space-ptr.ani"],  // TODO|kevin choose one
   ["#rsvp", "/images/wedding/curs/goth.ani"],
   ["#rsvp a", "/images/wedding/curs/goth-ptr.ani"],
