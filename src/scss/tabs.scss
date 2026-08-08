@@ -1,5 +1,5 @@
-@import '_themes';
-@import '_util';
+@use '_themes' as *;
+@use '_util' as *;
 
 /********** Tabbed Menu Buttons **********/
 

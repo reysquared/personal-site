@@ -1,5 +1,6 @@
-@import '_util';
-@import '_themetoggle';
+@use '_util' as *;
+@use '_themes' as *;
+@use '_themetoggle' as *;
 
 
 $home-button-wrap-breakpoint: 30em;

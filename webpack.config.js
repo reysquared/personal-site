@@ -22,7 +22,6 @@ const moduleConfig = {
       }
     ],
     liveReload: false,
-    magicHtml: false,
     port: 8080,
     static: {
       directory: path.join(__dirname, 'dist'),

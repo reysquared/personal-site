@@ -1,3 +1,6 @@
+@use 'sass:meta' as *;
+@use 'sass:string' as string;
+
 /*
  * Not all browsers support CSS custom properties still, hence this mixin. It
  * actually provides a fallback in two different ways. The first is the initial
@@ -12,7 +15,7 @@
   @if type-of($property) != string {
     @error "var-with-fallback $property must be a string (and SHOULD be a valid css property): #{$property}";
   }
-  @if str-index($varname, "--") != 1 {
+  @if string.index($varname, "--") != 1 {
     @error "var-with-fallback requires $varname to be a valid custom property identifier: #{$varname}";
   }
   @if type-of($fallback) == null {
