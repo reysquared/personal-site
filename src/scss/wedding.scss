@@ -214,7 +214,6 @@ a.go-back {
     animation-timing-function: linear;
     display: flex;
     flex-shrink: 0;
-    width: max-content;
   }
   &:hover > * {
     // I guess I'll add a *little* bit of modern spit-shine to it hehe
@@ -282,6 +281,10 @@ body.boring-mode{
     ::after, ::before {
       background-image: none !important;
     }
+  }
+  i.at-sign::after {
+    content: "@";
+    vertical-align: middle;
   }
 }
 

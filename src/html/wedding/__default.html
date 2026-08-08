@@ -60,6 +60,7 @@
   src="../../../static/images/wedding/rainbow/springpoint.gif" class="hidesmall"
   style="position:absolute;right:2em;margin-top:1em;pointer-events:none;width:54px;"
 >
+<div style="display:flex;">
 <div class="marquee" style="--marquee-duration:40s;">
   <div>
     <img src="../../../static/images/wedding/oct3/october 1984.png">
@@ -77,6 +78,7 @@
     <img src="../../../static/images/wedding/oct3/getwedded.png">
     <img src="../../../static/images/wedding/oct3/back to the wedding.png">
   </div>
+</div>
 </div>
 <br>
 <div class="rel">
@@ -281,6 +283,10 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+  }
+  #default .lamps img {
+    flex-shrink: 1;
+    min-width: 0;
   }
   #default .wizardvignette1,
   #default .wizardvignette2,

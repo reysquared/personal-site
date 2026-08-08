@@ -1,13 +1,21 @@
 <!-- TODO|kevin -->
 <h1>Weekend Itinerary</h1>
 <section class="oct2">
+  <img
+    src="../../../static/images/wedding/schedj/hotdog.gif"
+    style="position:absolute;pointer-events:none;top:1em;right:2em;margin:1em;"
+  >
   <h2>October 2</h2>
-  <h3>Welcome Drinks</h3>
+  <h3>
+    <img src="../../../static/images/wedding/icon/cocktail.png">
+    Welcome Drinks
+  </h3>
   <h4>3pm&ndash;6pm</h4>
   <h4><b><a href="https://www.tallboy.bar/">Tallboy</a></b> &mdash; 4210 Telegraph Ave.</h4>
   <details class="map-collapse" name="gmaps">
     <summary>Google Maps (clickable):</summary>
     <map name="tallboy-map">
+      <!-- TODO|kevin daaaaamn it, these don't work on smaller screens. -->
       <area
         shape="circle"
         coords="250,260,66"
@@ -17,10 +25,11 @@
       >
     </map>
     <img class="map" usemap="#tallboy-map" src="../../../static/images/wedding/map/tallboy.png">
+    <a href="https://maps.app.goo.gl/ARHmnZfHxwjrBn9b7" class="imgmap-fallback"></a>
   </details>
   <p>
-    Come enjoy some cocktails with us at one of our favorite local haunts! If you're
-    feeling peckish they also have vegan hotdogs and popcorn!
+    Come enjoy some cocktails with us at one of our favorite local haunts. If
+    you're feeling peckish they also have vegan hotdogs and popcorn!
   </p><p>
     Event is child-friendly; however the venue <em>is</em> a bar, so <u>under-21s
     will need to leave by 6pm</u> when it reopens to the general public.
@@ -29,7 +38,10 @@
 
 <section class="oct3">
   <h2>October 3</h2>
-  <h3>Ceremony + Reception &mdash; &ldquo;A MYSTERIOUS and PORTENTOUS RITUAL&rdquo;</h3>
+  <h3>
+    <img src="../../../static/images/wedding/icon/tada.png">
+    Ceremony + Reception &mdash; &ldquo;A MYSTERIOUS and PORTENTOUS RITUAL&rdquo;
+  </h3>
   <h4>Arrive for the ceremony by 3:30pm <!-- TODO|kevin ... IS that what we wanna say though. --></h4>
   <h4><b><a href="https://www.hjkarts.org/">Henry J. Kaiser Center for the Arts</a></b> &mdash; 10 10th St.</h4>
   <details class="map-collapse" name="gmaps">
@@ -44,6 +56,7 @@
       >
     </map>
     <img class="map" usemap="#hjk-map" src="../../../static/images/wedding/map/hjk.png">
+    <a href="https://maps.app.goo.gl/x8dE3ZmDhhTaBhvb6" class="imgmap-fallback"></a>
   </details>
   <p>
     Join us for the main event at the HJK's Lakeview Terrace!  The venue is partly
@@ -51,15 +64,23 @@
     building so at this time of year it should be in shade for almost the full
     event. More details about venue access are on the <a href="#hotel">Hotel + Transit</a> tab.
   </p>
-  <h3>Afterparty at Mad Oak Bar 'N' Yard</h3>
+  <h3>
+    <img src="../../../static/images/wedding/icon/beer.png">
+    Afterparty at Mad Oak Bar 'N' Yard
+  </h3>
   <h4>10:30pm&ndash;midnight</h4>
   <p>Just a couple blocks away at <a href="https://maps.app.goo.gl/WdENTPRWSARDxQSW9">135 12th St.</a></p>
   <h4>After-afterparty..... IYKYK ;)</h4>
+  <img src="../../../static/images/wedding/schedj/bell.gif" style="position:absolute;pointer-events:none;bottom:3.5em;right:2em;margin:1em;width:64px;">
 </section>
 
 <section class="oct4">
+  <img src="../../../static/images/wedding/schedj/waffles.gif" style="position:absolute;pointer-events:none;top:1em;right:1em;margin:1em;height:64px;">
   <h2>October 4</h2>
-  <h3>Farewell Brunch</h3>
+  <h3>
+    <img src="../../../static/images/wedding/icon/weathercock.png">
+    Farewell Brunch
+  </h3>
   <h4>11am&ndash;2pm</h4>
   <h4><b><a href="https://www.hellabees.co/">Hella Bees</a></b> &mdash; 2340 Harrison St.</h4>
   <details class="map-collapse" name="gmaps">
@@ -74,6 +95,7 @@
       >
     </map>
     <img class="map" usemap="#hellabees-map" src="../../../static/images/wedding/map/hellabees.png">
+    <a href="https://maps.app.goo.gl/qFW2QgkeoBonMfnQ6" class="imgmap-fallback"></a>
   </details>
   <p>
     We'd love to see folks one last time before you scatter back to the four winds!
@@ -100,17 +122,42 @@
     color: lightskyblue;
     cursor: url('/images/wedding/curs/aoe-ptr.png'), pointer;
   }
+  #schedule h3 img {
+    height: 34px;
+    margin-right: 5px;
+  }
   #schedule section {
     border-bottom: 1px solid white;
     box-sizing: border-box;
     padding-bottom: 10px;
     padding-top: 10px;
+    position: relative;
+  }
+  #schedule section p {
+    background: rgba(255,255,255,0.2);
+    padding: 0.5em;
+  }
+  #schedule section.oct2 p {
+    background: rgba(0,0,0,0.2);
   }
   #schedule .map-collapse {
     border: 1px solid white;
     padding: 5px;
     max-width: 500px;
+    position: relative;
     width: 100%;
+  }
+  #schedule .map-collapse .imgmap-fallback {
+    display: none;
+  }
+  @media (max-width: 650px) {
+    #schedule .map-collapse .imgmap-fallback {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+    }
   }
   #schedule .map-collapse summary::marker {
     color: red;
@@ -127,14 +174,11 @@
     background-position: bottom;
     background-size: 300px;
     border-top: 1px solid white;
-    /* TODO|kevin this might either need the opacity bumped up a SMIDGE more still,
-    OR I might need to apply some kind of (variably-colored?) additional semi-opaque
-    background on #schedule section p... */
-    box-shadow: inset 0 0 0 2000px rgba(255, 255, 255, .7);
+    box-shadow: inset 0 0 0 2000px rgba(255, 255, 255, .8);
     color: black;
   }
   #schedule .oct2 a {
-    color: blue;
+    color: royalblue;
   }
   #schedule .oct2 .map-collapse {
     border-color: black;

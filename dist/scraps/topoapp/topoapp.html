@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>D3 Test</title>
+    <script type="text/javascript" src="d3/d3.v3.js"></script>
+    <script type="text/javascript" src="topojson/topojson.v1.min.js"></script>
+    <script type="text/javascript" src="zip3_topo.jsonp"></script> <!-- bluh bluh. also, text/plain or text/js? -->
+    <script type="text/javascript" src="data/ziptotals.jsonp"></script>
+    <script type="text/javascript" src="data/zip3_populations.jsonp"></script>
+    <link rel="stylesheet" type="text/css" href="mapstyle.css" />
+  </head>
+  <body>
+    <h2>ZIP3 demo</h2>
+    <div id="zipcodeview">
+      <!--<p>The map goes here</p>
+      <p>Note to self: it would be cool if it were zoomable!</p>
+      <p>Oooh, and draggable, yeah.  Controls over or next to map though? Hmmm.</p>-->
+    </div>
+    <div id="detailsview">
+      <p>Details for a given ZIP3 zone would hypothetically appear here on hover.</p>
+      <p>(Maybe I'll make a text box to type in a given ZIP3 as well?)</p>
+    </div>
+    <p>Displays military accession rates for US ZIP3 zones normalized by population.
+       The data are ugly which has dampened my will to continue working on it, but I
+       plan to keep it around indefinitely and maybe shame myself into making it look
+       and work better eventually for the experience of it.</p>
+    <p>You can scroll to zoom and drag to pan within the map area in case you want a
+       closer look at all those pretty shades of red! It currently breaks the hover
+       outlining, though. In an ideal world a) (that wouldn't happen obviously) and b)
+       there would be dedicated view controls, because honestly I hate scrolly zoom.</p>
+    <p>Data courtesy of the US Census Beureau mostly, plus accession numbers (as I recall)
+       from some wilfully-difficult data endpoint of the US Military.</p>
+    <script type="text/javascript">
+function zeroPad(num, wid){
+  // expects positive integer numbers
+  // simplified from XDR's efficient answer at stackoverflow.com/questions/1267283
+  var digitCount = 1 + Math.floor(Math.log(num) / Math.LN10);
+  if (digitCount >= wid) {
+    return num;
+  }
+  var zeroString = Math.pow(10, wid - digitCount).toString().substr(1);
+  return zeroString + num;
+}
+
+var map_svg = d3.select("#zipcodeview").append("svg")
+    .attr("width", 800)
+    .attr("height", 600);
+
+var canvas = map_svg.append("g"); //terrible name :\
+
+// this should be made asynchronous at some point...
+var zip3_topojson = JSON.parse(jsonstr); //hope THAT works
+var ziptotals = JSON.parse(ziptotals_json); // might want to choose some slightly more consistent names...
+var zip3pop = JSON.parse(zip3pop_json);
+
+var zip3_areas = topojson.feature(zip3_topojson, zip3_topojson.objects.zip3_geo);
+var projection = d3.geo.mercator().scale(350).translate([1100, 700]);
+var path = d3.geo.path().projection(projection);
+
+var zcta_color = d3.scale.linear()
+    .domain([0, 10000, 40000]) //need to fix this scale somethin drastic.
+    .range(["white", "red", "black"]); 
+
+var zcta_color_normalized = d3.scale.linear()
+    .domain([0, 0.015, 1]).range(["white", "red", "black"]); // idk bruh
+
+var zcta = canvas.selectAll("path") // not actually sure why i made this a variable? maybe to make less ugly code lol
+    .data(zip3_areas.features).enter()
+    .append("path")
+    .attr("zip3", function(d) { return d.properties.ZIP }) // works! not sure if exactly what i want yet tho
+    .attr("total", function(d) { return ziptotals.TOT[ziptotals.ZIP3.indexOf(d.properties.ZIP)] }) //GROSS :(
+    .attr("d", path)
+    .attr("fill", function(d) { 
+      var currZip = d.properties.ZIP;
+      var recruits = ziptotals.TOT[ziptotals.ZIP3.indexOf(currZip)];
+      var population = zip3pop[currZip][0];
+      if (isNaN(recruits) || isNaN(population)) { console.log("missing data: " + currZip); }
+      //if ((recruits/population) > 0.015 ) { console.log("big zip: " + currZip); }
+      return zcta_color_normalized(recruits/population);
+    })
+    .on('mouseover', function(d) { // may want to use mouseenter/mouseleave instead? i think d3 includes
+      console.log("hovering in " + d.properties.ZIP);
+      // find all paths corresponding to the zip3 of the region currently hovered
+      // note: querySelectorAll only supported in modern browsers. Alternative solutions are crappy.
+      var toStroke = document.querySelectorAll("[zip3='" + d.properties.ZIP + "']");
+      // duplicate the paths and append them to the svg so that they will be on top
+      // note: might have to actually delete their other attributes... bleh
+      for (var i = 0; i < toStroke.length; i++) {
+        var newPath = toStroke[i].cloneNode();
+        newPath.setAttribute("class", "hover_stroke"); // to identify for deletion on mouseout
+        newPath.setAttribute("stroke", "black"); // make the new path outline visible!
+        newPath.setAttribute("stroke-width", 2);
+        newPath.setAttribute("fill", "none"); // otherwise our new path will trigger mouseout!
+        newPath.removeAttribute("zip3");
+        newPath.removeAttribute("total"); // We really only need this info once, don't you think?
+        document.getElementById("zipcodeview").firstElementChild.appendChild(newPath);
+      }
+    })
+    .on('mouseout', function(d) {
+      console.log("moused out of " + d.properties.ZIP);
+      var lines = document.getElementsByClassName("hover_stroke");
+      while (lines[0]) {
+        // remove until empty
+        // look at that majestic javascript hoop-jumpin'
+        lines[0].parentNode.removeChild(lines[0]);
+      }
+      // select paths from above, delete
+      // here's hoping that all browsers will consistently handle the mouseout before the
+      // next mouseover, even when moving the mouse quickly, or this will get messy very fast.
+    })
+    .on('click', function(d) {
+      console.log("you clicked zip " + d.properties.ZIP);
+    });
+    //.attr("fill", function(d) { return zcta_color(ziptotals.TOT[ziptotals.ZIP3.indexOf(d.properties.ZIP)]) } );
+    
+// I have very little understanding of why this code works.  
+// Taken from http://stackoverflow.com/questions/28235034/ (JSFiddle link)
+// Would certainly be a good idea to figure out, because I want to set a boundary for the translation
+// (Probably needs to be a separate behavior, huh.)
+var zoom = d3.behavior.zoom()
+    .scaleExtent([1, 5])
+    .on("zoom", zoomed);
+map_svg.call(zoom).call(zoom.event);
+function zoomed() {
+  canvas.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+
+console.log("begin tests");
+
+/*var newtopo = [];
+
+for (var i = 1; i < 1000; i++) {
+  var zip3 = zeroPad(i, 3);
+  // I'm _pretty_ sure this is how I want it to work...
+  newtopo.push(topojson.merge(topo, topo.objects.zip3_geo.geometries.filter(function(d) { d.ZIP === zip3 })));
+}
+document.write(JSON.stringify(topojson.topology(newtopo))); //I'm pretty certain this does not work.*/
+    </script>
+  </body>
+</html>
