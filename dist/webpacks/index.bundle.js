@@ -1,80 +1,77 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/helpers/misc.js":
+/***/ "./src/helpers/misc.js"
 /*!*****************************!*\
   !*** ./src/helpers/misc.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "catchKonamiCode": () => (/* binding */ catchKonamiCode),
-/* harmony export */   "gcd": () => (/* binding */ gcd),
-/* harmony export */   "getMouseCoordsWithinEventTarget": () => (/* binding */ getMouseCoordsWithinEventTarget),
-/* harmony export */   "supportsLocalStorage": () => (/* binding */ supportsLocalStorage)
+/* harmony export */   catchKonamiCode: () => (/* binding */ catchKonamiCode),
+/* harmony export */   gcd: () => (/* binding */ gcd),
+/* harmony export */   getMouseCoordsWithinEventTarget: () => (/* binding */ getMouseCoordsWithinEventTarget),
+/* harmony export */   supportsLocalStorage: () => (/* binding */ supportsLocalStorage)
 /* harmony export */ });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
- // *NOTE* RETURNED COORDINATES USE A *CARTESIAN* ORIGIN, NOT IMAGEDATA ORIGIN!
+
+
+// *NOTE* RETURNED COORDINATES USE A *CARTESIAN* ORIGIN, NOT IMAGEDATA ORIGIN!
 // y = 0 is at the BOTTOM of the target element's box, NOT the top!
 // I am also 99% sure this WILL NOT WORK CORRECTLY on scaled elements.
-
 function getMouseCoordsWithinEventTarget(e) {
   var targetStyles = getComputedStyle(e.target);
   var boxSizing = targetStyles.getPropertyValue('box-sizing');
   var contentBox = boxSizing === 'content-box';
   var borderOffsetX = 0,
-      borderOffsetY = 0;
-
+    borderOffsetY = 0;
   if (contentBox) {
     // These return as "_px" string values but seem to ALWAYS be computed in px,
     // so just passing the strings to parseInt gives us exactly what we want
     borderOffsetX = parseInt(targetStyles.getPropertyValue('border-left-width'));
     borderOffsetY = parseInt(targetStyles.getPropertyValue('border-bottom-width'));
   }
-
   var targetRect = e.target.getBoundingClientRect();
   var relativeX = e.clientX - lodash__WEBPACK_IMPORTED_MODULE_0___default().round(targetRect.left) - borderOffsetX;
-  var relativeY = lodash__WEBPACK_IMPORTED_MODULE_0___default().round(targetRect.bottom) - e.clientY - borderOffsetY; // Ensure values are clamped to the acceptable range, in case of minor offset
+  var relativeY = lodash__WEBPACK_IMPORTED_MODULE_0___default().round(targetRect.bottom) - e.clientY - borderOffsetY;
+  // Ensure values are clamped to the acceptable range, in case of minor offset
   // calculation errors
-
   var clampedX = lodash__WEBPACK_IMPORTED_MODULE_0___default().clamp(relativeX, 0, e.target.clientWidth);
-
   var clampedY = lodash__WEBPACK_IMPORTED_MODULE_0___default().clamp(relativeY, 0, e.target.clientHeight);
-
   return {
     x: clampedX / e.target.clientWidth,
     y: clampedY / e.target.clientHeight
-  }; // OKAY, so in box-sizing content-box, this SEEMS to be basically
+  };
+  // OKAY, so in box-sizing content-box, this SEEMS to be basically
   // treating the bottom corner of the BORDER as the origin, so we need to offset
   // from that basically. x values should subtract the width of the LEFT border
   // (and then clamp to the known dimensions)
   // and y values should subtract the width of...... hmm. should subtract the
   // width of the bottom border, but MAYBE more than that?
+
   // We should clamp values to [0, e.target.clientWidth/Height] which is the
   // size of the content incl PADDING but NOT border, then normalize to [0, 1]
 }
 function gcd(a, b) {
   a = Math.abs(a);
   b = Math.abs(b);
-
   while (b) {
     var t = b;
     b = a % b;
     a = t;
   }
-
   return a;
-} // This is not necessary for performance by any means, I just don't like the
-// idea of repeatedly messing with the actual storage values unnecessarily.
+}
 
+// This is not necessary for performance by any means, I just don't like the
+// idea of repeatedly messing with the actual storage values unnecessarily.
 var __storageSupported = null;
 function supportsLocalStorage() {
   if (__storageSupported === null) {
     var teststr = '__localstorage_test__';
-
     try {
       localStorage.setItem(teststr, teststr);
       localStorage.removeItem(teststr);
@@ -83,60 +80,56 @@ function supportsLocalStorage() {
       __storageSupported = false;
     }
   }
-
   return __storageSupported;
-} // I'm sure this has been done plenty of times before, but... I wanted to make
+}
+
+// I'm sure this has been done plenty of times before, but... I wanted to make
 // a silly function that creates a konami code listener on the document, firing
 // some callback if the user hits [UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT B A]
 // If `once` is true, this will remove the listener after the callback is fired.
 // Otherwise the key sequence resets and the user can enter it again.
 // Doesn't play too well with non-QWERTY keyboard layouts, seems like browser
 // support is maybe still in progress on that front (Keyboard.getLayoutMap()?)
-
 var KONAMI_KEYS = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
 function catchKonamiCode(callback, once) {
   // Keep track of which keys the user has pressed
-  var keypressQueue = []; // Function to catch the key events
-
+  var keypressQueue = [];
+  // Function to catch the key events
   function konamiCatcher(e) {
     var evCode = e.code;
     keypressQueue.push(evCode);
-
     if (keypressQueue.length >= KONAMI_KEYS.length) {
       if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(keypressQueue, KONAMI_KEYS)) {
         callback(); // User succeeded! Run the callback
-
         if (once) {
           // Remove ourselves if we're only supposed to run once
           document.removeEventListener('keydown', konamiCatcher);
         }
-      } // Doesn't really matter if it was right, need to empty the queue if full
+      }
+      // Doesn't really matter if it was right, need to empty the queue if full
       // This removes all elements from keypressQueue by reference
-
-
       keypressQueue.length = 0;
     } else if (!lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(keypressQueue, KONAMI_KEYS.slice(0, keypressQueue.length))) {
       // Also clear the queue If they messed up the sequence before the end
       keypressQueue.length = 0;
     }
-  } // 
-
-
+  }
+  // 
   document.addEventListener('keydown', konamiCatcher);
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/helpers/tabs.js":
+/***/ "./src/helpers/tabs.js"
 /*!*****************************!*\
   !*** ./src/helpers/tabs.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getTabFromFragmentId": () => (/* binding */ getTabFromFragmentId)
+/* harmony export */   getTabFromFragmentId: () => (/* binding */ getTabFromFragmentId)
 /* harmony export */ });
 // NOTE fragId should already have the leading # removed
 var getTabFromFragmentId = function getTabFromFragmentId(fragId) {
@@ -151,7 +144,6 @@ var getTabFromFragmentId = function getTabFromFragmentId(fragId) {
       // tab-panel or we can't go up any further.
       currElement = currElement.parentNode;
     }
-
     if (currElement.classList.contains('tab-panel')) {
       // We have found the tab panel that contained the given pragment!
       return currElement.id;
@@ -159,13 +151,13 @@ var getTabFromFragmentId = function getTabFromFragmentId(fragId) {
   }
 };
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/ReturnButton.jsx":
+/***/ "./src/react_components/ReturnButton.jsx"
 /*!***********************************************!*\
   !*** ./src/react_components/ReturnButton.jsx ***!
   \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -179,16 +171,14 @@ __webpack_require__.r(__webpack_exports__);
 
 function ReturnButton(_ref) {
   var setActiveTab = _ref.setActiveTab;
-
   var clickHandler = function clickHandler(event) {
     event.preventDefault();
-    setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TAB); // simple lil' hook for the url hash-routing, cus I'm too lazy to install
+    setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TAB);
+    // simple lil' hook for the url hash-routing, cus I'm too lazy to install
     // react-router on a serverless host when HashRouter is deprecated anyway
     // Maybe I'll get rid of this if/when I actually set up more stuff in Vercel
-
     window.history.pushState(null, null, '#');
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
     className: "button go-back",
     href: "#top",
@@ -198,13 +188,13 @@ function ReturnButton(_ref) {
   }, "Main");
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/TabButton.jsx":
+/***/ "./src/react_components/TabButton.jsx"
 /*!********************************************!*\
   !*** ./src/react_components/TabButton.jsx ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -216,19 +206,16 @@ __webpack_require__.r(__webpack_exports__);
 
 function TabButton(_ref) {
   var tab = _ref.tab,
-      activeTab = _ref.activeTab,
-      setActiveTab = _ref.setActiveTab;
-
+    activeTab = _ref.activeTab,
+    setActiveTab = _ref.setActiveTab;
   var handleClick = function handleClick(event) {
     event.preventDefault();
-
     if (activeTab != tab.id) {
       // only modify history if this tab wasn't already active
       setActiveTab(tab.id);
       window.history.pushState(null, null, "#".concat(tab.id));
     }
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
     role: "presentation",
     className: activeTab === tab.id ? 'tab-title active' : 'tab-title'
@@ -243,13 +230,13 @@ function TabButton(_ref) {
   }, tab.label));
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/TabContent.jsx":
+/***/ "./src/react_components/TabContent.jsx"
 /*!*********************************************!*\
   !*** ./src/react_components/TabContent.jsx ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -261,18 +248,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var html_react_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! html-react-parser */ "./node_modules/html-react-parser/index.mjs");
 /* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
 /* harmony import */ var react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/ReturnButton */ "./src/react_components/ReturnButton.jsx");
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, _extends.apply(null, arguments); }
+;
 
 
 
 function TabContent(_ref) {
   var tab = _ref.tab,
-      containerClass = _ref.containerClass,
-      activeTab = _ref.activeTab,
-      hasDefaultTab = _ref.hasDefaultTab,
-      setActiveTab = _ref.setActiveTab;
+    containerClass = _ref.containerClass,
+    activeTab = _ref.activeTab,
+    hasDefaultTab = _ref.hasDefaultTab,
+    setActiveTab = _ref.setActiveTab;
   // A lazy lil way to attach some basic dynamic content while still having the
   // tab content specified programmatically. Runs whenever tab becomes active.
   // NOTE|kevin 26-07-30 man I was really bad at React when I originally made this component lmao
@@ -280,18 +266,17 @@ function TabContent(_ref) {
     if (tab.effect && tab.id === activeTab) {
       tab.effect();
     }
-  }, [tab.effect, tab.id, activeTab]); // Only show a "go back" button if default tab is enabled and this is NOT the
+  }, [tab.effect, tab.id, activeTab]);
+
+  // Only show a "go back" button if default tab is enabled and this is NOT the
   // default tab. if the default tab is active we're already "back", and if it
   // isn't enabled at all then there's already a button for this tab in the nav
-
   var className = 'tab-panel ' + (activeTab === tab.id ? 'active' : 'inactive');
-
   if (containerClass) {
     className += ' ' + containerClass;
-  } // Only include the labelledby attribute if the tab IS labeled by something.
+  }
+  // Only include the labelledby attribute if the tab IS labeled by something.
   // Since default tab panel doesn't have a corresponding tab control, skip it.
-
-
   var isDefault = hasDefaultTab && tab.id === react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB;
   var labelAttr = !isDefault ? {
     'aria-labelledby': "tab-".concat(tab.id)
@@ -305,13 +290,13 @@ function TabContent(_ref) {
   }));
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/TabsView.jsx":
+/***/ "./src/react_components/TabsView.jsx"
 /*!*******************************************!*\
   !*** ./src/react_components/TabsView.jsx ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -326,30 +311,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_components_TabButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/TabButton */ "./src/react_components/TabButton.jsx");
 /* harmony import */ var react_components_TabContent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react_components/TabContent */ "./src/react_components/TabContent.jsx");
 /* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _createSuper(t) { var r = _isNativeReflectConstruct(); return function () { var e, o = _getPrototypeOf(t); if (r) { var s = _getPrototypeOf(this).constructor; e = Reflect.construct(o, arguments, s); } else e = o.apply(this, arguments); return _possibleConstructorReturn(this, e); }; }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+;
 
 
 
@@ -357,21 +332,16 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 var TabsView = /*#__PURE__*/function (_React$Component) {
   _inherits(TabsView, _React$Component);
-
   var _super = _createSuper(TabsView);
-
   function TabsView(props) {
     var _this;
-
     _classCallCheck(this, TabsView);
-
     _this = _super.call(this, props);
+    lodash__WEBPACK_IMPORTED_MODULE_0___default().bindAll(_assertThisInitialized(_this), ['setActiveTab', 'tabIsValid']);
 
-    lodash__WEBPACK_IMPORTED_MODULE_0___default().bindAll(_assertThisInitialized(_this), ['setActiveTab', 'tabIsValid']); // Ideally if you want a "default" tab it should be first in the list, but
+    // Ideally if you want a "default" tab it should be first in the list, but
     // if it isn't the ReturnButtons will still work correctly, so this just
     // has the first tab in the list start activated. Shrugs.
-
-
     var startingTab = props.hasDefaultTab ? react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB : props.tabs[0].tabId;
     var activeTab = props.startingTab || startingTab;
     _this.state = {
@@ -379,33 +349,29 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
     };
     return _this;
   }
-
   _createClass(TabsView, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
-
       // tiny homebrewed URL routing hook so the tabs can be easily linked to!
       var handleHashChange = function handleHashChange(event) {
-        var hash = (window.location.hash || '#').substring(1); // If hash isn't a tab ID, it might be a real anchor WITHIN a tab. Find
+        var hash = (window.location.hash || '#').substring(1);
+        // If hash isn't a tab ID, it might be a real anchor WITHIN a tab. Find
         // out! If it's not a real anchor, or not within a tab, returns undefined.
-
         var targetTab = (0,_helpers_tabs__WEBPACK_IMPORTED_MODULE_2__.getTabFromFragmentId)(hash);
-
         if (!hash && _this2.props.hasDefaultTab) {
           // If the hash was empty, reset to the default, if any.
           _this2.setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB);
         } else if (targetTab) {
           // If we found a different target tab, acrivate it.
           _this2.setActiveTab(targetTab);
-        } // Otherwise it's one of three things: 1) an invalid hash (DNE in document)
+        }
+        // Otherwise it's one of three things: 1) an invalid hash (DNE in document)
         // 2) a valid hash that just isn't within a tab, or 2.5) an empty hash and
         // we have no default tab, in which case it's treated as the valid hash for
         // returning to the top of the document. Regardless, there's no need to do
         // anything else because the UA's default hashchange behavior is just fine!
-
       };
-
       window.addEventListener('hashchange', handleHashChange);
       handleHashChange();
     }
@@ -423,7 +389,6 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
         console.error("tried to set invalid tab as active: ".concat(tabId));
         return;
       }
-
       this.setState({
         activeTab: tabId
       });
@@ -432,7 +397,6 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var _this3 = this;
-
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement((react__WEBPACK_IMPORTED_MODULE_1___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("nav", {
         className: "tabs-menu"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("ul", {
@@ -461,36 +425,34 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
       })));
     }
   }]);
-
   return TabsView;
 }((react__WEBPACK_IMPORTED_MODULE_1___default().Component));
 
 
+/***/ },
 
-/***/ }),
-
-/***/ "./src/react_components/constants.js":
+/***/ "./src/react_components/constants.js"
 /*!*******************************************!*\
   !*** ./src/react_components/constants.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DEFAULT_MANDELBROT_CANVAS_SIZE": () => (/* binding */ DEFAULT_MANDELBROT_CANVAS_SIZE),
-/* harmony export */   "DEFAULT_TAB": () => (/* binding */ DEFAULT_TAB)
+/* harmony export */   DEFAULT_MANDELBROT_CANVAS_SIZE: () => (/* binding */ DEFAULT_MANDELBROT_CANVAS_SIZE),
+/* harmony export */   DEFAULT_TAB: () => (/* binding */ DEFAULT_TAB)
 /* harmony export */ });
 var DEFAULT_TAB = 'default';
 var DEFAULT_MANDELBROT_CANVAS_SIZE = 600;
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/domelementtype/lib/index.js":
+/***/ "./node_modules/domelementtype/lib/index.js"
 /*!**************************************************!*\
   !*** ./node_modules/domelementtype/lib/index.js ***!
   \**************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -550,13 +512,13 @@ exports.CDATA = ElementType.CDATA;
 exports.Doctype = ElementType.Doctype;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/domhandler/lib/node.js":
+/***/ "./node_modules/domhandler/lib/node.js"
 /*!*********************************************!*\
   !*** ./node_modules/domhandler/lib/node.js ***!
   \*********************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1005,13 +967,13 @@ function cloneChildren(childs) {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-dom-parser/lib/client/constants.js":
+/***/ "./node_modules/html-dom-parser/lib/client/constants.js"
 /*!**************************************************************!*\
   !*** ./node_modules/html-dom-parser/lib/client/constants.js ***!
   \**************************************************************/
-/***/ ((module) => {
+(module) {
 
 /**
  * SVG elements are case-sensitive.
@@ -1057,13 +1019,13 @@ module.exports = {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-dom-parser/lib/client/domparser.js":
+/***/ "./node_modules/html-dom-parser/lib/client/domparser.js"
 /*!**************************************************************!*\
   !*** ./node_modules/html-dom-parser/lib/client/domparser.js ***!
   \**************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 // constants
 var HTML = 'html';
@@ -1230,13 +1192,13 @@ function domparser(html) {
 module.exports = domparser;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-dom-parser/lib/client/html-to-dom.js":
+/***/ "./node_modules/html-dom-parser/lib/client/html-to-dom.js"
 /*!****************************************************************!*\
   !*** ./node_modules/html-dom-parser/lib/client/html-to-dom.js ***!
   \****************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var domparser = __webpack_require__(/*! ./domparser */ "./node_modules/html-dom-parser/lib/client/domparser.js");
 var formatDOM = (__webpack_require__(/*! ./utilities */ "./node_modules/html-dom-parser/lib/client/utilities.js").formatDOM);
@@ -1272,13 +1234,13 @@ function HTMLDOMParser(html) {
 module.exports = HTMLDOMParser;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-dom-parser/lib/client/utilities.js":
+/***/ "./node_modules/html-dom-parser/lib/client/utilities.js"
 /*!**************************************************************!*\
   !*** ./node_modules/html-dom-parser/lib/client/utilities.js ***!
   \**************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var constants = __webpack_require__(/*! ./constants */ "./node_modules/html-dom-parser/lib/client/constants.js");
 var domhandler = __webpack_require__(/*! domhandler/lib/node */ "./node_modules/domhandler/lib/node.js");
@@ -1427,13 +1389,13 @@ module.exports = {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/tabs/_00_default.html":
+/***/ "./src/html/tabs/_00_default.html"
 /*!****************************************!*\
   !*** ./src/html/tabs/_00_default.html ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1445,13 +1407,13 @@ var code = "<header>\n  <h2>Welcome Friend</h2>\n</header>\n<div class=\"customr
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/tabs/_01_bio.html":
+/***/ "./src/html/tabs/_01_bio.html"
 /*!************************************!*\
   !*** ./src/html/tabs/_01_bio.html ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1463,13 +1425,13 @@ var code = "<header>\n  <h2>Kevin McSwiggen, casually</h2>\n  <p class=\"subhead
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/tabs/_02_resume.html":
+/***/ "./src/html/tabs/_02_resume.html"
 /*!***************************************!*\
   !*** ./src/html/tabs/_02_resume.html ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1481,13 +1443,13 @@ var code = "<h2>Kevin McSwiggen, professionally</h2>\n<p class=\"subhead\">\n  Q
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/tabs/_03_projects.html":
+/***/ "./src/html/tabs/_03_projects.html"
 /*!*****************************************!*\
   !*** ./src/html/tabs/_03_projects.html ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1499,13 +1461,13 @@ var code = "<h2>Personal and Academic Projects</h2>\n<div class=\"customrule\"><
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/tabs/_04_about.html":
+/***/ "./src/html/tabs/_04_about.html"
 /*!**************************************!*\
   !*** ./src/html/tabs/_04_about.html ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1517,13 +1479,13 @@ var code = "<h2>About This Webpage</h2>\n<div class=\"customrule\"></div>\n<p>\n
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-react-parser/index.js":
+/***/ "./node_modules/html-react-parser/index.js"
 /*!*************************************************!*\
   !*** ./node_modules/html-react-parser/index.js ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var domToReact = __webpack_require__(/*! ./lib/dom-to-react */ "./node_modules/html-react-parser/lib/dom-to-react.js");
 var attributesToProps = __webpack_require__(/*! ./lib/attributes-to-props */ "./node_modules/html-react-parser/lib/attributes-to-props.js");
@@ -1570,13 +1532,13 @@ module.exports = HTMLReactParser;
 module.exports["default"] = HTMLReactParser;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-react-parser/lib/attributes-to-props.js":
+/***/ "./node_modules/html-react-parser/lib/attributes-to-props.js"
 /*!*******************************************************************!*\
   !*** ./node_modules/html-react-parser/lib/attributes-to-props.js ***!
   \*******************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var reactProperty = __webpack_require__(/*! react-property */ "./node_modules/react-property/lib/index.js");
 var utilities = __webpack_require__(/*! ./utilities */ "./node_modules/html-react-parser/lib/utilities.js");
@@ -1666,13 +1628,13 @@ function getPropName(attributeName) {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-react-parser/lib/dom-to-react.js":
+/***/ "./node_modules/html-react-parser/lib/dom-to-react.js"
 /*!************************************************************!*\
   !*** ./node_modules/html-react-parser/lib/dom-to-react.js ***!
   \************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var attributesToProps = __webpack_require__(/*! ./attributes-to-props */ "./node_modules/html-react-parser/lib/attributes-to-props.js");
@@ -1815,13 +1777,13 @@ function skipAttributesToProps(node) {
 module.exports = domToReact;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-react-parser/lib/utilities.js":
+/***/ "./node_modules/html-react-parser/lib/utilities.js"
 /*!*********************************************************!*\
   !*** ./node_modules/html-react-parser/lib/utilities.js ***!
   \*********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var styleToJS = (__webpack_require__(/*! style-to-js */ "./node_modules/style-to-js/cjs/index.js")["default"]);
@@ -1955,13 +1917,13 @@ module.exports = {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/inline-style-parser/index.js":
+/***/ "./node_modules/inline-style-parser/index.js"
 /*!***************************************************!*\
   !*** ./node_modules/inline-style-parser/index.js ***!
   \***************************************************/
-/***/ ((module) => {
+(module) {
 
 // http://www.w3.org/TR/CSS21/grammar.html
 // https://github.com/visionmedia/css-parse/pull/49#issuecomment-30088027
@@ -2226,13 +2188,13 @@ function trim(str) {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/lodash/lodash.js":
+/***/ "./node_modules/lodash/lodash.js"
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
   \***************************************/
-/***/ (function(module, exports, __webpack_require__) {
+(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -2249,7 +2211,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.21';
+  var VERSION = '4.18.1';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -2257,7 +2219,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
   /** Error message constants. */
   var CORE_ERROR_TEXT = 'Unsupported core-js use. Try https://npms.io/search?q=ponyfill.',
       FUNC_ERROR_TEXT = 'Expected a function',
-      INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`';
+      INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`',
+      INVALID_TEMPL_IMPORTS_ERROR_TEXT = 'Invalid `imports` option passed into `_.template`';
 
   /** Used to stand-in for `undefined` hash values. */
   var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -3989,6 +3952,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * embedded Ruby (ERB) as well as ES2015 template strings. Change the
      * following template settings to use alternative delimiters.
      *
+     * **Security:** See
+     * [threat model](https://github.com/lodash/lodash/blob/main/threat-model.md)
+     * — `_.template` is insecure and will be removed in v5.
+     *
      * @static
      * @memberOf _
      * @type {Object}
@@ -4537,7 +4504,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * @name has
      * @memberOf SetCache
      * @param {*} value The value to search for.
-     * @returns {number} Returns `true` if `value` is found, else `false`.
+     * @returns {boolean} Returns `true` if `value` is found, else `false`.
      */
     function setCacheHas(value) {
       return this.__data__.has(value);
@@ -6003,7 +5970,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
           if (isArray(iteratee)) {
             return function(value) {
               return baseGet(value, iteratee.length === 1 ? iteratee[0] : iteratee);
-            }
+            };
           }
           return iteratee;
         });
@@ -6607,8 +6574,34 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      */
     function baseUnset(object, path) {
       path = castPath(path, object);
-      object = parent(object, path);
-      return object == null || delete object[toKey(last(path))];
+
+      // Prevent prototype pollution:
+      // https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg
+      // https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh
+      var index = -1,
+          length = path.length;
+
+      if (!length) {
+        return true;
+      }
+
+      while (++index < length) {
+        var key = toKey(path[index]);
+
+        // Always block "__proto__" anywhere in the path if it's not expected
+        if (key === '__proto__' && !hasOwnProperty.call(object, '__proto__')) {
+          return false;
+        }
+
+        // Block constructor/prototype as non-terminal traversal keys to prevent
+        // escaping the object graph into built-in constructors and prototypes.
+        if ((key === 'constructor' || key === 'prototype') && index < length - 1) {
+          return false;
+        }
+      }
+
+      var obj = parent(object, path);
+      return obj == null || delete obj[toKey(last(path))];
     }
 
     /**
@@ -9159,7 +9152,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
     /**
      * Creates an array with all falsey values removed. The values `false`, `null`,
-     * `0`, `""`, `undefined`, and `NaN` are falsey.
+     * `0`, `-0`, `0n`, `""`, `undefined`, and `NaN` are falsy.
      *
      * @static
      * @memberOf _
@@ -9698,7 +9691,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
       while (++index < length) {
         var pair = pairs[index];
-        result[pair[0]] = pair[1];
+        baseAssignValue(result, pair[0], pair[1]);
       }
       return result;
     }
@@ -16358,6 +16351,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * **Note:** JavaScript follows the IEEE-754 standard for resolving
      * floating-point values which can produce unexpected results.
      *
+     * **Note:** If `lower` is greater than `upper`, the values are swapped.
+     *
      * @static
      * @memberOf _
      * @since 0.7.0
@@ -16371,8 +16366,15 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * _.random(0, 5);
      * // => an integer between 0 and 5
      *
+     * // when lower is greater than upper the values are swapped
+     * _.random(5, 0);
+     * // => an integer between 0 and 5
+     *
      * _.random(5);
      * // => also an integer between 0 and 5
+     *
+     * _.random(-5);
+     * // => an integer between -5 and 0
      *
      * _.random(5, true);
      * // => a floating-point number between 0 and 5
@@ -16975,6 +16977,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * properties may be accessed as free variables in the template. If a setting
      * object is given, it takes precedence over `_.templateSettings` values.
      *
+     * **Security:** `_.template` is insecure and should not be used. It will be
+     * removed in Lodash v5. Avoid untrusted input. See
+     * [threat model](https://github.com/lodash/lodash/blob/main/threat-model.md).
+     *
      * **Note:** In the development build `_.template` utilizes
      * [sourceURLs](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
      * for easier debugging.
@@ -17082,11 +17088,17 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
         options = undefined;
       }
       string = toString(string);
-      options = assignInWith({}, options, settings, customDefaultsAssignIn);
+      options = assignWith({}, options, settings, customDefaultsAssignIn);
 
-      var imports = assignInWith({}, options.imports, settings.imports, customDefaultsAssignIn),
+      var imports = assignWith({}, options.imports, settings.imports, customDefaultsAssignIn),
           importsKeys = keys(imports),
           importsValues = baseValues(imports, importsKeys);
+
+      arrayEach(importsKeys, function(key) {
+        if (reForbiddenIdentifierChars.test(key)) {
+          throw new Error(INVALID_TEMPL_IMPORTS_ERROR_TEXT);
+        }
+      });
 
       var isEscaping,
           isEvaluating,
@@ -19434,17 +19446,18 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
   // Check for `exports` after `define` in case a build optimizer adds it.
-  else {}
+  else // removed by dead control flow
+{}
 }.call(this));
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-dom/cjs/react-dom.development.js":
+/***/ "./node_modules/react-dom/cjs/react-dom.development.js"
 /*!*************************************************************!*\
   !*** ./node_modules/react-dom/cjs/react-dom.development.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 /**
@@ -38019,7 +38032,8 @@ function logCapturedError(boundary, errorInfo) {
       // displayed by the browser thanks to the DEV-only fake event trick in ReactErrorUtils.
 
       console['error'](combinedMessage); // Don't transform to our wrapper
-    } else {}
+    } else // removed by dead control flow
+{}
   } catch (e) {
     // This method must not throw, or React internal state will get messed up.
     // If console.error is overridden, or logCapturedError() shows a dialog that throws,
@@ -49214,19 +49228,20 @@ if (
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-dom/client.js":
+/***/ "./node_modules/react-dom/client.js"
 /*!******************************************!*\
   !*** ./node_modules/react-dom/client.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var m = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
   exports.createRoot = function(c, o) {
     i.usingClientEntryPoint = true;
@@ -49247,13 +49262,13 @@ if (false) {} else {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-dom/index.js":
+/***/ "./node_modules/react-dom/index.js"
 /*!*****************************************!*\
   !*** ./node_modules/react-dom/index.js ***!
   \*****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -49276,28 +49291,23 @@ function checkDCE() {
     // a false positive.
     throw new Error('^_^');
   }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
+  // removed by dead control flow
+
 }
 
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   module.exports = __webpack_require__(/*! ./cjs/react-dom.development.js */ "./node_modules/react-dom/cjs/react-dom.development.js");
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-property/lib/index.js":
+/***/ "./node_modules/react-property/lib/index.js"
 /*!**************************************************!*\
   !*** ./node_modules/react-property/lib/index.js ***!
   \**************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -49619,13 +49629,13 @@ exports.isCustomAttribute = isCustomAttribute;
 exports.possibleStandardNames = possibleStandardNames;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-property/lib/possibleStandardNamesOptimized.js":
+/***/ "./node_modules/react-property/lib/possibleStandardNamesOptimized.js"
 /*!***************************************************************************!*\
   !*** ./node_modules/react-property/lib/possibleStandardNamesOptimized.js ***!
   \***************************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+(__unused_webpack_module, exports) {
 
 // An attribute in which the DOM/SVG standard name is the same as the React prop name (e.g., 'accept').
 var SAME = 0;
@@ -50122,13 +50132,13 @@ exports.possibleStandardNames = {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react/cjs/react.development.js":
+/***/ "./node_modules/react/cjs/react.development.js"
 /*!*****************************************************!*\
   !*** ./node_modules/react/cjs/react.development.js ***!
   \*****************************************************/
-/***/ ((module, exports, __webpack_require__) => {
+(module, exports, __webpack_require__) {
 
 "use strict";
 /* module decorator */ module = __webpack_require__.nmd(module);
@@ -52871,29 +52881,30 @@ if (
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react/index.js":
+/***/ "./node_modules/react/index.js"
 /*!*************************************!*\
   !*** ./node_modules/react/index.js ***!
   \*************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   module.exports = __webpack_require__(/*! ./cjs/react.development.js */ "./node_modules/react/cjs/react.development.js");
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/scheduler/cjs/scheduler.development.js":
+/***/ "./node_modules/scheduler/cjs/scheduler.development.js"
 /*!*************************************************************!*\
   !*** ./node_modules/scheduler/cjs/scheduler.development.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+(__unused_webpack_module, exports) {
 
 "use strict";
 /**
@@ -53532,29 +53543,30 @@ if (
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/scheduler/index.js":
+/***/ "./node_modules/scheduler/index.js"
 /*!*****************************************!*\
   !*** ./node_modules/scheduler/index.js ***!
   \*****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   module.exports = __webpack_require__(/*! ./cjs/scheduler.development.js */ "./node_modules/scheduler/cjs/scheduler.development.js");
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/style-to-js/cjs/index.js":
+/***/ "./node_modules/style-to-js/cjs/index.js"
 /*!***********************************************!*\
   !*** ./node_modules/style-to-js/cjs/index.js ***!
   \***********************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -53579,13 +53591,13 @@ function StyleToJS(style, options) {
 exports["default"] = StyleToJS;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/style-to-js/cjs/utilities.js":
+/***/ "./node_modules/style-to-js/cjs/utilities.js"
 /*!***************************************************!*\
   !*** ./node_modules/style-to-js/cjs/utilities.js ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -53618,13 +53630,13 @@ var camelCase = function (property, options) {
 exports.camelCase = camelCase;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/style-to-object/index.js":
+/***/ "./node_modules/style-to-object/index.js"
 /*!***********************************************!*\
   !*** ./node_modules/style-to-object/index.js ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var parse = __webpack_require__(/*! inline-style-parser */ "./node_modules/inline-style-parser/index.js");
 
@@ -53670,22 +53682,22 @@ function StyleToObject(style, iterator) {
 module.exports = StyleToObject;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-react-parser/index.mjs":
+/***/ "./node_modules/html-react-parser/index.mjs"
 /*!**************************************************!*\
   !*** ./node_modules/html-react-parser/index.mjs ***!
   \**************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Element": () => (/* binding */ Element),
-/* harmony export */   "attributesToProps": () => (/* binding */ attributesToProps),
+/* harmony export */   Element: () => (/* binding */ Element),
+/* harmony export */   attributesToProps: () => (/* binding */ attributesToProps),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "domToReact": () => (/* binding */ domToReact),
-/* harmony export */   "htmlToDOM": () => (/* binding */ htmlToDOM)
+/* harmony export */   domToReact: () => (/* binding */ domToReact),
+/* harmony export */   htmlToDOM: () => (/* binding */ htmlToDOM)
 /* harmony export */ });
 /* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ "./node_modules/html-react-parser/index.js");
 
@@ -53698,28 +53710,34 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_index_js__WEBPACK_IMPORTED_MODULE_0__);
 
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
 /******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
+/******/ 	const __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		const cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 		const module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
 /******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			const e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Flag the module as loaded
@@ -53734,7 +53752,7 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
 /******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
+/******/ 			const getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
@@ -53744,11 +53762,26 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
+/******/ 		// define getter/value functions for harmony exports
 /******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			if(Array.isArray(definition)) {
+/******/ 				var i = 0;
+/******/ 				while(i < definition.length) {
+/******/ 					var key = definition[i++];
+/******/ 					var binding = definition[i++];
+/******/ 					if(!__webpack_require__.o(exports, key)) {
+/******/ 						if(binding === 0) {
+/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
+/******/ 						} else {
+/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
+/******/ 						}
+/******/ 					} else if(binding === 0) { i++; }
+/******/ 				}
+/******/ 			} else {
+/******/ 				for(var key in definition) {
+/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 					}
 /******/ 				}
 /******/ 			}
 /******/ 		};
@@ -53775,7 +53808,7 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
 /******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			if(Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
@@ -53792,8 +53825,8 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+let __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 /*!********************************!*\
@@ -53857,20 +53890,21 @@ var TABS_LIST = [{
 document.addEventListener('DOMContentLoaded', function () {
   var rootEl = document.getElementById('main-content');
   var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootEl);
-  root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabsView__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  root.render(/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabsView__WEBPACK_IMPORTED_MODULE_3__["default"], {
     tabs: TABS_LIST,
     hasDefaultTab: true,
     containerClass: "content"
-  }))); // I made this function on a whim and couldn't decide what to do with it, so
+  })));
+
+  // I made this function on a whim and couldn't decide what to do with it, so
   // here's a dumb, hard-to-notice easter egg just for the Bio tab until I come
   // up with a better idea! Replaces #pixelface with a neat gif of my initials.
-
   (0,helpers_misc__WEBPACK_IMPORTED_MODULE_2__.catchKonamiCode)(function () {
-    var myFace = document.getElementById('pixelface'); // The GIF doesn't loop, so the URL param resets the animation if triggered again
+    var myFace = document.getElementById('pixelface');
+    // The GIF doesn't loop, so the URL param resets the animation if triggered again
     // EDIT: well... it works in SOME browsers. I changed my mind about this, I'd
     // rather save the bandwidth :P
     // myFace.style.backgroundImage = `url('/images/initials.gif?cachebust=${Math.random()}')`;
-
     myFace.style.backgroundImage = "url('/images/initials.gif')";
     window.setTimeout(function () {
       myFace.removeAttribute('style');

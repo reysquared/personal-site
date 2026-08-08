@@ -1,65 +1,58 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/helpers/mandel.js":
+/***/ "./src/helpers/mandel.js"
 /*!*******************************!*\
   !*** ./src/helpers/mandel.js ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ColorModes": () => (/* binding */ ColorModes),
-/* harmony export */   "boundsToRange": () => (/* binding */ boundsToRange),
-/* harmony export */   "camandel": () => (/* binding */ camandel),
-/* harmony export */   "ensureHsl": () => (/* binding */ ensureHsl),
-/* harmony export */   "ensureRgb": () => (/* binding */ ensureRgb),
-/* harmony export */   "hsl2rgb": () => (/* binding */ hsl2rgb),
-/* harmony export */   "isHslColor": () => (/* binding */ isHslColor),
-/* harmony export */   "isRgbColor": () => (/* binding */ isRgbColor),
-/* harmony export */   "juliaset": () => (/* binding */ juliaset),
-/* harmony export */   "makeColorMap": () => (/* binding */ makeColorMap),
-/* harmony export */   "rangeToBounds": () => (/* binding */ rangeToBounds),
-/* harmony export */   "rgb2hsl": () => (/* binding */ rgb2hsl)
+/* harmony export */   ColorModes: () => (/* binding */ ColorModes),
+/* harmony export */   boundsToRange: () => (/* binding */ boundsToRange),
+/* harmony export */   camandel: () => (/* binding */ camandel),
+/* harmony export */   ensureHsl: () => (/* binding */ ensureHsl),
+/* harmony export */   ensureRgb: () => (/* binding */ ensureRgb),
+/* harmony export */   hsl2rgb: () => (/* binding */ hsl2rgb),
+/* harmony export */   isHslColor: () => (/* binding */ isHslColor),
+/* harmony export */   isRgbColor: () => (/* binding */ isRgbColor),
+/* harmony export */   juliaset: () => (/* binding */ juliaset),
+/* harmony export */   makeColorMap: () => (/* binding */ makeColorMap),
+/* harmony export */   rangeToBounds: () => (/* binding */ rangeToBounds),
+/* harmony export */   rgb2hsl: () => (/* binding */ rgb2hsl)
 /* harmony export */ });
 /* harmony import */ var complex_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! complex.js */ "./node_modules/complex.js/complex.js");
 /* harmony import */ var complex_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(complex_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
+;
 
 var ColorModes = Object.freeze({
   QUADRATIC: 1,
   LINEAR: 0,
   INV_QUADRATIC: -1
 });
-var ESCAPE_THRESHOLD = 2; // Shorthand linear interpolation function
+var ESCAPE_THRESHOLD = 2;
 
+// Shorthand linear interpolation function
 var lerp = function lerp(a, b, n) {
   return (1 - n) * a + n * b;
-}; // Generates numValues numbers between [start, end] incl., scaling intermediate
+};
+
+// Generates numValues numbers between [start, end] incl., scaling intermediate
 // values according to the colorMode value (defaults to linear interpolation)
-
-
 var getValuesBetween = function getValuesBetween(start, end, numValues, colorMode) {
   return lodash__WEBPACK_IMPORTED_MODULE_1___default().map(lodash__WEBPACK_IMPORTED_MODULE_1___default().range(numValues), function (val) {
     var normVal = val / numValues;
-
     if (colorMode) {
       if (colorMode === ColorModes.QUADRATIC) {
         normVal *= normVal;
@@ -67,83 +60,73 @@ var getValuesBetween = function getValuesBetween(start, end, numValues, colorMod
         normVal = Math.sqrt(normVal);
       }
     }
-
     return lerp(start, end, normVal);
   });
 };
-
 function isHslColor(_ref) {
   var h = _ref.h,
-      s = _ref.s,
-      l = _ref.l;
+    s = _ref.s,
+    l = _ref.l;
   return lodash__WEBPACK_IMPORTED_MODULE_1___default().every([h, s, l], (lodash__WEBPACK_IMPORTED_MODULE_1___default().isNumber)) && 0 <= h && h <= 360 && 0 <= s && s <= 100 && 0 <= l && l <= 100;
 }
 function isRgbColor(_ref2) {
   var r = _ref2.r,
-      g = _ref2.g,
-      b = _ref2.b;
+    g = _ref2.g,
+    b = _ref2.b;
   return lodash__WEBPACK_IMPORTED_MODULE_1___default().every([r, g, b], (lodash__WEBPACK_IMPORTED_MODULE_1___default().isNumber)) && 0 <= r && r <= 255 && 0 <= g && g <= 255 && 0 <= b && b <= 255;
 }
 function hsl2rgb(_ref3) {
   var h = _ref3.h,
-      s = _ref3.s,
-      l = _ref3.l;
+    s = _ref3.s,
+    l = _ref3.l;
   if (!isHslColor({
     h: h,
     s: s,
     l: l
-  })) throw 'hsl2rgb argument must be a valid HSL color object'; // Normalize saturation and luminosity to the range [0, 1]
-
+  })) throw 'hsl2rgb argument must be a valid HSL color object';
+  // Normalize saturation and luminosity to the range [0, 1]
   var saturation = s / 100;
-  var luminosity = l / 100; // Calculate chroma and use a piecewise function to calculate the 2nd largest
+  var luminosity = l / 100;
+  // Calculate chroma and use a piecewise function to calculate the 2nd largest
   // color component (here labeled x)
-
   var chroma = (1 - Math.abs(2 * luminosity - 1)) * saturation;
   var h_ = h / 60;
   var x = chroma * (1 - Math.abs(h_ % 2 - 1));
   var r_, g_, b_;
-
   switch (lodash__WEBPACK_IMPORTED_MODULE_1___default().toInteger(h_)) {
     case 6: // I chose to allow h = 360, which is the only way to get 6
-
     case 0:
       r_ = chroma;
       g_ = x;
       b_ = 0;
       break;
-
     case 1:
       r_ = x;
       g_ = chroma;
       b_ = 0;
       break;
-
     case 2:
       r_ = 0;
       g_ = chroma;
       b_ = x;
       break;
-
     case 3:
       r_ = 0;
       g_ = x;
       b_ = chroma;
       break;
-
     case 4:
       r_ = x;
       g_ = 0;
       b_ = chroma;
       break;
-
     case 5:
       r_ = chroma;
       g_ = 0;
       b_ = x;
       break;
-  } // calculate necessary lightness adjustment
-
-
+  }
+  // calculate necessary lightness adjustment
   var m = luminosity - chroma / 2;
   return {
     r: lodash__WEBPACK_IMPORTED_MODULE_1___default().toInteger((r_ + m) * 255),
@@ -153,14 +136,14 @@ function hsl2rgb(_ref3) {
 }
 function rgb2hsl(_ref4) {
   var r = _ref4.r,
-      g = _ref4.g,
-      b = _ref4.b;
+    g = _ref4.g,
+    b = _ref4.b;
   if (!isRgbColor({
     r: r,
     g: g,
     b: b
-  })) throw 'rgb2hsl argument must be a valid RGB color object'; // Normalize the color channel values to the range [0, 1]
-
+  })) throw 'rgb2hsl argument must be a valid RGB color object';
+  // Normalize the color channel values to the range [0, 1]
   var r_ = r / 255;
   var g_ = g / 255;
   var b_ = b / 255;
@@ -169,7 +152,6 @@ function rgb2hsl(_ref4) {
   var delta = cmax - cmin;
   var lum = (cmax + cmin) / 2;
   var hue, sat;
-
   if (delta === 0) {
     hue = sat = 0;
   } else {
@@ -177,20 +159,16 @@ function rgb2hsl(_ref4) {
       case r_:
         hue = ((g_ - b_) / delta + 6) % 6;
         break;
-
       case g_:
         hue = (b_ - r_) / delta + 2;
         break;
-
       case b_:
         hue = (r_ - g_) / delta + 4;
         break;
     }
-
     hue *= 60;
     sat = delta / (1 - Math.abs(2 * lum - 1));
   }
-
   return {
     h: lodash__WEBPACK_IMPORTED_MODULE_1___default().toInteger(hue),
     s: lodash__WEBPACK_IMPORTED_MODULE_1___default().toInteger(sat * 100),
@@ -214,12 +192,13 @@ function ensureRgb(color) {
   } else {
     throw "ensureRgb can only accept RGB or HSL color objects: ".concat(JSON.stringify(color));
   }
-} // Given a startColor and endColor which are both HSL color objects or both RGB
+}
+
+// Given a startColor and endColor which are both HSL color objects or both RGB
 // color objects, smoothly interpolates `steps` values between them following
 // colorMode by interpolating each color channel individually. If start and end
 // colors are in HSL, they will be interpolated along the HSL channels, but the
 // output values will be converted to RGB objects for easier interface w/ Caman
-
 function makeColorMap(startColor, endColor, steps, colorMode) {
   if (isHslColor(startColor) && isHslColor(endColor)) {
     var hueRange = getValuesBetween(startColor.h, endColor.h, steps, colorMode);
@@ -246,42 +225,38 @@ function makeColorMap(startColor, endColor, steps, colorMode) {
   } else {
     throw 'The first two arguments to makeColorMap must either both be RGB objects or both be HSL objects';
   }
-} // mandelbrotVelocity is essentially a special case of juliaSetVelocity, where
+}
+
+// mandelbrotVelocity is essentially a special case of juliaSetVelocity, where
 // at each point of the set we are locally rendering the Julia set for c AT each
 // point c, whereas ordinarily a Julia set holds c constant.
 // Both functions take a complex point c and determine how many iterations it
 // takes to escape to infinity, treating it as within the Mandelbrot set if it
 // reaches the `steps` limit of iterations
-
 function mandelbrotVelocity(c, steps) {
   var pow = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
   return juliaSetVelocity(c, c, steps, pow);
-} // The julia set is INITIALIZED with z = x+yi but then is iterated with a different,
+}
+
+// The julia set is INITIALIZED with z = x+yi but then is iterated with a different,
 // *constant* c that is definitive of that julia set. For mandelbrot, we instead
 // initialize at zero (or at x+yi again, not meaningfully different tbh) but then
 // the c for any given pixel is ALSO x+yi.
-
-
 function juliaSetVelocity(initial, c, steps) {
   var pow = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2;
-
   if (initial.abs() > ESCAPE_THRESHOLD) {
     // I've decided I want the "0th" step to be the one that goes from z = 0,
     // which for mandelbrot rendering is the same as every other step, but for
     // the julia set is different from iteration steps, hence breaking it out.
     return [false, 0];
   }
-
   var z = initial;
-
   var _iterator = _createForOfIteratorHelper(lodash__WEBPACK_IMPORTED_MODULE_1___default().range(1, steps)),
-      _step;
-
+    _step;
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var i = _step.value;
       z = z.pow(pow).add(c);
-
       if (z.abs() > ESCAPE_THRESHOLD) {
         return [false, i];
       }
@@ -291,41 +266,37 @@ function juliaSetVelocity(initial, c, steps) {
   } finally {
     _iterator.f();
   }
-
   return [true, steps];
 }
-
 function camandel(mandelRange, colorMap, bgColor) {
   var pow = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2;
-  bgColor = ensureRgb(bgColor); // Get logical canvas dimensions
-
+  bgColor = ensureRgb(bgColor);
+  // Get logical canvas dimensions
   var _this$dimensions = this.dimensions,
-      width = _this$dimensions.width,
-      height = _this$dimensions.height; // Destructure range boundaries
-
+    width = _this$dimensions.width,
+    height = _this$dimensions.height;
+  // Destructure range boundaries
   var xmin = mandelRange.xmin,
-      xmax = mandelRange.xmax,
-      ymin = mandelRange.ymin,
-      ymax = mandelRange.ymax;
+    xmax = mandelRange.xmax,
+    ymin = mandelRange.ymin,
+    ymax = mandelRange.ymax;
   var realValues = getValuesBetween(xmin, xmax, width);
   var imagValues = getValuesBetween(ymin, ymax, height);
   var maxIter = colorMap.length;
   this.process('camandel', function (rgba) {
     // NOTE Caman origin is in lower-left corner
     var _this$locationXY = this.locationXY(),
-        x = _this$locationXY.x,
-        y = _this$locationXY.y; // NOTE because of how Caman internally computes locationXY, the y domain
+      x = _this$locationXY.x,
+      y = _this$locationXY.y;
+
+    // NOTE because of how Caman internally computes locationXY, the y domain
     // effectively changes from [0, 159] to [1, 160] -- and I don't enjoy that.
     // Hence subtracting 1 from the y value.
-
-
     var complexValue = new (complex_js__WEBPACK_IMPORTED_MODULE_0___default())(realValues[x], imagValues[y - 1]);
-
     var _mandelbrotVelocity = mandelbrotVelocity(complexValue, maxIter, pow),
-        _mandelbrotVelocity2 = _slicedToArray(_mandelbrotVelocity, 2),
-        inSet = _mandelbrotVelocity2[0],
-        velocity = _mandelbrotVelocity2[1];
-
+      _mandelbrotVelocity2 = _slicedToArray(_mandelbrotVelocity, 2),
+      inSet = _mandelbrotVelocity2[0],
+      velocity = _mandelbrotVelocity2[1];
     if (inSet) {
       return Object.assign(rgba, bgColor);
     } else {
@@ -336,35 +307,33 @@ function camandel(mandelRange, colorMap, bgColor) {
 }
 function juliaset(mandelRange, c, colorMap, bgColor) {
   var pow = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 2;
-  bgColor = ensureRgb(bgColor); // Get logical canvas dimensions
-
+  bgColor = ensureRgb(bgColor);
+  // Get logical canvas dimensions
   var _this$dimensions2 = this.dimensions,
-      width = _this$dimensions2.width,
-      height = _this$dimensions2.height; // Destructure range boundaries
-
+    width = _this$dimensions2.width,
+    height = _this$dimensions2.height;
+  // Destructure range boundaries
   var xmin = mandelRange.xmin,
-      xmax = mandelRange.xmax,
-      ymin = mandelRange.ymin,
-      ymax = mandelRange.ymax;
+    xmax = mandelRange.xmax,
+    ymin = mandelRange.ymin,
+    ymax = mandelRange.ymax;
   var realValues = getValuesBetween(xmin, xmax, width);
   var imagValues = getValuesBetween(ymin, ymax, height);
   var maxIter = colorMap.length;
   this.process('juliaset', function (rgba) {
     // NOTE Caman origin is in lower-left corner
     var _this$locationXY2 = this.locationXY(),
-        x = _this$locationXY2.x,
-        y = _this$locationXY2.y; // NOTE because of how Caman internally computes locationXY, the y domain
+      x = _this$locationXY2.x,
+      y = _this$locationXY2.y;
+
+    // NOTE because of how Caman internally computes locationXY, the y domain
     // effectively changes from [0, 159] to [1, 160] and I don't enjoy that.
     // Hence subtracting 1 from the y value.
-
-
     var complexValue = new (complex_js__WEBPACK_IMPORTED_MODULE_0___default())(realValues[x], imagValues[y - 1]);
-
     var _juliaSetVelocity = juliaSetVelocity(complexValue, c, maxIter, pow),
-        _juliaSetVelocity2 = _slicedToArray(_juliaSetVelocity, 2),
-        inSet = _juliaSetVelocity2[0],
-        velocity = _juliaSetVelocity2[1];
-
+      _juliaSetVelocity2 = _slicedToArray(_juliaSetVelocity, 2),
+      inSet = _juliaSetVelocity2[0],
+      velocity = _juliaSetVelocity2[1];
     if (inSet) {
       return Object.assign(rgba, bgColor);
     } else {
@@ -384,82 +353,79 @@ function boundsToRange(min, max) {
   return [center, range];
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/helpers/misc.js":
+/***/ "./src/helpers/misc.js"
 /*!*****************************!*\
   !*** ./src/helpers/misc.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "catchKonamiCode": () => (/* binding */ catchKonamiCode),
-/* harmony export */   "gcd": () => (/* binding */ gcd),
-/* harmony export */   "getMouseCoordsWithinEventTarget": () => (/* binding */ getMouseCoordsWithinEventTarget),
-/* harmony export */   "supportsLocalStorage": () => (/* binding */ supportsLocalStorage)
+/* harmony export */   catchKonamiCode: () => (/* binding */ catchKonamiCode),
+/* harmony export */   gcd: () => (/* binding */ gcd),
+/* harmony export */   getMouseCoordsWithinEventTarget: () => (/* binding */ getMouseCoordsWithinEventTarget),
+/* harmony export */   supportsLocalStorage: () => (/* binding */ supportsLocalStorage)
 /* harmony export */ });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
- // *NOTE* RETURNED COORDINATES USE A *CARTESIAN* ORIGIN, NOT IMAGEDATA ORIGIN!
+
+
+// *NOTE* RETURNED COORDINATES USE A *CARTESIAN* ORIGIN, NOT IMAGEDATA ORIGIN!
 // y = 0 is at the BOTTOM of the target element's box, NOT the top!
 // I am also 99% sure this WILL NOT WORK CORRECTLY on scaled elements.
-
 function getMouseCoordsWithinEventTarget(e) {
   var targetStyles = getComputedStyle(e.target);
   var boxSizing = targetStyles.getPropertyValue('box-sizing');
   var contentBox = boxSizing === 'content-box';
   var borderOffsetX = 0,
-      borderOffsetY = 0;
-
+    borderOffsetY = 0;
   if (contentBox) {
     // These return as "_px" string values but seem to ALWAYS be computed in px,
     // so just passing the strings to parseInt gives us exactly what we want
     borderOffsetX = parseInt(targetStyles.getPropertyValue('border-left-width'));
     borderOffsetY = parseInt(targetStyles.getPropertyValue('border-bottom-width'));
   }
-
   var targetRect = e.target.getBoundingClientRect();
   var relativeX = e.clientX - lodash__WEBPACK_IMPORTED_MODULE_0___default().round(targetRect.left) - borderOffsetX;
-  var relativeY = lodash__WEBPACK_IMPORTED_MODULE_0___default().round(targetRect.bottom) - e.clientY - borderOffsetY; // Ensure values are clamped to the acceptable range, in case of minor offset
+  var relativeY = lodash__WEBPACK_IMPORTED_MODULE_0___default().round(targetRect.bottom) - e.clientY - borderOffsetY;
+  // Ensure values are clamped to the acceptable range, in case of minor offset
   // calculation errors
-
   var clampedX = lodash__WEBPACK_IMPORTED_MODULE_0___default().clamp(relativeX, 0, e.target.clientWidth);
-
   var clampedY = lodash__WEBPACK_IMPORTED_MODULE_0___default().clamp(relativeY, 0, e.target.clientHeight);
-
   return {
     x: clampedX / e.target.clientWidth,
     y: clampedY / e.target.clientHeight
-  }; // OKAY, so in box-sizing content-box, this SEEMS to be basically
+  };
+  // OKAY, so in box-sizing content-box, this SEEMS to be basically
   // treating the bottom corner of the BORDER as the origin, so we need to offset
   // from that basically. x values should subtract the width of the LEFT border
   // (and then clamp to the known dimensions)
   // and y values should subtract the width of...... hmm. should subtract the
   // width of the bottom border, but MAYBE more than that?
+
   // We should clamp values to [0, e.target.clientWidth/Height] which is the
   // size of the content incl PADDING but NOT border, then normalize to [0, 1]
 }
 function gcd(a, b) {
   a = Math.abs(a);
   b = Math.abs(b);
-
   while (b) {
     var t = b;
     b = a % b;
     a = t;
   }
-
   return a;
-} // This is not necessary for performance by any means, I just don't like the
-// idea of repeatedly messing with the actual storage values unnecessarily.
+}
 
+// This is not necessary for performance by any means, I just don't like the
+// idea of repeatedly messing with the actual storage values unnecessarily.
 var __storageSupported = null;
 function supportsLocalStorage() {
   if (__storageSupported === null) {
     var teststr = '__localstorage_test__';
-
     try {
       localStorage.setItem(teststr, teststr);
       localStorage.removeItem(teststr);
@@ -468,55 +434,51 @@ function supportsLocalStorage() {
       __storageSupported = false;
     }
   }
-
   return __storageSupported;
-} // I'm sure this has been done plenty of times before, but... I wanted to make
+}
+
+// I'm sure this has been done plenty of times before, but... I wanted to make
 // a silly function that creates a konami code listener on the document, firing
 // some callback if the user hits [UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT B A]
 // If `once` is true, this will remove the listener after the callback is fired.
 // Otherwise the key sequence resets and the user can enter it again.
 // Doesn't play too well with non-QWERTY keyboard layouts, seems like browser
 // support is maybe still in progress on that front (Keyboard.getLayoutMap()?)
-
 var KONAMI_KEYS = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
 function catchKonamiCode(callback, once) {
   // Keep track of which keys the user has pressed
-  var keypressQueue = []; // Function to catch the key events
-
+  var keypressQueue = [];
+  // Function to catch the key events
   function konamiCatcher(e) {
     var evCode = e.code;
     keypressQueue.push(evCode);
-
     if (keypressQueue.length >= KONAMI_KEYS.length) {
       if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(keypressQueue, KONAMI_KEYS)) {
         callback(); // User succeeded! Run the callback
-
         if (once) {
           // Remove ourselves if we're only supposed to run once
           document.removeEventListener('keydown', konamiCatcher);
         }
-      } // Doesn't really matter if it was right, need to empty the queue if full
+      }
+      // Doesn't really matter if it was right, need to empty the queue if full
       // This removes all elements from keypressQueue by reference
-
-
       keypressQueue.length = 0;
     } else if (!lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(keypressQueue, KONAMI_KEYS.slice(0, keypressQueue.length))) {
       // Also clear the queue If they messed up the sequence before the end
       keypressQueue.length = 0;
     }
-  } // 
-
-
+  }
+  // 
   document.addEventListener('keydown', konamiCatcher);
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/Collapsible.jsx":
+/***/ "./src/react_components/Collapsible.jsx"
 /*!**********************************************!*\
   !*** ./src/react_components/Collapsible.jsx ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -528,47 +490,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 var _excluded = ["regionId", "label", "containerClass", "startCollapsed"];
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) { o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } } return i; }
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) { if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } } return t; }
+;
 
 var COLLAPSED_CLASS = 'collapsed';
 var FOCUSABLE_SELECTOR = '[tabindex], a[href], button, input, object, select, textarea';
 function Collapsible(_ref) {
   var regionId = _ref.regionId,
-      label = _ref.label,
-      containerClass = _ref.containerClass,
-      _ref$startCollapsed = _ref.startCollapsed,
-      startCollapsed = _ref$startCollapsed === void 0 ? true : _ref$startCollapsed,
-      props = _objectWithoutProperties(_ref, _excluded);
-
+    label = _ref.label,
+    containerClass = _ref.containerClass,
+    _ref$startCollapsed = _ref.startCollapsed,
+    startCollapsed = _ref$startCollapsed === void 0 ? true : _ref$startCollapsed,
+    props = _objectWithoutProperties(_ref, _excluded);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(startCollapsed),
-      _useState2 = _slicedToArray(_useState, 2),
-      isCollapsed = _useState2[0],
-      setCollapsed = _useState2[1];
+    _useState2 = _slicedToArray(_useState, 2),
+    isCollapsed = _useState2[0],
+    setCollapsed = _useState2[1];
+  var contentEl = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)();
 
-  var contentEl = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(); // Ensure that contents of the collapsed div cannot be tab-focused.
+  // Ensure that contents of the collapsed div cannot be tab-focused.
   // Sadly there's no way to disable tab focusing for all child elements by
   // just setting something on the parent, hence needing this nonsense. Sigh.
-
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     var focusableEls = contentEl.current.querySelectorAll(FOCUSABLE_SELECTOR);
-
     if (isCollapsed) {
       focusableEls.forEach(function (el) {
         // If the element specifies a tabindex in its NON-collapsed state, save
@@ -576,13 +527,11 @@ function Collapsible(_ref) {
         if (el.hasAttribute('tabindex')) {
           el.setAttribute('data-tabindex', el.getAttribute('tabindex'));
         }
-
         el.setAttribute('tabindex', '-1');
       });
     } else {
       focusableEls.forEach(function (el) {
         el.removeAttribute('tabindex');
-
         if (el.hasAttribute('data-tabindex')) {
           el.setAttribute('tabindex', el.getAttribute('data-tabindex'));
           el.removeAttribute('data-tabindex');
@@ -591,17 +540,13 @@ function Collapsible(_ref) {
     }
   }, [isCollapsed]);
   var contentClassName = 'collapsible-content';
-
   if (isCollapsed) {
     contentClassName += ' ' + COLLAPSED_CLASS;
   }
-
   var containerClassName = 'collapsible-container';
-
   if (containerClass) {
     containerClassName += ' ' + containerClass;
   }
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
     className: containerClassName
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("label", {
@@ -617,32 +562,32 @@ function Collapsible(_ref) {
     ref: contentEl,
     "aria-hidden": isCollapsed
   }, props.children));
-} // This is essentially a simplified homemade version of jQuery's .slideToggle()
+}
+
+// This is essentially a simplified homemade version of jQuery's .slideToggle()
 // It is NOT the most efficient approach to animation, and it isn't MEANT to be
 // (makes no effort to avoid document reflow) so keep this in mind when using!
-
 function handleCollapseToggle(el, setCollapsed) {
   return function () {
     // scrollHeight is determined by inner content height, INCLUDING any content
     // hidden due to overflow, so the value isn't affected by isCollapsed state.
     var sectionHeight = el.scrollHeight;
-
     if (el.classList.contains(COLLAPSED_CLASS)) {
       // After CSS animation ends, clean up the unneeded inline styles
-      el.addEventListener('transitionend', handleTransitionEnd); // Apply an explicit height so we aren't transitioning to height: auto;
+      el.addEventListener('transitionend', handleTransitionEnd);
+      // Apply an explicit height so we aren't transitioning to height: auto;
       // THIS INITIATES THE TRANSITION.
-
-      el.style.height = "".concat(sectionHeight, "px"); // Remove COLLAPSED_CLASS since height is overridden by inline styles now.
+      el.style.height = "".concat(sectionHeight, "px");
+      // Remove COLLAPSED_CLASS since height is overridden by inline styles now.
       // Once our transitionend handler fires, it will return to auto height.
-
       el.classList.remove(COLLAPSED_CLASS);
     } else {
       // Apply an explicit height so we aren't transitioning from height: auto;
-      el.style.height = "".concat(sectionHeight, "px"); // To ensure a transition actually occurs (so our transitionend handler
+      el.style.height = "".concat(sectionHeight, "px");
+      // To ensure a transition actually occurs (so our transitionend handler
       // actually fires) we need to make sure the explicit height change above
       // finishes taking effect BEFORE we set it to 0px. Otherwise it throttles
       // the height value and transitions from auto=>0px, which doesn't animate.
-
       requestAnimationFrame(function () {
         // I don't totally grok it, but a bug(?) in most popular browser engines
         // means the first rAF call returns the CURRENT frame rather than the
@@ -650,46 +595,45 @@ function handleCollapseToggle(el, setCollapsed) {
         // See https://stackoverflow.com/q/44145740 and https://crbug.com/675795
         requestAnimationFrame(function () {
           // After CSS animation ends, clean up the unneeded inline styles
-          el.addEventListener('transitionend', handleTransitionEnd); // Apply a new height of 0px. THIS INITIATES THE TRANSITION.
-
-          el.style.height = '0px'; // Add the COLLAPSED_CLASS, initially overridden by inline styles.
+          el.addEventListener('transitionend', handleTransitionEnd);
+          // Apply a new height of 0px. THIS INITIATES THE TRANSITION.
+          el.style.height = '0px';
+          // Add the COLLAPSED_CLASS, initially overridden by inline styles.
           // After handleTransitionEnd cleans them up, the class will take over.
-
           el.classList.add(COLLAPSED_CLASS);
         });
       });
-    } // Of course, we also must update the React component state accordingly ;)
-
-
+    }
+    // Of course, we also must update the React component state accordingly ;)
     setCollapsed(lodash__WEBPACK_IMPORTED_MODULE_0___default().negate((lodash__WEBPACK_IMPORTED_MODULE_0___default().identity)));
   };
-} // When the collapsible container is not animating, its height is controlled by
+}
+
+// When the collapsible container is not animating, its height is controlled by
 // the presence or absence of the COLLAPSED_CLASS. As such, we remove explicit
 // inline height once the transition ends, allowing the class to take over.
-
-
 function handleTransitionEnd(e) {
-  var el = e.target; // Ensure handler only fires once per toggle
-
+  var el = e.target;
+  // Ensure handler only fires once per toggle
   el.removeEventListener('transitionend', handleTransitionEnd);
   el.style.height = null;
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/ColorPicker.jsx":
+/***/ "./src/react_components/ColorPicker.jsx"
 /*!**********************************************!*\
   !*** ./src/react_components/ColorPicker.jsx ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ColorPicker": () => (/* binding */ ColorPicker),
-/* harmony export */   "ColorPickerHsl": () => (/* binding */ ColorPickerHsl),
-/* harmony export */   "ColorPickerRgb": () => (/* binding */ ColorPickerRgb),
-/* harmony export */   "ColorPickerSwitchable": () => (/* binding */ ColorPickerSwitchable)
+/* harmony export */   ColorPicker: () => (/* binding */ ColorPicker),
+/* harmony export */   ColorPickerHsl: () => (/* binding */ ColorPickerHsl),
+/* harmony export */   ColorPickerRgb: () => (/* binding */ ColorPickerRgb),
+/* harmony export */   ColorPickerSwitchable: () => (/* binding */ ColorPickerSwitchable)
 /* harmony export */ });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
@@ -697,17 +641,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var helpers_mandel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! helpers/mandel */ "./src/helpers/mandel.js");
 var _excluded = ["usingHsl"];
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) { o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } } return i; }
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) { if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } } return t; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+;
 
 
 
@@ -729,18 +671,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *     id of each channel in colorChannels, but I guess you can kinda go nuts if
  *     you really want, it's honestly a little weirdly defensively programmed :V
  */
-
 function ColorPicker(_ref) {
   var colorChannels = _ref.colorChannels,
-      toCssColor = _ref.toCssColor,
-      onColorUpdate = _ref.onColorUpdate,
-      initialColor = _ref.initialColor,
-      legend = _ref.legend;
-
+    toCssColor = _ref.toCssColor,
+    onColorUpdate = _ref.onColorUpdate,
+    initialColor = _ref.initialColor,
+    legend = _ref.legend;
   var color = initialColor || lodash__WEBPACK_IMPORTED_MODULE_0___default().mapValues(colorChannels, function () {
     return 0;
   });
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("fieldset", {
     className: "color-picker"
   }, legend ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("legend", null, legend) : null, colorChannels.map(function (chan) {
@@ -763,18 +702,17 @@ function ColorPicker(_ref) {
     }
   }));
 }
-; // This COULD, IN THEORY result in throttled color changes if your inputs were
+;
+
+// This COULD, IN THEORY result in throttled color changes if your inputs were
 // blazingly fast, since it doesn't pass a state mutator, but if you manage to
 // do some junk like that to a color picker component, what are you even doing?
-
 function updateColorChannel(channelId, color, toCssColor, onColorUpdate) {
   return function (e) {
     var updatedColor = _objectSpread(_objectSpread({}, color), {}, _defineProperty({}, channelId, parseInt(e.target.value)));
-
     onColorUpdate && onColorUpdate(updatedColor, toCssColor(updatedColor));
   };
 }
-
 var HSL_COLOR_CHANNELS = [{
   id: 'h',
   label: 'Hue',
@@ -788,15 +726,13 @@ var HSL_COLOR_CHANNELS = [{
   label: 'Light.',
   max: 100
 }];
-
 function hslToCssColor(clr) {
   return "hsl(".concat(clr.h, ", ").concat(clr.s, "%, ").concat(clr.l, "%)");
 }
-
 function ColorPickerHsl(_ref2) {
   var onColorUpdate = _ref2.onColorUpdate,
-      initialColor = _ref2.initialColor,
-      legend = _ref2.legend;
+    initialColor = _ref2.initialColor,
+    legend = _ref2.legend;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ColorPicker, {
     colorChannels: HSL_COLOR_CHANNELS,
     toCssColor: hslToCssColor,
@@ -818,15 +754,13 @@ var RGB_COLOR_CHANNELS = [{
   label: 'Blue',
   max: 100
 }];
-
 function rgbToCssColor(clr) {
   return "rgb(".concat(clr.r, ", ").concat(clr.g, ", ").concat(clr.b, ")");
 }
-
 function ColorPickerRgb(_ref3) {
   var onColorUpdate = _ref3.onColorUpdate,
-      initialColor = _ref3.initialColor,
-      legend = _ref3.legend;
+    initialColor = _ref3.initialColor,
+    legend = _ref3.legend;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ColorPicker, {
     colorChannels: RGB_COLOR_CHANNELS,
     toCssColor: rgbToCssColor,
@@ -837,23 +771,22 @@ function ColorPickerRgb(_ref3) {
 }
 function ColorPickerSwitchable(_ref4) {
   var usingHsl = _ref4.usingHsl,
-      passThruProps = _objectWithoutProperties(_ref4, _excluded);
-
+    passThruProps = _objectWithoutProperties(_ref4, _excluded);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement((react__WEBPACK_IMPORTED_MODULE_1___default().Fragment), null, usingHsl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ColorPickerHsl, passThruProps) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ColorPickerRgb, passThruProps));
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/CoordinateWindowPicker.jsx":
+/***/ "./src/react_components/CoordinateWindowPicker.jsx"
 /*!*********************************************************!*\
   !*** ./src/react_components/CoordinateWindowPicker.jsx ***!
   \*********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "MandelXYWindowPicker": () => (/* binding */ MandelXYWindowPicker),
+/* harmony export */   MandelXYWindowPicker: () => (/* binding */ MandelXYWindowPicker),
 /* harmony export */   "default": () => (/* binding */ CoordinateWindowPicker)
 /* harmony export */ });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
@@ -861,34 +794,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var helpers_mandel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! helpers/mandel */ "./src/helpers/mandel.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, _extends.apply(null, arguments); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
+;
 
 
 
@@ -908,60 +831,54 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   aspectRatios is a similarly keyed object where the values are integers defining
   each dimension's, well, aspect. The ratios come from dividing them by each other
 */
-
 function CoordinateWindowPicker(_ref) {
   var coords = _ref.coords,
-      coordsOptions = _ref.coordsOptions,
-      aspectRatios = _ref.aspectRatios,
-      onCoordsChange = _ref.onCoordsChange,
-      legend = _ref.legend;
-
+    coordsOptions = _ref.coordsOptions,
+    aspectRatios = _ref.aspectRatios,
+    onCoordsChange = _ref.onCoordsChange,
+    legend = _ref.legend;
   // Break coords out into two separate objects, it's easier to update the ranges
   var rangeMaxes = lodash__WEBPACK_IMPORTED_MODULE_0___default().mapValues(coordsOptions, 'rangeMax');
-
   var centers = lodash__WEBPACK_IMPORTED_MODULE_0___default().mapValues(coords, 'center');
-
-  var ranges = lodash__WEBPACK_IMPORTED_MODULE_0___default().mapValues(coords, 'range'); // Apply aspect ratios to the passed-in ranges BEFORE RENDERING INPUTS
-
-
-  ranges = applyRangeAspectRatios(ranges, rangeMaxes, aspectRatios); // Similarly, ensure all centers are clamped to limits defined in coordsOptions
+  var ranges = lodash__WEBPACK_IMPORTED_MODULE_0___default().mapValues(coords, 'range');
+  // Apply aspect ratios to the passed-in ranges BEFORE RENDERING INPUTS
+  ranges = applyRangeAspectRatios(ranges, rangeMaxes, aspectRatios);
+  // Similarly, ensure all centers are clamped to limits defined in coordsOptions
   // Unlike Math.max, lodash max/min ignore undefined values entirely, so we
   // don't need extra logic to check for that. (Just take a LITTLE caution in
   // case no options were passed for this dimension :p) Ironically _.clamp()
   // itself is less helpful for this, if one bound is undefined then the other
   // is always treated as the upper bound regardless of their positionality.
-
   centers = lodash__WEBPACK_IMPORTED_MODULE_0___default().mapValues(centers, function (center, coordKey) {
     var opts = coordsOptions[coordKey] || {};
     return lodash__WEBPACK_IMPORTED_MODULE_0___default().min([lodash__WEBPACK_IMPORTED_MODULE_0___default().max([center, opts.min]), opts.max]);
-  }); // Now that we've calculated AR-normalized ranges, zhoop these objects back
+  });
+  // Now that we've calculated AR-normalized ranges, zhoop these objects back
   // together so they can be more easily passed up the callback(s)!
-
   var coordsNormalized = lodash__WEBPACK_IMPORTED_MODULE_0___default().mapValues(centers, function (center, coordKey) {
     return {
       center: center,
       range: ranges[coordKey]
     };
-  }); // turn the coord components into flat arrays of primitives that can be passed
+  });
+  // turn the coord components into flat arrays of primitives that can be passed
   // to useEffect without getting tripped up by identity comparison
-
-
   var flatDepsForCenters = lodash__WEBPACK_IMPORTED_MODULE_0___default().toPairs(centers).sort().flat();
+  var flatDepsForRanges = lodash__WEBPACK_IMPORTED_MODULE_0___default().toPairs(ranges).sort().flat();
 
-  var flatDepsForRanges = lodash__WEBPACK_IMPORTED_MODULE_0___default().toPairs(ranges).sort().flat(); // Since we may end up normalizing the input values based on aspectRatios
+  // Since we may end up normalizing the input values based on aspectRatios
   // before any user input at all, we have a useEffect that takes the above
   // flattened dependency arrays and ensures onCoordsChange is called with the
   // corrected values even if the user doesn't interact with the control.
-
-
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    onCoordsChange && onCoordsChange(coordsNormalized); // If I had it installed, the react eslint exhaustive-deps plugin would warn
+    onCoordsChange && onCoordsChange(coordsNormalized);
+    // If I had it installed, the react eslint exhaustive-deps plugin would warn
     // me about these spread values, but the NUMBER of coordinates should never
     // change between renders so the number of dependencies will remain constant
-  }, [].concat(_toConsumableArray(flatDepsForCenters), _toConsumableArray(flatDepsForRanges))); // Order coordinate keys alphabetically ascending
+  }, [].concat(_toConsumableArray(flatDepsForCenters), _toConsumableArray(flatDepsForRanges)));
 
+  // Order coordinate keys alphabetically ascending
   var orderedCoordKeys = lodash__WEBPACK_IMPORTED_MODULE_0___default().orderBy(lodash__WEBPACK_IMPORTED_MODULE_0___default().keys(coordsOptions));
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("fieldset", {
     className: "coordinate-range-picker"
   }, legend ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("legend", null, legend) : null, lodash__WEBPACK_IMPORTED_MODULE_0___default().map(orderedCoordKeys, function (key) {
@@ -976,11 +893,11 @@ function CoordinateWindowPicker(_ref) {
       onRangeUpdate: updateCoordRange(key, coordsNormalized, ranges, rangeMaxes, aspectRatios, onCoordsChange)
     });
   }));
-} // A shorthand for creating a CoordinateWindowPicker with the options I need for the FractalViewer
+}
 
+// A shorthand for creating a CoordinateWindowPicker with the options I need for the FractalViewer
 function MandelXYWindowPicker(_ref2) {
   var props = _extends({}, _ref2);
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(CoordinateWindowPicker, _extends({
     coordsOptions: {
       x: {
@@ -997,22 +914,21 @@ function MandelXYWindowPicker(_ref2) {
       }
     }
   }, props));
-} // A value-and-range picker for an individual coordinate dimension! Kind of a
-// dumb name but, hey, I'm not exporting it and it makes sense in context
+}
 
+// A value-and-range picker for an individual coordinate dimension! Kind of a
+// dumb name but, hey, I'm not exporting it and it makes sense in context
 function IndividualPicker(_ref3) {
   var keyName = _ref3.keyName,
-      center = _ref3.center,
-      range = _ref3.range,
-      opts = _ref3.opts,
-      onCenterUpdate = _ref3.onCenterUpdate,
-      onRangeUpdate = _ref3.onRangeUpdate;
-
+    center = _ref3.center,
+    range = _ref3.range,
+    opts = _ref3.opts,
+    onCenterUpdate = _ref3.onCenterUpdate,
+    onRangeUpdate = _ref3.onRangeUpdate;
   var _rangeToBounds = (0,helpers_mandel__WEBPACK_IMPORTED_MODULE_2__.rangeToBounds)(center, range),
-      _rangeToBounds2 = _slicedToArray(_rangeToBounds, 2),
-      rangeStart = _rangeToBounds2[0],
-      rangeEnd = _rangeToBounds2[1];
-
+    _rangeToBounds2 = _slicedToArray(_rangeToBounds, 2),
+    rangeStart = _rangeToBounds2[0],
+    rangeEnd = _rangeToBounds2[1];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("fieldset", {
     className: "coordinate-range"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("legend", null, opts.label || keyName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("span", null, "Center"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("input", {
@@ -1034,12 +950,12 @@ function IndividualPicker(_ref3) {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("span", {
     className: "range-bounds"
   }, "Min: ", rangeStart, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("br", null), "Max: ", rangeEnd));
-} // Helper functions that take a coordKey and a callback function, and return an
+}
+
+// Helper functions that take a coordKey and a callback function, and return an
 // event handler which calls the function with a coords state mutator function
 // function, and return an event handler which updates the corresponding state
 // for the corresponding coordKey, along with other necessary side-effects...
-
-
 function updateCoordCenter(coordKey, coordsNormalized, onCoordsChange) {
   return function (e) {
     coordsNormalized = _objectSpread(_objectSpread({}, coordsNormalized), {}, _defineProperty({}, coordKey, _objectSpread(_objectSpread({}, coordsNormalized[coordKey]), {}, {
@@ -1047,11 +963,11 @@ function updateCoordCenter(coordKey, coordsNormalized, onCoordsChange) {
     })));
     onCoordsChange && onCoordsChange(coordsNormalized);
   };
-} // ...for example, updateCoordRange also makes sure the event handler maintains
+}
+
+// ...for example, updateCoordRange also makes sure the event handler maintains
 // correct aspect ratios and rangeMax limits, BEFORE it calls onCoordsChange
 // TBF it's a little bit silly to pass ranges AND coords, but... it's easier!
-
-
 function updateCoordRange(coordKey, coordsNormalized, ranges, rangeMaxes, aspectRatios, onCoordsChange) {
   return function (e) {
     ranges[coordKey] = lodash__WEBPACK_IMPORTED_MODULE_0___default().toNumber(e.target.value);
@@ -1063,32 +979,28 @@ function updateCoordRange(coordKey, coordsNormalized, ranges, rangeMaxes, aspect
     });
     onCoordsChange && onCoordsChange(coordsNormalized);
   };
-} // I struggled for a while with the most principled way of choosing what axis
+}
+
+// I struggled for a while with the most principled way of choosing what axis
 // to initiate from, but ultimately decided that if maintainRangeAspectRatios
 // handles rangeMax clamping, I can just pick one and let it do so. Since for
 // my purposes aspect ratios will USUALLY be starting out square, I just grab
 // whichever axis is slated to be the widest after applying the ARs, under the
 // assumption that it would be the most likely to need to shrink its current
 // range in order to stay within its rangeMax otherwise.
-
-
 function applyRangeAspectRatios(ranges, rangeMaxes, aspectRatios) {
   // Convert all DEFINED aspectRatios to [key, value] pairs
-  var aspectRatioPairs = lodash__WEBPACK_IMPORTED_MODULE_0___default().toPairs(lodash__WEBPACK_IMPORTED_MODULE_0___default().pickBy(aspectRatios, (lodash__WEBPACK_IMPORTED_MODULE_0___default().isNumber))); // Sort pairs by index 1 to find the largest value, then grab its key.
+  var aspectRatioPairs = lodash__WEBPACK_IMPORTED_MODULE_0___default().toPairs(lodash__WEBPACK_IMPORTED_MODULE_0___default().pickBy(aspectRatios, (lodash__WEBPACK_IMPORTED_MODULE_0___default().isNumber)));
+  // Sort pairs by index 1 to find the largest value, then grab its key.
   // ... of course, we MIGHT not have actually defined any aspectRatios--in that
   // case just choose any key and let maintainRangeARs() handle max clamping.
-
-
   var initiator = lodash__WEBPACK_IMPORTED_MODULE_0___default().last(lodash__WEBPACK_IMPORTED_MODULE_0___default().sortBy(aspectRatioPairs, 1))[0] || lodash__WEBPACK_IMPORTED_MODULE_0___default().keys(ranges)[0];
-
   return maintainRangeAspectRatios(initiator, ranges, rangeMaxes, aspectRatios);
 }
-
 function maintainRangeAspectRatios(initiator, ranges, rangeMaxes, aspectRatios) {
   // Calculate new ranges for every coordinate dimension using the aspectRatios
   // keys and the new range for the initiator dimension
   var outputRanges = {};
-
   if (aspectRatios[initiator]) {
     lodash__WEBPACK_IMPORTED_MODULE_0___default().keys(aspectRatios).forEach(function (key) {
       // Maintaining a constant aspect ratio:   a_0 / b_0 == a_1 / b_1
@@ -1105,58 +1017,54 @@ function maintainRangeAspectRatios(initiator, ranges, rangeMaxes, aspectRatios) 
     // isn't specified in the aspectRatios there's nothing to do. However, we
     // still want to apply rangeMax ceilings, so clone into output and continue
     outputRanges = lodash__WEBPACK_IMPORTED_MODULE_0___default().clone(ranges);
-  } // Ensure ranges stay clamped by their corresponding rangeMax values. First
+  }
+
+  // Ensure ranges stay clamped by their corresponding rangeMax values. First
   // we determine which dimension has the largest ratio of range/rangeMax
-
-
   var _largestRangeMaxRatio = largestRangeMaxRatio(outputRanges, rangeMaxes),
-      _largestRangeMaxRatio2 = _slicedToArray(_largestRangeMaxRatio, 2),
-      largestRange = _largestRangeMaxRatio2[0],
-      maxRatio = _largestRangeMaxRatio2[1]; // If that ratio is more than 1, re-run the function with this dimension as
+    _largestRangeMaxRatio2 = _slicedToArray(_largestRangeMaxRatio, 2),
+    largestRange = _largestRangeMaxRatio2[0],
+    maxRatio = _largestRangeMaxRatio2[1];
+
+  // If that ratio is more than 1, re-run the function with this dimension as
   // the initiator, set to its own rangeMax. Since this dimension exceeds its
   // rangeMax limit by more than any other, this ensures every other range WITH
   // A DEFINED ASPECT RATIO gets recalculated within its own rangeMax after only
   // one additional call. However, if there are many other dimensions that have
   // a rangeMax but NO aspect ratio, this will only ceil the largest non-ratio'd
   // dimension per recursion.
-
-
   if (maxRatio > 1) {
     outputRanges[largestRange] = rangeMaxes[largestRange];
     return maintainRangeAspectRatios(largestRange, outputRanges, rangeMaxes, aspectRatios);
-  } // Otherwise, our calculated outputRanges already satisfy all constraints!
-
-
+  }
+  // Otherwise, our calculated outputRanges already satisfy all constraints!
   return outputRanges;
-} // Iterate over ranges and determine which has the highest range/rangeMax ratio
+}
+
+// Iterate over ranges and determine which has the highest range/rangeMax ratio
 // returns: [rangeKey, rangeMaxRatio]
-
-
 function largestRangeMaxRatio(ranges, rangeMaxes) {
   var largestMaxRatio = null;
   var largestRange = null;
-
   lodash__WEBPACK_IMPORTED_MODULE_0___default().keys(ranges).forEach(function (key) {
     // Skip any dimensions that don't have an upper limit to conform to
     if (!rangeMaxes[key]) return;
     var maxRatio = ranges[key] / rangeMaxes[key];
-
     if (maxRatio > largestMaxRatio) {
       largestMaxRatio = maxRatio;
       largestRange = key;
     }
   });
-
   return [largestRange, largestMaxRatio];
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/DimensionsPicker.jsx":
+/***/ "./src/react_components/DimensionsPicker.jsx"
 /*!***************************************************!*\
   !*** ./src/react_components/DimensionsPicker.jsx ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1173,14 +1081,14 @@ __webpack_require__.r(__webpack_exports__);
 
 function DimensionsPicker(_ref) {
   var height = _ref.height,
-      minHeight = _ref.minHeight,
-      maxHeight = _ref.maxHeight,
-      width = _ref.width,
-      minWidth = _ref.minWidth,
-      maxWidth = _ref.maxWidth,
-      onWidthChange = _ref.onWidthChange,
-      onHeightChange = _ref.onHeightChange,
-      legend = _ref.legend;
+    minHeight = _ref.minHeight,
+    maxHeight = _ref.maxHeight,
+    width = _ref.width,
+    minWidth = _ref.minWidth,
+    maxWidth = _ref.maxWidth,
+    onWidthChange = _ref.onWidthChange,
+    onHeightChange = _ref.onHeightChange,
+    legend = _ref.legend;
   // Dimensions below 0 do not make sense
   minHeight = lodash__WEBPACK_IMPORTED_MODULE_0___default().max([minHeight, 0]);
   minWidth = lodash__WEBPACK_IMPORTED_MODULE_0___default().max([minWidth, 0]);
@@ -1214,56 +1122,52 @@ function DimensionsPicker(_ref) {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("span", null, "Aspect ratio:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("br", null), widthReduced, ":", heightReduced));
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/DurableCanvas.jsx":
+/***/ "./src/react_components/DurableCanvas.jsx"
 /*!************************************************!*\
   !*** ./src/react_components/DurableCanvas.jsx ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "durableCanvasRegistry": () => (/* binding */ durableCanvasRegistry)
+/* harmony export */   durableCanvasRegistry: () => (/* binding */ durableCanvasRegistry)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 var _excluded = ["canvasId", "height", "width"];
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, _extends.apply(null, arguments); }
+function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) { o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } } return i; }
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) { if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } } return t; }
+;
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
- // The goal for this component is to have a canvas object that renders some
+// The goal for this component is to have a canvas object that renders some
 // properties and then gets left the hell alone by React so it doesn't totally
 // blow away the canvas state with its interminable UPDATES!!! >:C Rendering
 // fractals is at least a LITTLE intensive, you know.
+
 // Approach adapted from https://www.madebymike.com.au/writing/getting-the-heck-out-of-react/
+var durableCanvasRegistry = {};
 
-var durableCanvasRegistry = {}; // Forwards ref so that other components can do stuff inside the wrapper div as
+// Forwards ref so that other components can do stuff inside the wrapper div as
 // desired. FractalZoomCanvas uses this to render a right-click-drag rectangle.
-
 function DurableCanvas(_ref, ref) {
   var canvasId = _ref.canvasId,
-      height = _ref.height,
-      width = _ref.width,
-      props = _objectWithoutProperties(_ref, _excluded);
-
+    height = _ref.height,
+    width = _ref.width,
+    props = _objectWithoutProperties(_ref, _excluded);
   if (!canvasId) throw 'DurableCanvas instances must specify a canvasId';
-
   if (!durableCanvasRegistry[canvasId]) {
     var newCanvas = document.createElement('canvas');
     newCanvas.id = canvasId;
     newCanvas.setAttribute('data-caman-hidpi-disabled', true);
     durableCanvasRegistry[canvasId] = newCanvas;
-  } // We need SOME ref so we can append the canvas to the DOM element after
+  }
+  // We need SOME ref so we can append the canvas to the DOM element after
   // mounting, but we're fine with using our parent's ref if they provide one
-
-
   var canvasContainer = ref || react__WEBPACK_IMPORTED_MODULE_0___default().useRef();
   var canvas = durableCanvasRegistry[canvasId];
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
@@ -1271,37 +1175,35 @@ function DurableCanvas(_ref, ref) {
       canvas.height = height;
       canvas.setAttribute('data-camanheight', height);
     }
-
     if (width) {
       canvas.width = width;
       canvas.setAttribute('data-camanwidth', width);
-    } // Fool Caman into thinking this canvas hasn't been Caman'd before, pretty
+    }
+    // Fool Caman into thinking this canvas hasn't been Caman'd before, pretty
     // much? Otherwise it seems to ignore the dimension change and gets weird.
-
-
     canvas.removeAttribute('data-caman-id');
   }, [height, width]);
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     // A non-scoped useEffect handles appending the actual canvas element. As
     // appendChild relocates the node to its new parent, this is idempotent.
     canvasContainer.current.appendChild(canvas);
-  }); // Passing through ...props is mostly intended for attaching arbitrary click
-  // handlers on the canvas wrapper element
+  });
 
+  // Passing through ...props is mostly intended for attaching arbitrary click
+  // handlers on the canvas wrapper element
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
     ref: canvasContainer
   }, props));
 }
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DurableCanvas = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().forwardRef(DurableCanvas));
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/FractalColorModeSelect.jsx":
+/***/ "./src/react_components/FractalColorModeSelect.jsx"
 /*!*********************************************************!*\
   !*** ./src/react_components/FractalColorModeSelect.jsx ***!
   \*********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1314,28 +1216,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var helpers_mandel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! helpers/mandel */ "./src/helpers/mandel.js");
 var _colorModeNames;
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+;
 
 
 var colorModeNames = (_colorModeNames = {}, _defineProperty(_colorModeNames, helpers_mandel__WEBPACK_IMPORTED_MODULE_2__.ColorModes.QUADRATIC, 'Quadratic'), _defineProperty(_colorModeNames, helpers_mandel__WEBPACK_IMPORTED_MODULE_2__.ColorModes.LINEAR, 'Linear'), _defineProperty(_colorModeNames, helpers_mandel__WEBPACK_IMPORTED_MODULE_2__.ColorModes.INV_QUADRATIC, 'Inverse Quad.'), _colorModeNames);
 function FractalColorModeSelect(_ref) {
   var colorMode = _ref.colorMode,
-      _onChange = _ref.onChange;
+    _onChange = _ref.onChange;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("label", {
     className: "color-mode-select"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("span", null, "Color interpolation mode:"), ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("select", {
@@ -1345,9 +1242,8 @@ function FractalColorModeSelect(_ref) {
     }
   }, lodash__WEBPACK_IMPORTED_MODULE_0___default().sortBy(lodash__WEBPACK_IMPORTED_MODULE_0___default().toPairs(helpers_mandel__WEBPACK_IMPORTED_MODULE_2__.ColorModes), 1).map(function (_ref2) {
     var _ref3 = _slicedToArray(_ref2, 2),
-        key = _ref3[0],
-        val = _ref3[1];
-
+      key = _ref3[0],
+      val = _ref3[1];
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("option", {
       key: key,
       value: val
@@ -1355,13 +1251,13 @@ function FractalColorModeSelect(_ref) {
   })));
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/FractalViewer.jsx":
+/***/ "./src/react_components/FractalViewer.jsx"
 /*!************************************************!*\
   !*** ./src/react_components/FractalViewer.jsx ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1386,21 +1282,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_components_FractalZoomCanvas__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react_components/FractalZoomCanvas */ "./src/react_components/FractalZoomCanvas.jsx");
 /* harmony import */ var react_components_JumpToViewButton__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react_components/JumpToViewButton */ "./src/react_components/JumpToViewButton.jsx");
 /* harmony import */ var react_components_SaveCanvasButton__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react_components/SaveCanvasButton */ "./src/react_components/SaveCanvasButton.jsx");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, _extends.apply(null, arguments); }
+;
 
 
 
@@ -1453,116 +1342,102 @@ var COOL_REGIONS = [{
 }];
 function FractalViewer(_ref) {
   var props = _extends({}, _ref);
-
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      renderInProgress = _useState2[0],
-      setRenderInProgress = _useState2[1];
-
+    _useState2 = _slicedToArray(_useState, 2),
+    renderInProgress = _useState2[0],
+    setRenderInProgress = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      shouldRender = _useState4[0],
-      setShouldRender = _useState4[1];
-
+    _useState4 = _slicedToArray(_useState3, 2),
+    shouldRender = _useState4[0],
+    setShouldRender = _useState4[1];
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
-      _useState6 = _slicedToArray(_useState5, 2),
-      usingHsl = _useState6[0],
-      setUsingHsl = _useState6[1];
-
+    _useState6 = _slicedToArray(_useState5, 2),
+    usingHsl = _useState6[0],
+    setUsingHsl = _useState6[1];
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    h: 0,
-    s: 100,
-    l: 50
-  }),
-      _useState8 = _slicedToArray(_useState7, 2),
-      startColor = _useState8[0],
-      setStartColor = _useState8[1];
-
+      h: 0,
+      s: 100,
+      l: 50
+    }),
+    _useState8 = _slicedToArray(_useState7, 2),
+    startColor = _useState8[0],
+    setStartColor = _useState8[1];
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    h: 360,
-    s: 100,
-    l: 50
-  }),
-      _useState10 = _slicedToArray(_useState9, 2),
-      endColor = _useState10[0],
-      setEndColor = _useState10[1];
-
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    h: 0,
-    s: 0,
-    l: 0
-  }),
-      _useState12 = _slicedToArray(_useState11, 2),
-      bgColor = _useState12[0],
-      setBgColor = _useState12[1];
-
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(helpers_mandel__WEBPACK_IMPORTED_MODULE_4__.ColorModes.LINEAR),
-      _useState14 = _slicedToArray(_useState13, 2),
-      colorMode = _useState14[0],
-      setColorMode = _useState14[1];
-
+      h: 360,
+      s: 100,
+      l: 50
+    }),
+    _useState0 = _slicedToArray(_useState9, 2),
+    endColor = _useState0[0],
+    setEndColor = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+      h: 0,
+      s: 0,
+      l: 0
+    }),
+    _useState10 = _slicedToArray(_useState1, 2),
+    bgColor = _useState10[0],
+    setBgColor = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(helpers_mandel__WEBPACK_IMPORTED_MODULE_4__.ColorModes.LINEAR),
+    _useState12 = _slicedToArray(_useState11, 2),
+    colorMode = _useState12[0],
+    setColorMode = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+      height: react_components_constants__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_MANDELBROT_CANVAS_SIZE,
+      width: react_components_constants__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_MANDELBROT_CANVAS_SIZE
+    }),
+    _useState14 = _slicedToArray(_useState13, 2),
+    canvasDims = _useState14[0],
+    setCanvasDims = _useState14[1];
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    height: react_components_constants__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_MANDELBROT_CANVAS_SIZE,
-    width: react_components_constants__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_MANDELBROT_CANVAS_SIZE
-  }),
-      _useState16 = _slicedToArray(_useState15, 2),
-      canvasDims = _useState16[0],
-      setCanvasDims = _useState16[1];
-
+      center: 0,
+      range: 4
+    }),
+    _useState16 = _slicedToArray(_useState15, 2),
+    viewWindowX = _useState16[0],
+    setViewWindowX = _useState16[1];
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    center: 0,
-    range: 4
-  }),
-      _useState18 = _slicedToArray(_useState17, 2),
-      viewWindowX = _useState18[0],
-      setViewWindowX = _useState18[1];
+      center: 0,
+      range: 4
+    }),
+    _useState18 = _slicedToArray(_useState17, 2),
+    viewWindowY = _useState18[0],
+    setViewWindowY = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(50),
+    _useState20 = _slicedToArray(_useState19, 2),
+    numIters = _useState20[0],
+    setNumIters = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(2),
+    _useState22 = _slicedToArray(_useState21, 2),
+    exponent = _useState22[0],
+    setExponent = _useState22[1];
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+      x: 0,
+      y: 0
+    }),
+    _useState24 = _slicedToArray(_useState23, 2),
+    juliaCoords = _useState24[0],
+    setJuliaCoords = _useState24[1];
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    center: 0,
-    range: 4
-  }),
-      _useState20 = _slicedToArray(_useState19, 2),
-      viewWindowY = _useState20[0],
-      setViewWindowY = _useState20[1];
-
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(50),
-      _useState22 = _slicedToArray(_useState21, 2),
-      numIters = _useState22[0],
-      setNumIters = _useState22[1];
-
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(2),
-      _useState24 = _slicedToArray(_useState23, 2),
-      exponent = _useState24[0],
-      setExponent = _useState24[1];
-
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    x: 0,
-    y: 0
-  }),
-      _useState26 = _slicedToArray(_useState25, 2),
-      juliaCoords = _useState26[0],
-      setJuliaCoords = _useState26[1]; // Shorthand for a looong function call. Applies current state to the canvas.
-
-
+  // Shorthand for a looong function call. Applies current state to the canvas.
   var updateMandel = function updateMandel() {
     renderMandelbrot(numIters, startColor, endColor, bgColor, viewWindowX, viewWindowY, colorMode, exponent, setRenderInProgress);
   };
-
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
     // Render a fractal on load so things don't start out looking boring :B
     updateMandel();
-  }, []); // This is a somewhat silly way for different inputs to OPT-IN to automatically
+  }, []);
+
+  // This is a somewhat silly way for different inputs to OPT-IN to automatically
   // re-rendering the fractal when changed, as certain input changes can have
   // cascading effects that won't take effect until the next render cycle. Still
   // thinking about how to make this work better cus it still doesn't do what I
   // want for right-click-zoom updates, but it's otherwise convenient lol
-
   if (shouldRender) {
     setShouldRender(false);
     updateMandel();
   }
-
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+  ;(0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
     renderJulia(juliaCoords, numIters, startColor, endColor, bgColor, colorMode, exponent);
   }, [juliaCoords.x, juliaCoords.y]);
   var wrapperClass = 'fractal-viewer' + (renderInProgress ? ' loading' : '');
@@ -1577,21 +1452,19 @@ function FractalViewer(_ref) {
       setJuliaCoords(scaleToEuclideanCoords(normalizedCoords, viewWindowX, viewWindowY));
     },
     onDragEnd: function onDragEnd(dragStart, dragStop) {
-      setViewWindowFromDrag(dragStart, dragStop, viewWindowX, viewWindowY, setViewWindowX, setViewWindowY); // TODO|kevin uuuugh well obviously these coords haven't had a chance to
+      setViewWindowFromDrag(dragStart, dragStop, viewWindowX, viewWindowY, setViewWindowX, setViewWindowY);
+      // TODO|kevin uuuugh well obviously these coords haven't had a chance to
       // be aspect-ratio-normalized yet, which is annoying because I REALLY
       // wanted to handle all the aspect ratio junk at the XYWindowPicker level.
       // I guess I shoulda seen this coming. At least it triggers AN update lmao
-
       setShouldRender(true);
     },
     onDoubleClick: function onDoubleClick(e) {
       var normalizedCoords = (0,helpers_misc__WEBPACK_IMPORTED_MODULE_5__.getMouseCoordsWithinEventTarget)(e);
-
       var _scaleToEuclideanCoor = scaleToEuclideanCoords(normalizedCoords, viewWindowX, viewWindowY),
-          x = _scaleToEuclideanCoor.x,
-          y = _scaleToEuclideanCoor.y; // Set the new viewing window to be zoomed in 2x and centered on the double click coords
-
-
+        x = _scaleToEuclideanCoor.x,
+        y = _scaleToEuclideanCoor.y;
+      // Set the new viewing window to be zoomed in 2x and centered on the double click coords
       setViewWindowX(function (viewX) {
         return {
           center: x,
@@ -1733,7 +1606,6 @@ function FractalViewer(_ref) {
     })));
   }))));
 }
-
 function renderJulia(juliaCoords, numSteps, startColor, endColor, bgColor, colorMode, exponent) {
   var canvas = react_components_DurableCanvas__WEBPACK_IMPORTED_MODULE_10__.durableCanvasRegistry[JULIA_CANVAS_ID];
   var colorMap = (0,helpers_mandel__WEBPACK_IMPORTED_MODULE_4__.makeColorMap)(startColor, endColor, numSteps, colorMode);
@@ -1754,22 +1626,18 @@ function renderJulia(juliaCoords, numSteps, startColor, endColor, bgColor, color
     this.render();
   });
 }
-
 function renderMandelbrot(numSteps, startColor, endColor, bgColor, viewX, viewY, colorMode, exponent, setRenderInProgress) {
   setRenderInProgress(true);
   var canvas = react_components_DurableCanvas__WEBPACK_IMPORTED_MODULE_10__.durableCanvasRegistry[MANDEL_CANVAS_ID];
   var colorMap = (0,helpers_mandel__WEBPACK_IMPORTED_MODULE_4__.makeColorMap)(startColor, endColor, numSteps, colorMode);
-
   var _rangeToBounds = (0,helpers_mandel__WEBPACK_IMPORTED_MODULE_4__.rangeToBounds)(viewX.center, viewX.range),
-      _rangeToBounds2 = _slicedToArray(_rangeToBounds, 2),
-      xmin = _rangeToBounds2[0],
-      xmax = _rangeToBounds2[1];
-
+    _rangeToBounds2 = _slicedToArray(_rangeToBounds, 2),
+    xmin = _rangeToBounds2[0],
+    xmax = _rangeToBounds2[1];
   var _rangeToBounds3 = (0,helpers_mandel__WEBPACK_IMPORTED_MODULE_4__.rangeToBounds)(viewY.center, viewY.range),
-      _rangeToBounds4 = _slicedToArray(_rangeToBounds3, 2),
-      ymin = _rangeToBounds4[0],
-      ymax = _rangeToBounds4[1];
-
+    _rangeToBounds4 = _slicedToArray(_rangeToBounds3, 2),
+    ymin = _rangeToBounds4[0],
+    ymax = _rangeToBounds4[1];
   var mandelRange = {
     xmin: xmin,
     xmax: xmax,
@@ -1786,7 +1654,6 @@ function renderMandelbrot(numSteps, startColor, endColor, bgColor, viewX, viewY,
     });
   });
 }
-
 function scaleToEuclideanCoords(normalizedCoords, viewWindowX, viewWindowY) {
   var xmin = viewWindowX.center - viewWindowX.range / 2;
   var ymin = viewWindowY.center - viewWindowY.range / 2;
@@ -1797,44 +1664,33 @@ function scaleToEuclideanCoords(normalizedCoords, viewWindowX, viewWindowY) {
     y: y
   };
 }
-
 function setViewWindowFromDrag(dragStart, dragStop, viewWindowX, viewWindowY, setViewWindowX, setViewWindowY) {
   var _sort = [dragStart.x, dragStop.x].sort(),
-      _sort2 = _slicedToArray(_sort, 2),
-      xminNorm = _sort2[0],
-      xmaxNorm = _sort2[1];
-
+    _sort2 = _slicedToArray(_sort, 2),
+    xminNorm = _sort2[0],
+    xmaxNorm = _sort2[1];
   var _sort3 = [dragStart.y, dragStop.y].sort(),
-      _sort4 = _slicedToArray(_sort3, 2),
-      yminNorm = _sort4[0],
-      ymaxNorm = _sort4[1];
-
+    _sort4 = _slicedToArray(_sort3, 2),
+    yminNorm = _sort4[0],
+    ymaxNorm = _sort4[1];
   var _rangeToBounds5 = (0,helpers_mandel__WEBPACK_IMPORTED_MODULE_4__.rangeToBounds)(viewWindowX.center, viewWindowX.range),
-      _rangeToBounds6 = _slicedToArray(_rangeToBounds5, 1),
-      xStart = _rangeToBounds6[0];
-
+    _rangeToBounds6 = _slicedToArray(_rangeToBounds5, 1),
+    xStart = _rangeToBounds6[0];
   var _rangeToBounds7 = (0,helpers_mandel__WEBPACK_IMPORTED_MODULE_4__.rangeToBounds)(viewWindowY.center, viewWindowY.range),
-      _rangeToBounds8 = _slicedToArray(_rangeToBounds7, 1),
-      yStart = _rangeToBounds8[0];
-
+    _rangeToBounds8 = _slicedToArray(_rangeToBounds7, 1),
+    yStart = _rangeToBounds8[0];
   var xmin = xStart + xminNorm * viewWindowX.range;
   var xmax = xStart + xmaxNorm * viewWindowX.range;
   var ymin = yStart + yminNorm * viewWindowY.range;
   var ymax = yStart + ymaxNorm * viewWindowY.range;
   var viewX = {};
   var viewY = {};
-
   var _boundsToRange = (0,helpers_mandel__WEBPACK_IMPORTED_MODULE_4__.boundsToRange)(xmin, xmax);
-
   var _boundsToRange2 = _slicedToArray(_boundsToRange, 2);
-
   viewX.center = _boundsToRange2[0];
   viewX.range = _boundsToRange2[1];
-
   var _boundsToRange3 = (0,helpers_mandel__WEBPACK_IMPORTED_MODULE_4__.boundsToRange)(ymin, ymax);
-
   var _boundsToRange4 = _slicedToArray(_boundsToRange3, 2);
-
   viewY.center = _boundsToRange4[0];
   viewY.range = _boundsToRange4[1];
   setViewWindowX(viewX);
@@ -1845,13 +1701,13 @@ function setViewWindowFromDrag(dragStart, dragStop, viewWindowX, viewWindowY, se
   };
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/FractalZoomCanvas.jsx":
+/***/ "./src/react_components/FractalZoomCanvas.jsx"
 /*!****************************************************!*\
   !*** ./src/react_components/FractalZoomCanvas.jsx ***!
   \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1865,89 +1721,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var helpers_misc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! helpers/misc */ "./src/helpers/misc.js");
 /* harmony import */ var react_components_DurableCanvas__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/DurableCanvas */ "./src/react_components/DurableCanvas.jsx");
 var _excluded = ["canvasId", "height", "width", "onClick", "onDragEnd"];
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, _extends.apply(null, arguments); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) { o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } } return i; }
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) { if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } } return t; }
+;
 
 
 
+var DRAG_RECTANGLE_CLASS = 'drag-rect';
 
-
-var DRAG_RECTANGLE_CLASS = 'drag-rect'; // This encapsulates some of the logic around interactions w/ the factal canvas
+// This encapsulates some of the logic around interactions w/ the factal canvas
 // such as converting click events and right-click-drag events into normalized
 // relative coordinates between [0,1]. Origin is treated as in the lower left.
-
 function FractalZoomCanvas(_ref) {
   var canvasId = _ref.canvasId,
-      height = _ref.height,
-      width = _ref.width,
-      onClick = _ref.onClick,
-      onDragEnd = _ref.onDragEnd,
-      props = _objectWithoutProperties(_ref, _excluded);
-
+    height = _ref.height,
+    width = _ref.width,
+    onClick = _ref.onClick,
+    onDragEnd = _ref.onDragEnd,
+    props = _objectWithoutProperties(_ref, _excluded);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      dragging = _useState2[0],
-      setDragging = _useState2[1];
-
+    _useState2 = _slicedToArray(_useState, 2),
+    dragging = _useState2[0],
+    setDragging = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(nullCoords()),
-      _useState4 = _slicedToArray(_useState3, 2),
-      dragStart = _useState4[0],
-      setDragStart = _useState4[1];
-
+    _useState4 = _slicedToArray(_useState3, 2),
+    dragStart = _useState4[0],
+    setDragStart = _useState4[1];
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(nullCoords()),
-      _useState6 = _slicedToArray(_useState5, 2),
-      dragPos = _useState6[0],
-      setDragPos = _useState6[1];
+    _useState6 = _slicedToArray(_useState5, 2),
+    dragPos = _useState6[0],
+    setDragPos = _useState6[1];
+  var canvasContainer = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)();
 
-  var canvasContainer = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(); // useEffect to fire the onDragEnd handler
-
+  // useEffect to fire the onDragEnd handler
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     if (dragging) return; // Clearly the drag hasn't ended yet!
+
     // Only fire onDragEnd if the mouse has moved since the drag initiated.
     // Don't want to zoom the canvas in on a single solid-color point.
-
     if (!lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(dragStart, dragPos)) {
       onDragEnd && onDragEnd(dragStart, dragPos);
-    } // Reset dragging state
-
-
+    }
+    // Reset dragging state
     setDragStart(nullCoords());
     setDragPos(nullCoords());
-  }, [dragging]); // useEffect to draw the right-click-drag rectangle. I dunno if this is really
-  // the best way to handle this, but it works and it seems pretty smooth tbh!
+  }, [dragging]);
 
+  // useEffect to draw the right-click-drag rectangle. I dunno if this is really
+  // the best way to handle this, but it works and it seems pretty smooth tbh!
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     var dragRect = canvasContainer.current.querySelector("div.".concat(DRAG_RECTANGLE_CLASS));
-
     if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(dragPos, nullCoords())) {
       // If the change in dragPos is that it was set to null, then we shouldn't
       // be showing a drag rectangle, so remove it (if present) and return early
       dragRect && dragRect.parentNode.removeChild(dragRect);
       return;
     }
-
     if (!dragRect) {
       dragRect = document.createElement('div');
       dragRect.classList.add(DRAG_RECTANGLE_CLASS);
       canvasContainer.current.appendChild(dragRect);
     }
-
     Object.assign(dragRect.style, dragCoordsToPositionStyles(dragStart, dragPos));
   }, [dragStart.x, dragStart.y, dragPos.x, dragPos.y]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_components_DurableCanvas__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
@@ -1962,68 +1803,59 @@ function FractalZoomCanvas(_ref) {
     },
     onMouseDown: handleRightMouseDown(setDragging, setDragStart),
     onMouseMove: handleMouseMove(dragging, setDragPos),
-    onMouseUp: handleRightMouseUp(setDragging, setDragPos) // Treat mouseleave the same as mouseup so the drag automatically ends if
+    onMouseUp: handleRightMouseUp(setDragging, setDragPos)
+    // Treat mouseleave the same as mouseup so the drag automatically ends if
     // you drag beyond the bounds of the canvas container. Keeps things neat.
     ,
     onMouseLeave: handleRightMouseUp(setDragging, setDragPos)
   }, props));
 }
-
 function handleCanvasClick(onClick) {
   return function (e) {
     return onClick && onClick((0,helpers_misc__WEBPACK_IMPORTED_MODULE_2__.getMouseCoordsWithinEventTarget)(e));
   };
 }
-
 function handleRightMouseDown(setDragging, setDragStart) {
   return function (e) {
     if (e.button !== 2) return; // Right clicking only!
-
     e.preventDefault();
     setDragging(true);
     setDragStart((0,helpers_misc__WEBPACK_IMPORTED_MODULE_2__.getMouseCoordsWithinEventTarget)(e));
     return false;
   };
 }
-
 function handleRightMouseUp(setDragging, setDragPos) {
   return function (e) {
     if (e.button !== 2) return; // Right clicking only!
-
     e.preventDefault();
     setDragPos((0,helpers_misc__WEBPACK_IMPORTED_MODULE_2__.getMouseCoordsWithinEventTarget)(e));
     setDragging(false);
     return false;
   };
 }
-
 function handleMouseMove(dragging, setDragPos) {
   return function (e) {
     if (!dragging) return; // mouseMove handler ONLY updates drag position
-
     setDragPos((0,helpers_misc__WEBPACK_IMPORTED_MODULE_2__.getMouseCoordsWithinEventTarget)(e));
   };
-} // Takes two [0,1]-normalized coordinates and converts them to a dict of CSS
+}
+
+// Takes two [0,1]-normalized coordinates and converts them to a dict of CSS
 // position properties (left, right, top, bottom) to define a bounding box
-
-
 function dragCoordsToPositionStyles(dragStart, dragPos) {
   if (lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(dragStart, nullCoords()) || lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(dragPos, nullCoords())) {
     throw 'Attempted to draw a drag rectangle with a null coordinate';
   }
-
   var _sort = [dragStart.x, dragPos.x].sort(),
-      _sort2 = _slicedToArray(_sort, 2),
-      xmin = _sort2[0],
-      xmax = _sort2[1];
-
+    _sort2 = _slicedToArray(_sort, 2),
+    xmin = _sort2[0],
+    xmax = _sort2[1];
   var _sort3 = [dragStart.y, dragPos.y].sort(),
-      _sort4 = _slicedToArray(_sort3, 2),
-      ymin = _sort4[0],
-      ymax = _sort4[1]; // basic idea: use the [0,1] normalized coordinates directly to create %-based
+    _sort4 = _slicedToArray(_sort3, 2),
+    ymin = _sort4[0],
+    ymax = _sort4[1];
+  // basic idea: use the [0,1] normalized coordinates directly to create %-based
   // positioning properties! all coordinates assume origin in LOWER LEFT corner!
-
-
   return {
     top: "".concat(lodash__WEBPACK_IMPORTED_MODULE_0___default().round((1 - ymax) * 100, 2), "%"),
     bottom: "".concat(lodash__WEBPACK_IMPORTED_MODULE_0___default().round(ymin * 100, 2), "%"),
@@ -2031,7 +1863,6 @@ function dragCoordsToPositionStyles(dragStart, dragPos) {
     right: "".concat(lodash__WEBPACK_IMPORTED_MODULE_0___default().round((1 - xmax) * 100, 2), "%")
   };
 }
-
 function nullCoords() {
   return {
     x: null,
@@ -2039,13 +1870,13 @@ function nullCoords() {
   };
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/JumpToViewButton.jsx":
+/***/ "./src/react_components/JumpToViewButton.jsx"
 /*!***************************************************!*\
   !*** ./src/react_components/JumpToViewButton.jsx ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -2058,53 +1889,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
 /* harmony import */ var helpers_mandel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! helpers/mandel */ "./src/helpers/mandel.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+;
 
 
 
 function JumpToViewButton(_ref) {
   var x = _ref.x,
-      y = _ref.y,
-      label = _ref.label,
-      setViewWindowX = _ref.setViewWindowX,
-      setViewWindowY = _ref.setViewWindowY,
-      setShouldRender = _ref.setShouldRender,
-      setCanvasDims = _ref.setCanvasDims,
-      setExponent = _ref.setExponent;
-
+    y = _ref.y,
+    label = _ref.label,
+    setViewWindowX = _ref.setViewWindowX,
+    setViewWindowY = _ref.setViewWindowY,
+    setShouldRender = _ref.setShouldRender,
+    setCanvasDims = _ref.setCanvasDims,
+    setExponent = _ref.setExponent;
   // If x and y are arrays, assume they represent view bounds instead of a
   // center-and-range object, and replace them for convenience
   if (x.length && y.length) {
     var _boundsToRange = helpers_mandel__WEBPACK_IMPORTED_MODULE_3__.boundsToRange.apply(void 0, _toConsumableArray(x)),
-        _boundsToRange2 = _slicedToArray(_boundsToRange, 2),
-        xCenter = _boundsToRange2[0],
-        xRange = _boundsToRange2[1];
-
+      _boundsToRange2 = _slicedToArray(_boundsToRange, 2),
+      xCenter = _boundsToRange2[0],
+      xRange = _boundsToRange2[1];
     var _boundsToRange3 = helpers_mandel__WEBPACK_IMPORTED_MODULE_3__.boundsToRange.apply(void 0, _toConsumableArray(y)),
-        _boundsToRange4 = _slicedToArray(_boundsToRange3, 2),
-        yCenter = _boundsToRange4[0],
-        yRange = _boundsToRange4[1];
-
+      _boundsToRange4 = _slicedToArray(_boundsToRange3, 2),
+      yCenter = _boundsToRange4[0],
+      yRange = _boundsToRange4[1];
     x = {
       center: xCenter,
       range: xRange
@@ -2114,7 +1932,6 @@ function JumpToViewButton(_ref) {
       range: yRange
     };
   }
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("button", {
     className: "button small jump-to-view",
     onClick: function onClick() {
@@ -2131,13 +1948,13 @@ function JumpToViewButton(_ref) {
 }
 ;
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/SaveCanvasButton.jsx":
+/***/ "./src/react_components/SaveCanvasButton.jsx"
 /*!***************************************************!*\
   !*** ./src/react_components/SaveCanvasButton.jsx ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -2160,30 +1977,30 @@ function SaveCanvasButton(_ref) {
   }, "Save Canvas");
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/constants.js":
+/***/ "./src/react_components/constants.js"
 /*!*******************************************!*\
   !*** ./src/react_components/constants.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DEFAULT_MANDELBROT_CANVAS_SIZE": () => (/* binding */ DEFAULT_MANDELBROT_CANVAS_SIZE),
-/* harmony export */   "DEFAULT_TAB": () => (/* binding */ DEFAULT_TAB)
+/* harmony export */   DEFAULT_MANDELBROT_CANVAS_SIZE: () => (/* binding */ DEFAULT_MANDELBROT_CANVAS_SIZE),
+/* harmony export */   DEFAULT_TAB: () => (/* binding */ DEFAULT_TAB)
 /* harmony export */ });
 var DEFAULT_TAB = 'default';
 var DEFAULT_MANDELBROT_CANVAS_SIZE = 600;
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/complex.js/complex.js":
+/***/ "./node_modules/complex.js/complex.js"
 /*!********************************************!*\
   !*** ./node_modules/complex.js/complex.js ***!
   \********************************************/
-/***/ (function(module, exports) {
+(module, exports) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license Complex.js v2.1.1 12/05/2020
@@ -3600,18 +3417,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
       return Complex;
     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
+  } else // removed by dead control flow
+{}
 
 })(this);
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/lodash/lodash.js":
+/***/ "./node_modules/lodash/lodash.js"
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
   \***************************************/
-/***/ (function(module, exports, __webpack_require__) {
+(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -3628,7 +3446,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.21';
+  var VERSION = '4.18.1';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -3636,7 +3454,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
   /** Error message constants. */
   var CORE_ERROR_TEXT = 'Unsupported core-js use. Try https://npms.io/search?q=ponyfill.',
       FUNC_ERROR_TEXT = 'Expected a function',
-      INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`';
+      INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`',
+      INVALID_TEMPL_IMPORTS_ERROR_TEXT = 'Invalid `imports` option passed into `_.template`';
 
   /** Used to stand-in for `undefined` hash values. */
   var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -5368,6 +5187,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * embedded Ruby (ERB) as well as ES2015 template strings. Change the
      * following template settings to use alternative delimiters.
      *
+     * **Security:** See
+     * [threat model](https://github.com/lodash/lodash/blob/main/threat-model.md)
+     * — `_.template` is insecure and will be removed in v5.
+     *
      * @static
      * @memberOf _
      * @type {Object}
@@ -5916,7 +5739,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * @name has
      * @memberOf SetCache
      * @param {*} value The value to search for.
-     * @returns {number} Returns `true` if `value` is found, else `false`.
+     * @returns {boolean} Returns `true` if `value` is found, else `false`.
      */
     function setCacheHas(value) {
       return this.__data__.has(value);
@@ -7382,7 +7205,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
           if (isArray(iteratee)) {
             return function(value) {
               return baseGet(value, iteratee.length === 1 ? iteratee[0] : iteratee);
-            }
+            };
           }
           return iteratee;
         });
@@ -7986,8 +7809,34 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      */
     function baseUnset(object, path) {
       path = castPath(path, object);
-      object = parent(object, path);
-      return object == null || delete object[toKey(last(path))];
+
+      // Prevent prototype pollution:
+      // https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg
+      // https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh
+      var index = -1,
+          length = path.length;
+
+      if (!length) {
+        return true;
+      }
+
+      while (++index < length) {
+        var key = toKey(path[index]);
+
+        // Always block "__proto__" anywhere in the path if it's not expected
+        if (key === '__proto__' && !hasOwnProperty.call(object, '__proto__')) {
+          return false;
+        }
+
+        // Block constructor/prototype as non-terminal traversal keys to prevent
+        // escaping the object graph into built-in constructors and prototypes.
+        if ((key === 'constructor' || key === 'prototype') && index < length - 1) {
+          return false;
+        }
+      }
+
+      var obj = parent(object, path);
+      return obj == null || delete obj[toKey(last(path))];
     }
 
     /**
@@ -10538,7 +10387,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
     /**
      * Creates an array with all falsey values removed. The values `false`, `null`,
-     * `0`, `""`, `undefined`, and `NaN` are falsey.
+     * `0`, `-0`, `0n`, `""`, `undefined`, and `NaN` are falsy.
      *
      * @static
      * @memberOf _
@@ -11077,7 +10926,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
       while (++index < length) {
         var pair = pairs[index];
-        result[pair[0]] = pair[1];
+        baseAssignValue(result, pair[0], pair[1]);
       }
       return result;
     }
@@ -17737,6 +17586,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * **Note:** JavaScript follows the IEEE-754 standard for resolving
      * floating-point values which can produce unexpected results.
      *
+     * **Note:** If `lower` is greater than `upper`, the values are swapped.
+     *
      * @static
      * @memberOf _
      * @since 0.7.0
@@ -17750,8 +17601,15 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * _.random(0, 5);
      * // => an integer between 0 and 5
      *
+     * // when lower is greater than upper the values are swapped
+     * _.random(5, 0);
+     * // => an integer between 0 and 5
+     *
      * _.random(5);
      * // => also an integer between 0 and 5
+     *
+     * _.random(-5);
+     * // => an integer between -5 and 0
      *
      * _.random(5, true);
      * // => a floating-point number between 0 and 5
@@ -18354,6 +18212,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * properties may be accessed as free variables in the template. If a setting
      * object is given, it takes precedence over `_.templateSettings` values.
      *
+     * **Security:** `_.template` is insecure and should not be used. It will be
+     * removed in Lodash v5. Avoid untrusted input. See
+     * [threat model](https://github.com/lodash/lodash/blob/main/threat-model.md).
+     *
      * **Note:** In the development build `_.template` utilizes
      * [sourceURLs](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
      * for easier debugging.
@@ -18461,11 +18323,17 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
         options = undefined;
       }
       string = toString(string);
-      options = assignInWith({}, options, settings, customDefaultsAssignIn);
+      options = assignWith({}, options, settings, customDefaultsAssignIn);
 
-      var imports = assignInWith({}, options.imports, settings.imports, customDefaultsAssignIn),
+      var imports = assignWith({}, options.imports, settings.imports, customDefaultsAssignIn),
           importsKeys = keys(imports),
           importsValues = baseValues(imports, importsKeys);
+
+      arrayEach(importsKeys, function(key) {
+        if (reForbiddenIdentifierChars.test(key)) {
+          throw new Error(INVALID_TEMPL_IMPORTS_ERROR_TEXT);
+        }
+      });
 
       var isEscaping,
           isEvaluating,
@@ -20813,17 +20681,18 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
   // Check for `exports` after `define` in case a build optimizer adds it.
-  else {}
+  else // removed by dead control flow
+{}
 }.call(this));
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-dom/cjs/react-dom.development.js":
+/***/ "./node_modules/react-dom/cjs/react-dom.development.js"
 /*!*************************************************************!*\
   !*** ./node_modules/react-dom/cjs/react-dom.development.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 /**
@@ -39398,7 +39267,8 @@ function logCapturedError(boundary, errorInfo) {
       // displayed by the browser thanks to the DEV-only fake event trick in ReactErrorUtils.
 
       console['error'](combinedMessage); // Don't transform to our wrapper
-    } else {}
+    } else // removed by dead control flow
+{}
   } catch (e) {
     // This method must not throw, or React internal state will get messed up.
     // If console.error is overridden, or logCapturedError() shows a dialog that throws,
@@ -50593,19 +50463,20 @@ if (
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-dom/client.js":
+/***/ "./node_modules/react-dom/client.js"
 /*!******************************************!*\
   !*** ./node_modules/react-dom/client.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var m = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
   exports.createRoot = function(c, o) {
     i.usingClientEntryPoint = true;
@@ -50626,13 +50497,13 @@ if (false) {} else {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-dom/index.js":
+/***/ "./node_modules/react-dom/index.js"
 /*!*****************************************!*\
   !*** ./node_modules/react-dom/index.js ***!
   \*****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -50655,28 +50526,23 @@ function checkDCE() {
     // a false positive.
     throw new Error('^_^');
   }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
+  // removed by dead control flow
+
 }
 
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   module.exports = __webpack_require__(/*! ./cjs/react-dom.development.js */ "./node_modules/react-dom/cjs/react-dom.development.js");
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react/cjs/react.development.js":
+/***/ "./node_modules/react/cjs/react.development.js"
 /*!*****************************************************!*\
   !*** ./node_modules/react/cjs/react.development.js ***!
   \*****************************************************/
-/***/ ((module, exports, __webpack_require__) => {
+(module, exports, __webpack_require__) {
 
 "use strict";
 /* module decorator */ module = __webpack_require__.nmd(module);
@@ -53419,29 +53285,30 @@ if (
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react/index.js":
+/***/ "./node_modules/react/index.js"
 /*!*************************************!*\
   !*** ./node_modules/react/index.js ***!
   \*************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   module.exports = __webpack_require__(/*! ./cjs/react.development.js */ "./node_modules/react/cjs/react.development.js");
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/scheduler/cjs/scheduler.development.js":
+/***/ "./node_modules/scheduler/cjs/scheduler.development.js"
 /*!*************************************************************!*\
   !*** ./node_modules/scheduler/cjs/scheduler.development.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+(__unused_webpack_module, exports) {
 
 "use strict";
 /**
@@ -54080,44 +53947,51 @@ if (
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/scheduler/index.js":
+/***/ "./node_modules/scheduler/index.js"
 /*!*****************************************!*\
   !*** ./node_modules/scheduler/index.js ***!
   \*****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   module.exports = __webpack_require__(/*! ./cjs/scheduler.development.js */ "./node_modules/scheduler/cjs/scheduler.development.js");
 }
 
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
 /******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
+/******/ 	const __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		const cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 		const module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
 /******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			const e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Flag the module as loaded
@@ -54132,7 +54006,7 @@ if (false) {} else {
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
 /******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
+/******/ 			const getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
@@ -54142,11 +54016,26 @@ if (false) {} else {
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
+/******/ 		// define getter/value functions for harmony exports
 /******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			if(Array.isArray(definition)) {
+/******/ 				var i = 0;
+/******/ 				while(i < definition.length) {
+/******/ 					var key = definition[i++];
+/******/ 					var binding = definition[i++];
+/******/ 					if(!__webpack_require__.o(exports, key)) {
+/******/ 						if(binding === 0) {
+/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
+/******/ 						} else {
+/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
+/******/ 						}
+/******/ 					} else if(binding === 0) { i++; }
+/******/ 				}
+/******/ 			} else {
+/******/ 				for(var key in definition) {
+/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 					}
 /******/ 				}
 /******/ 			}
 /******/ 		};
@@ -54173,7 +54062,7 @@ if (false) {} else {
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
 /******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			if(Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
@@ -54190,8 +54079,8 @@ if (false) {} else {
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+let __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 /*!*********************************!*\
@@ -54212,7 +54101,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Caman.Filter.register('juliaset', helpers_mandel__WEBPACK_IMPORTED_MODULE_2__.juliaset);
   var rootEl = document.getElementById('fractal-viewer-root');
   var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootEl);
-  root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_FractalViewer__WEBPACK_IMPORTED_MODULE_3__["default"], null)));
+  root.render(/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_FractalViewer__WEBPACK_IMPORTED_MODULE_3__["default"], null)));
 });
 })();
 

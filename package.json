@@ -48,6 +48,7 @@
     "webpack-dev-server": "^4.9.2"
   },
   "dependencies": {
+    "ani-cursor": "^2.3.1",
     "complex.js": "^2.1.1",
     "html-react-parser": "^1.4.12",
     "lodash": "^4.17.21",

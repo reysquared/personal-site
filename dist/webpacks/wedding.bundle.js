@@ -1,16 +1,16 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/helpers/tabs.js":
+/***/ "./src/helpers/tabs.js"
 /*!*****************************!*\
   !*** ./src/helpers/tabs.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getTabFromFragmentId": () => (/* binding */ getTabFromFragmentId)
+/* harmony export */   getTabFromFragmentId: () => (/* binding */ getTabFromFragmentId)
 /* harmony export */ });
 // NOTE fragId should already have the leading # removed
 var getTabFromFragmentId = function getTabFromFragmentId(fragId) {
@@ -25,7 +25,6 @@ var getTabFromFragmentId = function getTabFromFragmentId(fragId) {
       // tab-panel or we can't go up any further.
       currElement = currElement.parentNode;
     }
-
     if (currElement.classList.contains('tab-panel')) {
       // We have found the tab panel that contained the given pragment!
       return currElement.id;
@@ -33,13 +32,13 @@ var getTabFromFragmentId = function getTabFromFragmentId(fragId) {
   }
 };
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/DisableTheme.jsx":
+/***/ "./src/react_components/DisableTheme.jsx"
 /*!***********************************************!*\
   !*** ./src/react_components/DisableTheme.jsx ***!
   \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -50,31 +49,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, _extends.apply(null, arguments); }
+;
 
 var BORINGMODE_LOCALSTORAGE = "boringmode";
 function DisableTheme(_ref) {
   var props = _extends({}, _ref);
-
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_1___default().useState(getBoringModeStartState()),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      isBoring = _React$useState2[0],
-      setIsBoring = _React$useState2[1];
-
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    isBoring = _React$useState2[0],
+    setIsBoring = _React$useState2[1];
   react__WEBPACK_IMPORTED_MODULE_1___default().useEffect(function () {
     document.body.classList.toggle("boring-mode", isBoring);
     localStorage.setItem(BORINGMODE_LOCALSTORAGE, isBoring ? "enabled" : "disabled");
@@ -87,28 +77,24 @@ function DisableTheme(_ref) {
     checked: isBoring
   }, props));
 }
-
 function getBoringModeStartState() {
   var localPref = localStorage.getItem(BORINGMODE_LOCALSTORAGE);
-
   if (localPref === "enabled") {
     return true;
   }
-
   if (localPref === "disabled") {
     return false;
   }
-
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/ReturnButton.jsx":
+/***/ "./src/react_components/ReturnButton.jsx"
 /*!***********************************************!*\
   !*** ./src/react_components/ReturnButton.jsx ***!
   \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -122,16 +108,14 @@ __webpack_require__.r(__webpack_exports__);
 
 function ReturnButton(_ref) {
   var setActiveTab = _ref.setActiveTab;
-
   var clickHandler = function clickHandler(event) {
     event.preventDefault();
-    setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TAB); // simple lil' hook for the url hash-routing, cus I'm too lazy to install
+    setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TAB);
+    // simple lil' hook for the url hash-routing, cus I'm too lazy to install
     // react-router on a serverless host when HashRouter is deprecated anyway
     // Maybe I'll get rid of this if/when I actually set up more stuff in Vercel
-
     window.history.pushState(null, null, '#');
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
     className: "button go-back",
     href: "#top",
@@ -141,13 +125,13 @@ function ReturnButton(_ref) {
   }, "Main");
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/TabButton.jsx":
+/***/ "./src/react_components/TabButton.jsx"
 /*!********************************************!*\
   !*** ./src/react_components/TabButton.jsx ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -159,19 +143,16 @@ __webpack_require__.r(__webpack_exports__);
 
 function TabButton(_ref) {
   var tab = _ref.tab,
-      activeTab = _ref.activeTab,
-      setActiveTab = _ref.setActiveTab;
-
+    activeTab = _ref.activeTab,
+    setActiveTab = _ref.setActiveTab;
   var handleClick = function handleClick(event) {
     event.preventDefault();
-
     if (activeTab != tab.id) {
       // only modify history if this tab wasn't already active
       setActiveTab(tab.id);
       window.history.pushState(null, null, "#".concat(tab.id));
     }
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
     role: "presentation",
     className: activeTab === tab.id ? 'tab-title active' : 'tab-title'
@@ -186,13 +167,13 @@ function TabButton(_ref) {
   }, tab.label));
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/TabContent.jsx":
+/***/ "./src/react_components/TabContent.jsx"
 /*!*********************************************!*\
   !*** ./src/react_components/TabContent.jsx ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -204,18 +185,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var html_react_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! html-react-parser */ "./node_modules/html-react-parser/index.mjs");
 /* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
 /* harmony import */ var react_components_ReturnButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/ReturnButton */ "./src/react_components/ReturnButton.jsx");
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, _extends.apply(null, arguments); }
+;
 
 
 
 function TabContent(_ref) {
   var tab = _ref.tab,
-      containerClass = _ref.containerClass,
-      activeTab = _ref.activeTab,
-      hasDefaultTab = _ref.hasDefaultTab,
-      setActiveTab = _ref.setActiveTab;
+    containerClass = _ref.containerClass,
+    activeTab = _ref.activeTab,
+    hasDefaultTab = _ref.hasDefaultTab,
+    setActiveTab = _ref.setActiveTab;
   // A lazy lil way to attach some basic dynamic content while still having the
   // tab content specified programmatically. Runs whenever tab becomes active.
   // NOTE|kevin 26-07-30 man I was really bad at React when I originally made this component lmao
@@ -223,18 +203,17 @@ function TabContent(_ref) {
     if (tab.effect && tab.id === activeTab) {
       tab.effect();
     }
-  }, [tab.effect, tab.id, activeTab]); // Only show a "go back" button if default tab is enabled and this is NOT the
+  }, [tab.effect, tab.id, activeTab]);
+
+  // Only show a "go back" button if default tab is enabled and this is NOT the
   // default tab. if the default tab is active we're already "back", and if it
   // isn't enabled at all then there's already a button for this tab in the nav
-
   var className = 'tab-panel ' + (activeTab === tab.id ? 'active' : 'inactive');
-
   if (containerClass) {
     className += ' ' + containerClass;
-  } // Only include the labelledby attribute if the tab IS labeled by something.
+  }
+  // Only include the labelledby attribute if the tab IS labeled by something.
   // Since default tab panel doesn't have a corresponding tab control, skip it.
-
-
   var isDefault = hasDefaultTab && tab.id === react_components_constants__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TAB;
   var labelAttr = !isDefault ? {
     'aria-labelledby': "tab-".concat(tab.id)
@@ -248,13 +227,13 @@ function TabContent(_ref) {
   }));
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./src/react_components/TabsView.jsx":
+/***/ "./src/react_components/TabsView.jsx"
 /*!*******************************************!*\
   !*** ./src/react_components/TabsView.jsx ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -269,30 +248,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_components_TabButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react_components/TabButton */ "./src/react_components/TabButton.jsx");
 /* harmony import */ var react_components_TabContent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react_components/TabContent */ "./src/react_components/TabContent.jsx");
 /* harmony import */ var react_components_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react_components/constants */ "./src/react_components/constants.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _createSuper(t) { var r = _isNativeReflectConstruct(); return function () { var e, o = _getPrototypeOf(t); if (r) { var s = _getPrototypeOf(this).constructor; e = Reflect.construct(o, arguments, s); } else e = o.apply(this, arguments); return _possibleConstructorReturn(this, e); }; }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+;
 
 
 
@@ -300,21 +269,16 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 var TabsView = /*#__PURE__*/function (_React$Component) {
   _inherits(TabsView, _React$Component);
-
   var _super = _createSuper(TabsView);
-
   function TabsView(props) {
     var _this;
-
     _classCallCheck(this, TabsView);
-
     _this = _super.call(this, props);
+    lodash__WEBPACK_IMPORTED_MODULE_0___default().bindAll(_assertThisInitialized(_this), ['setActiveTab', 'tabIsValid']);
 
-    lodash__WEBPACK_IMPORTED_MODULE_0___default().bindAll(_assertThisInitialized(_this), ['setActiveTab', 'tabIsValid']); // Ideally if you want a "default" tab it should be first in the list, but
+    // Ideally if you want a "default" tab it should be first in the list, but
     // if it isn't the ReturnButtons will still work correctly, so this just
     // has the first tab in the list start activated. Shrugs.
-
-
     var startingTab = props.hasDefaultTab ? react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB : props.tabs[0].tabId;
     var activeTab = props.startingTab || startingTab;
     _this.state = {
@@ -322,33 +286,29 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
     };
     return _this;
   }
-
   _createClass(TabsView, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
-
       // tiny homebrewed URL routing hook so the tabs can be easily linked to!
       var handleHashChange = function handleHashChange(event) {
-        var hash = (window.location.hash || '#').substring(1); // If hash isn't a tab ID, it might be a real anchor WITHIN a tab. Find
+        var hash = (window.location.hash || '#').substring(1);
+        // If hash isn't a tab ID, it might be a real anchor WITHIN a tab. Find
         // out! If it's not a real anchor, or not within a tab, returns undefined.
-
         var targetTab = (0,_helpers_tabs__WEBPACK_IMPORTED_MODULE_2__.getTabFromFragmentId)(hash);
-
         if (!hash && _this2.props.hasDefaultTab) {
           // If the hash was empty, reset to the default, if any.
           _this2.setActiveTab(react_components_constants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_TAB);
         } else if (targetTab) {
           // If we found a different target tab, acrivate it.
           _this2.setActiveTab(targetTab);
-        } // Otherwise it's one of three things: 1) an invalid hash (DNE in document)
+        }
+        // Otherwise it's one of three things: 1) an invalid hash (DNE in document)
         // 2) a valid hash that just isn't within a tab, or 2.5) an empty hash and
         // we have no default tab, in which case it's treated as the valid hash for
         // returning to the top of the document. Regardless, there's no need to do
         // anything else because the UA's default hashchange behavior is just fine!
-
       };
-
       window.addEventListener('hashchange', handleHashChange);
       handleHashChange();
     }
@@ -366,7 +326,6 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
         console.error("tried to set invalid tab as active: ".concat(tabId));
         return;
       }
-
       this.setState({
         activeTab: tabId
       });
@@ -375,7 +334,6 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var _this3 = this;
-
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement((react__WEBPACK_IMPORTED_MODULE_1___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("nav", {
         className: "tabs-menu"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("ul", {
@@ -404,36 +362,34 @@ var TabsView = /*#__PURE__*/function (_React$Component) {
       })));
     }
   }]);
-
   return TabsView;
 }((react__WEBPACK_IMPORTED_MODULE_1___default().Component));
 
 
+/***/ },
 
-/***/ }),
-
-/***/ "./src/react_components/constants.js":
+/***/ "./src/react_components/constants.js"
 /*!*******************************************!*\
   !*** ./src/react_components/constants.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DEFAULT_MANDELBROT_CANVAS_SIZE": () => (/* binding */ DEFAULT_MANDELBROT_CANVAS_SIZE),
-/* harmony export */   "DEFAULT_TAB": () => (/* binding */ DEFAULT_TAB)
+/* harmony export */   DEFAULT_MANDELBROT_CANVAS_SIZE: () => (/* binding */ DEFAULT_MANDELBROT_CANVAS_SIZE),
+/* harmony export */   DEFAULT_TAB: () => (/* binding */ DEFAULT_TAB)
 /* harmony export */ });
 var DEFAULT_TAB = 'default';
 var DEFAULT_MANDELBROT_CANVAS_SIZE = 600;
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/domelementtype/lib/index.js":
+/***/ "./node_modules/domelementtype/lib/index.js"
 /*!**************************************************!*\
   !*** ./node_modules/domelementtype/lib/index.js ***!
   \**************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -493,13 +449,13 @@ exports.CDATA = ElementType.CDATA;
 exports.Doctype = ElementType.Doctype;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/domhandler/lib/node.js":
+/***/ "./node_modules/domhandler/lib/node.js"
 /*!*********************************************!*\
   !*** ./node_modules/domhandler/lib/node.js ***!
   \*********************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -948,13 +904,13 @@ function cloneChildren(childs) {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-dom-parser/lib/client/constants.js":
+/***/ "./node_modules/html-dom-parser/lib/client/constants.js"
 /*!**************************************************************!*\
   !*** ./node_modules/html-dom-parser/lib/client/constants.js ***!
   \**************************************************************/
-/***/ ((module) => {
+(module) {
 
 /**
  * SVG elements are case-sensitive.
@@ -1000,13 +956,13 @@ module.exports = {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-dom-parser/lib/client/domparser.js":
+/***/ "./node_modules/html-dom-parser/lib/client/domparser.js"
 /*!**************************************************************!*\
   !*** ./node_modules/html-dom-parser/lib/client/domparser.js ***!
   \**************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 // constants
 var HTML = 'html';
@@ -1173,13 +1129,13 @@ function domparser(html) {
 module.exports = domparser;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-dom-parser/lib/client/html-to-dom.js":
+/***/ "./node_modules/html-dom-parser/lib/client/html-to-dom.js"
 /*!****************************************************************!*\
   !*** ./node_modules/html-dom-parser/lib/client/html-to-dom.js ***!
   \****************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var domparser = __webpack_require__(/*! ./domparser */ "./node_modules/html-dom-parser/lib/client/domparser.js");
 var formatDOM = (__webpack_require__(/*! ./utilities */ "./node_modules/html-dom-parser/lib/client/utilities.js").formatDOM);
@@ -1215,13 +1171,13 @@ function HTMLDOMParser(html) {
 module.exports = HTMLDOMParser;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-dom-parser/lib/client/utilities.js":
+/***/ "./node_modules/html-dom-parser/lib/client/utilities.js"
 /*!**************************************************************!*\
   !*** ./node_modules/html-dom-parser/lib/client/utilities.js ***!
   \**************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var constants = __webpack_require__(/*! ./constants */ "./node_modules/html-dom-parser/lib/client/constants.js");
 var domhandler = __webpack_require__(/*! domhandler/lib/node */ "./node_modules/domhandler/lib/node.js");
@@ -1370,13 +1326,13 @@ module.exports = {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/wedding/__default.html":
+/***/ "./src/html/wedding/__default.html"
 /*!*****************************************!*\
   !*** ./src/html/wedding/__default.html ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1484,13 +1440,13 @@ var code = "<img\n  src=\"" + ___HTML_LOADER_REPLACEMENT_0___ + "\"\n  style=\"p
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/wedding/_construction.html":
+/***/ "./src/html/wedding/_construction.html"
 /*!*********************************************!*\
   !*** ./src/html/wedding/_construction.html ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1550,13 +1506,13 @@ var code = "\n<br><br><br><br><br>\n<img src=\"" + ___HTML_LOADER_REPLACEMENT_0_
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/wedding/_dresscode.html":
+/***/ "./src/html/wedding/_dresscode.html"
 /*!******************************************!*\
   !*** ./src/html/wedding/_dresscode.html ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1590,13 +1546,13 @@ var code = "<h2>Dress Code</h2>\n<p>\n  Many people have been asking us about th
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/wedding/_gallery.html":
+/***/ "./src/html/wedding/_gallery.html"
 /*!****************************************!*\
   !*** ./src/html/wedding/_gallery.html ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1608,13 +1564,13 @@ var code = "TODO|kevin\n\n<style>\n  /* hearts n cupids ig? */\n</style>\n";
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/wedding/_hotel.html":
+/***/ "./src/html/wedding/_hotel.html"
 /*!**************************************!*\
   !*** ./src/html/wedding/_hotel.html ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1636,13 +1592,13 @@ var code = "<h2>Hotel and Transit Info</h2>\n<img src=\"" + ___HTML_LOADER_REPLA
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/wedding/_livestream.html":
+/***/ "./src/html/wedding/_livestream.html"
 /*!*******************************************!*\
   !*** ./src/html/wedding/_livestream.html ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1660,13 +1616,13 @@ var code = "<br><br><br>\n<h1>Livestream</h1>\n<h2>\n  We plan to make a livestr
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/wedding/_ourstory.html":
+/***/ "./src/html/wedding/_ourstory.html"
 /*!*****************************************!*\
   !*** ./src/html/wedding/_ourstory.html ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1678,13 +1634,13 @@ var code = "TODO|kevin\n\n<style>\n  /* TODO|kevin plants + nature ... maybe aud
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/wedding/_registry.html":
+/***/ "./src/html/wedding/_registry.html"
 /*!*****************************************!*\
   !*** ./src/html/wedding/_registry.html ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1696,13 +1652,13 @@ var code = "<h2>Registry</h2>\n<p>\n  So, here's the thing... we have been legal
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/wedding/_rsvp.html":
+/***/ "./src/html/wedding/_rsvp.html"
 /*!*************************************!*\
   !*** ./src/html/wedding/_rsvp.html ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1714,13 +1670,13 @@ var code = "<h2>RSVP</h2>\n<p>\n  Use the embedded form below to RSVP <b><u>by n
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./src/html/wedding/_schedule.html":
+/***/ "./src/html/wedding/_schedule.html"
 /*!*****************************************!*\
   !*** ./src/html/wedding/_schedule.html ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1756,13 +1712,13 @@ var code = "<!-- TODO|kevin -->\n<h1>Weekend Itinerary</h1>\n<section class=\"oc
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (code);
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-loader/dist/runtime/getUrl.js":
+/***/ "./node_modules/html-loader/dist/runtime/getUrl.js"
 /*!*********************************************************!*\
   !*** ./node_modules/html-loader/dist/runtime/getUrl.js ***!
   \*********************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -1792,13 +1748,13 @@ module.exports = function (url, options) {
   return url;
 };
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-react-parser/index.js":
+/***/ "./node_modules/html-react-parser/index.js"
 /*!*************************************************!*\
   !*** ./node_modules/html-react-parser/index.js ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var domToReact = __webpack_require__(/*! ./lib/dom-to-react */ "./node_modules/html-react-parser/lib/dom-to-react.js");
 var attributesToProps = __webpack_require__(/*! ./lib/attributes-to-props */ "./node_modules/html-react-parser/lib/attributes-to-props.js");
@@ -1845,13 +1801,13 @@ module.exports = HTMLReactParser;
 module.exports["default"] = HTMLReactParser;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-react-parser/lib/attributes-to-props.js":
+/***/ "./node_modules/html-react-parser/lib/attributes-to-props.js"
 /*!*******************************************************************!*\
   !*** ./node_modules/html-react-parser/lib/attributes-to-props.js ***!
   \*******************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var reactProperty = __webpack_require__(/*! react-property */ "./node_modules/react-property/lib/index.js");
 var utilities = __webpack_require__(/*! ./utilities */ "./node_modules/html-react-parser/lib/utilities.js");
@@ -1941,13 +1897,13 @@ function getPropName(attributeName) {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-react-parser/lib/dom-to-react.js":
+/***/ "./node_modules/html-react-parser/lib/dom-to-react.js"
 /*!************************************************************!*\
   !*** ./node_modules/html-react-parser/lib/dom-to-react.js ***!
   \************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var attributesToProps = __webpack_require__(/*! ./attributes-to-props */ "./node_modules/html-react-parser/lib/attributes-to-props.js");
@@ -2090,13 +2046,13 @@ function skipAttributesToProps(node) {
 module.exports = domToReact;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-react-parser/lib/utilities.js":
+/***/ "./node_modules/html-react-parser/lib/utilities.js"
 /*!*********************************************************!*\
   !*** ./node_modules/html-react-parser/lib/utilities.js ***!
   \*********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var styleToJS = (__webpack_require__(/*! style-to-js */ "./node_modules/style-to-js/cjs/index.js")["default"]);
@@ -2230,13 +2186,13 @@ module.exports = {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/inline-style-parser/index.js":
+/***/ "./node_modules/inline-style-parser/index.js"
 /*!***************************************************!*\
   !*** ./node_modules/inline-style-parser/index.js ***!
   \***************************************************/
-/***/ ((module) => {
+(module) {
 
 // http://www.w3.org/TR/CSS21/grammar.html
 // https://github.com/visionmedia/css-parse/pull/49#issuecomment-30088027
@@ -2501,13 +2457,13 @@ function trim(str) {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/lodash/lodash.js":
+/***/ "./node_modules/lodash/lodash.js"
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
   \***************************************/
-/***/ (function(module, exports, __webpack_require__) {
+(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -2524,7 +2480,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.21';
+  var VERSION = '4.18.1';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -2532,7 +2488,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
   /** Error message constants. */
   var CORE_ERROR_TEXT = 'Unsupported core-js use. Try https://npms.io/search?q=ponyfill.',
       FUNC_ERROR_TEXT = 'Expected a function',
-      INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`';
+      INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`',
+      INVALID_TEMPL_IMPORTS_ERROR_TEXT = 'Invalid `imports` option passed into `_.template`';
 
   /** Used to stand-in for `undefined` hash values. */
   var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -4264,6 +4221,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * embedded Ruby (ERB) as well as ES2015 template strings. Change the
      * following template settings to use alternative delimiters.
      *
+     * **Security:** See
+     * [threat model](https://github.com/lodash/lodash/blob/main/threat-model.md)
+     * — `_.template` is insecure and will be removed in v5.
+     *
      * @static
      * @memberOf _
      * @type {Object}
@@ -4812,7 +4773,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * @name has
      * @memberOf SetCache
      * @param {*} value The value to search for.
-     * @returns {number} Returns `true` if `value` is found, else `false`.
+     * @returns {boolean} Returns `true` if `value` is found, else `false`.
      */
     function setCacheHas(value) {
       return this.__data__.has(value);
@@ -6278,7 +6239,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
           if (isArray(iteratee)) {
             return function(value) {
               return baseGet(value, iteratee.length === 1 ? iteratee[0] : iteratee);
-            }
+            };
           }
           return iteratee;
         });
@@ -6882,8 +6843,34 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      */
     function baseUnset(object, path) {
       path = castPath(path, object);
-      object = parent(object, path);
-      return object == null || delete object[toKey(last(path))];
+
+      // Prevent prototype pollution:
+      // https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg
+      // https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh
+      var index = -1,
+          length = path.length;
+
+      if (!length) {
+        return true;
+      }
+
+      while (++index < length) {
+        var key = toKey(path[index]);
+
+        // Always block "__proto__" anywhere in the path if it's not expected
+        if (key === '__proto__' && !hasOwnProperty.call(object, '__proto__')) {
+          return false;
+        }
+
+        // Block constructor/prototype as non-terminal traversal keys to prevent
+        // escaping the object graph into built-in constructors and prototypes.
+        if ((key === 'constructor' || key === 'prototype') && index < length - 1) {
+          return false;
+        }
+      }
+
+      var obj = parent(object, path);
+      return obj == null || delete obj[toKey(last(path))];
     }
 
     /**
@@ -9434,7 +9421,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
     /**
      * Creates an array with all falsey values removed. The values `false`, `null`,
-     * `0`, `""`, `undefined`, and `NaN` are falsey.
+     * `0`, `-0`, `0n`, `""`, `undefined`, and `NaN` are falsy.
      *
      * @static
      * @memberOf _
@@ -9973,7 +9960,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
       while (++index < length) {
         var pair = pairs[index];
-        result[pair[0]] = pair[1];
+        baseAssignValue(result, pair[0], pair[1]);
       }
       return result;
     }
@@ -16633,6 +16620,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * **Note:** JavaScript follows the IEEE-754 standard for resolving
      * floating-point values which can produce unexpected results.
      *
+     * **Note:** If `lower` is greater than `upper`, the values are swapped.
+     *
      * @static
      * @memberOf _
      * @since 0.7.0
@@ -16646,8 +16635,15 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * _.random(0, 5);
      * // => an integer between 0 and 5
      *
+     * // when lower is greater than upper the values are swapped
+     * _.random(5, 0);
+     * // => an integer between 0 and 5
+     *
      * _.random(5);
      * // => also an integer between 0 and 5
+     *
+     * _.random(-5);
+     * // => an integer between -5 and 0
      *
      * _.random(5, true);
      * // => a floating-point number between 0 and 5
@@ -17250,6 +17246,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * properties may be accessed as free variables in the template. If a setting
      * object is given, it takes precedence over `_.templateSettings` values.
      *
+     * **Security:** `_.template` is insecure and should not be used. It will be
+     * removed in Lodash v5. Avoid untrusted input. See
+     * [threat model](https://github.com/lodash/lodash/blob/main/threat-model.md).
+     *
      * **Note:** In the development build `_.template` utilizes
      * [sourceURLs](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
      * for easier debugging.
@@ -17357,11 +17357,17 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
         options = undefined;
       }
       string = toString(string);
-      options = assignInWith({}, options, settings, customDefaultsAssignIn);
+      options = assignWith({}, options, settings, customDefaultsAssignIn);
 
-      var imports = assignInWith({}, options.imports, settings.imports, customDefaultsAssignIn),
+      var imports = assignWith({}, options.imports, settings.imports, customDefaultsAssignIn),
           importsKeys = keys(imports),
           importsValues = baseValues(imports, importsKeys);
+
+      arrayEach(importsKeys, function(key) {
+        if (reForbiddenIdentifierChars.test(key)) {
+          throw new Error(INVALID_TEMPL_IMPORTS_ERROR_TEXT);
+        }
+      });
 
       var isEscaping,
           isEvaluating,
@@ -19709,17 +19715,18 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
   // Check for `exports` after `define` in case a build optimizer adds it.
-  else {}
+  else // removed by dead control flow
+{}
 }.call(this));
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-dom/cjs/react-dom.development.js":
+/***/ "./node_modules/react-dom/cjs/react-dom.development.js"
 /*!*************************************************************!*\
   !*** ./node_modules/react-dom/cjs/react-dom.development.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 /**
@@ -38294,7 +38301,8 @@ function logCapturedError(boundary, errorInfo) {
       // displayed by the browser thanks to the DEV-only fake event trick in ReactErrorUtils.
 
       console['error'](combinedMessage); // Don't transform to our wrapper
-    } else {}
+    } else // removed by dead control flow
+{}
   } catch (e) {
     // This method must not throw, or React internal state will get messed up.
     // If console.error is overridden, or logCapturedError() shows a dialog that throws,
@@ -49489,19 +49497,20 @@ if (
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-dom/client.js":
+/***/ "./node_modules/react-dom/client.js"
 /*!******************************************!*\
   !*** ./node_modules/react-dom/client.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var m = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
   exports.createRoot = function(c, o) {
     i.usingClientEntryPoint = true;
@@ -49522,13 +49531,13 @@ if (false) {} else {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-dom/index.js":
+/***/ "./node_modules/react-dom/index.js"
 /*!*****************************************!*\
   !*** ./node_modules/react-dom/index.js ***!
   \*****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -49551,28 +49560,23 @@ function checkDCE() {
     // a false positive.
     throw new Error('^_^');
   }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
+  // removed by dead control flow
+
 }
 
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   module.exports = __webpack_require__(/*! ./cjs/react-dom.development.js */ "./node_modules/react-dom/cjs/react-dom.development.js");
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-property/lib/index.js":
+/***/ "./node_modules/react-property/lib/index.js"
 /*!**************************************************!*\
   !*** ./node_modules/react-property/lib/index.js ***!
   \**************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -49894,13 +49898,13 @@ exports.isCustomAttribute = isCustomAttribute;
 exports.possibleStandardNames = possibleStandardNames;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react-property/lib/possibleStandardNamesOptimized.js":
+/***/ "./node_modules/react-property/lib/possibleStandardNamesOptimized.js"
 /*!***************************************************************************!*\
   !*** ./node_modules/react-property/lib/possibleStandardNamesOptimized.js ***!
   \***************************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+(__unused_webpack_module, exports) {
 
 // An attribute in which the DOM/SVG standard name is the same as the React prop name (e.g., 'accept').
 var SAME = 0;
@@ -50397,13 +50401,13 @@ exports.possibleStandardNames = {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react/cjs/react.development.js":
+/***/ "./node_modules/react/cjs/react.development.js"
 /*!*****************************************************!*\
   !*** ./node_modules/react/cjs/react.development.js ***!
   \*****************************************************/
-/***/ ((module, exports, __webpack_require__) => {
+(module, exports, __webpack_require__) {
 
 "use strict";
 /* module decorator */ module = __webpack_require__.nmd(module);
@@ -53146,29 +53150,30 @@ if (
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/react/index.js":
+/***/ "./node_modules/react/index.js"
 /*!*************************************!*\
   !*** ./node_modules/react/index.js ***!
   \*************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   module.exports = __webpack_require__(/*! ./cjs/react.development.js */ "./node_modules/react/cjs/react.development.js");
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/scheduler/cjs/scheduler.development.js":
+/***/ "./node_modules/scheduler/cjs/scheduler.development.js"
 /*!*************************************************************!*\
   !*** ./node_modules/scheduler/cjs/scheduler.development.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+(__unused_webpack_module, exports) {
 
 "use strict";
 /**
@@ -53807,29 +53812,30 @@ if (
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/scheduler/index.js":
+/***/ "./node_modules/scheduler/index.js"
 /*!*****************************************!*\
   !*** ./node_modules/scheduler/index.js ***!
   \*****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-if (false) {} else {
+if (false) // removed by dead control flow
+{} else {
   module.exports = __webpack_require__(/*! ./cjs/scheduler.development.js */ "./node_modules/scheduler/cjs/scheduler.development.js");
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/style-to-js/cjs/index.js":
+/***/ "./node_modules/style-to-js/cjs/index.js"
 /*!***********************************************!*\
   !*** ./node_modules/style-to-js/cjs/index.js ***!
   \***********************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -53854,13 +53860,13 @@ function StyleToJS(style, options) {
 exports["default"] = StyleToJS;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/style-to-js/cjs/utilities.js":
+/***/ "./node_modules/style-to-js/cjs/utilities.js"
 /*!***************************************************!*\
   !*** ./node_modules/style-to-js/cjs/utilities.js ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -53893,13 +53899,13 @@ var camelCase = function (property, options) {
 exports.camelCase = camelCase;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/style-to-object/index.js":
+/***/ "./node_modules/style-to-object/index.js"
 /*!***********************************************!*\
   !*** ./node_modules/style-to-object/index.js ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var parse = __webpack_require__(/*! inline-style-parser */ "./node_modules/inline-style-parser/index.js");
 
@@ -53945,1001 +53951,1001 @@ function StyleToObject(style, iterator) {
 module.exports = StyleToObject;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/border-killroy.gif":
+/***/ "./static/images/wedding/border-killroy.gif"
 /*!**************************************************!*\
   !*** ./static/images/wedding/border-killroy.gif ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "3e11b6cbae5ccfc30009.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/border-runway.gif":
+/***/ "./static/images/wedding/border-runway.gif"
 /*!*************************************************!*\
   !*** ./static/images/wedding/border-runway.gif ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "0603692223253c5d1374.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/border-train.gif":
+/***/ "./static/images/wedding/border-train.gif"
 /*!************************************************!*\
   !*** ./static/images/wedding/border-train.gif ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "228437acfb0e983d6af9.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/accident.gif":
+/***/ "./static/images/wedding/constr/accident.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/constr/accident.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "6d76933acebdbdc53843.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/badge.png":
+/***/ "./static/images/wedding/constr/badge.png"
 /*!************************************************!*\
   !*** ./static/images/wedding/constr/badge.png ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "c6256887fa2f1b910cbb.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/badge2.gif":
+/***/ "./static/images/wedding/constr/badge2.gif"
 /*!*************************************************!*\
   !*** ./static/images/wedding/constr/badge2.gif ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "88fb914fbba6af2e8556.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/banner.gif":
+/***/ "./static/images/wedding/constr/banner.gif"
 /*!*************************************************!*\
   !*** ./static/images/wedding/constr/banner.gif ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "3f862909de0b3dbad23a.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/banner2.gif":
+/***/ "./static/images/wedding/constr/banner2.gif"
 /*!**************************************************!*\
   !*** ./static/images/wedding/constr/banner2.gif ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "c7480eb836bb1a57e69a.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/border.png":
+/***/ "./static/images/wedding/constr/border.png"
 /*!*************************************************!*\
   !*** ./static/images/wedding/constr/border.png ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "e60e1c449bbc7a17cde5.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/bricks.png":
+/***/ "./static/images/wedding/constr/bricks.png"
 /*!*************************************************!*\
   !*** ./static/images/wedding/constr/bricks.png ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "88b117450dc3e48e862a.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/clipart.gif":
+/***/ "./static/images/wedding/constr/clipart.gif"
 /*!**************************************************!*\
   !*** ./static/images/wedding/constr/clipart.gif ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "75f51ede02ee34526e5a.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/divider.gif":
+/***/ "./static/images/wedding/constr/divider.gif"
 /*!**************************************************!*\
   !*** ./static/images/wedding/constr/divider.gif ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "cc3c6efa139f1420b5bb.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/fail.gif":
+/***/ "./static/images/wedding/constr/fail.gif"
 /*!***********************************************!*\
   !*** ./static/images/wedding/constr/fail.gif ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "698c4e8929967ce3c70e.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/icon.gif":
+/***/ "./static/images/wedding/constr/icon.gif"
 /*!***********************************************!*\
   !*** ./static/images/wedding/constr/icon.gif ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "51f595f7b26407d3c275.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/patience.png":
+/***/ "./static/images/wedding/constr/patience.png"
 /*!***************************************************!*\
   !*** ./static/images/wedding/constr/patience.png ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "d0b1a9413507d6ef2980.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/pinkslip.gif":
+/***/ "./static/images/wedding/constr/pinkslip.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/constr/pinkslip.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "05efcc34b542a27a9efb.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/shovel.gif":
+/***/ "./static/images/wedding/constr/shovel.gif"
 /*!*************************************************!*\
   !*** ./static/images/wedding/constr/shovel.gif ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "955d9d32877ced4b3bcc.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/sign.gif":
+/***/ "./static/images/wedding/constr/sign.gif"
 /*!***********************************************!*\
   !*** ./static/images/wedding/constr/sign.gif ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "500584794047bbff6882.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/sign2.gif":
+/***/ "./static/images/wedding/constr/sign2.gif"
 /*!************************************************!*\
   !*** ./static/images/wedding/constr/sign2.gif ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "7a2f9e452542444b8bcf.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/sign3.gif":
+/***/ "./static/images/wedding/constr/sign3.gif"
 /*!************************************************!*\
   !*** ./static/images/wedding/constr/sign3.gif ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "4b5477d30b0e804ca72a.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/siren-bar.gif":
+/***/ "./static/images/wedding/constr/siren-bar.gif"
 /*!****************************************************!*\
   !*** ./static/images/wedding/constr/siren-bar.gif ***!
   \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "4b812dbc953895d43ffc.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/siren-bigspin.gif":
+/***/ "./static/images/wedding/constr/siren-bigspin.gif"
 /*!********************************************************!*\
   !*** ./static/images/wedding/constr/siren-bigspin.gif ***!
   \********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "d1e448bc0f1e66fa6adb.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/siren.gif":
+/***/ "./static/images/wedding/constr/siren.gif"
 /*!************************************************!*\
   !*** ./static/images/wedding/constr/siren.gif ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "b83e825959ce3ed191d5.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/slow.gif":
+/***/ "./static/images/wedding/constr/slow.gif"
 /*!***********************************************!*\
   !*** ./static/images/wedding/constr/slow.gif ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "ee171ce341ab3368d5de.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/constr/spin.gif":
+/***/ "./static/images/wedding/constr/spin.gif"
 /*!***********************************************!*\
   !*** ./static/images/wedding/constr/spin.gif ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "fc752b1ebd66498b45bd.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/dresscode-comfy.gif":
+/***/ "./static/images/wedding/dresscode-comfy.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/dresscode-comfy.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "876213171fa06878fb43.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/dresscode-cunty.gif":
+/***/ "./static/images/wedding/dresscode-cunty.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/dresscode-cunty.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "21ea338d49f40cceebea.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/dresscode-dance.gif":
+/***/ "./static/images/wedding/dresscode-dance.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/dresscode-dance.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "0886403c6d0044b4bcfb.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/dresscode-dance2.gif":
+/***/ "./static/images/wedding/dresscode-dance2.gif"
 /*!****************************************************!*\
   !*** ./static/images/wedding/dresscode-dance2.gif ***!
   \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "df6a9db2040adbe11723.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/dresscode-iconoclast.gif":
+/***/ "./static/images/wedding/dresscode-iconoclast.gif"
 /*!********************************************************!*\
   !*** ./static/images/wedding/dresscode-iconoclast.gif ***!
   \********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "021b97d0ff4e7d6e73f0.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/dresscode-masquerade.gif":
+/***/ "./static/images/wedding/dresscode-masquerade.gif"
 /*!********************************************************!*\
   !*** ./static/images/wedding/dresscode-masquerade.gif ***!
   \********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "ecf7777abb7319323310.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/dresscode-masquerade2.gif":
+/***/ "./static/images/wedding/dresscode-masquerade2.gif"
 /*!*********************************************************!*\
   !*** ./static/images/wedding/dresscode-masquerade2.gif ***!
   \*********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "1e65ab85aaf99fc2b7eb.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/dresscode-tuxedomask.gif":
+/***/ "./static/images/wedding/dresscode-tuxedomask.gif"
 /*!********************************************************!*\
   !*** ./static/images/wedding/dresscode-tuxedomask.gif ***!
   \********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "f6617ed48bcbbd67f29c.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/emote/smiley-tongue.gif":
+/***/ "./static/images/wedding/emote/smiley-tongue.gif"
 /*!*******************************************************!*\
   !*** ./static/images/wedding/emote/smiley-tongue.gif ***!
   \*******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "ab5b2bc2d4bb4253128c.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/icon/beer.png":
+/***/ "./static/images/wedding/icon/beer.png"
 /*!*********************************************!*\
   !*** ./static/images/wedding/icon/beer.png ***!
   \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "c3cd7487a137724dcdc7.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/icon/cocktail.png":
+/***/ "./static/images/wedding/icon/cocktail.png"
 /*!*************************************************!*\
   !*** ./static/images/wedding/icon/cocktail.png ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "688cdba7a4399faff51b.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/icon/tada.png":
+/***/ "./static/images/wedding/icon/tada.png"
 /*!*********************************************!*\
   !*** ./static/images/wedding/icon/tada.png ***!
   \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "9fe88e47e1a63804114e.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/icon/weathercock.png":
+/***/ "./static/images/wedding/icon/weathercock.png"
 /*!****************************************************!*\
   !*** ./static/images/wedding/icon/weathercock.png ***!
   \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "1d7b532565919f18a823.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/map/hellabees.png":
+/***/ "./static/images/wedding/map/hellabees.png"
 /*!*************************************************!*\
   !*** ./static/images/wedding/map/hellabees.png ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "a980442e9312f01e3e9f.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/map/hjk.png":
+/***/ "./static/images/wedding/map/hjk.png"
 /*!*******************************************!*\
   !*** ./static/images/wedding/map/hjk.png ***!
   \*******************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "27be0dc2751f3245cea3.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/map/tallboy.png":
+/***/ "./static/images/wedding/map/tallboy.png"
 /*!***********************************************!*\
   !*** ./static/images/wedding/map/tallboy.png ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "f567896377195971b0b9.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/ocean/fishhook.gif":
+/***/ "./static/images/wedding/ocean/fishhook.gif"
 /*!**************************************************!*\
   !*** ./static/images/wedding/ocean/fishhook.gif ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "85c74f6c01a219b9c1f0.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/oct3/3 oct 26.png":
+/***/ "./static/images/wedding/oct3/3 oct 26.png"
 /*!*************************************************!*\
   !*** ./static/images/wedding/oct3/3 oct 26.png ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "d73ad5ac0c1c62a3fc55.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/oct3/back to the wedding.png":
+/***/ "./static/images/wedding/oct3/back to the wedding.png"
 /*!************************************************************!*\
   !*** ./static/images/wedding/oct3/back to the wedding.png ***!
   \************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "68c206157c15336f83a4.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/oct3/getwedded.png":
+/***/ "./static/images/wedding/oct3/getwedded.png"
 /*!**************************************************!*\
   !*** ./static/images/wedding/oct3/getwedded.png ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "713c50c9dfc627c3e736.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/oct3/meangirls.gif":
+/***/ "./static/images/wedding/oct3/meangirls.gif"
 /*!**************************************************!*\
   !*** ./static/images/wedding/oct3/meangirls.gif ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "af3fe4b54dfb6a889ef0.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/oct3/october 1984.png":
+/***/ "./static/images/wedding/oct3/october 1984.png"
 /*!*****************************************************!*\
   !*** ./static/images/wedding/oct3/october 1984.png ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "dc06cc8dc1bf43b41af3.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/oct3/octoberthirst.jpg":
+/***/ "./static/images/wedding/oct3/octoberthirst.jpg"
 /*!******************************************************!*\
   !*** ./static/images/wedding/oct3/octoberthirst.jpg ***!
   \******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "6b98e6e229441fa33f97.jpg";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/_emblem.gif":
+/***/ "./static/images/wedding/rainbow/_emblem.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/rainbow/_emblem.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "4655c53c80967e80a982.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/arccycle.gif":
+/***/ "./static/images/wedding/rainbow/arccycle.gif"
 /*!****************************************************!*\
   !*** ./static/images/wedding/rainbow/arccycle.gif ***!
   \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "1f182573fb91ddcdce59.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/blingee.gif":
+/***/ "./static/images/wedding/rainbow/blingee.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/rainbow/blingee.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "766e71bed45b8a03007b.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/border-helix.gif":
+/***/ "./static/images/wedding/rainbow/border-helix.gif"
 /*!********************************************************!*\
   !*** ./static/images/wedding/rainbow/border-helix.gif ***!
   \********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "d9d5c8788afaf3d26bdf.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/border-scribble.png":
+/***/ "./static/images/wedding/rainbow/border-scribble.png"
 /*!***********************************************************!*\
   !*** ./static/images/wedding/rainbow/border-scribble.png ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "a7607d538a37ef208ac0.png";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/border-spin.gif":
+/***/ "./static/images/wedding/rainbow/border-spin.gif"
 /*!*******************************************************!*\
   !*** ./static/images/wedding/rainbow/border-spin.gif ***!
   \*******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "d33685036eaaee2f73b7.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/border-triangles.gif":
+/***/ "./static/images/wedding/rainbow/border-triangles.gif"
 /*!************************************************************!*\
   !*** ./static/images/wedding/rainbow/border-triangles.gif ***!
   \************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "8d8579e41462d0577553.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/border-xmaslights.gif":
+/***/ "./static/images/wedding/rainbow/border-xmaslights.gif"
 /*!*************************************************************!*\
   !*** ./static/images/wedding/rainbow/border-xmaslights.gif ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "116f7547dd5d716ea358.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/butterfly.gif":
+/***/ "./static/images/wedding/rainbow/butterfly.gif"
 /*!*****************************************************!*\
   !*** ./static/images/wedding/rainbow/butterfly.gif ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "723cca811692a0a0abec.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/butterflyblingee.gif":
+/***/ "./static/images/wedding/rainbow/butterflyblingee.gif"
 /*!************************************************************!*\
   !*** ./static/images/wedding/rainbow/butterflyblingee.gif ***!
   \************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "f6848870c01093508d8b.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/cauldron.gif":
+/***/ "./static/images/wedding/rainbow/cauldron.gif"
 /*!****************************************************!*\
   !*** ./static/images/wedding/rainbow/cauldron.gif ***!
   \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "7e339fddf8ac4632461c.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/cloudbeam.gif":
+/***/ "./static/images/wedding/rainbow/cloudbeam.gif"
 /*!*****************************************************!*\
   !*** ./static/images/wedding/rainbow/cloudbeam.gif ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "2c2525704195521f9442.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/crystalball.gif":
+/***/ "./static/images/wedding/rainbow/crystalball.gif"
 /*!*******************************************************!*\
   !*** ./static/images/wedding/rainbow/crystalball.gif ***!
   \*******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "4b92bdf8ed06c2d95272.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/dancer.gif":
+/***/ "./static/images/wedding/rainbow/dancer.gif"
 /*!**************************************************!*\
   !*** ./static/images/wedding/rainbow/dancer.gif ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "cef74eebf9a92d2ddeaf.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/diamond.gif":
+/***/ "./static/images/wedding/rainbow/diamond.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/rainbow/diamond.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "2167a5d66e57d11850c4.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/fairypour.gif":
+/***/ "./static/images/wedding/rainbow/fairypour.gif"
 /*!*****************************************************!*\
   !*** ./static/images/wedding/rainbow/fairypour.gif ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "a9fe56eaffa9b1eb9865.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/fireworks-blue.gif":
+/***/ "./static/images/wedding/rainbow/fireworks-blue.gif"
 /*!**********************************************************!*\
   !*** ./static/images/wedding/rainbow/fireworks-blue.gif ***!
   \**********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "8e780d9b41107fa12cae.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/fireworks-green.gif":
+/***/ "./static/images/wedding/rainbow/fireworks-green.gif"
 /*!***********************************************************!*\
   !*** ./static/images/wedding/rainbow/fireworks-green.gif ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "cca243e5903c52777fd6.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/fireworks-rainbow.gif":
+/***/ "./static/images/wedding/rainbow/fireworks-rainbow.gif"
 /*!*************************************************************!*\
   !*** ./static/images/wedding/rainbow/fireworks-rainbow.gif ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "2c50033496ed959fabd3.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/fireworks-red.gif":
+/***/ "./static/images/wedding/rainbow/fireworks-red.gif"
 /*!*********************************************************!*\
   !*** ./static/images/wedding/rainbow/fireworks-red.gif ***!
   \*********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "54f8ba4db7da9ce2a6fe.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/fireworks.gif":
+/***/ "./static/images/wedding/rainbow/fireworks.gif"
 /*!*****************************************************!*\
   !*** ./static/images/wedding/rainbow/fireworks.gif ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "57002bbbc8353793e3ac.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/flag.gif":
+/***/ "./static/images/wedding/rainbow/flag.gif"
 /*!************************************************!*\
   !*** ./static/images/wedding/rainbow/flag.gif ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "db38cf327aace5c10183.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/follow.gif":
+/***/ "./static/images/wedding/rainbow/follow.gif"
 /*!**************************************************!*\
   !*** ./static/images/wedding/rainbow/follow.gif ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "cac3d868e360c0a48976.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/gemspin.gif":
+/***/ "./static/images/wedding/rainbow/gemspin.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/rainbow/gemspin.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "77085ced9c74ddf53e6d.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/lavalamp.gif":
+/***/ "./static/images/wedding/rainbow/lavalamp.gif"
 /*!****************************************************!*\
   !*** ./static/images/wedding/rainbow/lavalamp.gif ***!
   \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "2a199d111c2a24d18b73.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/pegasus.gif":
+/***/ "./static/images/wedding/rainbow/pegasus.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/rainbow/pegasus.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "167c7019b86e090ceea1.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/rainboom.gif":
+/***/ "./static/images/wedding/rainbow/rainboom.gif"
 /*!****************************************************!*\
   !*** ./static/images/wedding/rainbow/rainboom.gif ***!
   \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "d26038220e2c220787d8.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/rainbow-mini-blink.gif":
+/***/ "./static/images/wedding/rainbow/rainbow-mini-blink.gif"
 /*!**************************************************************!*\
   !*** ./static/images/wedding/rainbow/rainbow-mini-blink.gif ***!
   \**************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "8df0fbe7c5557628cdd8.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/springpoint.gif":
+/***/ "./static/images/wedding/rainbow/springpoint.gif"
 /*!*******************************************************!*\
   !*** ./static/images/wedding/rainbow/springpoint.gif ***!
   \*******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "8665314dbbb8172550ab.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/wand.gif":
+/***/ "./static/images/wedding/rainbow/wand.gif"
 /*!************************************************!*\
   !*** ./static/images/wedding/rainbow/wand.gif ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "557a2982cb02a4a019a7.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/wizard-cartoon.gif":
+/***/ "./static/images/wedding/rainbow/wizard-cartoon.gif"
 /*!**********************************************************!*\
   !*** ./static/images/wedding/rainbow/wizard-cartoon.gif ***!
   \**********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "8dd5e7c73e2dc7d8423e.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/wizard-cartoony.gif":
+/***/ "./static/images/wedding/rainbow/wizard-cartoony.gif"
 /*!***********************************************************!*\
   !*** ./static/images/wedding/rainbow/wizard-cartoony.gif ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "6b48db9a0b8652cdfcc9.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/wizard-hat.gif":
+/***/ "./static/images/wedding/rainbow/wizard-hat.gif"
 /*!******************************************************!*\
   !*** ./static/images/wedding/rainbow/wizard-hat.gif ***!
   \******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "a2b9da0368c946083018.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/wizard-ms.gif":
+/***/ "./static/images/wedding/rainbow/wizard-ms.gif"
 /*!*****************************************************!*\
   !*** ./static/images/wedding/rainbow/wizard-ms.gif ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "4a3e98c3d75e34723984.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/wizard.gif":
+/***/ "./static/images/wedding/rainbow/wizard.gif"
 /*!**************************************************!*\
   !*** ./static/images/wedding/rainbow/wizard.gif ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "074ddf072855b00c8c04.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/wizard3.gif":
+/***/ "./static/images/wedding/rainbow/wizard3.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/rainbow/wizard3.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "49e03bb3dc89caf0be46.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/rainbow/wizard5.gif":
+/***/ "./static/images/wedding/rainbow/wizard5.gif"
 /*!***************************************************!*\
   !*** ./static/images/wedding/rainbow/wizard5.gif ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "b30e9b108d7418ef6ce4.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/redalrt.gif":
+/***/ "./static/images/wedding/redalrt.gif"
 /*!*******************************************!*\
   !*** ./static/images/wedding/redalrt.gif ***!
   \*******************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "270fbc2e3612bd163fc9.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/schedj/bell.gif":
+/***/ "./static/images/wedding/schedj/bell.gif"
 /*!***********************************************!*\
   !*** ./static/images/wedding/schedj/bell.gif ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "f0c349d9dc29123495aa.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/schedj/hotdog.gif":
+/***/ "./static/images/wedding/schedj/hotdog.gif"
 /*!*************************************************!*\
   !*** ./static/images/wedding/schedj/hotdog.gif ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "ac812f8c7be4e99ba533.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./static/images/wedding/schedj/waffles.gif":
+/***/ "./static/images/wedding/schedj/waffles.gif"
 /*!**************************************************!*\
   !*** ./static/images/wedding/schedj/waffles.gif ***!
   \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "28b5a66028e3392fcfdf.gif";
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/html-react-parser/index.mjs":
+/***/ "./node_modules/html-react-parser/index.mjs"
 /*!**************************************************!*\
   !*** ./node_modules/html-react-parser/index.mjs ***!
   \**************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Element": () => (/* binding */ Element),
-/* harmony export */   "attributesToProps": () => (/* binding */ attributesToProps),
+/* harmony export */   Element: () => (/* binding */ Element),
+/* harmony export */   attributesToProps: () => (/* binding */ attributesToProps),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "domToReact": () => (/* binding */ domToReact),
-/* harmony export */   "htmlToDOM": () => (/* binding */ htmlToDOM)
+/* harmony export */   domToReact: () => (/* binding */ domToReact),
+/* harmony export */   htmlToDOM: () => (/* binding */ htmlToDOM)
 /* harmony export */ });
 /* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ "./node_modules/html-react-parser/index.js");
 
@@ -54952,28 +54958,34 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_index_js__WEBPACK_IMPORTED_MODULE_0__);
 
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
 /******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
+/******/ 	const __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		const cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 		const module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
 /******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			const e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Flag the module as loaded
@@ -54991,7 +55003,7 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
 /******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
+/******/ 			const getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
@@ -55001,11 +55013,26 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
+/******/ 		// define getter/value functions for harmony exports
 /******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			if(Array.isArray(definition)) {
+/******/ 				var i = 0;
+/******/ 				while(i < definition.length) {
+/******/ 					var key = definition[i++];
+/******/ 					var binding = definition[i++];
+/******/ 					if(!__webpack_require__.o(exports, key)) {
+/******/ 						if(binding === 0) {
+/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
+/******/ 						} else {
+/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
+/******/ 						}
+/******/ 					} else if(binding === 0) { i++; }
+/******/ 				}
+/******/ 			} else {
+/******/ 				for(var key in definition) {
+/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 					}
 /******/ 				}
 /******/ 			}
 /******/ 		};
@@ -55032,7 +55059,7 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
 /******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			if(Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
@@ -55050,32 +55077,35 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		var scriptUrl;
+/******/ 		let scriptUrl;
 /******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
-/******/ 		var document = __webpack_require__.g.document;
+/******/ 		const document = __webpack_require__.g.document;
 /******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript)
-/******/ 				scriptUrl = document.currentScript.src
+/******/ 			if (document.currentScript?.tagName.toUpperCase() === 'SCRIPT')
+/******/ 				scriptUrl = document.currentScript.src;
 /******/ 			if (!scriptUrl) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
+/******/ 				const scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					let i = scripts.length - 1;
+/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
+/******/ 				}
 /******/ 			}
 /******/ 		}
 /******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
 /******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
 /******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		scriptUrl = scriptUrl.replace(/^blob:/, "").replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
 /******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
 /******/ 	(() => {
-/******/ 		__webpack_require__.b = document.baseURI || self.location.href;
+/******/ 		__webpack_require__.b = (typeof document !== 'undefined' && document.baseURI) || self.location.href;
 /******/ 		
 /******/ 		// object to store loaded and loading chunks
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
+/******/ 		const installedChunks = {
 /******/ 			"wedding": 0
 /******/ 		};
 /******/ 		
@@ -55095,8 +55125,8 @@ var Element = _index_js__WEBPACK_IMPORTED_MODULE_0__.Element;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+let __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 /*!**********************************!*\
@@ -55118,18 +55148,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var html_wedding_gallery_html__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! html/wedding/_gallery.html */ "./src/html/wedding/_gallery.html");
 /* harmony import */ var html_wedding_livestream_html__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! html/wedding/_livestream.html */ "./src/html/wedding/_livestream.html");
 /* harmony import */ var html_wedding_ourstory_html__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! html/wedding/_ourstory.html */ "./src/html/wedding/_ourstory.html");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 
 
 
@@ -55148,14 +55166,16 @@ var TABS_LIST = [{
   id: 'default',
   label: 'Not actually used lol',
   content: html_wedding_default_html__WEBPACK_IMPORTED_MODULE_4__["default"],
-  effect: function effect() {// TODO|kevin do some silly fuckin visual effects here lol
+  effect: function effect() {
+    // TODO|kevin do some silly fuckin visual effects here lol
     // document.getElementById('email').textContent = 'kevin@mcswiggen.dev';
   }
 }, {
   id: 'schedule',
   label: 'Schedule of Events',
   content: html_wedding_schedule_html__WEBPACK_IMPORTED_MODULE_5__["default"],
-  effect: function effect() {// TODO|kevin LMAO WAIT I COULD LIKE PLAY AN AUDIO CLIP OR SOMETHING WHEN ACTIVATING CERTAIN TABS
+  effect: function effect() {
+    // TODO|kevin LMAO WAIT I COULD LIKE PLAY AN AUDIO CLIP OR SOMETHING WHEN ACTIVATING CERTAIN TABS
     // TODO|kevin I could also append different images to the end of the .tabs-menu
   }
 }, {
@@ -55176,18 +55196,18 @@ var TABS_LIST = [{
   content: html_wedding_registry_html__WEBPACK_IMPORTED_MODULE_8__["default"],
   effect: function effect() {
     var list = document.getElementById("charity-list");
-
     if (list) {
-      var allItems = Array.from(list.children); // Shuffle charity list into a random order
-
+      var allItems = Array.from(list.children);
+      // Shuffle charity list into a random order
       allItems.sort(function () {
         return Math.random() - 0.5;
-      }); // Ensure .lastone is the last one
-
-      list.append.apply(list, _toConsumableArray(allItems).concat([list.querySelector(".lastone")]));
+      });
+      // Ensure .lastone is the last one
+      list.append.apply(list, allItems.concat([list.querySelector(".lastone")]));
     }
   }
-}, // TODO|kevin gotta reorder these mmmm
+},
+// TODO|kevin gotta reorder these mmmm
 {
   id: 'ourstory',
   label: 'Our Story',
@@ -55215,14 +55235,14 @@ var TABS_LIST = [{
 document.addEventListener('DOMContentLoaded', function () {
   var rootEl = document.getElementById('main-content');
   var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootEl);
-  root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabsView__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  root.render(/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_TabsView__WEBPACK_IMPORTED_MODULE_3__["default"], {
     tabs: TABS_LIST,
     hasDefaultTab: true,
     containerClass: "content"
   })));
   var toggleEl = document.getElementById("theme-toggle-root");
   var toggleRoot = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(toggleEl);
-  toggleRoot.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_DisableTheme__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  toggleRoot.render(/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_components_DisableTheme__WEBPACK_IMPORTED_MODULE_2__["default"], {
     id: "themetoggle"
   })));
 });
