@@ -160,6 +160,9 @@ a.go-back {
   > section {
     position: relative;
     width: 100%;
+    > img {
+      max-width: 100%;
+    }
   }
 }
 .tab-panel {
@@ -192,6 +195,12 @@ a.go-back {
     gap: 10px;
   }
   .page-emblem, .hidesmall {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .hidetiny {
     display: none;
   }
 }
@@ -262,23 +271,47 @@ body span.censored {
   }
 }
 
-div.rel {  // Easy isolation for absolute positioning
+// Easy isolation for absolute positioning
+div.abs {
+  box-sizing: border-box;
+  margin: 0 !important;
+  overflow-y: hidden;
+  position: absolute;
+  width: 100%;
+}
+div.flexgallery {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 0 !important;
+  width: 100%;
+  img {
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+div.rel {
   position: relative;
 }
 
 // TODO|kevin https://github.com/tholman/cursor-effects ????????
 
-body.boring-mode{
+body.boring-mode {
   background-color: midnightblue !important;
    * {
     background-color: unset !important;
     background-image: none !important;
     box-shadow: none !important;
     border-color: white !important;
-    color: lightgoldenrodyellow !important;
+    color: khaki !important;
     cursor: revert !important;
     filter: none !important;
     text-shadow: none !important;
+    a {
+      color: lightcyan !important;
+    }
     img[src$=".gif"], img[src$=".webp"] {
       display: none !important;
     }

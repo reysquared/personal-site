@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
   )
 
   CURSOR_SELECTORS.forEach(([selector, aniUrl]) => {
-    console.error(`TODO|kevin calling fxn on ${selector} and ${aniUrl}`);
     applyCursor(selector, aniUrl);
   })
 });
@@ -123,7 +122,7 @@ const CURSOR_SELECTORS = [
   ["#livestream a", "/images/wedding/curs/sea-ptr.ani"],
   ["#ourstory", "/images/wedding/curs/rose.ani"],
   ["#ourstory a", "/images/wedding/curs/rose-ptr.ani"],
-  ["#registry a", "/images/wedding/curs/space-ptr.ani"],  // TODO|kevin choose one
+  ["#registry a", "/images/wedding/curs/space-ptr.ani"],
   ["#rsvp", "/images/wedding/curs/goth.ani"],
   ["#rsvp a", "/images/wedding/curs/goth-ptr.ani"],
   [".tabs-menu", "/images/wedding/curs/sidebar.ani"],
@@ -139,7 +138,6 @@ function applyCursor(selector, aniUrl) {
     .then((response) => response.arrayBuffer())
     .then((buff) => {
       const data = new Uint8Array(buff);
-      console.error(`TODO|kevin we got some data in an array! ${data.length}`);
       const style = document.createElement('style');
       style.innerText = convertAniBinaryToCSS(selector, data);
       document.head.appendChild(style);

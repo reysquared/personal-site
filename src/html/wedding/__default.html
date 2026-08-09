@@ -24,13 +24,13 @@
   <a href="#rsvp" classname="rainbowtext">
     <img
       class="fireworks" src="../../../static/images/wedding/rainbow/fireworks-blue.gif"
-      style="position:absolute;left:0;"
+      style="position:fixed;left:0;"
     >
     <img class="fireworks" src="../../../static/images/wedding/rainbow/fireworks.gif"
       style="position:absolute;left:50%;translate:-50% -100%;">
     <img
       class="fireworks" src="../../../static/images/wedding/rainbow/fireworks-green.gif"
-      style="position:absolute;right:0;"
+      style="position:fixed;right:0;"
     >
     &rarrhk; RSVP HERE! &larrhk;
     <img class="fireworks" src="../../../static/images/wedding/rainbow/fireworks-red.gif"
@@ -178,7 +178,7 @@
   
 </div>
 <br>
-<div class="lamps">
+<div class="flexgallery">
   <img src="../../../static/images/wedding/rainbow/lavalamp.gif">
   <img src="../../../static/images/wedding/rainbow/lavalamp.gif" style="filter:hue-rotate(45deg);">
   <img src="../../../static/images/wedding/rainbow/lavalamp.gif" style="filter:hue-rotate(90deg);">
@@ -223,6 +223,7 @@
   #default h1 a .fireworks {
     display: none;
     pointer-events: none;
+    z-index: 1;
   }
   #default h1 a:hover .fireworks {
     display: block;
@@ -276,15 +277,6 @@
   #default .marquee img {
     max-width: 500px;
     width: 100%;
-  }
-  #default .lamps {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  #default .lamps img {
-    flex-shrink: 1;
-    min-width: 0;
   }
   #default .wizardvignette1,
   #default .wizardvignette2,
