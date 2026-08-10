@@ -56,8 +56,9 @@ const TABS_LIST = [
         const allItems = Array.from(list.children);
         // Shuffle charity list into a random order
         allItems.sort(() => Math.random() - 0.5);
+        list.append(...allItems)
         // Ensure .lastone is the last one
-        list.append(...allItems, list.querySelector(".lastone"));
+        list.append(list.querySelector(".lastone"));
       }
 
     }

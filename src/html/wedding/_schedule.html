@@ -68,7 +68,7 @@
   </h3>
   <h4>10:30pm&ndash;midnight</h4>
   <p>Just a couple blocks away at <a href="https://maps.app.goo.gl/WdENTPRWSARDxQSW9">135 12th St.</a></p>
-  <h4>After-afterparty..... IYKYK ;)</h4>
+  <h4 class="secretmessage">After-afterparty..... IYKYK ;)</h4>
   <img src="../../../static/images/wedding/schedj/bell.gif" style="position:absolute;pointer-events:none;bottom:3.5em;right:2em;margin:1em;width:64px;">
 </section>
 
@@ -126,6 +126,12 @@
   #schedule h3 img {
     height: 34px;
     margin-right: 5px;
+  }
+  #schedule h4.secretmessage {
+    opacity: 0.1;
+  }
+  body.boring-mode #schedule h4.secretmessage {
+    display: none;
   }
   #schedule section {
     border-bottom: 1px solid white;
