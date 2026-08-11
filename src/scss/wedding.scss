@@ -158,6 +158,7 @@ a.go-back {
   color: black;
   display: flex;
   flex-grow: 1;
+  min-width: 0;
   > section {
     position: relative;
     width: 100%;
