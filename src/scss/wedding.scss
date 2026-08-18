@@ -144,10 +144,12 @@ a.go-back {
       display: inline-block;
       margin-left: 4px;
       transform: rotate(180deg);
+      vertical-align: text-bottom;
     }
     &::before {
       content: "➧";
       margin-right:4px;
+      vertical-align: text-bottom;
     }
   }
 }
